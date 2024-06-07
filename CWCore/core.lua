@@ -145,9 +145,30 @@ function CardWars:Spell(props)
     return result
 end
 
+function CardWars:InPlay(props)
+    local result = CardWars:Card(props)
+
+    result.StateModifiers = {}
+
+    function result:AddStateModifier(modF)
+        result.StateModifiers[#result.StateModifiers+1] = modF
+    end
+
+    function result:ModifyState(state)
+        for _, modF in ipairs(result.StateModifiers) do
+            modF(state)
+        end
+    end
+
+    return result
+end
+
 function CardWars:Creature(props)
     -- TODO
     local result = {}
+
+    -- result.attack = props.attack
+    -- result.defense = props.defense
 
     return result
 end

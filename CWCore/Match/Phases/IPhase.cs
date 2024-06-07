@@ -1,7 +1,8 @@
 using CWCore.Match.Players;
+using CWCore.Match.States;
 
 namespace CWCore.Match.Phases;
 
 public interface IPhase {
-    public Task Exec(GameMatch match, Player player);
+    public Task Exec(GameMatch match, Player player, PlayerState playerState);
 }

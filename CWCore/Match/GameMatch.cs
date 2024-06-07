@@ -4,6 +4,7 @@ using CWCore.Exceptions;
 using CWCore.Match.Phases;
 using CWCore.Match.Players;
 using CWCore.Match.Scripts;
+using CWCore.Match.States;
 using Microsoft.Extensions.Logging;
 using NLua;
 
@@ -27,6 +28,7 @@ public class GameMatch {
     public List<Player> Players { get; } = new();
     public Lua LState { get; } = new();
     private readonly ScriptMaster _scriptMaster;
+    public MatchState LastState { get; set; }
 
     public Update QueuedUpdate { get; private set; } = new();
 
@@ -47,7 +49,7 @@ public class GameMatch {
         LState.DoString(setupScript);
 
         _scriptMaster = new(this);
-
+        LastState = new(this);
     }
 
     public async Task AddPlayer(string name, DeckTemplate template, IPlayerController controller) {

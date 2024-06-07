@@ -2,6 +2,7 @@ using System.Reflection;
 using CWCore.Exceptions;
 using CWCore.Match.Actions;
 using CWCore.Match.Players;
+using CWCore.Match.States;
 
 namespace CWCore.Match.Phases;
 
@@ -28,8 +29,9 @@ public class ActionPhase : IPhase {
         }
     }
 
-    public async Task Exec(GameMatch match, Player player) {
+    public async Task Exec(GameMatch match, Player player, PlayerState playerState) {
         string action;
+        match.LastState = new(match);
         while (true)
         {
             action = await PromptAction(match, player);
@@ -44,6 +46,7 @@ public class ActionPhase : IPhase {
                 throw new UnknownActionException("Unknown action from player " + player.Name + ": " + actionWord);
             }
             await ACTION_MAP[actionWord].Exec(match, player, words);
+
             await match.PushUpdates();
             if (!match.Active) break;   
         }
