@@ -1,7 +1,7 @@
 using CWCore.Cards;
 using CWCore.Match.Players;
 using NLua;
-using Utility;
+using CWCore.Utility;
 
 namespace CWCore.Match;
 

@@ -1,6 +1,6 @@
 using NLua;
 
-namespace Utility;
+namespace CWCore.Utility;
 
 /// <summary>
 /// Represents an error of accessing data from Lua

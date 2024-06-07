@@ -26,30 +26,30 @@ public class ScriptMaster {
 
 
     [LuaCommand]
-    private void LogInfo(string msg) {
+    public void LogInfo(string msg) {
         _match.LogInfo(msg);   
     }
 
     [LuaCommand]
-    private string PlayerLogFriendlyName(int playerI) {
+    public string PlayerLogFriendlyName(int playerI) {
         return _match.GetPlayer(playerI).LogFriendlyName;
     }
 
     [LuaCommand]
-    private int Draw(int playerI, int amount) {
+    public int Draw(int playerI, int amount) {
         var player = _match.GetPlayer(playerI);
         var result = player.Draw(amount);
         return result;
     }
 
     [LuaCommand]
-    private int GetHandCount(int playerI) {
+    public int GetHandCount(int playerI) {
         var player = _match.GetPlayer(playerI);
         return player.Hand.Count;
     }
 
     [LuaCommand]    
-    private int DealDamageToPlayer(int playerI, int amount) {
+    public int DealDamageToPlayer(int playerI, int amount) {
         var dealt = _match.DealDamageToPlayer(playerI, amount);
         return dealt;
     }

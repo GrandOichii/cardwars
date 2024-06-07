@@ -1,5 +1,5 @@
 using NLua;
-using Utility;
+using CWCore.Utility;
 
 namespace CWCore.Cards;
 

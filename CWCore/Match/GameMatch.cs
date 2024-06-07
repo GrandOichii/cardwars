@@ -3,6 +3,7 @@ using CWCore.Decks;
 using CWCore.Exceptions;
 using CWCore.Match.Phases;
 using CWCore.Match.Players;
+using CWCore.Match.Scripts;
 using Microsoft.Extensions.Logging;
 using NLua;
 
@@ -19,11 +20,13 @@ public class GameMatch {
     public IIDGenerator CardIDGenerator { get; set; } = new BasicIDGenerator();
     public ILogger? Logger { get; set; } = null;
     public IMatchView? View { get; set; } = null;
+    public Random Rng { get; }
 
     public MatchConfig Config { get; }
     private readonly ICardMaster _cardMaster;
     public List<Player> Players { get; } = new();
     public Lua LState { get; } = new();
+    private readonly ScriptMaster _scriptMaster;
 
     public Update QueuedUpdate { get; private set; } = new();
 
@@ -37,8 +40,13 @@ public class GameMatch {
         _cardMaster = cardMaster;
         Config = config;
 
+        // TODO add seeding
+        Rng = new();
+
         LogInfo("Running setup script");
         LState.DoString(setupScript);
+
+        _scriptMaster = new(this);
 
     }
 

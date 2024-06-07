@@ -1,4 +1,5 @@
 using CWCore.Decks;
+using CWCore.Utility;
 
 namespace CWCore.Match.Players;
 
@@ -13,7 +14,7 @@ public class Player {
     public List<Landscape> Landscapes { get; set; } = new();
 
     private readonly GameMatch _match;
-    public LinkedList<MatchCard> Deck { get; }
+    public LinkedList<MatchCard> Deck { get; private set; }
 
     public List<MatchCard> Hand { get; }
     public List<MatchCard> DiscardPile { get; set; }
@@ -109,7 +110,8 @@ public class Player {
         Life = _match.Config.StartingLifeTotal;
         await PlaceLandscapes();
 
-        Draw(5);
+        Deck = Common.Shuffled(Deck, _match.Rng);
+        Draw(_match.Config.StartHandSize);
     }
 
     private async Task PlaceLandscapes() {
@@ -123,7 +125,8 @@ public class Player {
         }
     }
 
-    public async Task PlaySpellEffect(MatchCard card) {
-        card.ExecFunction(MatchCard.SPELL_EFFECT_FNAME, Idx);
+    public Task PlaySpellEffect(MatchCard card) {
+        card.ExecFunction(MatchCard.SPELL_EFFECT_FNAME, card.Data, Idx);
+        return Task.CompletedTask;
     }
 }
