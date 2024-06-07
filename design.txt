@@ -1,0 +1,85 @@
+-= Rules =-
+Each player starts with a deck of min 40 cards.
+Each player starts with 25 life, goal is to lower your opponent's life total to 0.
+At the beginning of the game, each player draws 5 cards.
+Cards are split into types:
+    Creature - is placed onto a lane, is used to attack the opponent
+    
+At the beginning of each players turn, they draw 1 card and gain 2 action points.
+Action points can be spent on the following actions:
+    - Playing cards - each card can cost from 0 to 2 action points.
+    - Drawing a card - costs 1 action point.
+Some cards also have a Floop ability. Floop abilities are free to activate. If a creature is flooped, it can't attack during the <attack phase>.
+Some cards have abilities that require paying action points.
+
+- Creatures -
+Creatures have Attack and Defence. When a creature's defence lowers to 0 or less, it dies. Damage is carried through turns. If not flooped, they have to attack during the <attack phase>.
+
+- Buildings -
+Buildings have activated abilities that require a certain cost.
+
+- Spells -
+Spells have effects, after it's resolution the spell goes to the discard.
+
+= Card effects =
+Cards in Card Wars can have the following effects:
+    - (>10) Dynamically modify DEF and ATK
+    - (4) Targeting of specific in-play cards
+    - (7) Effects that trigger when card enters play
+    - (1) Effects that trigger when card leaves play
+    - (3) Effects that trigger at the start of a turn
+    - (1) Effects that trigger when a creature changes lanes
+    - (2) Effects that last until end of turn
+    - (3) Effects that trigger when another card enters play
+    - (6) Direct damage to opponent
+    - (8) Direct damage to creatures
+    - (1) Building movement
+    - (4) Creature movment
+    - (1) Fetching of the current creature's lane
+    - (1) Direct Building destruction
+    - (1) Direct Creature destruction
+    - (1) Count the number of specific lanes a player controls
+    - (1) Count the number of creatures based on their landscape
+    - (1) Count the number of adjacent lanes 
+    - (2) Counting of cards in hand of a specific player
+    - (1) Additional costs to play a card (except action points)
+    - (5) Card draw
+    - (4) Landscape flipping (from face-up to face-down and vice-versa)
+    - (3) Returning an in-play card to its owner's hand  
+    - (3) Action point cost to activate abilities
+    - (1) Stealing cards from hand
+    - (1) Playing cards for free
+    - (2) Checking whether a creature has changed lanes this turn
+    - (1) Checking whether an opponent controls a creature in a specific lane
+    - (1) Checking how many cards of a specific type a player has played in a turn
+    - (1) Dynamically loosing abilities
+    - (1) Dynamically adding abilities
+    - (1) Untapping flooped creatures (ready a Flooped Creature)
+    - (1) Targeting cards in a discard pile
+    - (1) Putting cards from other zones to the top of the deck
+    - (1) Forbidding of attacking creatures
+    - (2) Modifying current action points
+    - (3) Card discarding
+    - (1) Counting of cards in a discard pile
+    - (1) ??? Opponent targeting
+    - (1) Destruction of creatures IN ACTIVATION COST
+    - (4) Returning random/specific cards from discard to hand
+    - (2) Self sacrifice IN ACTIVATION COST
+    - (2) Putting cards from top of deck to discard
+    - (1) Checking of card's action cost
+    - (2) Card playing checks
+    - (1) Modifying the amount of damage a creature will deal
+    - (1) Forbidding effects that trigger at specific times (entering or leaving play effects)
+    - (1) "At the end of turn" effects 
+    - (2) Dynamic action point cost modification
+    - (1) Effects that reveal cards from the top of the deck
+    - (1) Putting cards to the bottom of the deck
+    - (2) DEF modification
+    - (2) Checking whether the card entered play THIS turn
+    - (1) Checking how many creatures entered play this turn
+    - (1) Triggers that let you return the card to it's owners hand AS COST
+    - (1) Cost modification of the next card being played
+
+-= General game system design =-
+The game state will be managed by state based effects. To calculate state, the match will have to check all creatures/buildings/eot effects.
+Each creature has a enteredThisTurn field
