@@ -28,10 +28,11 @@ public class MatchCard {
 
     public string LogFriendlyName => $"{Template.Name} [{ID}]";
     public bool IsSpell => Template.Type == "Spell";
+    public bool IsCreature => Template.Type == "Creature";
+    public bool IsBuilding => Template.Type == "Building";
 
     public bool CanPlay(Player player) {
         // TODO add state-based effects
-
         return player.ActionPoints >= Template.Cost;
     }
 

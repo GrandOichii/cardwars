@@ -39,11 +39,27 @@ public class FileCardMaster : ICardMaster
 
 public class ConsolePlayerController : IPlayerController
 {
+    public Task<int> PickLaneForCreature(GameMatch match, Player player)
+    {
+        System.Console.Write("Pick lane for creature: ");
+        var result = Console.ReadLine()
+            ?? throw new Exception("failed to read lane idx for creature")
+        ;
+        return Task.FromResult(int.Parse(result));
+    }
+
     public Task<string> PromptAction(GameMatch match, Player player, IEnumerable<string> options)
     {
         foreach (var p in match.Players) {
             System.Console.WriteLine($"{p.LogFriendlyName} - {p.Life} {p.Hand.Count} [[{p.Deck.Count}]]");
         }
+        System.Console.WriteLine("Lanes:");
+        foreach (var lane in player.Landscapes)
+            System.Console.Write("|" + (lane.Creature is not null ? lane.Creature.Card.Template.Name : "").PadRight(20) + "|");
+        System.Console.WriteLine();
+        System.Console.WriteLine("Hand:");
+        foreach (var card in player.Hand)
+            System.Console.WriteLine($"- {card.LogFriendlyName} <{card.Template.Cost}>");
         Console.WriteLine($"Available actions for {player.LogFriendlyName}:");
         foreach (var action in options)
             Console.WriteLine($"\t- {action}");

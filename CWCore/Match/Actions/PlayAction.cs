@@ -18,23 +18,36 @@ public class PlayAction : IAction
             return;
         }
 
+        if (!card.CanPlay(player)) {
+            var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.LogFriendlyName}, which they cant";
+            match.ActionError(errMsg);
+            return;
+        }
+
+        player.PayToPlay(card);
+        player.RemoveFromHand(card);
+
         if (card.IsSpell) {
-            if (!card.CanPlay(player)) {
-                var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.LogFriendlyName}, which they cant";
-                match.ActionError(errMsg);
-                return;
-            }
-
-            player.PayToPlay(card);
-            player.RemoveFromHand(card);
-
             await player.PlaySpellEffect(card);
 
             player.AddToDiscard(card);
             return;
         }
 
-        match.ActionError($"Casting non-spell cards is not yet implemented ({card.LogFriendlyName} in hand of player {player.LogFriendlyName})");
+        if (card.IsCreature) {
+            var laneI = await player.PickLaneForCreature();    
+
+            if (laneI >= match.Config.LaneCount || laneI < 0) {
+                var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.LogFriendlyName} in lane {laneI}";
+                throw new CWCoreException(errMsg);
+            }
+
+            await player.PlaceCreatureInLane(card, laneI);
+
+            return;
+        }
+
+        match.ActionError($"Only spells and creatures are currently implemented ({card.LogFriendlyName} in hand of player {player.LogFriendlyName})");
 
         return;
     }
@@ -45,7 +58,7 @@ public class PlayAction : IAction
             if (!card.CanPlay(player)) continue; 
             var result = $"{ActionWord()} {card.ID}";
 
-            if (!card.IsSpell) {
+            if (card.IsBuilding) {
                 // TODO
                 continue;
             }

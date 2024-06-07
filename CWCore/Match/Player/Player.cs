@@ -129,4 +129,23 @@ public class Player {
         card.ExecFunction(MatchCard.SPELL_EFFECT_FNAME, card.Data, Idx);
         return Task.CompletedTask;
     }
+
+    public async Task<int> PickLaneForCreature() {
+        var result = await Controller.PickLaneForCreature(_match, this);
+        return result;
+    }
+
+    public Task PlaceCreatureInLane(MatchCard card, int laneI) {
+        var lane = Landscapes[laneI];
+        var creature = new Creature(card);
+
+        if (lane.Creature is not null) {
+            // TODO add creature replacement
+        }
+
+        lane.Creature = creature;
+        // TODO add triggers
+
+        return Task.CompletedTask;
+    }
 }
