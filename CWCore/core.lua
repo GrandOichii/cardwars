@@ -166,6 +166,19 @@ end
 function CardWars:Creature(props)
     local result = CardWars:InPlay(props)
 
+    result.OnEnterP = Core.Pipeline:New()
+    result.OnEnterP:AddLayer(
+        function(playerI, laneI)
+            LogInfo('Creature '..result.name .. ' entered play on lane ' ..laneI)
+            return nil, true
+        end
+    )
+
+    function result:OnEnter(playerI, laneI)
+        self.OnEnterP:Exec(playerI, laneI)
+    end
+
+
     return result
 end
 

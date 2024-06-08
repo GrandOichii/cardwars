@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using CWCore.Exceptions;
 using CWCore.Match.Players;
+using CWCore.Match.States;
 using CWCore.Utility;
 using NLua;
 
@@ -80,5 +81,10 @@ public class ScriptMaster {
             .Wait();
         _match.CheckDeadCreatures()
             .Wait();
+    }
+
+    [LuaCommand]
+    public List<LandscapeState> GetLanes(int playerI) {
+        return _match.LastState.Players[playerI].Landscapes;
     }
 }

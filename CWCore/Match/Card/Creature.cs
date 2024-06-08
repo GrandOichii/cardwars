@@ -3,6 +3,8 @@ using CWCore.Match.States;
 namespace CWCore.Match;
 
 public class Creature : InPlayCard {
+    public readonly static string ON_ENTER_PLAY_FNAME = "OnEnter";
+    
     public bool Attacking { get; set; } = false;
 
     public int Attack { get; }

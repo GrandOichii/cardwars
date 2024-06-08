@@ -149,6 +149,7 @@ public class Player {
         }
 
         lane.Creature = creature;
+        creature.Card.ExecFunction(Creature.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI);
         // TODO add triggers
 
         return Task.CompletedTask;
