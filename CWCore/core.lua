@@ -197,7 +197,7 @@ function Common.State:FilterCreatures(state, predicate)
     return result
 end
 
-function Common.State:FilterLanes(state, predicate)
+function Common.State:FilterLandscapes(state, predicate)
     local result = {}
 
     for pi = 1, state.Players.Length do

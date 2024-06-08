@@ -9,7 +9,7 @@ function _Create(props)
         local ownerI = me.Original.OwnerI
         local id = me.Original.Card.ID
 
-        local cornfields = Common.State:FilterLanes(state, function (landscape)
+        local cornfields = Common.State:FilterLandscapes(state, function (landscape)
             return landscape.Name == 'Cornfield'
         end)
 

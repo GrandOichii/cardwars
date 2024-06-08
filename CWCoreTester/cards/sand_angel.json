@@ -1,0 +1,9 @@
+{
+    "Name": "Sand Angel",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Attack": 1,
+    "Defense": 5,
+    "Text": ""
+}
