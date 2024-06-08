@@ -8,8 +8,8 @@
 + 2 Cerebral Bloodstorm
 + 2 Teleport
 + 2 Sandhorn Devil
-2 The Mariachi - entered play this turn check
-2 Wall of Sand - entered play this turn check
++ 2 The Mariachi
++ 2 Wall of Sand
 2 Sandsnake
 
 2 Beach Mummy - targeted returning creatures to hand
