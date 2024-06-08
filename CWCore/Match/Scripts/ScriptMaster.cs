@@ -139,7 +139,6 @@ public class ScriptMaster {
     public int[] ChooseLane(int playerI, LuaTable optionsTable, LuaTable opponentOptionsTable, string hint) {
         var player = _match.GetPlayerState(playerI);
 
-        System.Console.WriteLine("picking");
         var options = new List<int>();
         foreach (var v in optionsTable.Values)
             options.Add(Convert.ToInt32(v));

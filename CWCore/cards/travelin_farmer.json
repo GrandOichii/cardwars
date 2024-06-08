@@ -1,0 +1,9 @@
+{
+    "Name": "Travelin' Farmer",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 2,
+    "Attack": 2,
+    "Defense": 12,
+    "Text": "When Travelin' Farmer leaves play, deal 1 Damage to your opponent for each card in his hand."
+}

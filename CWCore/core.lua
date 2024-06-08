@@ -189,6 +189,20 @@ function CardWars:InPlay(props)
         self.OnEnterP:Exec(playerI, laneI)
     end
 
+    result.OnLeavePlayP = Core.Pipeline:New()
+    result.OnLeavePlayP:AddLayer(
+        function(playerI, laneI)
+            LogInfo('Creature '..result.name .. ' leaves play from lane ' ..laneI)
+            return nil, true
+        end
+    )
+
+    function result:OnLeavePlay(playerI, laneI)
+        self.OnLeavePlayP:Exec(playerI, laneI)
+    end
+
+    
+
     return result
 end
 

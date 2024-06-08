@@ -7,8 +7,10 @@ namespace CWCore.Match;
 
 public class InPlayCard {
     public readonly static string ON_ENTER_PLAY_FNAME = "OnEnter";
+    public readonly static string ON_LEAVE_PLAY_FNAME = "OnLeavePlay";
 
     public MatchCard Card { get; }
+    // TODO utilize
     public bool EnteredThisTurn { get; set; }
     public bool Exhausted { get; set; }
     public int ControllerI { get; set; }
@@ -33,6 +35,8 @@ public class InPlayCard {
             var trigger = new TriggeredEffect((LuaTable)table);
             TriggeredEffects.Add(trigger);
         }
+        
+        EnteredThisTurn = true;
     }
 
     public virtual void Ready() {

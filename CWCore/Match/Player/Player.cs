@@ -117,10 +117,10 @@ public class Player {
     private async Task PlaceLandscapes() {
         var result = await Controller.PromptLandscapePlacement(this, _landscapeIndex);
         
-        // TODO check if can place landscapes
+        // TODO validate landscape choice
         
-        foreach (var landscapeName in result) {
-            var landscape = new Landscape(landscapeName);
+        for (int i = 0; i < result.Count; i++) {
+            var landscape = new Landscape(result[i], i);
             Landscapes.Add(landscape);
         }
     }

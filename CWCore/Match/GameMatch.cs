@@ -205,6 +205,28 @@ public class GameMatch {
         LogInfo($"{creature.Card.LogFriendlyName} is dealt {amount} damage");
     }
 
+    public async Task DestroyCreature(PlayerState player, LandscapeState landscape) {
+        var creature = landscape.Creature
+            ?? throw new CWCoreException($"tried to destroy creature in landscape {landscape.Original.Name}, where it is not present")
+        ;
+
+        landscape.Original.Creature = null;
+
+        player.Original.AddToDiscard(creature.Original.Card);
+
+        creature.Original.Card.ExecFunction(
+            InPlayCard.ON_LEAVE_PLAY_FNAME, 
+            creature.Original.Card.Data, 
+            player.Original.Idx, 
+            landscape.Original.Idx
+        );
+
+        // TODO add trigger
+
+        LogInfo($"{creature.Original.Card.LogFriendlyName} in lane {creature.LaneI} dies!");
+
+    }
+
     public async Task CheckDeadCreatures() {
         foreach (var player in LastState.Players) {
             foreach (var lane in player.Landscapes) {
@@ -213,15 +235,7 @@ public class GameMatch {
 
                 if (creature.Defense > creature.GetDamage()) continue;
 
-                lane.Original.Creature = null;
-
-                // TODO trigger pre-death triggers
-
-                player.Original.AddToDiscard(creature.Original.Card);
-
-                // TODO trigger death triggers
-
-                LogInfo($"{creature.Original.Card.LogFriendlyName} in lane {creature.LaneI} dies!");
+                await DestroyCreature(player, lane);
             }
         }
     }
