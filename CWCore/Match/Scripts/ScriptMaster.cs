@@ -177,4 +177,23 @@ public class ScriptMaster {
             .Wait();
     } 
 
+    [LuaCommand]
+    public int[] ChooseLandscape(int playerI, LuaTable optionsTable, LuaTable opponentOptionsTable, string hint) {
+         var player = _match.GetPlayerState(playerI);
+
+        var options = new List<int>();
+        foreach (var v in optionsTable.Values)
+            options.Add(Convert.ToInt32(v));
+
+        var opponentOptions = new List<int>();
+        foreach (var v in opponentOptionsTable.Values)
+            opponentOptions.Add(Convert.ToInt32(v));
+
+        var result = player.Original.PickLandscape(options, opponentOptions, hint)
+            .GetAwaiter().GetResult();
+
+        return result;
+       
+    }
+
 }

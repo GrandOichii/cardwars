@@ -136,6 +136,52 @@ public class ConsolePlayerController : IPlayerController
         );
     }
 
+    public Task<int[]> PickLandscape(GameMatch match, Player player, List<int> options, List<int> opponentOptions, string hint)
+    {
+         if (options.Count > 0) {
+            System.Console.Write("Your landscapes: ");
+            foreach (var option in options)
+                System.Console.Write($"{option} ");
+            System.Console.WriteLine();
+        }
+        if (opponentOptions.Count > 0) {
+            System.Console.Write("Opponent's landscapes: ");
+            foreach (var option in opponentOptions)
+                System.Console.Write($"{option} ");
+            System.Console.WriteLine();
+        }
+
+        System.Console.WriteLine($"\"{hint}\"");
+        System.Console.WriteLine("Choose landscape");
+        var result = Console.ReadLine()
+            ?? throw new Exception("failed to read landscape pair")
+        ;
+        if (options.Count == 0) {
+            return Task.FromResult(
+                new int[2] {
+                    1, int.Parse(result)
+                }
+            );
+        }
+
+        if (opponentOptions.Count == 0) {
+            return Task.FromResult(
+                new int[2] {
+                    0, int.Parse(result)
+                }
+            );
+        }
+
+        var split = result.Split(" ");
+
+        return Task.FromResult(
+            new int[2] {
+                int.Parse(split[0]),
+                int.Parse(split[1]),
+            }
+        );
+    }
+
     public Task<string> PickCreature(GameMatch match, Player player, List<string> options, string hint)
     {
         System.Console.Write("Options: ");

@@ -177,11 +177,19 @@ public class Player {
 
     public async Task<int> PickLane(List<int> options, string hint) {
         var result = await Controller.PickLane(_match, this, options, hint);
+        // TODO validate
+        return result;
+    }
+
+    public async Task<int[]> PickLandscape(List<int> options, List<int> opponentOptions, string hint) {
+        var result = await Controller.PickLandscape(_match, this, options, opponentOptions, hint);
+        // TODO validate
         return result;
     }
 
     public async Task<string> PickCreature(List<string> options, string hint) {
         var result = await Controller.PickCreature(_match, this, options, hint);
+        // TODO validate
         return result;
     }
 }

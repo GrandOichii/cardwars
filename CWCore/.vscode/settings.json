@@ -17,6 +17,7 @@
         "TurnLandscapeFaceUp",
         "ChooseCreature",
         "MoveCreature",
-        "GetCreatures"
+        "GetCreatures",
+        "ChooseLandscape"
     ]
 }

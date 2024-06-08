@@ -32,8 +32,7 @@ function _Create(props)
             local options = getOptions(playerI)
 
             -- TODO? change to target
-            -- TODO change to ChooseLandscape
-            local lane = ChooseLane(playerI, options, {}, 'Choose a face-down Landscape to flip')
+            local lane = ChooseLandscape(playerI, options, {}, 'Choose a face-down Landscape to flip')
             TurnLandscapeFaceUp(lane[0], lane[1])
         end
     })

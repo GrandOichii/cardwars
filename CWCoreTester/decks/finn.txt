@@ -10,8 +10,8 @@
 + 2 The Pig
 + 2 Woadic Marauder
 + 2 Woad Mobile Home
++ 2 Dragon Claw
 2 Ancient Scholar - returning cards from discard
-2 Dragon Claw - creature movement
 1 Heavenly Gazer - selecting cards in discard, placing cards from discard to top of deck
 2 Psionic Architect - optional effects, creature selection
 2 Punk Cat - detecting creature lane changing
