@@ -2,8 +2,8 @@
     "Name": "Husker Knight",
     "Landscape": "Cornfield",
     "Type": "Creature",
+    "Cost": 2,
     "Attack": 0,
     "Defense": 0,
-    "Cost": 2,
     "Text": "Husker Knight has +1 ATK and +2 DEF for each Cornfield Landscape you control."
 }
