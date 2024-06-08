@@ -11,7 +11,7 @@ function _Create(props)
         local lanes = GetLanes(playerI)
         for i = 1, lanes.Count do
             local lane = lanes[i - 1]
-            if lane.Original.Name == 'Cornfield' then
+            if lane:Is('Cornfield') then
                 count = count + 1
             end
         end

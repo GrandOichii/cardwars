@@ -26,4 +26,8 @@ public class LandscapeState : IStateModifier {
         Creature?.Modify(state);
         Building?.Modify(state);
     }
+
+    public bool Is(string name) {
+        return !Original.FaceDown && Original.Name == name;
+    }
 }

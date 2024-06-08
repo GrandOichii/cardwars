@@ -10,6 +10,9 @@
         "GetCurPlayerI",
         "DealDamageToPlayer",
         "GetPlayer",
-        "GetHandCount"
+        "GetHandCount",
+        "TurnLandscapeFaceDown",
+        "GetLanes",
+        "ChooseLane"
     ]
 }

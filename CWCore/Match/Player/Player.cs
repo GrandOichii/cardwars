@@ -174,4 +174,9 @@ public class Player {
 
         return Task.CompletedTask;
     }
+
+    public async Task<int[]> PickLandscape(List<int> options, List<int> opponentOptions, string hint) {
+        var result = await Controller.PickLandscape(_match, this, options, opponentOptions, hint);
+        return result;
+    }
 }

@@ -126,4 +126,33 @@ public class ScriptMaster {
     public PlayerState GetPlayer(int playerI) {
         return _match.GetPlayerState(playerI);
     }
+
+    [LuaCommand]
+    public void TurnLandscapeFaceDown(int playerI, int laneI) {
+        var player = _match.GetPlayerState(playerI);
+        var lane = player.Landscapes[laneI];
+        _match.TurnLandscapeFaceDown(lane)
+            .Wait();
+    }
+
+    [LuaCommand]
+    public int[] ChooseLane(int playerI, LuaTable optionsTable, LuaTable opponentOptionsTable, string hint) {
+        var player = _match.GetPlayerState(playerI);
+
+        System.Console.WriteLine("picking");
+        var options = new List<int>();
+        foreach (var v in optionsTable.Values)
+            options.Add(Convert.ToInt32(v));
+
+        var opponentOptions = new List<int>();
+        foreach (var v in opponentOptionsTable.Values)
+            opponentOptions.Add(Convert.ToInt32(v));
+
+
+        var result = player.Original.PickLandscape(options, opponentOptions, hint)
+            .GetAwaiter().GetResult();
+
+        return result;
+    }
+
 }

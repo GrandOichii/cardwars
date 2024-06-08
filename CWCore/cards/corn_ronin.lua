@@ -11,7 +11,7 @@ function _Create(props)
         local landscapes = Common.State:AdjacentLandscapes(state, ownerI, me.LaneI)
 
         for _, landscape in ipairs(landscapes) do
-            if landscape.Original.Name == 'Cornfield' then
+            if landscape:Is('Cornfield') then
                 me.Attack = me.Attack + 1
             end
         end
