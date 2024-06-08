@@ -106,4 +106,19 @@ public class ScriptMaster {
     public MatchState GetState() {
         return _match.LastState;
     }
+
+    [LuaCommand]
+    public LuaTable GetPlayers() {
+        var result = new List<PlayerState>();
+
+        foreach (var player in _match.LastState.Players)
+            result.Add(player);
+
+        return LuaUtility.CreateTable(_match.LState, result);
+    }
+
+    [LuaCommand]
+    public int GetCurPlayerI() {
+        return _match.CurPlayerI;
+    }
 }

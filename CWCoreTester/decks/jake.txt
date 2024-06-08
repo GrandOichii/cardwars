@@ -14,8 +14,8 @@
 2 Travelin' Farmer
 + 2 Wall of Ears
 2 Big Foot
-2 Blood Fortress
-1 Celestial Castle
++ 2 Blood Fortress
++ 1 Celestial Castle
 2 Corn Scepter
 1 Cross Pollination
 + 1 Drooling Dude

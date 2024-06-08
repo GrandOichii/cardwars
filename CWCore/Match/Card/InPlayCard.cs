@@ -1,6 +1,6 @@
 using CWCore.Match.States;
 using CWCore.Utility;
-using HexCore.GameMatch.Effects;
+using CWCore.Match.Effects;
 using NLua;
 
 namespace CWCore.Match;
@@ -14,16 +14,24 @@ public class InPlayCard {
     public int ControllerI { get; set; }
     public int OwnerI { get; }
     public List<ActivatedEffect> ActivatedEffects { get; }
+    public List<TriggeredEffect> TriggeredEffects { get; }
 
     public InPlayCard(MatchCard card, int ownerI) {
         Card = card;
         OwnerI = ownerI;
+
         ActivatedEffects = new();
         var effects = LuaUtility.TableGet<LuaTable>(card.Data, "ActivatedEffects");
-
         foreach (var table in effects.Values) {
             var effect = new ActivatedEffect((LuaTable)table);
             ActivatedEffects.Add(effect);
+        }
+
+        TriggeredEffects = new();
+        var triggers = LuaUtility.TableGet<LuaTable>(card.Data, "Triggers");
+        foreach (var table in triggers.Values) {
+            var trigger = new TriggeredEffect((LuaTable)table);
+            TriggeredEffects.Add(trigger);
         }
     }
 

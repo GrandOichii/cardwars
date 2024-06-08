@@ -10,6 +10,9 @@ public class TurnStartPhase : IPhase {
         player.ActionPoints = match.Config.ActionPointsPerTurn;
         await player.ResetActionPoints();
         await player.ReadyInPlayCards();
+
+        await match.Emit("turn_start", new(){ {"playerI", playerI} });
+
         player.Draw(1);
 
         await match.ReloadState();

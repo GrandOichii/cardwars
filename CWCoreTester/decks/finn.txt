@@ -13,8 +13,8 @@
 1 Woadic Chief
 2 Woadic Marauder
 + 2 X-Large Spirit Soldier
-1 Blood Fortress
-2 Celestial Castle
++ 1 Blood Fortress
++ 2 Celestial Castle
 + 2 Cerebral Bloodstorm
 + 2 Nice Ice Baby
 2 Teleport

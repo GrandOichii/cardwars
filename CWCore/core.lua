@@ -70,7 +70,14 @@ CardWars = {}
 -- Zones
 
 CardWars.Zones = {
-    Discard = 'discard'
+    Discard = 'discard',
+    InPlay = 'in_play'
+}
+
+-- Triggers
+
+CardWars.Triggers = {
+    TurnStart = 'turn_start'
 }
 
 -- Landscapes
@@ -163,6 +170,11 @@ function CardWars:InPlay(props)
     result.ActivatedEffects = {}
     function result:AddActivatedEffect(effect)
         result.ActivatedEffects[#result.ActivatedEffects+1] = effect
+    end
+
+    result.Triggers = {}
+    function result:AddTrigger(trigger)
+        result.Triggers[#result.Triggers+1] = trigger
     end
 
     result.OnEnterP = Core.Pipeline:New()

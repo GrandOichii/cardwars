@@ -1,5 +1,5 @@
 using CWCore.Match.Players;
-using HexCore.GameMatch.Effects;
+using CWCore.Match.Effects;
 
 namespace CWCore.Match.States;
 
@@ -9,6 +9,7 @@ public class InPlayCardState : IStateModifier {
     public InPlayCard Original { get; }
     public int LaneI { get; }
     public List<ActivatedEffect> ActivatedEffects { get; set; }
+    public List<TriggeredEffect> TriggeredEffects { get; set; }
 
     public InPlayCardState(InPlayCard original, int laneI) {
         Original = original;
@@ -17,6 +18,10 @@ public class InPlayCardState : IStateModifier {
         ActivatedEffects = new();
         foreach (var effect in original.ActivatedEffects)
             ActivatedEffects.Add(effect);
+
+        TriggeredEffects = new();
+        foreach (var effect in original.TriggeredEffects)
+            TriggeredEffects.Add(effect);
     }
 
     public void Modify(MatchState state)

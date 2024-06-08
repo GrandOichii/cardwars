@@ -1,10 +1,12 @@
 using CWCore.Cards;
 using CWCore.Decks;
 using CWCore.Exceptions;
+using CWCore.Match.Effects;
 using CWCore.Match.Phases;
 using CWCore.Match.Players;
 using CWCore.Match.Scripts;
 using CWCore.Match.States;
+using CWCore.Utility;
 using Microsoft.Extensions.Logging;
 using NLua;
 
@@ -247,5 +249,38 @@ public class GameMatch {
     public async Task FloopCard(InPlayCardState card) {
         card.Original.Exhausted = true;
         // TODO? add update
+    }
+
+    public async Task Emit(string signal, Dictionary<string, object> args) {
+        var logMessage = "Emitted signal " + signal + ", args: ";
+        foreach (var pair in args) 
+            logMessage += pair.Key + ":" + pair.Value.ToString() + " ";
+        LogInfo(logMessage);
+
+        foreach (var player in LastState.Players) {
+            var cards = player.GetCardsWithTriggeredEffects();
+            foreach (var card in cards) {
+                foreach (var trigger in card.TriggeredEffects) {
+                    
+                    var on = trigger.Trigger;
+                    if (on != signal) continue;
+
+                    var canTrigger = trigger.ExecCheck(LState, player, card);
+                    if (!canTrigger) {
+                        continue;
+                    }
+
+                    var payedCosts = trigger.ExecCosts(LState, player, card);
+                    if (!payedCosts) {
+                        continue;
+                    }
+
+                    LogInfo($"Card {card.Original.Card.LogFriendlyName} triggers!");
+                    trigger.ExecEffect(player, card);
+                }
+            }
+        }
+
+        LogInfo($"Finished emitting {signal}");
     }
 }

@@ -5,6 +5,8 @@
         "AddActionPoints",
         "FloopCard",
         "GetState",
-        "Draw"
+        "Draw",
+        "GetPlayers",
+        "GetCurPlayerI"
     ]
 }

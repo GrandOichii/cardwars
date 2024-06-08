@@ -32,4 +32,17 @@ public class PlayerState : IStateModifier {
             lane.Modify(state);
         }
     }
+
+    public List<InPlayCardState> GetCardsWithTriggeredEffects() {
+        var result = new List<InPlayCardState>();
+        foreach (var lane in Landscapes) {
+            if (lane.Creature is not null && lane.Creature.TriggeredEffects.Count > 0) {
+                result.Add(lane.Creature);
+            }
+            if (lane.Building is not null && lane.Building.TriggeredEffects.Count > 0) {
+                result.Add(lane.Building);
+            }
+        }
+        return result;
+    }
 }

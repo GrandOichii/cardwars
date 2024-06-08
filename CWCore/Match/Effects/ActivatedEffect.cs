@@ -3,9 +3,9 @@ using CWCore.Match.States;
 using CWCore.Utility;
 using NLua;
 
-namespace HexCore.GameMatch.Effects;
+namespace CWCore.Match.Effects;
 
-public class ActivatedEffect {        
+public class ActivatedEffect {
     public LuaFunction CheckF { get; }
     public LuaFunction CostF { get; }
     public LuaFunction EffectF { get; }
