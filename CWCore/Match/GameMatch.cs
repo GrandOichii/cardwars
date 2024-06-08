@@ -207,4 +207,12 @@ public class GameMatch {
     public async Task CheckDeadCreatures() {
         // TODO
     }
+
+    public Creature GetInPlayCreature(string id) {
+        foreach (var player in Players)
+            foreach (var lane in player.Landscapes)
+                if (lane.Creature is not null && lane.Creature.Card.ID == id)
+                    return lane.Creature;
+        throw new CWCoreException($"Failed to find in-play creature with id {id}");
+    }
 }
