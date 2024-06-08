@@ -324,4 +324,32 @@ public class GameMatch {
         landscape.Original.FaceDown = false;
         // TODO trigger
     }
+
+    public async Task MoveCreature(string creatureId, int toI) {
+        foreach (var player in LastState.Players) {
+            foreach (var lane in player.Landscapes) {
+                var creature = lane.Creature;
+                if (creature is null || creature.Original.Card.ID != creatureId) continue;
+
+                var prevLaneI = lane.Original.Idx;
+                if (prevLaneI == toI) {
+                    ActionError($"Tried to move creature {creature.Original.Card.LogFriendlyName} from lane {prevLaneI} to lane {toI}, which are the same");
+                    return;
+                }
+
+                var newLane = player.Landscapes[toI];
+
+                // TODO replace if already creature present
+                lane.Original.Creature = null;
+                newLane.Original.Creature = creature.GetOriginal();
+                creature.Original.MovementCount++;
+                // TODO? add update
+                // TODO trigger
+
+                LogInfo($"Moved creature {creature.Original.Card.LogFriendlyName} from lane {prevLaneI} to lane {toI}");
+                return;
+            }
+        }
+        throw new CWCoreException($"failed to find creature with id {creatureId} to move to lane {toI}");
+    }
 }

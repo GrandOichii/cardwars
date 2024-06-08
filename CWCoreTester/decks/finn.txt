@@ -7,7 +7,7 @@
 + 2 Celestial Castle
 + 2 Cerebral Bloodstorm
 + 2 Nice Ice Baby
-2 The Pig
++ 2 The Pig
 2 Ancient Scholar - returning cards from discard
 2 Dragon Claw - creature movement
 1 Heavenly Gazer - selecting cards in discard, placing cards from discard to top of deck

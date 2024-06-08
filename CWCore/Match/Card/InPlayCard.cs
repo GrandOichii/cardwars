@@ -46,4 +46,6 @@ public class InPlayCard {
     public virtual void Ready() {
         Exhausted = false;
     }
+
+    public virtual bool IsFlooped() => Exhausted;
 }

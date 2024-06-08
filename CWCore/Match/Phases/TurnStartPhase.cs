@@ -8,6 +8,11 @@ public class TurnStartPhase : IPhase {
         var player = match.GetPlayer(playerI);
 
         player.ActionPoints = match.Config.ActionPointsPerTurn;
+
+        foreach (var lane in player.Landscapes) {
+            if (lane.Creature is not null) lane.Creature.MovementCount = 0;
+        }
+        
         await player.ResetActionPoints();
         await player.ReadyInPlayCards();
 

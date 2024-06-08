@@ -47,14 +47,14 @@ public class ConsolePlayerController : IPlayerController
         var landscapes = match.LastState.Players[player.Idx].Landscapes;
         
         foreach (var lane in landscapes)
-            System.Console.Write("|" + (lane.Original.Name + " " + (lane.Original.FaceDown ? "(FACEDOWN)" : "")).PadRight(30) + "|");
+            System.Console.Write("|" + (lane.Original.Name + " " + (lane.Original.FaceDown ? "(FACEDOWN)" : "")).PadRight(40) + "|");
         System.Console.WriteLine();
         
         foreach (var lane in landscapes)
-            System.Console.Write("|" + (lane.Creature is not null ? $"{lane.Creature.Original.Card.Template.Name}({lane.Creature.CanAttack}) [{lane.Creature.Attack} / {lane.Creature.Defense - lane.Creature.GetDamage()}]" : "").PadRight(30) + "|");
+            System.Console.Write("|" + (lane.Creature is not null ? $"{lane.Creature.Original.Card.Template.Name}[{lane.Creature.Original.Card.ID}]({lane.Creature.CanAttack}) [{lane.Creature.Attack} / {lane.Creature.Defense - lane.Creature.GetDamage()}]" : "").PadRight(40) + "|");
         System.Console.WriteLine();
         foreach (var lane in landscapes)
-            System.Console.Write("|" + (lane.Building is not null ? $"{lane.Building.Original.Card.Template.Name}" : "").PadRight(30) + "|");
+            System.Console.Write("|" + (lane.Building is not null ? $"{lane.Building.Original.Card.Template.Name}[{lane.Building.Original.Card.ID}]" : "").PadRight(40) + "|");
         System.Console.WriteLine();
     }
 
@@ -163,6 +163,22 @@ public class ConsolePlayerController : IPlayerController
                 int.Parse(split[1]),
             }
         );
+    }
+
+    public Task<string> PickCreature(GameMatch match, Player player, List<string> options, string hint)
+    {
+        System.Console.Write("Options: ");
+        foreach (var option in options)
+            System.Console.Write($"{option} ");
+        System.Console.WriteLine();
+
+        System.Console.WriteLine($"\"{hint}\"");
+        System.Console.WriteLine("Choose in-play cerature");
+        var result = Console.ReadLine()
+            ?? throw new Exception("failed to read creature id")
+        ;
+
+        return Task.FromResult(result);
     }
 }
 

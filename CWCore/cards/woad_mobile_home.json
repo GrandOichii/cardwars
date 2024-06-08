@@ -1,0 +1,7 @@
+{
+    "Name": "Woad Mobile Home",
+    "Landscape": "Blue Plains",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "FLOOP >>> Move a Creature in an adjacent Lane to this Lane (if empty)."
+}

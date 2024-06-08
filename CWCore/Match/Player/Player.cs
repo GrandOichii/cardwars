@@ -179,4 +179,9 @@ public class Player {
         var result = await Controller.PickLandscape(_match, this, options, opponentOptions, hint);
         return result;
     }
+
+    public async Task<string> PickCreature(List<string> options, string hint) {
+        var result = await Controller.PickCreature(_match, this, options, hint);
+        return result;
+    }
 }

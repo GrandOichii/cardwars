@@ -162,4 +162,24 @@ public class ScriptMaster {
         return result;
     }
 
+    [LuaCommand]
+    public string ChooseCreature(int playerI, LuaTable optionsTable, string hint) {
+        var player = _match.GetPlayerState(playerI);
+
+        var options = new List<string>();
+        foreach (var v in optionsTable.Values)
+            options.Add(v.ToString()!);
+
+        var result = player.Original.PickCreature(options, hint)
+            .GetAwaiter().GetResult();
+
+        return result;
+    }
+
+    [LuaCommand]
+    public void MoveCreature(string creatureId, int toI) {
+        _match.MoveCreature(creatureId, toI)
+            .Wait();
+    } 
+
 }
