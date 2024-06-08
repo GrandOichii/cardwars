@@ -97,7 +97,7 @@ public class ConsolePlayerController : IPlayerController
     {
         return Task.FromResult(new List<string> {
             "Cornfield",
-            "Blue Plains",
+            "Cornfield",
             "Cornfield",
             "Cornfield"
         });
@@ -116,7 +116,7 @@ public class ConsolePlayerController : IPlayerController
     public Task<int[]> PickLandscape(GameMatch match, Player player, List<int> options, List<int> opponentOptions, string hint)
     {
         if (options.Count > 0) {
-            System.Console.Write("You landscapes: ");
+            System.Console.Write("Your landscapes: ");
             foreach (var option in options)
                 System.Console.Write($"{option} ");
             System.Console.WriteLine();
@@ -165,7 +165,7 @@ public class Program {
     public static async Task Main(string[] args) {
         var config = new MatchConfig() {
             StartingLifeTotal = 25,
-            ActionPointsPerTurn = 2,
+            ActionPointsPerTurn = 12,
             LaneCount = 4,
             StrictMode = false,
             CardDrawCost = 1,

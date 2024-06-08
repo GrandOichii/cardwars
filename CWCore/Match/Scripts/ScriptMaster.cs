@@ -136,6 +136,14 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public void TurnLandscapeFaceUp(int playerI, int laneI) {
+        var player = _match.GetPlayerState(playerI);
+        var lane = player.Landscapes[laneI];
+        _match.TurnLandscapeFaceUp(lane)
+            .Wait();
+    }
+
+    [LuaCommand]
     public int[] ChooseLane(int playerI, LuaTable optionsTable, LuaTable opponentOptionsTable, string hint) {
         var player = _match.GetPlayerState(playerI);
 

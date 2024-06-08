@@ -13,6 +13,7 @@
         "GetHandCount",
         "TurnLandscapeFaceDown",
         "GetLanes",
-        "ChooseLane"
+        "ChooseLane",
+        "TurnLandscapeFaceUp"
     ]
 }

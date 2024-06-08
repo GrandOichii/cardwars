@@ -307,4 +307,14 @@ public class GameMatch {
         landscape.Original.FaceDown = true;
         // TODO trigger
     }
+
+    public async Task TurnLandscapeFaceUp(LandscapeState landscape) {
+        if (!landscape.Original.FaceDown) {
+            LogWarning($"Trying to flip a face-up landscape face-up");
+            return;
+        }
+        
+        landscape.Original.FaceDown = false;
+        // TODO trigger
+    }
 }

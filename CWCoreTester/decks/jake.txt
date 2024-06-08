@@ -11,7 +11,7 @@
 2 Legion of Earlings
 2 Patchy the Pumpkin
 1 Silo of Truth
-2 Travelin' Farmer
++ 2 Travelin' Farmer
 + 2 Wall of Ears
 2 Big Foot
 + 2 Blood Fortress
