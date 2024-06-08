@@ -7,7 +7,6 @@ function _Create(props)
         -- +1 ATK for each adjacent Cornfield Landscape.
 
         local ownerI = me.Original.OwnerI
-        local id = me.Original.Card.ID
 
         local landscapes = Common.State:AdjacentLandscapes(state, ownerI, me.LaneI)
 
