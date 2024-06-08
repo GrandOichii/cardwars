@@ -12,12 +12,12 @@
 + 2 Woad Mobile Home
 + 2 Dragon Claw
 + 2 Punk Cat
++ 2 Teleport
+1 Woadic Chief - detecting amount of spells played
 2 Ancient Scholar - returning cards from discard
 1 Heavenly Gazer - selecting cards in discard, placing cards from discard to top of deck
 2 Psionic Architect - optional effects, creature selection
 1 Schoolhouse - ability removal, ability granting
 1 Uni-Knight - creature targeting, until end of turn effects
-1 Woadic Chief - detecting amount of spells played
-2 Teleport - creature targeting, creature movement1
 1 Woad Blood - until end of turn effects, creature movement detection
 2 Woad Talisman - until end of turn effects

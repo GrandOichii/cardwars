@@ -275,3 +275,12 @@ function Common.State:AdjacentLandscapes(state, playerI, laneI)
 
     return result
 end
+
+function Common.State:CreatureIDs(state, predicate)
+    local creatures = Common.State:FilterCreatures(state, predicate)
+    local result = {}
+    for _, creature in ipairs(creatures) do
+        result[#result+1] = creature.Original.Card.ID
+    end
+    return result
+end
