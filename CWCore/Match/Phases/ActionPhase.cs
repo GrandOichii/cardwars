@@ -19,6 +19,7 @@ public class ActionPhase : IPhase {
     private static readonly List<IAction> ACTIONS = new() {
         new DrawCardAction(),
         new PlayAction(),
+        new ActivateAction(),
     };
 
     private static readonly Dictionary<string, IAction> ACTION_MAP = new(){};
@@ -36,7 +37,7 @@ public class ActionPhase : IPhase {
         {
             await match.ReloadState();
             
-            action = await PromptAction(match, player);
+            action = await PromptAction(match, playerI);
             var words = action.Split(" ");
 
             var actionWord = words[0];
@@ -47,20 +48,22 @@ public class ActionPhase : IPhase {
                 if (!match.Config.StrictMode) continue;
                 throw new UnknownActionException("Unknown action from player " + player.Name + ": " + actionWord);
             }
-            await ACTION_MAP[actionWord].Exec(match, player, words);
+            await ACTION_MAP[actionWord].Exec(match, playerI, words);
 
             await match.PushUpdates();
             if (!match.Active) break;   
         }
     }
 
-    private static async Task<string> PromptAction(GameMatch match, Player player)
+    private static async Task<string> PromptAction(GameMatch match, int playerI)
     {
         var options = new List<string>();
         foreach (var action in ACTION_MAP.Values) {
-            options.AddRange(action.GetAvailable(match, player));
+            options.AddRange(action.GetAvailable(match, playerI));
         }
+        
         if (options.Count == 0) return "battle";
+        var player = match.GetPlayer(playerI);
         return await player.Controller.PromptAction(match, player, options);
     } 
 }

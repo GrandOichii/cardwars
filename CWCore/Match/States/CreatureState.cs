@@ -17,5 +17,7 @@ public class CreatureState : InPlayCardState {
     }
 
     // TODO? bad
-    public int GetDamage() => ((Creature)Original).Damage;
+    public int GetDamage() => GetOriginal().Damage;
+
+    public Creature GetOriginal() => (Creature)Original;
 }

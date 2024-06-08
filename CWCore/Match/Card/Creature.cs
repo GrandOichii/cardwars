@@ -29,4 +29,6 @@ public class Creature : InPlayCard {
         return !Exhausted && !Attacking;
     }
 
+    public bool IsFlooped() => Exhausted && !Attacking;
+
 }

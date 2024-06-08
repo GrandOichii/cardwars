@@ -2,7 +2,7 @@
 + 1 Corn Dog
 + 1 Corn Lord
 + 2 Corn Ronin
-2 Cornataur
++ 2 Cornataur
 + 2 Field of Nightmares
 1 Field Reaper
 2 Field Stalker

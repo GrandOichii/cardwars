@@ -224,11 +224,27 @@ public class GameMatch {
         }
     }
 
-    public Creature GetInPlayCreature(string id) {
-        foreach (var player in Players)
+    public CreatureState GetInPlayCreature(string id) {
+        foreach (var player in LastState.Players)
             foreach (var lane in player.Landscapes)
-                if (lane.Creature is not null && lane.Creature.Card.ID == id)
+                if (lane.Creature is not null && lane.Creature.Original.Card.ID == id)
                     return lane.Creature;
         throw new CWCoreException($"Failed to find in-play creature with id {id}");
+    }
+
+    public InPlayCardState GetInPlayCard(string id) {
+        foreach (var player in LastState.Players) {
+            foreach (var lane in player.Landscapes) {
+                if (lane.Creature is not null && lane.Creature.Original.Card.ID == id)
+                    return lane.Creature;
+                // TODO check buildings
+            }
+        }
+        throw new CWCoreException($"Failed to find in-play card with id {id}");
+    }
+
+    public async Task FloopCard(InPlayCardState card) {
+        card.Original.Exhausted = true;
+        // TODO? add update
     }
 }

@@ -2,6 +2,7 @@ using CWCore.Cards;
 using CWCore.Match.Players;
 using NLua;
 using CWCore.Utility;
+using CWCore.Match.States;
 
 namespace CWCore.Match;
 
@@ -31,9 +32,9 @@ public class MatchCard {
     public bool IsCreature => Template.Type == "Creature";
     public bool IsBuilding => Template.Type == "Building";
 
-    public bool CanPlay(Player player) {
+    public bool CanPlay(PlayerState player) {
         // TODO add state-based effects
-        return player.ActionPoints >= Template.Cost;
+        return player.Original.ActionPoints >= Template.Cost;
     }
 
     public object[] ExecFunction(string fName, params object[] args) {

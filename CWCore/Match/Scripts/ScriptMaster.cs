@@ -77,7 +77,7 @@ public class ScriptMaster {
     [LuaCommand]
     public void DealDamageToCreature(string creatureId, int amount) {
         var creature = _match.GetInPlayCreature(creatureId);
-        _match.DealDamageToCreature(creature, amount)
+        _match.DealDamageToCreature(creature.GetOriginal(), amount)
             .Wait();
         _match.CheckDeadCreatures()
             .Wait();
@@ -86,5 +86,24 @@ public class ScriptMaster {
     [LuaCommand]
     public List<LandscapeState> GetLanes(int playerI) {
         return _match.LastState.Players[playerI].Landscapes;
+    }
+
+    [LuaCommand]
+    public void AddActionPoints(int playerI, int amount) {
+        var player = _match.GetPlayer(playerI);
+        player.ActionPoints += amount;
+        // TODO? add update
+    }
+
+    [LuaCommand]
+    public void FloopCard(string id) {
+        var card = _match.GetInPlayCard(id); 
+        _match.FloopCard(card)
+            .Wait();
+    }
+
+    [LuaCommand]
+    public MatchState GetState() {
+        return _match.LastState;
     }
 }

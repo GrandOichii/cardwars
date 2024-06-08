@@ -160,6 +160,11 @@ function CardWars:InPlay(props)
         end
     end
 
+    result.ActivatedEffects = {}
+    function result:AddActivatedEffect(effect)
+        result.ActivatedEffects[#result.ActivatedEffects+1] = effect
+    end
+
     return result
 end
 

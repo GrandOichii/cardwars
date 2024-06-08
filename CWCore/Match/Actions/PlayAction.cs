@@ -1,5 +1,6 @@
 using CWCore.Exceptions;
 using CWCore.Match.Players;
+using CWCore.Match.States;
 
 namespace CWCore.Match.Actions;
 
@@ -7,18 +8,20 @@ public class PlayAction : IAction
 {
     public string ActionWord() => "play";
 
-    public async Task Exec(GameMatch match, Player player, string[] args)
+    public async Task Exec(GameMatch match, int playerI, string[] args)
     {
+        var playerState = match.GetPlayerState(playerI);
+        var player = playerState.Original;
         var ap = player.ActionPoints;
         var cardId = args[1];
-        var card = player.Hand.FirstOrDefault(card => card.ID == cardId);
+        var card = playerState.Hand.FirstOrDefault(card => card.ID == cardId);
         if (card is null) {
             var errMsg = $"Player {player.LogFriendlyName} tried to play a card with id {cardId}, which they don't have in their hand";
             match.ActionError(errMsg);
             return;
         }
 
-        if (!card.CanPlay(player)) {
+        if (!card.CanPlay(playerState)) {
             var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.LogFriendlyName}, which they cant";
             match.ActionError(errMsg);
             return;
@@ -52,8 +55,9 @@ public class PlayAction : IAction
         return;
     }
 
-    public IEnumerable<string> GetAvailable(GameMatch match, Player player)
+    public IEnumerable<string> GetAvailable(GameMatch match, int playerI)
     {
+        var player = match.GetPlayerState(playerI);
         foreach (var card in player.Hand) {
             if (!card.CanPlay(player)) continue; 
             var result = $"{ActionWord()} {card.ID}";

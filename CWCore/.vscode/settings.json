@@ -1,6 +1,10 @@
 {
     "Lua.diagnostics.globals": [
         "LogInfo",
-        "PlayerLogFriendlyName"
+        "PlayerLogFriendlyName",
+        "AddActionPoints",
+        "FloopCard",
+        "GetState",
+        "Draw"
     ]
 }

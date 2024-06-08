@@ -1,5 +1,6 @@
 using CWCore.Exceptions;
 using CWCore.Match.Players;
+using CWCore.Match.States;
 
 namespace CWCore.Match.Actions;
 
@@ -7,8 +8,9 @@ public class DrawCardAction : IAction
 {
     public string ActionWord() => "draw";
 
-    public Task Exec(GameMatch match, Player player, string[] args)
+    public Task Exec(GameMatch match, int playerI, string[] args)
     {
+        var player = match.GetPlayer(playerI);
         var ap = player.ActionPoints;
 
         if (ap < match.Config.CardDrawCost) {
@@ -25,8 +27,9 @@ public class DrawCardAction : IAction
         return Task.CompletedTask;
     }
 
-    public IEnumerable<string> GetAvailable(GameMatch match, Player player)
+    public IEnumerable<string> GetAvailable(GameMatch match, int playerI)
     {
+        var player = match.GetPlayer(playerI);
         if (player.ActionPoints < match.Config.CardDrawCost) {
             return Enumerable.Empty<string>();
         }

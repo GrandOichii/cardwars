@@ -80,6 +80,7 @@ public class ConsolePlayerController : IPlayerController
         System.Console.WriteLine("Hand:");
         foreach (var card in player.Hand)
             System.Console.WriteLine($"- {card.LogFriendlyName} <{card.Template.Cost}>");
+        Console.WriteLine($"AP: {player.ActionPoints}");
         Console.WriteLine($"Available actions for {player.LogFriendlyName}:");
         foreach (var action in options)
             Console.WriteLine($"\t- {action}");
@@ -112,7 +113,7 @@ public class Program {
         };
 
         var cm = new FileCardMaster();
-        cm.Load("cards");
+        cm.Load("../CWCore/cards");
 
         var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/deck1.json"))
             ?? throw new Exception("failed to read deck file")
