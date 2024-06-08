@@ -5,7 +5,7 @@
 + 2 Cornataur
 + 2 Field of Nightmares
 1 Field Reaper
-2 Field Stalker
++ 2 Field Stalker
 + 2 Husker Knight
 2 Husker Worm
 2 Legion of Earlings

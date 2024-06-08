@@ -7,6 +7,8 @@
         "GetState",
         "Draw",
         "GetPlayers",
-        "GetCurPlayerI"
+        "GetCurPlayerI",
+        "DealDamageToPlayer",
+        "GetPlayer"
     ]
 }

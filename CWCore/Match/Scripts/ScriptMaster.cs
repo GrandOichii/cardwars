@@ -121,4 +121,9 @@ public class ScriptMaster {
     public int GetCurPlayerI() {
         return _match.CurPlayerI;
     }
+
+    [LuaCommand]
+    public PlayerState GetPlayer(int playerI) {
+        return _match.GetPlayerState(playerI);
+    }
 }

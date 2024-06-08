@@ -122,7 +122,7 @@ public class Program {
             LaneCount = 4,
             StrictMode = false,
             CardDrawCost = 1,
-            StartHandSize = 5,
+            StartHandSize = 1,
         };
 
         var cm = new FileCardMaster();
