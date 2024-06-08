@@ -94,7 +94,7 @@ public class Player {
         DiscardPile.Add(card);
     }
 
-    public int ProcessDamage(int amount) {
+    public Task<int> ProcessDamage(int amount) {
         var result = Life;
         Life -= amount;
         if (Life < 0) Life = 0;
@@ -103,7 +103,7 @@ public class Player {
 
         _match.LogInfo($"Player {LogFriendlyName} was dealt {result} damage");
 
-        return result;
+        return Task.FromResult(result);
     }
 
     public async Task Setup() {
@@ -135,9 +135,14 @@ public class Player {
         return result;
     }
 
+    public async Task<int> PickAttackLane(List<int> options) {
+        var result = await Controller.PickAttackLane(_match, this, options);
+        return result;
+    }
+
     public Task PlaceCreatureInLane(MatchCard card, int laneI) {
         var lane = Landscapes[laneI];
-        var creature = new Creature(card);
+        var creature = new Creature(card, Idx);
 
         if (lane.Creature is not null) {
             // TODO add creature replacement

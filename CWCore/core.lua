@@ -154,9 +154,9 @@ function CardWars:InPlay(props)
         result.StateModifiers[#result.StateModifiers+1] = modF
     end
 
-    function result:ModifyState(state)
+    function result:ModifyState(state, me)
         for _, modF in ipairs(result.StateModifiers) do
-            modF(state)
+            modF(state, me)
         end
     end
 
@@ -164,11 +164,35 @@ function CardWars:InPlay(props)
 end
 
 function CardWars:Creature(props)
+    local result = CardWars:InPlay(props)
+    
     -- TODO
-    local result = {}
-
     -- result.attack = props.attack
     -- result.defense = props.defense
+
+    return result
+end
+
+-- Common
+
+Common = {}
+
+Common.State = {}
+
+function Common.State:FilterCreatures(state, predicate)
+    local result = {}
+
+    for pi = 1, state.Players.Length do
+        local pState = state.Players[pi - 1]
+        for li = 1, pState.Landscapes.Count do
+            local lane = pState.Landscapes[li - 1]
+            if lane.Creature ~= nil then
+                if predicate(lane.Creature) then
+                    result[#result+1] = lane.Creature
+                end
+            end
+        end
+    end
 
     return result
 end

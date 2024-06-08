@@ -3,13 +3,12 @@ using CWCore.Match.States;
 namespace CWCore.Match;
 
 public class Creature : InPlayCard {
-    public readonly static string MODIFY_STATE_FNAME = "MofidyState";
     public bool Attacking { get; set; } = false;
 
     public int Attack { get; }
     public int Defense { get; set; }
 
-    public Creature(MatchCard card) : base(card) {
+    public Creature(MatchCard card, int ownerI) : base(card, ownerI) {
         Attack = card.Template.Attack;
         Defense = card.Template.Defense;
     }
@@ -26,7 +25,4 @@ public class Creature : InPlayCard {
         return !Exhausted && !Attacking;
     }
 
-    public void ModifyState(MatchState state) {
-        Card.ExecFunction(MODIFY_STATE_FNAME, Card.Data, state);
-    }
 }

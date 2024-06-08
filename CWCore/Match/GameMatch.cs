@@ -37,6 +37,7 @@ public class GameMatch {
     public bool Active => _winnerI < 0;
 
     public int CurPlayerI { get; private set; }
+    public int TurnCount { get; private set; } = 0;
 
     public GameMatch(MatchConfig config, ICardMaster cardMaster, string setupScript) {
         _cardMaster = cardMaster;
@@ -49,7 +50,7 @@ public class GameMatch {
         LState.DoString(setupScript);
 
         _scriptMaster = new(this);
-        LastState = new(this);
+        LastState = new();
     }
 
     public async Task AddPlayer(string name, DeckTemplate template, IPlayerController controller) {
@@ -68,6 +69,13 @@ public class GameMatch {
             throw new CWCoreException($"playerI {playerI} is invalid");
         }
         return Players[playerI];
+    }
+
+    public PlayerState GetPlayerState(int playerI) {
+        if (playerI >= Players.Count) {
+            throw new CWCoreException($"playerI {playerI} is invalid");
+        }
+        return LastState.Players[playerI];
     }
 
 
@@ -110,18 +118,22 @@ public class GameMatch {
     }
 
     public Player CurrentPlayer => Players[CurPlayerI];
+    public Player Opponent => Players[1 - CurPlayerI];
 
     private async Task Turns() {
         LogInfo("Started main match loop");
 
         // Logger.ParseAndLog("Match started");
         while (Active) {
-            await PushUpdates();
+            TurnCount++;
+            await ReloadState();
             var cPlayer = CurrentPlayer;
+
+            LogInfo($"Player {cPlayer.LogFriendlyName} starts their turn");
             // Logger.ParseAndLog(cPlayer.Name + " started their turn.");
 
             foreach (var phase in _phases) {
-                await phase.Exec(this, cPlayer);
+                await phase.Exec(this, CurPlayerI);
 
                 if (!Active) break;
             }
@@ -157,6 +169,12 @@ public class GameMatch {
         // TODO? add to update
     }
 
+    public async Task ExhaustToAttack(Creature card) {
+        card.Exhausted = true;
+        card.Attacking = true;
+        // TODO? add to update
+    }
+
     public void ActionError(string err) {
         if (!Config.StrictMode) {
             LogWarning(err);
@@ -165,12 +183,17 @@ public class GameMatch {
         throw new CWCoreException(err);
     }
 
-    public int DealDamageToPlayer(int playerI, int amount) {
+    public async Task<int> DealDamageToPlayer(int playerI, int amount) {
         var player = GetPlayer(playerI);
         // TODO add trigger
         // TODO? add to update    
-        var dealt = player.ProcessDamage(amount);
+        var dealt = await player.ProcessDamage(amount);
 
         return dealt;
+    }
+
+    public async Task ReloadState() {
+        await PushUpdates();
+        LastState = new(this);
     }
 }

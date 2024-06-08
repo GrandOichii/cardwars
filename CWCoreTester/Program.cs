@@ -39,9 +39,35 @@ public class FileCardMaster : ICardMaster
 
 public class ConsolePlayerController : IPlayerController
 {
+    private void PrintInfo(GameMatch match, Player player) {
+        foreach (var p in match.Players) {
+            System.Console.WriteLine($"{p.LogFriendlyName} - {p.Life} {p.Hand.Count} [[{p.Deck.Count}]]");
+        }
+        System.Console.WriteLine("Lanes:");
+        var landscapes = match.LastState.Players[player.Idx].Landscapes;
+        foreach (var lane in landscapes)
+            System.Console.Write("|" + (lane.Creature is not null ? $"{lane.Creature.Original.Card.Template.Name}({lane.Creature.CanAttack}) [{lane.Creature.Attack} / {lane.Creature.Defense}]" : "").PadRight(30) + "|");
+        System.Console.WriteLine();
+    }
+
+    public Task<int> PickAttackLane(GameMatch match, Player player, List<int> options)
+    {
+        PrintInfo(match, player);
+        System.Console.Write("Attack options: ");
+        foreach (var option in options )
+            System.Console.Write($"{option} ");
+        System.Console.WriteLine();
+        System.Console.Write("Pick attacker lane: ");
+        var result = Console.ReadLine()
+            ?? throw new Exception("failed to read attack lane idx")
+        ;
+        return Task.FromResult(int.Parse(result));
+    }
+
     public Task<int> PickLaneForCreature(GameMatch match, Player player)
     {
-        System.Console.Write("Pick lane for creature: ");
+        PrintInfo(match, player);
+        Console.Write("Pick lane for creature: ");
         var result = Console.ReadLine()
             ?? throw new Exception("failed to read lane idx for creature")
         ;
@@ -50,13 +76,7 @@ public class ConsolePlayerController : IPlayerController
 
     public Task<string> PromptAction(GameMatch match, Player player, IEnumerable<string> options)
     {
-        foreach (var p in match.Players) {
-            System.Console.WriteLine($"{p.LogFriendlyName} - {p.Life} {p.Hand.Count} [[{p.Deck.Count}]]");
-        }
-        System.Console.WriteLine("Lanes:");
-        foreach (var lane in player.Landscapes)
-            System.Console.Write("|" + (lane.Creature is not null ? lane.Creature.Card.Template.Name : "").PadRight(20) + "|");
-        System.Console.WriteLine();
+        PrintInfo(match, player);
         System.Console.WriteLine("Hand:");
         foreach (var card in player.Hand)
             System.Console.WriteLine($"- {card.LogFriendlyName} <{card.Template.Cost}>");
@@ -104,9 +124,9 @@ public class Program {
 
         var match = new GameMatch(config, cm, File.ReadAllText("../CWCore/core.lua"))
         {
-            Logger = LoggerFactory
-                .Create(builder => builder.AddConsole())
-                .CreateLogger("Program")
+            // Logger = LoggerFactory
+            //     .Create(builder => builder.AddConsole())
+            //     .CreateLogger("Program")
         };
 
         await match.AddPlayer("player1", deck1, controller1);

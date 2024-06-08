@@ -27,7 +27,7 @@ public class ScriptMaster {
 
     [LuaCommand]
     public void LogInfo(string msg) {
-        _match.LogInfo(msg);   
+        _match.LogInfo(msg);
     }
 
     [LuaCommand]
@@ -50,7 +50,8 @@ public class ScriptMaster {
 
     [LuaCommand]    
     public int DealDamageToPlayer(int playerI, int amount) {
-        var dealt = _match.DealDamageToPlayer(playerI, amount);
+        // ! hope this words
+        var dealt = _match.DealDamageToPlayer(playerI, amount).GetAwaiter().GetResult();
         return dealt;
     }
 }

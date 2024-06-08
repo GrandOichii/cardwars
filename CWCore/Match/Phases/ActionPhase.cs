@@ -29,11 +29,13 @@ public class ActionPhase : IPhase {
         }
     }
 
-    public async Task Exec(GameMatch match, Player player, PlayerState playerState) {
+    public async Task Exec(GameMatch match, int playerI) {
         string action;
-        match.LastState = new(match);
+        var player = match.GetPlayer(playerI);
         while (true)
         {
+            await match.ReloadState();
+            
             action = await PromptAction(match, player);
             var words = action.Split(" ");
 
@@ -58,6 +60,7 @@ public class ActionPhase : IPhase {
         foreach (var action in ACTION_MAP.Values) {
             options.AddRange(action.GetAvailable(match, player));
         }
+        if (options.Count == 0) return "battle";
         return await player.Controller.PromptAction(match, player, options);
     } 
 }

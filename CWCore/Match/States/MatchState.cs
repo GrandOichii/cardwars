@@ -5,11 +5,18 @@ namespace CWCore.Match.States;
 public class MatchState {
     public PlayerState[] Players { get; }
 
+    public MatchState() {
+        Players = Array.Empty<PlayerState>();
+    }
+
     public MatchState(GameMatch match) {
         Players = new PlayerState[2];
         for (int i = 0; i < 2; i++) {
             Players[i] = new PlayerState(match.Players[i]);
         }
 
+        foreach (var player in Players) {
+            player.Modify(this);
+        }
     }
 }

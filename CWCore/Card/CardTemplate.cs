@@ -6,6 +6,7 @@ namespace CWCore.Cards;
 public class CardTemplate {
     public required string Name { get; set; }
     public required string Type { get; set; }
+    public required string Landscape { get; set; }
     public required int Cost { get; set; }
     public int Attack { get; set; } = -1;
     public int Defense { get; set; } = -1;

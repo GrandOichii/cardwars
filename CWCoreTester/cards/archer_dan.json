@@ -2,8 +2,8 @@
     "Name": "Archer Dan",
     "Landscape": "Corn",
     "Type": "Creature",
-    "attack": 2,
-    "defense": 6,
+    "Attack": 2,
+    "Defense": 6,
     "Cost": 2,
     "Text": "FLOOP >>> Destroy target Building in Archer Dan's Lane."
 }
