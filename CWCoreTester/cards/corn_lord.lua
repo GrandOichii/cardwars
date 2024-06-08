@@ -12,7 +12,7 @@ function _Create(props)
         local cornCreatures = Common.State:FilterCreatures(state, function (creature)
             return
                 creature.Original.OwnerI == ownerI and
-                creature.Original.Card.Template.Landscape == 'Corn' and
+                creature.Original.Card.Template.Landscape == 'Cornfield' and
                 creature.Original.Card.ID ~= id
         end)
 
