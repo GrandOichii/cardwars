@@ -1,0 +1,9 @@
+{
+    "Name": "Corn Ronin",
+    "Landscape": "Corn",
+    "Type": "Creature",
+    "Attack": 1,
+    "Defense": 6,
+    "Cost": 1,
+    "Text": "+1 ATK for each adjacent Cornfield Landscape."
+}

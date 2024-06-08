@@ -196,3 +196,17 @@ function Common.State:FilterCreatures(state, predicate)
 
     return result
 end
+
+function Common.State:AdjacentLandscapes(state, playerI, laneI)
+    local result = {}
+
+    local lanes = state.Players[playerI].Landscapes
+    if laneI - 1 >= 0 then
+        result[#result+1] = lanes[laneI - 1]
+    end
+    if laneI + 1 < lanes.Count then
+        result[#result+1] = lanes[laneI + 1]
+    end
+
+    return result
+end

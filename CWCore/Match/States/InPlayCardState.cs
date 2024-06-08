@@ -8,9 +8,11 @@ public class InPlayCardState : IStateModifier {
     public readonly static string MODIFY_STATE_FNAME = "ModifyState";
 
     public InPlayCard Original { get; }
+    public int LaneI { get; }
 
-    public InPlayCardState(InPlayCard original) {
+    public InPlayCardState(InPlayCard original, int laneI) {
         Original = original;
+        LaneI = laneI;
     }
 
     public void Modify(MatchState state)

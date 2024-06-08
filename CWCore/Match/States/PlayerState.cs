@@ -6,8 +6,8 @@ public class PlayerState : IStateModifier {
     
     public List<LandscapeState> Landscapes { get; set; } = new();
     public PlayerState(Player player) {
-        foreach (var lane in player.Landscapes) {
-            Landscapes.Add(new(lane));
+        for (int i = 0; i < player.Landscapes.Count; i++) {
+            Landscapes.Add(new(player.Landscapes[i], i));
         }
     }
     
