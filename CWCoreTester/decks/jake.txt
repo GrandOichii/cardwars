@@ -16,9 +16,8 @@
 + 1 Evil Eye
 + 1 Phyllis
 + 2 Teleport
-2 Patchy the Pumpkin - creature targeting
-2 Corn Scepter - creature targeting
-
++ 2 Corn Scepter
+2 Patchy the Pumpkin - creature targeting, requires a lot of testing
 1 Field Reaper - creature targeting, additional cost to play, creature movement, creature stealing
 2 Legion of Earlings - creature targeting, creature bouncing
 1 Silo of Truth - hand card stealing, playing stolen cards, modifying card cost

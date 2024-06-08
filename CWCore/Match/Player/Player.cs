@@ -145,7 +145,7 @@ public class Player {
         return result;
     }
 
-    public Task PlaceCreatureInLane(MatchCard card, int laneI) {
+    public async Task PlaceCreatureInLane(MatchCard card, int laneI) {
         var lane = Landscapes[laneI];
         var creature = new Creature(card, Idx);
 
@@ -154,13 +154,13 @@ public class Player {
         }
 
         lane.Creature = creature;
+
+        await _match.ReloadState();
         creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI);
         // TODO add triggers
-
-        return Task.CompletedTask;
     }
 
-    public Task PlaceBuildingInLane(MatchCard card, int laneI) {
+    public async Task PlaceBuildingInLane(MatchCard card, int laneI) {
         var lane = Landscapes[laneI];
         var building = new InPlayCard(card, Idx);
 
@@ -169,10 +169,10 @@ public class Player {
         }
 
         lane.Building = building;
+
+        await _match.ReloadState();
         building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, Idx, laneI);
         // TODO add triggers
-
-        return Task.CompletedTask;
     }
 
     public async Task<int> PickLane(List<int> options, string hint) {
