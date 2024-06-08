@@ -53,7 +53,8 @@ public class ScriptMaster {
     [LuaCommand]    
     public int DealDamageToPlayer(int playerI, int amount) {
         // ! hope this words
-        var dealt = _match.DealDamageToPlayer(playerI, amount).GetAwaiter().GetResult();
+        var dealt = _match.DealDamageToPlayer(playerI, amount)
+            .GetAwaiter().GetResult();
         return dealt;
     }
 
@@ -75,6 +76,9 @@ public class ScriptMaster {
     [LuaCommand]
     public void DealDamageToCreature(string creatureId, int amount) {
         var creature = _match.GetInPlayCreature(creatureId);
-        _match.DealDamageToCreature(creature, amount).Wait();
+        _match.DealDamageToCreature(creature, amount)
+            .Wait();
+        _match.CheckDeadCreatures()
+            .Wait();
     }
 }

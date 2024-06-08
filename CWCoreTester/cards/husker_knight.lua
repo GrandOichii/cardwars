@@ -10,7 +10,7 @@ function _Create(props)
         local lanes = state.Players[ownerI].Landscapes
         for i = 1, lanes.Count do
             local lane = lanes[i - 1]
-            if lane.Name == 'Cornfield' then
+            if lane.Original.Name == 'Cornfield' then
                 me.Attack = me.Attack + 1
                 me.Defense = me.Defense + 2
             end

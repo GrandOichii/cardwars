@@ -165,10 +165,6 @@ end
 
 function CardWars:Creature(props)
     local result = CardWars:InPlay(props)
-    
-    -- TODO
-    -- result.attack = props.attack
-    -- result.defense = props.defense
 
     return result
 end

@@ -5,11 +5,11 @@ namespace CWCore.Match.States;
 // Things that can modify state: in play creatures, in play buildings
 
 public class LandscapeState : IStateModifier {
-    public string Name { get; }
+    public Landscape Original { get; }
     public CreatureState? Creature { get; set; }
 
     public LandscapeState(Landscape landscape, int laneI) {
-        Name = landscape.Name;
+        Original = landscape;
         
         if (landscape.Creature is not null) {
             Creature = new CreatureState(landscape.Creature, laneI);

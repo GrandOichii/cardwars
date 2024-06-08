@@ -46,7 +46,7 @@ public class ConsolePlayerController : IPlayerController
         System.Console.WriteLine("Lanes:");
         var landscapes = match.LastState.Players[player.Idx].Landscapes;
         foreach (var lane in landscapes)
-            System.Console.Write("|" + (lane.Creature is not null ? $"{lane.Creature.Original.Card.Template.Name}({lane.Creature.CanAttack}) [{lane.Creature.Attack} / {lane.Creature.Defense - lane.Creature.Damage}]" : "").PadRight(30) + "|");
+            System.Console.Write("|" + (lane.Creature is not null ? $"{lane.Creature.Original.Card.Template.Name}({lane.Creature.CanAttack}) [{lane.Creature.Attack} / {lane.Creature.Defense - lane.Creature.GetDamage()}]" : "").PadRight(30) + "|");
         System.Console.WriteLine();
     }
 

@@ -164,7 +164,6 @@ public class GameMatch {
     }
 
     public async Task ReadyCard(InPlayCard card) {
-        // TODO
         card.Ready();
         // TODO? add to update
     }
@@ -205,7 +204,24 @@ public class GameMatch {
     }
 
     public async Task CheckDeadCreatures() {
-        // TODO
+        foreach (var player in LastState.Players) {
+            foreach (var lane in player.Landscapes) {
+                var creature = lane.Creature;
+                if (creature is null) continue;
+
+                if (creature.Defense > creature.GetDamage()) continue;
+
+                lane.Original.Creature = null;
+
+                // TODO trigger pre-death triggers
+
+                player.Original.AddToDiscard(creature.Original.Card);
+
+                // TODO trigger death triggers
+
+                LogInfo($"{creature.Original.Card.LogFriendlyName} in lane {creature.LaneI} dies!");
+            }
+        }
     }
 
     public Creature GetInPlayCreature(string id) {

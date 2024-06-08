@@ -9,12 +9,13 @@ public class CreatureState : InPlayCardState {
     public int Defense { get; set; }
     public bool CanAttack { get; set; }
 
-    public int Damage { get; }
 
     public CreatureState(Creature creature, int laneI) : base(creature, laneI) {
         Attack = creature.Attack;
         Defense = creature.Defense;
-        Damage = creature.Damage;
         CanAttack = creature.CanAttack();
     }
+
+    // TODO? bad
+    public int GetDamage() => ((Creature)Original).Damage;
 }
