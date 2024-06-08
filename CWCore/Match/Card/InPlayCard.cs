@@ -13,7 +13,6 @@ public class InPlayCard {
 
     public MatchCard Card { get; }
 
-    // TODO utilize
     public bool EnteredThisTurn { get; set; }
     public int MovementCount { get; set; }
 

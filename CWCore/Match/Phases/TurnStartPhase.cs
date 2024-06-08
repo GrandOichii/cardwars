@@ -10,7 +10,15 @@ public class TurnStartPhase : IPhase {
         player.ActionPoints = match.Config.ActionPointsPerTurn;
 
         foreach (var lane in player.Landscapes) {
-            if (lane.Creature is not null) lane.Creature.MovementCount = 0;
+            var creature = lane.Creature;
+            if (creature is not null) {
+                creature.MovementCount = 0;
+                creature.EnteredThisTurn = false;
+            } 
+            var building = lane.Building;
+            if (building is not null) {
+                building.EnteredThisTurn = false;
+            }
         }
         
         await player.ResetActionPoints();

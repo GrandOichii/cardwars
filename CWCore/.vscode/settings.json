@@ -20,6 +20,7 @@
         "GetCreatures",
         "ChooseLandscape",
         "PayActionPoints",
-        "DealDamageToCreature"
+        "DealDamageToCreature",
+        "TargetCreature"
     ]
 }
