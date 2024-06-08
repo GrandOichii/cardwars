@@ -8,6 +8,8 @@ namespace CWCore.Match;
 public class InPlayCard {
     public readonly static string ON_ENTER_PLAY_FNAME = "OnEnter";
     public readonly static string ON_LEAVE_PLAY_FNAME = "OnLeavePlay";
+    public readonly static string ON_MOVE_FNAME = "OnMove";
+
 
     public MatchCard Card { get; }
 

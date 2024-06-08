@@ -343,6 +343,15 @@ public class GameMatch {
                 lane.Original.Creature = null;
                 newLane.Original.Creature = creature.GetOriginal();
                 creature.Original.MovementCount++;
+
+                creature.Original.Card.ExecFunction(
+                    InPlayCard.ON_MOVE_FNAME, 
+                    creature.Original.Card.Data,
+                    player.Original.Idx, 
+                    prevLaneI,
+                    toI
+                );
+
                 // TODO? add update
                 // TODO trigger
 
