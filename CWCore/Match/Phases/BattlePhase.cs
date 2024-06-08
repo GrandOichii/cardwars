@@ -44,18 +44,26 @@ public class BattlePhase : IPhase
             }
 
             // TODO bad?
-            await match.ExhaustToAttack(attackerState.Original as Creature);
+            var attacker = (Creature)attackerState.Original;
+            await match.ExhaustToAttack(attacker);
             
             // damage
-            var defender = opponentState.Landscapes[laneI].Creature;
-            if (defender is null) {
+            var defenderState = opponentState.Landscapes[laneI].Creature;
+            if (defenderState is null) {
                 var attack = attackerState.Attack;
                 await match.DealDamageToPlayer(1 - playerI, attack);
                 // TODO add update
                 continue;
             }
 
+            // TODO bad?
+            var defender = (Creature)defenderState.Original;
+
             // TODO deal damage to each other
+            match.LogInfo($"{attacker.Card.LogFriendlyName} attacks {defender.Card.LogFriendlyName} in lane {laneI}");
+            await match.DealDamageToCreature(defender, attackerState.Attack);
+            await match.DealDamageToCreature(attacker, defenderState.Attack);
+            await match.CheckDeadCreatures();
         }
 
     }

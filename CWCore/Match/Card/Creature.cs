@@ -7,10 +7,12 @@ public class Creature : InPlayCard {
 
     public int Attack { get; }
     public int Defense { get; set; }
+    public int Damage { get; set; }
 
     public Creature(MatchCard card, int ownerI) : base(card, ownerI) {
         Attack = card.Template.Attack;
         Defense = card.Template.Defense;
+        Damage = 0;
     }
 
     public override void Ready()

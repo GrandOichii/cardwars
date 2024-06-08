@@ -196,4 +196,15 @@ public class GameMatch {
         await PushUpdates();
         LastState = new(this);
     }
+
+    public async Task DealDamageToCreature(Creature creature, int amount) {
+        creature.Damage += amount;
+        // TODO add update
+        // TODO add trigger
+        LogInfo($"{creature.Card.LogFriendlyName} is dealt {amount} damage");
+    }
+
+    public async Task CheckDeadCreatures() {
+        // TODO
+    }
 }

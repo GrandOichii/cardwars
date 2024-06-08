@@ -46,7 +46,7 @@ public class ConsolePlayerController : IPlayerController
         System.Console.WriteLine("Lanes:");
         var landscapes = match.LastState.Players[player.Idx].Landscapes;
         foreach (var lane in landscapes)
-            System.Console.Write("|" + (lane.Creature is not null ? $"{lane.Creature.Original.Card.Template.Name}({lane.Creature.CanAttack}) [{lane.Creature.Attack} / {lane.Creature.Defense}]" : "").PadRight(30) + "|");
+            System.Console.Write("|" + (lane.Creature is not null ? $"{lane.Creature.Original.Card.Template.Name}({lane.Creature.CanAttack}) [{lane.Creature.Attack} / {lane.Creature.Defense - lane.Creature.Damage}]" : "").PadRight(30) + "|");
         System.Console.WriteLine();
     }
 
@@ -124,9 +124,9 @@ public class Program {
 
         var match = new GameMatch(config, cm, File.ReadAllText("../CWCore/core.lua"))
         {
-            // Logger = LoggerFactory
-            //     .Create(builder => builder.AddConsole())
-            //     .CreateLogger("Program")
+            Logger = LoggerFactory
+                .Create(builder => builder.AddConsole())
+                .CreateLogger("Program")
         };
 
         await match.AddPlayer("player1", deck1, controller1);
