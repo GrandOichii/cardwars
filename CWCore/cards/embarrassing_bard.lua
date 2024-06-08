@@ -6,14 +6,14 @@ function _Create(props)
     result:AddActivatedEffect({
         -- FLOOP >>> Draw a card for each Flooped Creature you control (including this one).
 
-        checkF = function (me, playerI)
+        checkF = function (me, playerI, laneI)
             return not me.Original:IsFlooped()
         end,
-        costF = function (me, playerI)
+        costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
-        effectF = function (me, playerI)
+        effectF = function (me, playerI, laneI)
             local ownerI = me.Original.OwnerI
             local state = GetState()
             local creatures = Common.State:FilterCreatures(state, function (creature)

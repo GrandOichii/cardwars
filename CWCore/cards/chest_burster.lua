@@ -7,13 +7,13 @@ function _Create(props)
         -- At the start of your turn, deal 3 Damage to each opponent who was no cards in hand.
 
         trigger = CardWars.Triggers.TurnStart,
-        checkF = function (me, ownerI)
+        checkF = function (me, ownerI, laneI)
             return GetCurPlayerI() == ownerI
         end,
-        costF = function (me, ownerI)
+        costF = function (me, ownerI, laneI)
             return true
         end,
-        effectF = function (me, ownerI)
+        effectF = function (me, ownerI, laneI)
             local opponentI = 1 - ownerI
             local opponent = GetPlayer(ownerI)
             if opponent.Hand.Count == 0 then

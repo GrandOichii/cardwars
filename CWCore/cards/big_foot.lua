@@ -18,17 +18,17 @@ function _Create(props)
     result:AddActivatedEffect({
         -- FLOOP >>> Flip target face-down Landscape you control face up. 
 
-        checkF = function (me, playerI)
+        checkF = function (me, playerI, laneI)
             if me.Original:IsFlooped() then
                 return false
             end
             return #getOptions(playerI) > 0
         end,
-        costF = function (me, playerI)
+        costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
-        effectF = function (me, playerI)
+        effectF = function (me, playerI, laneI)
             local options = getOptions(playerI)
 
             -- TODO? change to target

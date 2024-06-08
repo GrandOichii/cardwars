@@ -16,14 +16,14 @@ public class ActivatedEffect {
         EffectF = LuaUtility.TableGet<LuaFunction>(table, "effectF");
     }
 
-    private static bool CheckFunction(LuaFunction f, Lua lState, PlayerState player, InPlayCardState state) {
-        var returned = f.Call(state, player.Original.Idx);
+    private static bool CheckFunction(LuaFunction f, PlayerState player, InPlayCardState state, int laneI) {
+        var returned = f.Call(state, player.Original.Idx, laneI);
         return LuaUtility.GetReturnAsBool(returned);
     }
 
-    public bool ExecCheck(Lua lState, PlayerState player, InPlayCardState state) => CheckFunction(CheckF, lState, player, state);
+    public bool ExecCheck(PlayerState player, InPlayCardState state, int laneI) => CheckFunction(CheckF, player, state, laneI);
     
-    public bool ExecCosts(Lua lState, PlayerState player, InPlayCardState state) => CheckFunction(CostF, lState, player, state);
+    public bool ExecCosts(PlayerState player, InPlayCardState state, int laneI) => CheckFunction(CostF, player, state, laneI);
 
-    public void ExecEffect(PlayerState player, InPlayCardState state) => EffectF.Call(state, player.Original.Idx);
+    public void ExecEffect(PlayerState player, InPlayCardState state, int laneI) => EffectF.Call(state, player.Original.Idx, laneI);
 }

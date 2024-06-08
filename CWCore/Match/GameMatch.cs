@@ -272,25 +272,32 @@ public class GameMatch {
         LogInfo(logMessage);
 
         foreach (var player in LastState.Players) {
-            var cards = player.GetCardsWithTriggeredEffects();
-            foreach (var card in cards) {
-                foreach (var trigger in card.TriggeredEffects) {
-                    
-                    var on = trigger.Trigger;
-                    if (on != signal) continue;
+            foreach (var lane in player.Landscapes) {
+                var cards = new List<InPlayCardState>();
+                if (lane.Creature is not null && lane.Creature.TriggeredEffects.Count > 0) {
+                    cards.Add(lane.Creature);
+                }
+                if (lane.Building is not null && lane.Building.TriggeredEffects.Count > 0) {
+                    cards.Add(lane.Building);
+                }
+                foreach (var card in cards) {
+                    foreach (var trigger in card.TriggeredEffects) {
+                        var on = trigger.Trigger;
+                        if (on != signal) continue;
 
-                    var canTrigger = trigger.ExecCheck(LState, player, card);
-                    if (!canTrigger) {
-                        continue;
+                        var canTrigger = trigger.ExecCheck(player, card, lane.Original.Idx);
+                        if (!canTrigger) {
+                            continue;
+                        }
+
+                        var payedCosts = trigger.ExecCosts(player, card, lane.Original.Idx);
+                        if (!payedCosts) {
+                            continue;
+                        }
+
+                        LogInfo($"Card {card.Original.Card.LogFriendlyName} triggers!");
+                        trigger.ExecEffect(player, card, lane.Original.Idx);
                     }
-
-                    var payedCosts = trigger.ExecCosts(LState, player, card);
-                    if (!payedCosts) {
-                        continue;
-                    }
-
-                    LogInfo($"Card {card.Original.Card.LogFriendlyName} triggers!");
-                    trigger.ExecEffect(player, card);
                 }
             }
         }

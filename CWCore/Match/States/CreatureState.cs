@@ -9,7 +9,6 @@ public class CreatureState : InPlayCardState {
     public int Defense { get; set; }
     public bool CanAttack { get; set; }
 
-
     public CreatureState(Creature creature, int laneI) : base(creature, laneI) {
         Attack = creature.Attack;
         Defense = creature.Defense;

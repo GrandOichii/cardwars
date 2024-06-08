@@ -4,22 +4,22 @@
 + 2 Corn Ronin
 + 2 Cornataur
 + 2 Field of Nightmares
-1 Field Reaper
 + 2 Field Stalker
 + 2 Husker Knight
 + 2 Husker Worm
-2 Legion of Earlings
-2 Patchy the Pumpkin
-1 Silo of Truth
 + 2 Travelin' Farmer
 + 2 Wall of Ears
-2 Big Foot
++ 2 Big Foot
 + 2 Blood Fortress
 + 1 Celestial Castle
-2 Corn Scepter
-1 Cross Pollination
 + 1 Drooling Dude
 + 1 Evil Eye
 + 1 Phyllis
-2 Reclaim Landscape
-2 Teleport
+1 Field Reaper - creature targeting, additional cost to play, creature movement, creature stealing
+2 Legion of Earlings - creature targeting, creature bouncing
+2 Patchy the Pumpkin - creature targeting
+1 Silo of Truth - hand card stealing, playing stolen cards, modifying card cost
+2 Corn Scepter - creature targeting
+1 Cross Pollination - "entil end of turn" effects
+2 Reclaim Landscape - optional effects, building movement
+2 Teleport - creature movement

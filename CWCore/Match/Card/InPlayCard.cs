@@ -10,8 +10,11 @@ public class InPlayCard {
     public readonly static string ON_LEAVE_PLAY_FNAME = "OnLeavePlay";
 
     public MatchCard Card { get; }
+
     // TODO utilize
     public bool EnteredThisTurn { get; set; }
+    public int MovementCount { get; set; }
+
     public bool Exhausted { get; set; }
     public int ControllerI { get; set; }
     public int OwnerI { get; }
@@ -37,6 +40,7 @@ public class InPlayCard {
         }
         
         EnteredThisTurn = true;
+        MovementCount = 0;
     }
 
     public virtual void Ready() {

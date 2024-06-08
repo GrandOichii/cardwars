@@ -201,7 +201,17 @@ function CardWars:InPlay(props)
         self.OnLeavePlayP:Exec(playerI, laneI)
     end
 
-    
+    result.OnMoveP = Core.Pipeline:New()
+    result.OnMoveP:AddLayer(
+        function(playerI, fromI, toI)
+            LogInfo('Creature '..result.name .. ' moves from ' ..fromI..' to '..toI)
+            return nil, true
+        end
+    )
+
+    function result:OnMove(playerI, fromI, toI)
+        self.OnMoveP:Exec(playerI, fromI, toI)
+    end
 
     return result
 end
