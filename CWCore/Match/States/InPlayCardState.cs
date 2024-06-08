@@ -2,8 +2,6 @@ using CWCore.Match.Players;
 
 namespace CWCore.Match.States;
 
-// Things that can modify state: in play creatures, in play buildings
-
 public class InPlayCardState : IStateModifier {
     public readonly static string MODIFY_STATE_FNAME = "ModifyState";
 

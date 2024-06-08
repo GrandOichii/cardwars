@@ -1,0 +1,9 @@
+{
+    "Name": "Mouthball",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Attack": 2,
+    "Defense": 4,
+    "Text": "+2 DEF for every 5 cards in your discard pile."
+}
