@@ -53,7 +53,6 @@ public class ScriptMaster {
 
     [LuaCommand]    
     public int DealDamageToPlayer(int playerI, int amount) {
-        // ! hope this words
         var dealt = _match.DealDamageToPlayer(playerI, amount)
             .GetAwaiter().GetResult();
         return dealt;
@@ -193,7 +192,20 @@ public class ScriptMaster {
             .GetAwaiter().GetResult();
 
         return result;
-       
     }
 
+    [LuaCommand]
+    public string TargetCreature(int playerI, LuaTable optionsTable, string hint) {
+        // TODO? should be different
+        return ChooseCreature(playerI, optionsTable, hint);
+    }
+
+    [LuaCommand] 
+    public void PayActionPoints(int playerI, int amount) {
+        var player = _match.GetPlayer(playerI);
+        player.ActionPoints -= amount;
+        if (player.ActionPoints < 0)
+            throw new CWCoreException($"action point payement resulted in a player's action point total being equal to {player.ActionPoints}");
+        // TODO? add update
+    }
 }

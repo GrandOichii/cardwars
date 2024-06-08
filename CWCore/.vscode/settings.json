@@ -18,6 +18,7 @@
         "ChooseCreature",
         "MoveCreature",
         "GetCreatures",
-        "ChooseLandscape"
+        "ChooseLandscape",
+        "PayActionPoints"
     ]
 }
