@@ -4,6 +4,8 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
+        -- FLOOP >>> Gain 1 Action this turn.
+
         checkF = function (me, playerI)
             return not me.Original:IsFlooped()
         end,

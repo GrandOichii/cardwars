@@ -6,7 +6,6 @@ function _Create(props)
     result.OnEnterP:AddLayer(function(playerI, laneI)
         -- When Cornataur enters play, deal 1 Damage to your opponent for each Cornfield Landscape you control.
 
-
         local opponentI = 1 - playerI
         local count = 0
         local lanes = GetLanes(playerI)

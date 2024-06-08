@@ -9,6 +9,7 @@
         "GetPlayers",
         "GetCurPlayerI",
         "DealDamageToPlayer",
-        "GetPlayer"
+        "GetPlayer",
+        "GetHandCount"
     ]
 }

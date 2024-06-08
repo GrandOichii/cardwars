@@ -1,10 +1,10 @@
--- Status: Not implemented
+-- Status: Not tested
 
 function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddTrigger({
-        -- At the start of your turn, each player draws a card.
+        -- At the start of your turn, deal 1 Damage to target opponent for every 5 cards in your discard pile.
 
         trigger = CardWars.Triggers.TurnStart,
         checkF = function (me, ownerI)
@@ -14,9 +14,10 @@ function _Create(props)
             return true
         end,
         effectF = function (me, ownerI)
-            for i = 1, 2 do
-                Draw(i - 1, 1)
-            end
+            local opponentI = 1 - ownerI
+            local player = GetPlayer(ownerI)
+            local discardCount = player.DiscardPile.Count
+            DealDamageToPlayer(opponentI, math.floor(discardCount / 5))
         end
     })
 

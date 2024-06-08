@@ -4,6 +4,8 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
+        -- FLOOP >>> Draw a card for each Flooped Creature you control (including this one).
+
         checkF = function (me, playerI)
             return not me.Original:IsFlooped()
         end,

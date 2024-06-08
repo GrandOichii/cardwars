@@ -27,7 +27,9 @@
         "Celestial Castle": 0,
         "Blood Fortress": 0,
         "Field Stalker": 0,
-        "Chest Burster": 30,
+        "Chest Burster": 0,
+        "Extraordinary Spider": 30,
+        "Tome of Ankhs": 30,
         "Field of Nightmares": 0
     },
     "Landscapes": {

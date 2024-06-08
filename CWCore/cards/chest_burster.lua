@@ -1,10 +1,11 @@
--- Status: Not implemented
+-- Status: Implemented
 
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    -- TODO add activated abiltity
     result:AddTrigger({
+        -- At the start of your turn, deal 3 Damage to each opponent who was no cards in hand.
+
         trigger = CardWars.Triggers.TurnStart,
         checkF = function (me, ownerI)
             return GetCurPlayerI() == ownerI
