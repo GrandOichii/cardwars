@@ -339,7 +339,9 @@ public class GameMatch {
 
                 var newLane = player.Landscapes[toI];
 
-                // TODO replace if already creature present
+                if (newLane.Original.Creature is not null)
+                    throw new CWCoreException($"tried to move a creature to lane {toI}, which is not empty");
+                    
                 lane.Original.Creature = null;
                 newLane.Original.Creature = creature.GetOriginal();
                 creature.Original.MovementCount++;

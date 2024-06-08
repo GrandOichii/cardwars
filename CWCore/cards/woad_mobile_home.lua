@@ -41,7 +41,7 @@ function _Create(props)
                 options[#options+1] = landscape.Creature.Original.Card.ID
             end
 
-            local choice = ChooseCreature(playerI, options, 'Pick a creature to move to lane '..laneI)
+            local choice = ChooseCreature(playerI, options, 'Choose a creature to move to lane '..laneI)
             MoveCreature(choice, laneI)
         end
     })

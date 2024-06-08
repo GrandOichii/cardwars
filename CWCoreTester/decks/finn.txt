@@ -8,6 +8,8 @@
 + 2 Cerebral Bloodstorm
 + 2 Nice Ice Baby
 + 2 The Pig
++ 2 Woadic Marauder
++ 2 Woad Mobile Home
 2 Ancient Scholar - returning cards from discard
 2 Dragon Claw - creature movement
 1 Heavenly Gazer - selecting cards in discard, placing cards from discard to top of deck
@@ -15,9 +17,7 @@
 2 Punk Cat - detecting creature lane changing
 1 Schoolhouse - ability removal, ability granting
 1 Uni-Knight - creature targeting
-2 Woad Mobile Home - creature movement
 1 Woadic Chief - detecting amount of spells played
-2 Woadic Marauder - lane change detection
-2 Teleport
+2 Teleport - creature targeting, creature movement
 1 Woad Blood - until end of turn effects, creature movement detection
 2 Woad Talisman - until end of turn effects

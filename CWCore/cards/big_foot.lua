@@ -1,4 +1,4 @@
--- Status: Implemented
+-- Status: not implemented
 
 function _Create(props)
     local result = CardWars:Creature(props)
@@ -32,6 +32,7 @@ function _Create(props)
             local options = getOptions(playerI)
 
             -- TODO? change to target
+            -- TODO change to ChooseLandscape
             local lane = ChooseLane(playerI, options, {}, 'Choose a face-down Landscape to flip')
             TurnLandscapeFaceUp(lane[0], lane[1])
         end

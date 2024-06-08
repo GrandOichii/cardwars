@@ -118,20 +118,12 @@ public class ConsolePlayerController : IPlayerController
         return Task.FromResult(int.Parse(result));
     }
 
-    public Task<int[]> PickLandscape(GameMatch match, Player player, List<int> options, List<int> opponentOptions, string hint)
+    public Task<int> PickLane(GameMatch match, Player player, List<int> options, string hint)
     {
-        if (options.Count > 0) {
-            System.Console.Write("Your landscapes: ");
-            foreach (var option in options)
-                System.Console.Write($"{option} ");
-            System.Console.WriteLine();
-        }
-        if (opponentOptions.Count > 0) {
-            System.Console.Write("Opponent's landscapes: ");
-            foreach (var option in opponentOptions)
-                System.Console.Write($"{option} ");
-            System.Console.WriteLine();
-        }
+        System.Console.Write("Lanes: ");
+        foreach (var option in options)
+            System.Console.Write($"{option} ");
+        System.Console.WriteLine();
 
         System.Console.WriteLine($"\"{hint}\"");
         System.Console.WriteLine("Choose landscape");
@@ -139,29 +131,8 @@ public class ConsolePlayerController : IPlayerController
             ?? throw new Exception("failed to read landscape pair")
         ;
 
-        if (options.Count == 0) {
-            return Task.FromResult(
-                new int[2] {
-                    1, int.Parse(result)
-                }
-            );
-        }
-
-        if (opponentOptions.Count == 0) {
-            return Task.FromResult(
-                new int[2] {
-                    0, int.Parse(result)
-                }
-            );
-        }
-
-        var split = result.Split(" ");
-        
         return Task.FromResult(
-            new int[2] {
-                int.Parse(split[0]),
-                int.Parse(split[1]),
-            }
+            int.Parse(result)
         );
     }
 
@@ -184,36 +155,49 @@ public class ConsolePlayerController : IPlayerController
 
 public class Program {
     public static async Task Main(string[] args) {
-        var config = new MatchConfig() {
-            StartingLifeTotal = 25,
-            ActionPointsPerTurn = 12,
-            LaneCount = 4,
-            StrictMode = false,
-            CardDrawCost = 1,
-            StartHandSize = 5,
-        };
+        try {
+            var config = new MatchConfig() {
+                StartingLifeTotal = 25,
+                ActionPointsPerTurn = 12,
+                LaneCount = 4,
+                StrictMode = false,
+                CardDrawCost = 1,
+                StartHandSize = 5,
+            };
 
-        var cm = new FileCardMaster();
-        cm.Load("../CWCore/cards");
+            var cm = new FileCardMaster();
+            cm.Load("../CWCore/cards");
 
-        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/deck1.json"))
-            ?? throw new Exception("failed to read deck file")
-        ;
-        var deck2 = deck1;
+            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/deck1.json"))
+                ?? throw new Exception("failed to read deck file")
+            ;
+            var deck2 = deck1;
 
-        var controller1 = new ConsolePlayerController();
-        var controller2 = controller1;
+            var controller1 = new ConsolePlayerController();
+            var controller2 = controller1;
 
-        var match = new GameMatch(config, cm, File.ReadAllText("../CWCore/core.lua"))
-        {
-            Logger = LoggerFactory
-                .Create(builder => builder.AddConsole())
-                .CreateLogger("Program")
-        };
+            var match = new GameMatch(config, cm, File.ReadAllText("../CWCore/core.lua"))
+            {
+                Logger = LoggerFactory
+                    .Create(builder => builder.AddConsole())
+                    .CreateLogger("Program")
+            };
 
-        await match.AddPlayer("player1", deck1, controller1);
-        await match.AddPlayer("player2", deck2, controller2);
+            await match.AddPlayer("player1", deck1, controller1);
+            await match.AddPlayer("player2", deck2, controller2);
 
-        await match.Run();
+            await match.Run();
+        } catch (Exception e) {
+            PrintException(e);
+        }
+
+    }
+
+    static void PrintException(Exception e) {
+        var ex = e;
+        while (ex is not null) {
+            System.Console.WriteLine(ex.ToString());
+            ex = ex.InnerException;
+        }
     }
 }
