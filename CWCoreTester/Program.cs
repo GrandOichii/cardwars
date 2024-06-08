@@ -48,6 +48,9 @@ public class ConsolePlayerController : IPlayerController
         foreach (var lane in landscapes)
             System.Console.Write("|" + (lane.Creature is not null ? $"{lane.Creature.Original.Card.Template.Name}({lane.Creature.CanAttack}) [{lane.Creature.Attack} / {lane.Creature.Defense - lane.Creature.GetDamage()}]" : "").PadRight(30) + "|");
         System.Console.WriteLine();
+        foreach (var lane in landscapes)
+            System.Console.Write("|" + (lane.Building is not null ? $"{lane.Building.Original.Card.Template.Name}" : "").PadRight(30) + "|");
+        System.Console.WriteLine();
     }
 
     public Task<int> PickAttackLane(GameMatch match, Player player, List<int> options)
@@ -98,6 +101,16 @@ public class ConsolePlayerController : IPlayerController
             "Useless Swamp",
             "Cornfield"
         });
+    }
+
+    public Task<int> PickLaneForBuilding(GameMatch match, Player player)
+    {
+        PrintInfo(match, player);
+        Console.Write("Pick lane for building: ");
+        var result = Console.ReadLine()
+            ?? throw new Exception("failed to read lane idx for building")
+        ;
+        return Task.FromResult(int.Parse(result));
     }
 }
 

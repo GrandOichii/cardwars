@@ -7,6 +7,7 @@ namespace CWCore.Match.States;
 public class LandscapeState : IStateModifier {
     public Landscape Original { get; }
     public CreatureState? Creature { get; set; }
+    public InPlayCardState? Building { get; set; }
 
     public LandscapeState(Landscape landscape, int laneI) {
         Original = landscape;
@@ -14,13 +15,15 @@ public class LandscapeState : IStateModifier {
         if (landscape.Creature is not null) {
             Creature = new CreatureState(landscape.Creature, laneI);
         }
-        
-        // TODO add building state
+
+        if (landscape.Building is not null) {
+            Building = new InPlayCardState(landscape.Building, laneI);
+        }
     }
 
     public void Modify(MatchState state)
     {
         Creature?.Modify(state);
-        // TODO add building
+        Building?.Modify(state);
     }
 }

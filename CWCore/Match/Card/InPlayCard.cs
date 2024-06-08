@@ -6,6 +6,8 @@ using NLua;
 namespace CWCore.Match;
 
 public class InPlayCard {
+    public readonly static string ON_ENTER_PLAY_FNAME = "OnEnter";
+
     public MatchCard Card { get; }
     public bool EnteredThisTurn { get; set; }
     public bool Exhausted { get; set; }

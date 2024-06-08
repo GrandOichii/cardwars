@@ -135,6 +135,11 @@ public class Player {
         return result;
     }
 
+    public async Task<int> PickLaneForBuilding() {
+        var result = await Controller.PickLaneForBuilding(_match, this);
+        return result;
+    }
+
     public async Task<int> PickAttackLane(List<int> options) {
         var result = await Controller.PickAttackLane(_match, this, options);
         return result;
@@ -149,7 +154,22 @@ public class Player {
         }
 
         lane.Creature = creature;
-        creature.Card.ExecFunction(Creature.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI);
+        creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI);
+        // TODO add triggers
+
+        return Task.CompletedTask;
+    }
+
+    public Task PlaceBuildingInLane(MatchCard card, int laneI) {
+        var lane = Landscapes[laneI];
+        var building = new InPlayCard(card, Idx);
+
+        if (lane.Building is not null) {
+            // TODO ???
+        }
+
+        lane.Building = building;
+        building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, Idx, laneI);
         // TODO add triggers
 
         return Task.CompletedTask;

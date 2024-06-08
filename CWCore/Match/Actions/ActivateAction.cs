@@ -74,9 +74,11 @@ public class ActivateAction : IAction
 
         var pState = match.GetPlayerState(playerI);
         foreach (var lane in pState.Landscapes) {
-            // TODO check buildings
-            if (lane.Creature is not null) {
+            if (lane.Creature is not null && lane.Creature.ActivatedEffects.Count > 0) {
                 result.Add(lane.Creature);
+            }
+            if (lane.Building is not null && lane.Building.ActivatedEffects.Count > 0) {
+                result.Add(lane.Building);
             }
         }
 

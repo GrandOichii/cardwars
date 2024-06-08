@@ -165,12 +165,6 @@ function CardWars:InPlay(props)
         result.ActivatedEffects[#result.ActivatedEffects+1] = effect
     end
 
-    return result
-end
-
-function CardWars:Creature(props)
-    local result = CardWars:InPlay(props)
-
     result.OnEnterP = Core.Pipeline:New()
     result.OnEnterP:AddLayer(
         function(playerI, laneI)
@@ -183,6 +177,11 @@ function CardWars:Creature(props)
         self.OnEnterP:Exec(playerI, laneI)
     end
 
+    return result
+end
+
+function CardWars:Creature(props)
+    local result = CardWars:InPlay(props)
 
     return result
 end

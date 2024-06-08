@@ -237,7 +237,8 @@ public class GameMatch {
             foreach (var lane in player.Landscapes) {
                 if (lane.Creature is not null && lane.Creature.Original.Card.ID == id)
                     return lane.Creature;
-                // TODO check buildings
+                if (lane.Building is not null && lane.Building.Original.Card.ID == id)
+                    return lane.Building;
             }
         }
         throw new CWCoreException($"Failed to find in-play card with id {id}");

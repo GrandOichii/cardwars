@@ -38,7 +38,7 @@ public class PlayAction : IAction
         }
 
         if (card.IsCreature) {
-            var laneI = await player.PickLaneForCreature();    
+            var laneI = await player.PickLaneForCreature();
 
             if (laneI >= match.Config.LaneCount || laneI < 0) {
                 var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.LogFriendlyName} in lane {laneI}";
@@ -50,9 +50,20 @@ public class PlayAction : IAction
             return;
         }
 
-        match.ActionError($"Only spells and creatures are currently implemented ({card.LogFriendlyName} in hand of player {player.LogFriendlyName})");
+        if (card.IsBuilding) {
+            var laneI = await player.PickLaneForBuilding();
 
-        return;
+            if (laneI >= match.Config.LaneCount || laneI < 0) {
+                var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.LogFriendlyName} in lane {laneI}";
+                throw new CWCoreException(errMsg);
+            }
+
+            await player.PlaceBuildingInLane(card, laneI);
+
+            return;
+        }
+
+        throw new CWCoreException($"Unrecognized card type: {card.Template.Type}");
     }
 
     public IEnumerable<string> GetAvailable(GameMatch match, int playerI)
@@ -61,11 +72,6 @@ public class PlayAction : IAction
         foreach (var card in player.Hand) {
             if (!card.CanPlay(player)) continue; 
             var result = $"{ActionWord()} {card.ID}";
-
-            if (card.IsBuilding) {
-                // TODO
-                continue;
-            }
 
             yield return result;
         }

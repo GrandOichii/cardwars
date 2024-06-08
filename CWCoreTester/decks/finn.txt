@@ -1,13 +1,13 @@
 2 Ancient Scholar
 + 2 Cool Dog
 2 Dragon Claw
-2 Embarrassing Bard
++ 2 Embarrassing Bard
 + 2 Gnome Snot
 1 Heavenly Gazer
 2 Psionic Architect
 2 Punk Cat
 1 Schoolhouse
-2 Struzann Jinn
++ 2 Struzann Jinn
 1 Uni-Knight
 2 Woad Mobile Home
 1 Woadic Chief
