@@ -1,0 +1,39 @@
+1 optional effects
+8 card discarding
+3 until end of turn effects
+4 opponent targeting
+5 creature damage healing
+3 hero card
+2 top deck card revealing
+1 creature swapping
+1 player targeting
+1 until end of turn
+1 returning cards from discard to hand
+1 disabling flipping by opponent's sources
+1 building targeting
+1 building destruction
+1 building destruction IN COST
+1 teamwork cards
+1 putting cards from in-play to hand
+1 forcing to play cards for free
+1 until end of turn additional triggers
+1 token removal from landscapes
+1 card discard IN COST
+1 card bouncing
+1 lane change trigger
+1 detecting the amount of cards discarded during a turn
+1 removing cards from play
+1 card draw trigger
+1 card draw count
+2 "if it replaced a creature"
+3 cost manipulation
+3 checking frozen status of landscapes
+1 damage moving
+2 "if leaves play while ready"
+1 creature destruction
+1 play checks
+1 when attacks trigger
+1 "you may play additional buildings onto this Landscape"
+1 enter play trigger
+1 "you may out in underneath this card instead"
+CELESTIAL FORTRESS

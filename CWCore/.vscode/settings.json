@@ -21,6 +21,8 @@
         "ChooseLandscape",
         "PayActionPoints",
         "DealDamageToCreature",
-        "TargetCreature"
+        "TargetCreature",
+        "UntilEndOfTurn",
+        "GetCreatureOrDefault"
     ]
 }

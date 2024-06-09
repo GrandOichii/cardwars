@@ -17,7 +17,7 @@ public class GameMatch {
         new TurnStartPhase(),
         new ActionPhase(),
         new BattlePhase(),
-        // new TurnEnd()
+        new TurnEndPhase()
     };
 
     public IIDGenerator CardIDGenerator { get; set; } = new BasicIDGenerator();
@@ -41,6 +41,8 @@ public class GameMatch {
     public int CurPlayerI { get; private set; }
     public int TurnCount { get; private set; } = 0;
 
+    public List<LuaFunction> UEOTEffects { get; }
+
     public GameMatch(MatchConfig config, ICardMaster cardMaster, string setupScript) {
         _cardMaster = cardMaster;
         Config = config;
@@ -53,6 +55,7 @@ public class GameMatch {
 
         _scriptMaster = new(this);
         LastState = new();
+        UEOTEffects = new();
     }
 
     public async Task AddPlayer(string name, DeckTemplate template, IPlayerController controller) {
@@ -196,6 +199,7 @@ public class GameMatch {
     public async Task ReloadState() {
         await PushUpdates();
         LastState = new(this);
+        LastState.Modify();
     }
 
     public async Task DealDamageToCreature(Creature creature, int amount) {
@@ -241,12 +245,20 @@ public class GameMatch {
     }
 
     public CreatureState GetInPlayCreature(string id) {
+        var result = GetInPlayCreatureOrDefault(id)
+            ?? throw new CWCoreException($"Failed to find in-play creature with id {id}")
+        ;
+        return result;
+    }
+    
+    public CreatureState? GetInPlayCreatureOrDefault(string id) {
         foreach (var player in LastState.Players)
             foreach (var lane in player.Landscapes)
                 if (lane.Creature is not null && lane.Creature.Original.Card.ID == id)
                     return lane.Creature;
-        throw new CWCoreException($"Failed to find in-play creature with id {id}");
+        return null;
     }
+
 
     public InPlayCardState GetInPlayCard(string id) {
         foreach (var player in LastState.Players) {

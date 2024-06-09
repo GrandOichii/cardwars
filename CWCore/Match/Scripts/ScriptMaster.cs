@@ -74,6 +74,12 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public CreatureState? GetCreatureOrDefault(string id) {
+        var result = _match.GetInPlayCreatureOrDefault(id);
+        return result;
+    }
+
+    [LuaCommand]
     public void DealDamageToCreature(string creatureId, int amount) {
         var creature = _match.GetInPlayCreature(creatureId);
         _match.DealDamageToCreature(creature.GetOriginal(), amount)
@@ -207,5 +213,10 @@ public class ScriptMaster {
         if (player.ActionPoints < 0)
             throw new CWCoreException($"action point payement resulted in a player's action point total being equal to {player.ActionPoints}");
         // TODO? add update
+    }
+
+    [LuaCommand]
+    public void UntilEndOfTurn(LuaFunction modifier) {
+        _match.UEOTEffects.Add(modifier);
     }
 }

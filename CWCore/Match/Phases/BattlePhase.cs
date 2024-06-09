@@ -43,8 +43,7 @@ public class BattlePhase : IPhase
                 continue;
             }
 
-            // TODO bad?
-            var attacker = (Creature)attackerState.Original;
+            var attacker = attackerState.GetOriginal();
             await match.ExhaustToAttack(attacker);
             
             // damage
