@@ -14,7 +14,7 @@
 + 2 Punk Cat
 + 2 Teleport
 + 2 Woad Talisman
-2 Psionic Architect - optional effects, creature selection
++ 2 Psionic Architect
 1 Uni-Knight - creature targeting, until end of turn effects
 
 1 Woad Blood - until end of turn effects, creature movement detection
