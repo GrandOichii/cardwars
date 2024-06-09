@@ -1,4 +1,3 @@
-+ 1 Archer Dan
 + 1 Corn Dog
 + 1 Corn Lord
 + 2 Corn Ronin
@@ -19,6 +18,7 @@
 + 2 Corn Scepter
 1 Cross Pollination - "entil end of turn" effects
 
+1 Archer Dan - 
 2 Patchy the Pumpkin - creature targeting, requires a lot of testing
 1 Field Reaper - creature targeting, additional cost to play, creature movement, creature stealing
 2 Legion of Earlings - creature targeting, creature bouncing

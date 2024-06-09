@@ -192,4 +192,10 @@ public class Player {
         // TODO validate
         return result;
     }
+
+    public async Task<string> Pick(List<string> options, string hint) {
+        var result = await Controller.PickOption(_match, this, options, hint);
+        // TODO validate
+        return result;
+    }
 }

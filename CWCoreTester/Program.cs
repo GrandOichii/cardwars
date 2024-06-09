@@ -190,12 +190,28 @@ public class ConsolePlayerController : IPlayerController
         System.Console.WriteLine();
 
         System.Console.WriteLine($"\"{hint}\"");
-        System.Console.WriteLine("Choose in-play cerature");
+        System.Console.WriteLine("Choose in-play creature");
         var result = Console.ReadLine()
             ?? throw new Exception("failed to read creature id")
         ;
 
         return Task.FromResult(result);
+    }
+
+    public Task<string> PickOption(GameMatch match, Player player, List<string> options, string hint)
+    {
+        System.Console.WriteLine("Options: ");
+        for (int i = 0; i < options.Count; i++)
+            System.Console.WriteLine($"{i}: {options[i]}");
+
+        System.Console.WriteLine($"\"{hint}\"");
+        var result = Console.ReadLine()
+            ?? throw new Exception("failed to read option")
+        ;
+
+        return Task.FromResult(
+            options[int.Parse(result)]
+        );
     }
 }
 

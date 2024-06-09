@@ -24,6 +24,8 @@
         "TargetCreature",
         "UntilEndOfTurn",
         "GetCreatureOrDefault",
-        "GetUniqueLandscapeNames"
+        "GetUniqueLandscapeNames",
+        "YesNo",
+        "ReadyCard"
     ]
 }

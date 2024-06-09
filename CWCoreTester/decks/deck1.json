@@ -4,7 +4,7 @@
         "Archer Dan": 0,
         "Corn Lord": 0,
         "Corn Ronin": 0,
-        "Husker Knight": 10,
+        "Husker Knight": 0,
         "Wall of Ears": 0,
         "Drooling Dude": 0,
         "Evil Eye": 0,
@@ -21,7 +21,7 @@
         "Corn Dog": 0,
         "Cerebral Bloodstorm": 0,
         "Cornataur": 0,
-        "Fummy": 0,
+        "Fummy": 10,
         "Embarrassing Bard": 0,
         "Struzann Jinn": 0,
         "Celestial Castle": 0,
@@ -47,7 +47,8 @@
         "Wall of Sand": 0,
         "Woad Talisman": 0,
         "Cross Pollination": 0,
-        "Magic Ring Ding": 10,
+        "Magic Ring Ding": 0,
+        "Psionic Architect": 10,
         "Field of Nightmares": 0
     },
     "Landscapes": {

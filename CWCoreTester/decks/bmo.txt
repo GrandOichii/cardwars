@@ -5,7 +5,7 @@
 + 1 Blonde MerWitch
 + 2 Blood Fortress
 + 1 Celestial Castle
-2 Magic Ring Ding - until end of turn effects
++ 2 Magic Ring Ding
 
 1 Spirit Tower - "at the end of turn" effects
 1 Abraca Amadeus - card discarding

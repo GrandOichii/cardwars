@@ -233,4 +233,22 @@ public class ScriptMaster {
 
         return LuaUtility.CreateTable(_match.LState, result.ToList());
     }
+
+    [LuaCommand]
+    public bool YesNo(int playerI, string hint) {
+        // TODO
+        var player = _match.GetPlayer(playerI);
+        var result = player.Pick(new List<string>() {
+            "Yes", "No"
+        }, hint)
+            .GetAwaiter().GetResult();
+        return result == "Yes";
+    }
+
+    [LuaCommand]
+    public void ReadyCard(string id) {
+        var card = _match.GetInPlayCard(id);
+        _match.ReadyCard(card.Original)
+            .Wait();
+    }
 }
