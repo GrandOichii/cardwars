@@ -10,9 +10,9 @@
 + 2 Sandhorn Devil
 + 2 The Mariachi
 + 2 Wall of Sand
++ 1 Ms. Mummy
 2 Sandsnake
 
-1 Ms. Mummy - optional effect, returning creatures to hand
 1 Lost Golem - cost modification
 2 Unempty Coffin - other card action cost modification
 2 ZaZo's Magic Seeds - entered play this turn check, until end of turn effects
