@@ -5,5 +5,5 @@
     "Cost": 1,
     "Text": "Discard a card >>> Deal 1 Damage to another Creature in this Lane. (Use any number of times during each of your turns.)",
     "Attack": 1,
-    "Defence": 6
+    "Defense": 6
 }

@@ -16,10 +16,10 @@
 + 1 Phyllis
 + 2 Teleport
 + 2 Corn Scepter
-1 Cross Pollination - "entil end of turn" effects
++ 1 Cross Pollination
 
-1 Archer Dan - 
 2 Patchy the Pumpkin - creature targeting, requires a lot of testing
+1 Archer Dan - building targeting, building destruction
 1 Field Reaper - creature targeting, additional cost to play, creature movement, creature stealing
 2 Legion of Earlings - creature targeting, creature bouncing
 1 Silo of Truth - hand card stealing, playing stolen cards, modifying card cost

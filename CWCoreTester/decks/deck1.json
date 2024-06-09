@@ -37,7 +37,7 @@
         "The Pig": 0,
         "Woad Mobile Home": 0,
         "Woadic Marauder": 0,
-        "Dragon Claw": 10,
+        "Dragon Claw": 0,
         "Punk Cat": 0,
         "Uni-Knight": 0,
         "Teleport": 0,
@@ -49,7 +49,8 @@
         "Cross Pollination": 0,
         "Magic Ring Ding": 0,
         "Psionic Architect": 0,
-        "Woad Blood": 10,
+        "Woad Blood": 0,
+        "Blue Merlock": 10,
         "Field of Nightmares": 0
     },
     "Landscapes": {

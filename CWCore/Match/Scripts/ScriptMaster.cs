@@ -251,4 +251,30 @@ public class ScriptMaster {
         _match.ReadyCard(card.Original)
             .Wait();
     }
+
+    [LuaCommand]
+    public void UpdateState() {
+        _match.ReloadState()
+            .Wait();
+    }
+
+    [LuaCommand]
+    public int ChooseCardInHand(int playerI, LuaTable optionsTable, string hint) {
+        List<int> options = new();
+        foreach (var v in optionsTable.Values)
+            options.Add(Convert.ToInt32(v));
+
+        var player = _match.GetPlayer(playerI);
+        var result = player.PickCardInHand(options, hint)
+            .GetAwaiter().GetResult();
+
+        return result;
+    }
+
+    [LuaCommand]
+    public void DiscardFromHand(int playerI, int cardI) {
+        var player = _match.GetPlayer(playerI);
+        player.DiscardCardFromHand(cardI)
+            .Wait();
+    }
 }

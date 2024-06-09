@@ -5,5 +5,5 @@
     "Cost": 1,
     "Text": "FLOOP >>> Each opponent discards a card with cost 0, or reveals a hand with none.",
     "Attack": 1,
-    "Defence": 6
+    "Defense": 6
 }

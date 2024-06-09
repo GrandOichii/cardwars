@@ -190,7 +190,7 @@ public class ConsolePlayerController : IPlayerController
         System.Console.WriteLine();
 
         System.Console.WriteLine($"\"{hint}\"");
-        System.Console.WriteLine("Choose in-play creature");
+        System.Console.WriteLine("(Choose in-play creature)");
         var result = Console.ReadLine()
             ?? throw new Exception("failed to read creature id")
         ;
@@ -211,6 +211,29 @@ public class ConsolePlayerController : IPlayerController
 
         return Task.FromResult(
             options[int.Parse(result)]
+        );
+    }
+
+    public Task<int> PickCardInHand(GameMatch match, Player player, List<int> options, string hint)
+    {
+        System.Console.WriteLine("Hand:");
+        foreach (var card in player.Hand)
+            System.Console.WriteLine($"- {card.LogFriendlyName} <{card.Template.Cost}>");
+            
+        System.Console.Write("Options: ");
+        foreach (var option in options)
+            System.Console.Write($"{option} ");
+        System.Console.WriteLine();
+
+        System.Console.WriteLine($"\"{hint}\"");
+        System.Console.WriteLine("(Choose card in hand)");
+
+        var result = Console.ReadLine()
+            ?? throw new Exception("failed to read option")
+        ;
+
+        return Task.FromResult(
+            int.Parse(result)
         );
     }
 }

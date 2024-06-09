@@ -1,4 +1,5 @@
 using CWCore.Decks;
+using CWCore.Match.States;
 using CWCore.Utility;
 
 namespace CWCore.Match.Players;
@@ -78,10 +79,10 @@ public class Player {
         // TODO? add update
     }
 
-    public void PayToPlay(MatchCard card) {
+    public void PayToPlay(CardState card) {
         // TODO pay additional costs
         
-        PayActionPoints(card.Template.Cost);
+        PayActionPoints(card.Original.Template.Cost);
     }
 
     public void RemoveFromHand(MatchCard card) {
@@ -197,5 +198,20 @@ public class Player {
         var result = await Controller.PickOption(_match, this, options, hint);
         // TODO validate
         return result;
+    }
+
+    public async Task<int> PickCardInHand(List<int> options, string hint) {
+        var result = await Controller.PickCardInHand(_match, this, options, hint);
+        // TODO validate
+        return result;
+    }
+
+    public async Task DiscardCardFromHand(int cardI) {
+        var card = Hand[cardI];
+        Hand.Remove(card);
+        AddToDiscard(card);
+
+        // TODO add to "cards discarded this turn" counter
+        // TODO add trigger
     }
 }

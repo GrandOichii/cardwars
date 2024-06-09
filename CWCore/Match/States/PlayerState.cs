@@ -5,8 +5,8 @@ namespace CWCore.Match.States;
 public class PlayerState : IStateModifier {
     public Player Original { get; }
     public List<LandscapeState> Landscapes { get; set; } = new();
-    public List<MatchCard> DiscardPile { get; set; } = new();
-    public List<MatchCard> Hand { get; set; } = new();
+    public List<CardState> DiscardPile { get; set; } = new();
+    public List<CardState> Hand { get; set; } = new();
     public PlayerState(Player player) {
         Original = player;
         
@@ -17,12 +17,12 @@ public class PlayerState : IStateModifier {
 
         // hand
         foreach (var card in player.Hand) {
-            Hand.Add(card);
+            Hand.Add(new(card));
         }
 
         // discard
         foreach (var card in player.DiscardPile) {
-            DiscardPile.Add(card);
+            DiscardPile.Add(new(card));
         }
     }
     

@@ -13,7 +13,7 @@ Some cards also have a Floop ability. Floop abilities are free to activate. If a
 Some cards have abilities that require paying action points.
 
 - Creatures -
-Creatures have Attack and Defence. When a creature's defence lowers to 0 or less, it dies. Damage is carried through turns. If not flooped, they have to attack during the <attack phase>.
+Creatures have Attack and Defense. When a creature's defense lowers to 0 or less, it dies. Damage is carried through turns. If not flooped, they have to attack during the <attack phase>.
 
 - Buildings -
 Buildings have activated abilities that require a certain cost.

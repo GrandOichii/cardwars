@@ -32,11 +32,6 @@ public class MatchCard {
     public bool IsCreature => Template.Type == "Creature";
     public bool IsBuilding => Template.Type == "Building";
 
-    public bool CanPlay(PlayerState player) {
-        // TODO add state-based effects
-        return player.Original.ActionPoints >= Template.Cost;
-    }
-
     public object[] ExecFunction(string fName, params object[] args) {
         var f = LuaUtility.TableGet<LuaFunction>(Data, fName);
         return f.Call(args);

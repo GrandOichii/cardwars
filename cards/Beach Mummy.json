@@ -5,5 +5,5 @@
     "Cost": 1,
     "Text": "FLOOP >>> Return a Creature in an adjacent Lane to its owner's hand.",
     "Attack": 1,
-    "Defence": 6
+    "Defense": 6
 }

@@ -26,6 +26,9 @@
         "GetCreatureOrDefault",
         "GetUniqueLandscapeNames",
         "YesNo",
-        "ReadyCard"
+        "ReadyCard",
+        "UpdateState",
+        "ChooseCardInHand",
+        "DiscardFromHand"
     ]
 }

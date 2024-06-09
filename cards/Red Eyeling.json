@@ -5,5 +5,5 @@
     "Cost": 1,
     "Text": "FLOOP >>> Return a card with cost 0 from your discard pile to your hand.",
     "Attack": 2,
-    "Defence": 6
+    "Defense": 6
 }

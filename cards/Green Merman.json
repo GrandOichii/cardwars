@@ -5,5 +5,5 @@
     "Cost": 2,
     "Text": "FLOOP >>> Put the top card of your deck into your discard pile, Deal Damage to each opposing Creature equal to the discarded card's Action Cost.",
     "Attack": 0,
-    "Defence": 6
+    "Defense": 6
 }

@@ -5,5 +5,5 @@
     "Cost": 1,
     "Text": "Pay 1 Action >>> Deal 1 Damage to target Creature in this Lane for each different Landscape type you control.",
     "Attack": 2,
-    "Defence": 7
+    "Defense": 7
 }

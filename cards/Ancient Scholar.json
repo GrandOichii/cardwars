@@ -5,5 +5,5 @@
     "Cost": 1,
     "Text": "FLOOP >>> Return a random Rainbow card from your Discard Pile to your Hand. If you Control a Building in this Lane, gain 1 Action.",
     "Attack": 1,
-    "Defence": 7
+    "Defense": 7
 }

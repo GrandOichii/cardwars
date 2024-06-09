@@ -5,5 +5,5 @@
     "Cost": 1,
     "Text": "Floop >>> Move target Frozen token from one Landscape to a new Landscape.",
     "Attack": 2,
-    "Defence": 6
+    "Defense": 6
 }

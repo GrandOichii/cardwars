@@ -5,5 +5,5 @@
     "Cost": 2,
     "Text": "Each Creature that changed Lanes this turn has +3 ATK this turn. (Opposing Creatures do not benefit from this.)",
     "Attack": 3,
-    "Defence": 7
+    "Defense": 7
 }
