@@ -102,7 +102,7 @@ public class ConsolePlayerController : IPlayerController
     {
         return Task.FromResult(new List<string> {
             "Cornfield",
-            "Cornfield",
+            "Blue Plains",
             "Cornfield",
             "Cornfield"
         });

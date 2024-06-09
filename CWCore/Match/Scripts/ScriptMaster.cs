@@ -219,4 +219,18 @@ public class ScriptMaster {
     public void UntilEndOfTurn(LuaFunction modifier) {
         _match.UEOTEffects.Add(modifier);
     }
+
+    [LuaCommand]
+    public LuaTable GetUniqueLandscapeNames(int playerI) {
+        var result = new HashSet<string>();
+
+        var player = _match.GetPlayerState(playerI);
+        foreach (var landscape in player.Landscapes) {
+            if (landscape.Original.FaceDown) continue;
+
+            result.Add(landscape.Original.Name);
+        }
+
+        return LuaUtility.CreateTable(_match.LState, result.ToList());
+    }
 }

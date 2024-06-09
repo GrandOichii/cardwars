@@ -4,7 +4,7 @@
         "Archer Dan": 0,
         "Corn Lord": 0,
         "Corn Ronin": 0,
-        "Husker Knight": 0,
+        "Husker Knight": 10,
         "Wall of Ears": 0,
         "Drooling Dude": 0,
         "Evil Eye": 0,
@@ -36,7 +36,7 @@
         "Big Foot": 0,
         "The Pig": 0,
         "Woad Mobile Home": 0,
-        "Woadic Marauder": 10,
+        "Woadic Marauder": 0,
         "Dragon Claw": 0,
         "Punk Cat": 0,
         "Uni-Knight": 0,
@@ -45,7 +45,8 @@
         "Sandhorn Devil": 0,
         "The Mariachi": 0,
         "Wall of Sand": 0,
-        "Woad Talisman": 10,
+        "Woad Talisman": 0,
+        "Cross Pollination": 10,
         "Field of Nightmares": 0
     },
     "Landscapes": {

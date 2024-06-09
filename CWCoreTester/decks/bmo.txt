@@ -5,9 +5,10 @@
 + 1 Blonde MerWitch
 + 2 Blood Fortress
 + 1 Celestial Castle
-1 Abraca Amadeus - card discarding
 2 Magic Ring Ding - until end of turn effects
+
 1 Spirit Tower - "at the end of turn" effects
+1 Abraca Amadeus - card discarding
 2 Green Mermaid - self sacrifice in cost
 1 Dr. Death - creature destruction in cost, targeted creature destruction
 1 Green Merman - milling and knowing the cost of the milled card

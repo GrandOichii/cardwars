@@ -23,6 +23,7 @@
         "DealDamageToCreature",
         "TargetCreature",
         "UntilEndOfTurn",
-        "GetCreatureOrDefault"
+        "GetCreatureOrDefault",
+        "GetUniqueLandscapeNames"
     ]
 }

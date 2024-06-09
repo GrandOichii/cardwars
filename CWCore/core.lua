@@ -86,7 +86,6 @@ CardWars.Landscapes = {
     Rainbow = 'rainbow'
 }
 
-
 -- Card Types
 
 function CardWars:Card(props)
