@@ -16,8 +16,8 @@
 + 2 Woad Talisman
 + 2 Psionic Architect
 + 1 Uni-Knight
++ 1 Woad Blood
 
-1 Woad Blood - until end of turn effects, creature movement detection
 1 Woadic Chief - detecting amount of spells played
 2 Ancient Scholar - returning cards from discard
 1 Heavenly Gazer - selecting cards in discard, placing cards from discard to top of deck

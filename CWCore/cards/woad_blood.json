@@ -1,0 +1,7 @@
+{
+    "Name": "Woad Blood",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Each Creature that changed Lanes this turn has +2 ATK this turn."
+}
