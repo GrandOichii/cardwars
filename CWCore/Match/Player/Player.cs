@@ -1,4 +1,5 @@
 using CWCore.Decks;
+using CWCore.Exceptions;
 using CWCore.Match.States;
 using CWCore.Utility;
 
@@ -221,5 +222,21 @@ public class Player {
 
         // TODO add to "cards discarded this turn" counter
         // TODO add trigger
+    }
+
+    public async Task ReturnCreatureToHand(int laneI) {
+        var lane = Landscapes[laneI];
+        var creature = lane.Creature 
+            ?? throw new CWCoreException($"tried to return creature from lane {laneI} to hand, where there is no creature")
+        ;
+
+        lane.Creature = null;
+        Hand.Add(creature.Card);
+        
+        // TODO add triggers
+    }
+
+    public async Task ReturnBuildingToHand(int laneI) {
+        // TODO
     }
 }

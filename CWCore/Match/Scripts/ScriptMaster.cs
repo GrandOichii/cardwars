@@ -74,6 +74,12 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public CreatureState GetCreature(string id) {
+        var result = _match.GetInPlayCreature(id);
+        return result;
+    }
+
+    [LuaCommand]
     public CreatureState? GetCreatureOrDefault(string id) {
         var result = _match.GetInPlayCreatureOrDefault(id);
         return result;
@@ -276,5 +282,20 @@ public class ScriptMaster {
         var player = _match.GetPlayer(playerI);
         player.DiscardCardFromHand(cardI)
             .Wait();
+    }
+
+    [LuaCommand]
+    public void ReturnCreatureToOwnersHand(string id) {
+        foreach (var player in _match.LastState.Players) {
+            foreach (var landscape in player.Landscapes) {
+                var creature = landscape.Creature;
+                if (creature is null || creature.Original.Card.ID != id) continue;
+
+                player.Original.ReturnCreatureToHand(landscape.Original.Idx)
+                    .Wait();
+                return;
+            }
+        }
+        throw new CWCoreException($"failed to find creature with id {id} to return to hand");
     }
 }

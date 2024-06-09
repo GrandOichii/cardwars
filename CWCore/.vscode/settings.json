@@ -29,6 +29,8 @@
         "ReadyCard",
         "UpdateState",
         "ChooseCardInHand",
-        "DiscardFromHand"
+        "DiscardFromHand",
+        "GetCreature",
+        "ReturnCreatureToOwnersHand"
     ]
 }

@@ -184,6 +184,7 @@ public class ConsolePlayerController : IPlayerController
 
     public Task<string> PickCreature(GameMatch match, Player player, List<string> options, string hint)
     {
+        
         System.Console.Write("Options: ");
         foreach (var option in options)
             System.Console.Write($"{option} ");

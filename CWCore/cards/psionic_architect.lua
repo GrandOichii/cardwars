@@ -18,12 +18,7 @@ function _Create(props)
         end
 
         local creatureId = ChooseCreature(playerI, ids, 'Choose a creature to ready')
-        local creature = GetCreatureOrDefault(creatureId)
-
-        if creature == nil then
-            -- * shouldn't ever happen
-            error('GetCreatureOrDefault returned nil, when it shouldn\'t')
-        end
+        local creature = GetCreature(creatureId)
 
         local accept = YesNo(playerI, 'Ready '..creature.Original.Card.Template.Name..'?')
         if not accept then

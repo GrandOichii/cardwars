@@ -1,6 +1,6 @@
 {
     "Cards": {
-        "Gnome Snot": 10,
+        "Gnome Snot": 0,
         "Archer Dan": 0,
         "Corn Lord": 0,
         "Corn Ronin": 0,
@@ -52,7 +52,8 @@
         "Woad Blood": 0,
         "Blue Merlock": 0,
         "Field Reaper": 0,
-        "Woadic Chief": 10,
+        "Woadic Chief": 0,
+        "Legion of Earlings": 10,
         "Field of Nightmares": 0
     },
     "Landscapes": {
