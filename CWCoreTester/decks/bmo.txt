@@ -8,7 +8,7 @@
 + 2 Magic Ring Ding
 
 2 Wandering Bald Man - milling
-1 Abraca Amadeus - card discarding
+1 Abraca Amadeus - card discarding, opponent targeting
 1 Spirit Tower - "at the end of turn" effects
 2 Green Mermaid - self sacrifice in cost
 1 Dr. Death - creature destruction in cost, targeted creature destruction

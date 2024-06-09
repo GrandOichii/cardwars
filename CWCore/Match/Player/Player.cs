@@ -20,6 +20,8 @@ public class Player {
     public List<MatchCard> Hand { get; }
     public List<MatchCard> DiscardPile { get; set; }
 
+    public List<MatchCard> CardsPlayedThisTurn { get; } = new();
+
     public Player(GameMatch match, string name, int idx, Dictionary<string, int> landscapeIndex, LinkedList<MatchCard> deck, IPlayerController controller) {
         _match = match;
         Name = name;
@@ -30,6 +32,7 @@ public class Player {
 
         Hand = new();
         DiscardPile = new();
+        CardsPlayedThisTurn = new();
     }
 
     public string LogFriendlyName => $"{Name} [{Idx}]";
@@ -127,6 +130,8 @@ public class Player {
     }
 
     public Task PlaySpellEffect(MatchCard card) {
+        CardsPlayedThisTurn.Add(card);
+
         card.ExecFunction(MatchCard.SPELL_EFFECT_FNAME, card.Data, Idx);
         return Task.CompletedTask;
     }
@@ -156,6 +161,8 @@ public class Player {
 
         lane.Creature = creature;
 
+        CardsPlayedThisTurn.Add(card);
+
         await _match.ReloadState();
         creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI);
         // TODO add triggers
@@ -171,6 +178,7 @@ public class Player {
 
         lane.Building = building;
 
+        CardsPlayedThisTurn.Add(card);
         await _match.ReloadState();
         building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, Idx, laneI);
         // TODO add triggers

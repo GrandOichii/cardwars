@@ -8,6 +8,9 @@ public class TurnEndPhase : IPhase {
         // TODO other stuff
 
         match.UEOTEffects.Clear();
+        foreach (var player in match.Players) {
+            player.CardsPlayedThisTurn.Clear();
+        }
 
         await match.ReloadState();
     }
