@@ -1,0 +1,7 @@
+{
+    "Name": "Slushie Salvo",
+    "Landscape": "IcyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Freeze target Landscape. You may move any number of Frozen tokens to a new Landscape (1 token per Landscapes)."
+}

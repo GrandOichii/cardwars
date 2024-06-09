@@ -1,0 +1,7 @@
+{
+    "Name": "Portal of Unsummoning",
+    "Landscape": "SandyLands",
+    "Type": "Spell",
+    "Cost": 2,
+    "Text": "Return target Creature to its owner's hand."
+}

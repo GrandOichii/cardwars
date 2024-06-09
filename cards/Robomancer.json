@@ -1,0 +1,9 @@
+{
+    "Name": "Robomancer",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "+1 ATK for each Creature that changed Lanes during your turn.",
+    "Attack": 2,
+    "Defence": 7
+}

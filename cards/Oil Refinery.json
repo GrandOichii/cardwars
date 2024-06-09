@@ -1,0 +1,7 @@
+{
+    "Name": "Oil Refinery",
+    "Landscape": "Blue Plains",
+    "Type": "Building",
+    "Cost": 2,
+    "Text": "Your Creature on this Landscape has +2 DEF for each Oil Refinery you control."
+}

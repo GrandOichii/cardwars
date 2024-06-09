@@ -1,0 +1,7 @@
+{
+    "Name": "Portal to Nowhere",
+    "Landscape": "SandyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Move 1 of your opponent's Creatures to an adjacent empty Lane (on his side)."
+}

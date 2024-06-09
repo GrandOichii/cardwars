@@ -1,0 +1,9 @@
+{
+    "Name": "Life Beater Gnome",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Deal 1 Damage to each opposing Creature that is on a SandyLands Landscape.",
+    "Attack": 1,
+    "Defence": 6
+}

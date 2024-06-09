@@ -1,0 +1,7 @@
+{
+    "Name": "Snow Business",
+    "Landscape": "IcyLands",
+    "Type": "Building",
+    "Cost": 2,
+    "Text": "Pay 1 Action >>> Freeze target Landscape in this Lane."
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Matchy Matchy",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Discard the top 2 cards of your deck. If they have the same cost, deal Damage equal to their combined cost to target opponent. After playing this, you may put it into your Teammate's hand."
+}

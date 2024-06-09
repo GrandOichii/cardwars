@@ -1,0 +1,9 @@
+{
+    "Name": "The Cooler",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "When The Cooler leaves play, Freeze its Landscape.",
+    "Attack": 4,
+    "Defence": 7
+}

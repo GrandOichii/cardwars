@@ -1,0 +1,7 @@
+{
+    "Name": "Spell Warp",
+    "Landscape": "Blue Plains",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Swap the positions of 2 Creatures you control. (They change Lanes simultaneously.)"
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "Skeletal Hand",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "FLOOP >>> Discard the top 3 cards of your deck. For each Spell discarded this way, target player discards a card.",
+    "Attack": 3,
+    "Defence": 6
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Ice Base",
+    "Landscape": "IcyLands",
+    "Type": "Building",
+    "Cost": 2,
+    "Text": "When Ice Base enters play, Freeze both Landscapes in this Lane. You may play Creatures onto this Landscape even while Frozen."
+}

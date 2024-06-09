@@ -1,0 +1,9 @@
+{
+    "Name": "Fisher Fish",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "If Fisher Fish enters play onto a Blue Plains Landscape, deal 2 Damage to each opposing player.",
+    "Attack": 2,
+    "Defence": 6
+}

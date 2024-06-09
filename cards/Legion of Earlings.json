@@ -1,0 +1,9 @@
+{
+    "Name": "Legion of Earlings",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "When Legion of Earlings enters play, you may return target Creature in this Lane to its owner's hand.",
+    "Attack": 2,
+    "Defence": 8
+}

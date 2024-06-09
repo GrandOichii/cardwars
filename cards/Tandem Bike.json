@@ -1,0 +1,7 @@
+{
+    "Name": "Tandem Bike",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Choose a Creature you control and put it into its owner's hand. Then choose another player. That player chooses a creature they control and puts it into its owner's hand."
+}

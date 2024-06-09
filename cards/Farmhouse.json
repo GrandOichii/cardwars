@@ -1,0 +1,7 @@
+{
+    "Name": "Farmhouse",
+    "Landscape": "Cornfield",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Farmhouse counts as an additional Cornfield Landscape you control."
+}

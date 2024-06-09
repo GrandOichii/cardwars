@@ -1,0 +1,9 @@
+{
+    "Name": "IrriGator",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "While IrriGator is on an Icylands Landscape, it has +2 ATK.",
+    "Attack": 1,
+    "Defence": 5
+}

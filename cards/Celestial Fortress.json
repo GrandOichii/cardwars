@@ -1,0 +1,7 @@
+{
+    "Name": "Celestial Fortress",
+    "Landscape": "Rainbow",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "The opposing Creature in this Lane has -2 DEF."
+}

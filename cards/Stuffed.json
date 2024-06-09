@@ -1,0 +1,7 @@
+{
+    "Name": "Stuffed",
+    "Landscape": "NiceLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Choose a Creature you control and deal Damage to it equal to its ATK, and then double its ATK this turn."
+}

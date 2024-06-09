@@ -1,0 +1,9 @@
+{
+    "Name": "Fiddling Ferret",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Draw a card, and then discard a card. If you discard a Rainbow card this way, gain 1 Action.",
+    "Attack": 1,
+    "Defence": 6
+}

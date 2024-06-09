@@ -1,0 +1,9 @@
+{
+    "Name": "Patched Puppy",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Deal 3 Damage to Patched Puppy >>> Patched Puppy has +2 ATK this turn.",
+    "Attack": 3,
+    "Defence": 8
+}

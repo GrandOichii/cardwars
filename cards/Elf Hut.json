@@ -1,0 +1,7 @@
+{
+    "Name": "Elf Hut",
+    "Landscape": "Blue Plains",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Pay 1 Action >>> Draw a card for each Creature in this Lane."
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Bayou Fountain",
+    "Landscape": "Useless Swamp",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Discard a card >>> Your Creature on this Landscape has +1 ATK this turn. (Use any number of times during each of your turns.)"
+}

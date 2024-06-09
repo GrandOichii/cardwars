@@ -1,0 +1,7 @@
+{
+    "Name": "Sinkhole",
+    "Landscape": "Cornfield",
+    "Type": "Building",
+    "Cost": 2,
+    "Text": "Discard a card, FLOOP >>> Flip target Landscape in this Lane face down until the start of your next turn."
+}

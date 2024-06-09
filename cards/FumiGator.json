@@ -1,0 +1,9 @@
+{
+    "Name": "FumiGator",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Pay 1 Action, FLOOP >>> Deal 1 Damage to each opposing Creature in play.",
+    "Attack": 1,
+    "Defence": 6
+}

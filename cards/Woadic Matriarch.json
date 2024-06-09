@@ -1,0 +1,9 @@
+{
+    "Name": "Woadic Matriarch",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Woadic Matriarch has +1 ATK for each Rainbow Creature you control.",
+    "Attack": 1,
+    "Defence": 7
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Witch Way",
+    "Landscape": "Cornfield",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Each of your Creature that is on a Useless Swamp Landscape has +2 ATK this turn."
+}

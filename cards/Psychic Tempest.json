@@ -1,0 +1,7 @@
+{
+    "Name": "Psychic Tempest",
+    "Landscape": "SandyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Return all Creatures in play you own to your hand. (This includes stolen Creatures.)"
+}

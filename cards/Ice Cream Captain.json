@@ -1,0 +1,9 @@
+{
+    "Name": "Ice Cream Captain",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 4,
+    "Text": "Ice Cream Captain costs 1 less to play for each player that has a Landscape with a Frozen token on it.",
+    "Attack": 4,
+    "Defence": 8
+}

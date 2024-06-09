@@ -1,0 +1,9 @@
+{
+    "Name": "Ghost",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Text": "Ghost has +2 ATK while defending against a Creature that is on a Useless Swamp Landscape.",
+    "Attack": 1,
+    "Defence": 4
+}

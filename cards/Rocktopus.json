@@ -1,0 +1,9 @@
+{
+    "Name": "Rocktopus",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Rocktopus has +1 ATK while attacking a Creature that is on a SandyLands Landscape.",
+    "Attack": 3,
+    "Defence": 6
+}

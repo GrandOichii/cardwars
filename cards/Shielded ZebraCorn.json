@@ -1,0 +1,9 @@
+{
+    "Name": "Shielded ZebraCorn",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When Shielded ZebraCorn attacks, you may heal 1 Damage from an adjacent Creature.",
+    "Attack": 2,
+    "Defence": 6
+}

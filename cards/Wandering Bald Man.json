@@ -1,0 +1,9 @@
+{
+    "Name": "Wandering Bald Man",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Text": "At the start of your turn, put the top card of your deck into your discard pile.",
+    "Attack": 0,
+    "Defence": 10
+}

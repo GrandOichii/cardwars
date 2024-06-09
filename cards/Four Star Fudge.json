@@ -1,0 +1,9 @@
+{
+    "Name": "Four Star Fudge",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Each time a Landscape becomes Frozen, draw a card.",
+    "Attack": 2,
+    "Defence": 9
+}

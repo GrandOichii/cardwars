@@ -1,0 +1,7 @@
+{
+    "Name": "Sundae School",
+    "Landscape": "Rainbow",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "While you have an even amount of Hit Points, your Creature on this Landscape has +2 ATK."
+}

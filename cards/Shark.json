@@ -1,0 +1,9 @@
+{
+    "Name": "Shark",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "When a SandyLands Creature enters play during your turn (including Shark), it has +1 ATK this turn.",
+    "Attack": 2,
+    "Defence": 10
+}

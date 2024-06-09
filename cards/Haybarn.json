@@ -1,0 +1,7 @@
+{
+    "Name": "Haybarn",
+    "Landscape": "Cornfield",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Pay 1 Action, FLOOP >>> If this Landscape is empty, play a \\\"Feedman\\\" from your discard pile onto this Landscape for free. If Haybarn leaves play, destroy the Feedman on its Landscape."
+}

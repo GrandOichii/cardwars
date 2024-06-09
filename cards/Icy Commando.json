@@ -1,0 +1,9 @@
+{
+    "Name": "Icy Commando",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Icy Commando has +1 ATK for each Landscape with a Frozen token on it.",
+    "Attack": 1,
+    "Defence": 7
+}

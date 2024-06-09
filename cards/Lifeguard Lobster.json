@@ -1,0 +1,9 @@
+{
+    "Name": "Lifeguard Lobster",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Each time another creature enters play during your turn, you must heal 1 Damage from another Creature.",
+    "Attack": 2,
+    "Defence": 9
+}

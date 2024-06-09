@@ -1,0 +1,7 @@
+{
+    "Name": "Husker Amulet",
+    "Landscape": "Cornfield",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Each of your Creature has +2 ATK this turn while attacking a Creature that is on a NiceLands Landscape."
+}

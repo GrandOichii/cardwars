@@ -1,0 +1,7 @@
+{
+    "Name": "Cardboard Mansion",
+    "Landscape": "Useless Swamp",
+    "Type": "Building",
+    "Cost": 5,
+    "Text": "Cardboard Mansion costs 1 less to play for every 5 cards in your Discard Pile. FLOOP >>> Gain 1 Action."
+}

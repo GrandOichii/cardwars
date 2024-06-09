@@ -1,0 +1,7 @@
+{
+    "Name": "Snow Bank",
+    "Landscape": "IcyLands",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "FLOOP, Remove a Frozen token from a Landscape in this Lane >>> Deal 3 Damage to target opponent."
+}

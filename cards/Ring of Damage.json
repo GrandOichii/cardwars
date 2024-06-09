@@ -1,0 +1,7 @@
+{
+    "Name": "Ring of Damage",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 2,
+    "Text": "Each of your Creatures has +2 ATK this turn."
+}

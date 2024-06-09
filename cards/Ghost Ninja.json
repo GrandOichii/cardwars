@@ -1,0 +1,9 @@
+{
+    "Name": "Ghost Ninja",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When Ghost Ninja deals Damage to an opposing player, that opponent can't play Spells during his next turn.",
+    "Attack": 2,
+    "Defence": 7
+}

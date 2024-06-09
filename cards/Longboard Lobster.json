@@ -1,0 +1,9 @@
+{
+    "Name": "Longboard Lobster",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "+1 ATK for each Useless Swamp Landscapes in play.",
+    "Attack": 1,
+    "Defence": 7
+}

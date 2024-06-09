@@ -1,0 +1,7 @@
+{
+    "Name": "Silo of Justice",
+    "Landscape": "Cornfield",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Pay 1 Action >>> Deal 1 Damage to target Creature in this Lane and 1 Damage to its controller."
+}

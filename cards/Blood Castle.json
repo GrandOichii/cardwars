@@ -1,0 +1,7 @@
+{
+    "Name": "Blood Castle",
+    "Landscape": "Rainbow",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Each time an opposing Creature in this Lane takes Damage, increase the amount by 1."
+}

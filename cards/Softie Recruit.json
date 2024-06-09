@@ -1,0 +1,9 @@
+{
+    "Name": "Softie Recruit",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When Softie Recruit enters play, if your opponent does not control a Creature in this Lane, gain 1 Action.",
+    "Attack": 2,
+    "Defence": 5
+}

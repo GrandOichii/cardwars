@@ -1,0 +1,7 @@
+{
+    "Name": "Shadowy Pyramid",
+    "Landscape": "Useless Swamp",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "FLOOP >>> Draw a card. If you control a Creature in this Lane, discard a card."
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "Drooling Dude",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "The ladies love him, as long as they have waterproof shoes.",
+    "Attack": 3,
+    "Defence": 9
+}

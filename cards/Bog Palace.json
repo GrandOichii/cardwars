@@ -1,0 +1,7 @@
+{
+    "Name": "Bog Palace",
+    "Landscape": "Useless Swamp",
+    "Type": "Building",
+    "Cost": 2,
+    "Text": "Your Creature on this Landscape has +3 ATK. At the start of each of your turns, discard a card."
+}

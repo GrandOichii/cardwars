@@ -1,0 +1,9 @@
+{
+    "Name": "Husker Champion",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Husker Champion has +2 ATK and +2 DEF if you control a Building on this Landscape.",
+    "Attack": 1,
+    "Defence": 4
+}

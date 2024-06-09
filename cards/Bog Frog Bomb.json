@@ -1,0 +1,9 @@
+{
+    "Name": "Bog Frog Bomb",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "If Bog Frog Bomb leaves play while Ready, deal 2 Damage to each opposing Creature.",
+    "Attack": 3,
+    "Defence": 8
+}

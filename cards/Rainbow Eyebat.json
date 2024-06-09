@@ -1,0 +1,9 @@
+{
+    "Name": "Rainbow Eyebat",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "At the start of your turn, you heal 1 Hit Point for each different Landscape type you control. (Can 't go over 25.)",
+    "Attack": 1,
+    "Defence": 4
+}

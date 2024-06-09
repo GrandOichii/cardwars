@@ -1,0 +1,9 @@
+{
+    "Name": "Pied Piper",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "When Pied Piper attacks an opposing Creature, you may have a Flooped Creature you control attack it instead.",
+    "Attack": 1,
+    "Defence": 9
+}

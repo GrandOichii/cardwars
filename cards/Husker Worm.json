@@ -1,0 +1,9 @@
+{
+    "Name": "Husker Worm",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When Husker Worm enters play, flip a Cornfield Landscape you control face down.",
+    "Attack": 5,
+    "Defence": 4
+}

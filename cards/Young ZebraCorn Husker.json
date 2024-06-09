@@ -1,0 +1,9 @@
+{
+    "Name": "Young ZebraCorn Husker",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "If Young ZebraCorn Husker leaves play during your Fight Phase, you may put it on top of your deck.",
+    "Attack": 2,
+    "Defence": 5
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "Quadurai",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Text": "At the start of you turn, deal 2 Damage to each opponent with 4 or more cards in hand.",
+    "Attack": 0,
+    "Defence": 6
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Staff of Frailty",
+    "Landscape": "Useless Swamp",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Add Damage to target Creature until it has 1 DEF remaining."
+}

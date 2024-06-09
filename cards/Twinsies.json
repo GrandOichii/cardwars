@@ -1,0 +1,7 @@
+{
+    "Name": "Twinsies",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Draw a card and reveal it. Another target player then reveals the top card of their deck. If their costs match, the targeted player draws it."
+}

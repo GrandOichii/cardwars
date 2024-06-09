@@ -1,0 +1,9 @@
+{
+    "Name": "Black Paladin",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "+1 ATK for each card players (including you) have discarded from their hand this turn.",
+    "Attack": 1,
+    "Defence": 7
+}

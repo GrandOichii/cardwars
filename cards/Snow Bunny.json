@@ -1,0 +1,9 @@
+{
+    "Name": "Snow Bunny",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Destroy Snow Bunny >>> Freeze target Landscape.",
+    "Attack": 3,
+    "Defence": 3
+}

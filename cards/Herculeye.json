@@ -1,0 +1,9 @@
+{
+    "Name": "Herculeye",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Discard a card >>> Herculeye has +4 ATK this turn. (Use only once during each of your turns.)",
+    "Attack": 1,
+    "Defence": 6
+}

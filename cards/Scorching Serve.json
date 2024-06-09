@@ -1,0 +1,7 @@
+{
+    "Name": "Scorching Serve",
+    "Landscape": "SandyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Destroy target opposing Creature. Each opponent draws cards equal to that Creature's cost."
+}

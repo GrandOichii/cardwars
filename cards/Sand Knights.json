@@ -1,0 +1,9 @@
+{
+    "Name": "Sand Knights",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "+2 ATK if you control a Blue Plains Landscape.",
+    "Attack": 1,
+    "Defence": 8
+}

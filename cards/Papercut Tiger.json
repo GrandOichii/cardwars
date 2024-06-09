@@ -1,0 +1,9 @@
+{
+    "Name": "Papercut Tiger",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "While Papercut Tiger has exactly 5 Damage on it, it has +5 ATK.",
+    "Attack": 2,
+    "Defence": 9
+}

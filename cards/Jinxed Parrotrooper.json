@@ -1,0 +1,9 @@
+{
+    "Name": "Jinxed Parrotrooper",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When Jinxed Parrotrooper enters play, move it to any empty Landscape. It cannot be replaced. At the start of your turn, discard a card.",
+    "Attack": 1,
+    "Defence": 5
+}

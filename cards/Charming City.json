@@ -1,0 +1,7 @@
+{
+    "Name": "Charming City",
+    "Landscape": "Blue Plains",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "All Creatures in this Lane lose their Landscape type and become Rainbow Creatures."
+}

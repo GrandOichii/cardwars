@@ -1,0 +1,9 @@
+{
+    "Name": "Pickler",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Sacrifice Pickler >>> Deal 3 Damage to target Creature.",
+    "Attack": 2,
+    "Defence": 9
+}

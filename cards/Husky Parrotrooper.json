@@ -1,0 +1,9 @@
+{
+    "Name": "Husky Parrotrooper",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "When Husky Parrotrooper enters play, move it to any empty Landscape, and then flip that Landscape face down.",
+    "Attack": 2,
+    "Defence": 4
+}

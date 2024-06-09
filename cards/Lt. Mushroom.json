@@ -1,0 +1,9 @@
+{
+    "Name": "Lt. Mushroom",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When Lt. Mushroom leaves play during an opponent's turn, that opponent discards 3 cards.",
+    "Attack": 2,
+    "Defence": 3
+}

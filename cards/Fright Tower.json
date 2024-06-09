@@ -1,0 +1,7 @@
+{
+    "Name": "Fright Tower",
+    "Landscape": "Useless Swamp",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Pay 1 Action >>> Target Creature in this Lane has +1 ATK this turn for every 5 cards in your discard pile."
+}

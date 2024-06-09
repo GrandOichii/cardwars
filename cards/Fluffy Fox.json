@@ -1,0 +1,9 @@
+{
+    "Name": "Fluffy Fox",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "While Fluffy Fox has 4 or more Damage on it, it ignores the first 2 Damage dealt to it by opposing Creatures.",
+    "Attack": 2,
+    "Defence": 6
+}

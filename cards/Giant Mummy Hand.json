@@ -1,0 +1,9 @@
+{
+    "Name": "Giant Mummy Hand",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Deal 1 Damage to target Creature for each Cornfield Landscape adjacent to this Lane.",
+    "Attack": 0,
+    "Defence": 7
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "Biomancer",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Each time a Creature you control changes Lanes, heal 2 Damage from Biomancer.",
+    "Attack": 1,
+    "Defence": 8
+}

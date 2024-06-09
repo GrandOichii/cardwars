@@ -1,0 +1,9 @@
+{
+    "Name": "Blue Ogre",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Whenever you draw a card, Blue Ogre has +1 ATK this turn.",
+    "Attack": 1,
+    "Defence": 5
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "InvestiGator",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "FLOOP >>> Reveal the top 3 cards of your deck. Play a revealed Teamwork for free, and then discard the other cards.",
+    "Attack": 3,
+    "Defence": 8
+}

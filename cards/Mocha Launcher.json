@@ -1,0 +1,9 @@
+{
+    "Name": "Mocha Launcher",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Pay 1 Action, FLOOP >>> Deal 2 Damage to target Creature. If that Creature is destroyed this way, Freeze the Landscape it is on.",
+    "Attack": 0,
+    "Defence": 4
+}

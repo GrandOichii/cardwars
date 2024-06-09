@@ -1,0 +1,9 @@
+{
+    "Name": "Ghost Tree",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Text": "Ghost Tree has +2 ATK while defending against a Creature that is on a Cornfield Landscape.",
+    "Attack": 1,
+    "Defence": 4
+}

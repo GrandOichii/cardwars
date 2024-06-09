@@ -1,0 +1,9 @@
+{
+    "Name": "The Pig",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Flip target Cornfield Landscape in this Lane face down.",
+    "Attack": 1,
+    "Defence": 4
+}

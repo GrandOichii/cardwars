@@ -1,0 +1,9 @@
+{
+    "Name": "Hydromancer",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "When Hydromancer enters into play, you may reveal cards from the top of your deck until you reveal a Teamwork, and then play it for free. Shuffle the other revealed cards into your deck.",
+    "Attack": 3,
+    "Defence": 6
+}

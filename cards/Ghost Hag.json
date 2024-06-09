@@ -1,0 +1,9 @@
+{
+    "Name": "Ghost Hag",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Text": "Ghost Hag has +2 ATK while defending against a Creature that is on a Blue Plains Landscape.",
+    "Attack": 1,
+    "Defence": 4
+}

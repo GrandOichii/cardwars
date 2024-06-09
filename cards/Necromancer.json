@@ -1,0 +1,9 @@
+{
+    "Name": "Necromancer",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Each time a Creature you control leaves play, you may move Necromancer to that Creature's empty Landscape.",
+    "Attack": 1,
+    "Defence": 8
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Incredible Egg",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Reveal the top 2 cards of your deck. You may put a revealed Cornfield card into your hand. Discard the rest."
+}

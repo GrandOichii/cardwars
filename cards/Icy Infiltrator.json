@@ -1,0 +1,9 @@
+{
+    "Name": "Icy Infiltrator",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Text": "When Icy Infiltrator enters play, Freeze its Landscape.",
+    "Attack": 1,
+    "Defence": 5
+}

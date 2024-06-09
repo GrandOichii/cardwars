@@ -1,0 +1,9 @@
+{
+    "Name": "Field Stalker",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "At the start of your turn, each player draws a card.",
+    "Attack": 1,
+    "Defence": 10
+}

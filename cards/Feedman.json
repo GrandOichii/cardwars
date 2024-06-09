@@ -1,0 +1,9 @@
+{
+    "Name": "Feedman",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When Feedman enters play, the next Creature you play this turn costs 1 less to play.",
+    "Attack": 1,
+    "Defence": 8
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "Lady Beetle",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "At the start of your turn, you may return a Creature you control with 2 or fewer DEF remaining to its owner's hand.",
+    "Attack": 1,
+    "Defence": 9
+}

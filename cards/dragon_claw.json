@@ -1,9 +1,0 @@
-{
-    "name": "Dragon Claw",
-    "landscape": "Blue Plains",
-    "type": "Creature",
-    "cost": 1,
-    "attack": 1,
-    "defence": 8,
-    "text": "FLOOP >>> Move a Creature you control to an empty Lane."
-}

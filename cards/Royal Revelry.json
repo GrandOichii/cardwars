@@ -1,0 +1,7 @@
+{
+    "Name": "Royal Revelry",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "If target Creature you control deals 1 or more Damage to an opponent this turn, deal 2 Damage to that opponent. After playing this, you may put it into your Teammate's hand."
+}

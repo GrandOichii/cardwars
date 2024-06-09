@@ -1,0 +1,7 @@
+{
+    "Name": "Sword Bouquet",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Deal 1 Damage to target Creature for every card you have drawn this turn."
+}

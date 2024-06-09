@@ -1,0 +1,7 @@
+{
+    "Name": "Igloo of Sanctuary",
+    "Landscape": "Blue Plains",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "FLOOP >>> If your Creature in this Lane moved here from another Lane this turn, it has +3ATK this turn."
+}

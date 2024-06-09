@@ -1,0 +1,9 @@
+{
+    "Name": "Woadic Marauder",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "When Woadic Marauder changes Lanes during a turn, draw a card.",
+    "Attack": 3,
+    "Defence": 9
+}

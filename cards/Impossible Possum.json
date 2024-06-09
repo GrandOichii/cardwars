@@ -1,0 +1,9 @@
+{
+    "Name": "Impossible Possum",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "When this card is placed into your discard pile from anywhere, you may discard a card from your hand to return Impossible Possum to your hand.",
+    "Attack": 2,
+    "Defence": 8
+}

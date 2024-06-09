@@ -1,0 +1,9 @@
+{
+    "Name": "Woadic Weirdo",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Reveal a card from your hand. That card becomes a Rainbow card until the end of your turn. (It has no Landscape type).",
+    "Attack": 1,
+    "Defence": 7
+}

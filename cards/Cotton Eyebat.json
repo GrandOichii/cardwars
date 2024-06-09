@@ -1,0 +1,9 @@
+{
+    "Name": "Cotton Eyebat",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "While Cotton Eyebat has exactly 4 Damage on it, it has +4 ATK.",
+    "Attack": 1,
+    "Defence": 8
+}

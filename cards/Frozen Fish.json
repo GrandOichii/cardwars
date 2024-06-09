@@ -1,0 +1,9 @@
+{
+    "Name": "Frozen Fish",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When Frozen Fish deals Damage to a Creature, you may Freeze a Landscape in this Lane.",
+    "Attack": 1,
+    "Defence": 8
+}

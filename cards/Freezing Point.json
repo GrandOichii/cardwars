@@ -1,0 +1,7 @@
+{
+    "Name": "Freezing Point",
+    "Landscape": "IcyLands",
+    "Type": "Spell",
+    "Cost": 2,
+    "Text": "Freeze each of your opponent's Landscapes."
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Enchanted Celebration",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Move target Creature to an adjacent empty Landscape its controller controls. After playing this, you may put it into your Teammate's hand."
+}

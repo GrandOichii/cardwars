@@ -1,0 +1,7 @@
+{
+    "Name": "Grape Butt",
+    "Landscape": "Cornfield",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Play only if you played a non-Cornfield card this turn. Deal 5 Damage to target Creature."
+}

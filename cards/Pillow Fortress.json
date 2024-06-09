@@ -1,0 +1,7 @@
+{
+    "Name": "Pillow Fortress",
+    "Landscape": "NiceLands",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Pay 1 Action, FLOOP >>> Heal 2 or deal 2 Damage to a Creature you control on this Landscape. Do the same to another friendly Creature."
+}

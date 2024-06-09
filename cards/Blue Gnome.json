@@ -1,0 +1,9 @@
+{
+    "Name": "Blue Gnome",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Deal 1 Damage to each opposing Creature that is on a Useless Swamp Landscape.",
+    "Attack": 1,
+    "Defence": 6
+}

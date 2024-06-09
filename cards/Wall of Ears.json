@@ -1,0 +1,9 @@
+{
+    "Name": "Wall of Ears",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "+1 DEF for each Cornfield Landscape in play (counting all players).",
+    "Attack": 2,
+    "Defence": 4
+}

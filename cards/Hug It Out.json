@@ -1,0 +1,7 @@
+{
+    "Name": "Hug It Out",
+    "Landscape": "NiceLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Destroy target Creature you control, and then destroy target Creature in its Lane."
+}

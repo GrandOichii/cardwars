@@ -1,0 +1,7 @@
+{
+    "Name": "Husker Garrison",
+    "Landscape": "Cornfield",
+    "Type": "Building",
+    "Cost": 2,
+    "Text": "Your Creature on this Landscape has +1 ATK and +1 DEF for each Cornfield Creature you control."
+}

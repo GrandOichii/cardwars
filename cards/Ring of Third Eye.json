@@ -1,0 +1,7 @@
+{
+    "Name": "Ring of Third Eye",
+    "Landscape": "Blue Plains",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Each of your Creatures has +2 ATK this turn while attacking a Creature that is on a Cornfield Landscape."
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Lunchpad",
+    "Landscape": "SandyLands",
+    "Type": "Building",
+    "Cost": 2,
+    "Text": "FLOOP >>> Draw a card for each Creature that entered play onto this Landscape this turn."
+}

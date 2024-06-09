@@ -1,0 +1,9 @@
+{
+    "Name": "Ban-She Queen",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "When Ban-She Queen enters play, you may remove a token from an adjacent Landscape.",
+    "Attack": 3,
+    "Defence": 9
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "Woadic Ring Leader",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "At the start of your turn, move Woadic Ring Leader to an empty Landscape you control. If you cannot, destroy it.",
+    "Attack": 3,
+    "Defence": 4
+}

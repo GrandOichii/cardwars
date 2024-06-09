@@ -1,0 +1,7 @@
+{
+    "Name": "Blood Transfusion",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Remove from game a card in any player's discard pile. Heal X Damage from target Creature, where X is the cost of the card removed this way."
+}

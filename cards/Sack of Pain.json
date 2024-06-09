@@ -1,0 +1,9 @@
+{
+    "Name": "Sack of Pain",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "While Sack of Pain has exactly 6 Damage on it, it has +6 ATK.",
+    "Attack": 2,
+    "Defence": 10
+}

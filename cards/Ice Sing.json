@@ -1,0 +1,7 @@
+{
+    "Name": "Ice Sing",
+    "Landscape": "IcyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Freeze 1 of each player's target Landscapes and then draw a card."
+}

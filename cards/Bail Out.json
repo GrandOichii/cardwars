@@ -1,0 +1,7 @@
+{
+    "Name": "Bail Out",
+    "Landscape": "SandyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Put target Creature you own into your hand, and then play it for free."
+}

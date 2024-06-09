@@ -1,0 +1,7 @@
+{
+    "Name": "Blue Candy",
+    "Landscape": "NiceLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Heal up to 3 Damage from target Creature you control."
+}

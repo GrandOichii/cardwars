@@ -1,0 +1,7 @@
+{
+    "Name": "Witch Slap",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 2,
+    "Text": "Target opponent discards down to 5 cards, and then takes 1 Damage for each card discarded this way."
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "Brain Gooey",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When Brain Gooey enters play, if it replaced a Creature, it has +2 ATK this turn.",
+    "Attack": 1,
+    "Defence": 7
+}

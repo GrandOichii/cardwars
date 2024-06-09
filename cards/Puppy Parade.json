@@ -1,0 +1,7 @@
+{
+    "Name": "Puppy Parade",
+    "Landscape": "Blue Plains",
+    "Type": "Spell",
+    "Cost": 2,
+    "Text": "Heal 2 Damage from each Creature you control. Creatures you control lose their Landscape type and become Rainbow Creatures this turn."
+}

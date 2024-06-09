@@ -1,0 +1,7 @@
+{
+    "Name": "Master of Disguise",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Each of your opponent's Creatures has -1 ATK this turn."
+}

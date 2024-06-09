@@ -1,0 +1,9 @@
+{
+    "Name": "Green Party Ogre",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When a Creature you control leaves play, heal 1 Damage from Green Party Ogre.",
+    "Attack": 1,
+    "Defence": 8
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Fancy Spa",
+    "Landscape": "Blue Plains",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "At the start of your Fight Phase, if you control an exhausted Creature on this Landscape, draw a card."
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "Blonde MerWitch",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "The seas are her cauldron, and her ingredients are anything that sinks.",
+    "Attack": 3,
+    "Defence": 9
+}

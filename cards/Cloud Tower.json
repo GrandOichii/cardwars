@@ -1,0 +1,7 @@
+{
+    "Name": "Cloud Tower",
+    "Landscape": "Blue Plains",
+    "Type": "Building",
+    "Cost": 2,
+    "Text": "Your Creature on this Landscape cannot be targeted by your foe's Spells or Creature abilities. FLOOP >>> Move a Creature you control to this Landscape."
+}

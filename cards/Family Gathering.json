@@ -1,0 +1,7 @@
+{
+    "Name": "Family Gathering",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Choose another player and a Landscape you control. Draw a card for each of their Creatures that match that Landscape."
+}

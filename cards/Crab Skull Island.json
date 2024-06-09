@@ -1,0 +1,7 @@
+{
+    "Name": "Crab Skull Island",
+    "Landscape": "SandyLands",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Pay 1 Action, FLOOP >>> If this Landscape is empty, reveal cards from the top of your deck until you reveal a Creature, then play it onto this Landscape for free and shuffle the other revealed cards into your deck."
+}

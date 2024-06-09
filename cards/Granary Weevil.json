@@ -1,0 +1,9 @@
+{
+    "Name": "Granary Weevil",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Destroy Granary Weevil >>> Destroy target opposing Creature in this Lane and any Creature with the same name in play.",
+    "Attack": 2,
+    "Defence": 6
+}

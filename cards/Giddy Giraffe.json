@@ -1,0 +1,9 @@
+{
+    "Name": "Giddy Giraffe",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "While Giddy Giraffe has 4 or more Damage on it, it deal Damage directly to your opponent instead of the opposing Creature.",
+    "Attack": 1,
+    "Defence": 8
+}

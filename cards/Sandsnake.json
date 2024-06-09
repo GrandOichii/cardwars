@@ -1,0 +1,9 @@
+{
+    "Name": "Sandsnake",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When Sandsnake enters play, deal 4 Damage to target opposing Creature in this Lane.",
+    "Attack": 0,
+    "Defence": 9
+}

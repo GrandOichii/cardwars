@@ -1,0 +1,9 @@
+{
+    "Name": "Ultra Dog",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Floop >>> Freeze target Landscape with a Creature on it.",
+    "Attack": 3,
+    "Defence": 6
+}

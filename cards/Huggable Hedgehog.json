@@ -1,0 +1,9 @@
+{
+    "Name": "Huggable Hedgehog",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "While Huggable Hedgehog has 4 or more Damage on it, it deals Damage directly to your opponent instead of the opposing Creature.",
+    "Attack": 3,
+    "Defence": 8
+}

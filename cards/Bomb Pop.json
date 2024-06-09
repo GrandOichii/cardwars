@@ -1,0 +1,7 @@
+{
+    "Name": "Bomb Pop",
+    "Landscape": "IcyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Destroy target Creature on a Landscape with a Frozen token on it."
+}

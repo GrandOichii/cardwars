@@ -1,0 +1,7 @@
+{
+    "Name": "Water Logged",
+    "Landscape": "Useless Swamp",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Opposing Creatures have -2 ATK this turn (min 0)."
+}

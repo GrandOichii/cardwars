@@ -1,0 +1,9 @@
+{
+    "Name": "Sheep",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Text": "",
+    "Attack": 2,
+    "Defence": 3
+}

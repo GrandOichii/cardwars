@@ -1,0 +1,7 @@
+{
+    "Name": "Frozen Lemon Aid",
+    "Landscape": "IcyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Count the number of Landscapes with Frozen tokens. Heal 1 damage from that many friendly Creatures."
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "The Sludger",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Choose a card name. Remove each card with that name in target player's discard pile from the game.",
+    "Attack": 1,
+    "Defence": 8
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Beach Blast",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Reveal the top 3 cards of your deck. Draw 1 and discard the rest. After playing this, you may put it into your Teammate's hand."
+}

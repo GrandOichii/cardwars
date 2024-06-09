@@ -1,0 +1,9 @@
+{
+    "Name": "Cactus Thug",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Adjacent Cornfield Creatures have +1 ATK.",
+    "Attack": 2,
+    "Defence": 7
+}

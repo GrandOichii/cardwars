@@ -1,0 +1,7 @@
+{
+    "Name": "Infinite Haymaker",
+    "Landscape": "Cornfield",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Deal damage to yourself equal to target Creature's remaining DEF, then destroy it."
+}

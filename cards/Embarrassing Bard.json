@@ -1,0 +1,9 @@
+{
+    "Name": "Embarrassing Bard",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "FLOOP >>> Draw a card for each Flooped Creature you control (including this one).",
+    "Attack": 1,
+    "Defence": 5
+}

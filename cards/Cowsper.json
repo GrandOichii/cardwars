@@ -1,0 +1,9 @@
+{
+    "Name": "Cowsper",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Each adjacent Cornfield Creature has +1 DEF.",
+    "Attack": 3,
+    "Defence": 8
+}

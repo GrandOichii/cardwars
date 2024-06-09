@@ -1,0 +1,7 @@
+{
+    "Name": "Silo of Freedom",
+    "Landscape": "Cornfield",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Discard a card >>> Your Landscape in this Lane loses its type and becomes the type of your choice (except face down) until the start of your next turn."
+}

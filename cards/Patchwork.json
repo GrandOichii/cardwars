@@ -1,0 +1,7 @@
+{
+    "Name": "Patchwork",
+    "Landscape": "NiceLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Redistribute the Damage on Creatures you control (no Creature can have more Damage than DEF)."
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Jinx",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Choose two players. Each reveals a random card from their hand. If their costs don't match, they discard those cards."
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Popcorn Power",
+    "Landscape": "Cornfield",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Each of your Creatures has +2 ATK this turn while attacking a Creature that is on a Blue Plains Landscape."
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "Dr. Death",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Destroy a Creature you control and FLOOP >>> Destroy target opposing Creature in this Lane.",
+    "Attack": 1,
+    "Defence": 7
+}

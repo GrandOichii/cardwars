@@ -1,0 +1,7 @@
+{
+    "Name": "Bean Ball Bomba",
+    "Landscape": "NiceLands",
+    "Type": "Spell",
+    "Cost": 2,
+    "Text": "FLOOP >>> Heal or deal Damage to your Creature on this Landscape until it has 4 Damage on it."
+}

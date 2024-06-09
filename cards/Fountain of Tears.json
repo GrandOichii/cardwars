@@ -1,0 +1,7 @@
+{
+    "Name": "Fountain of Tears",
+    "Landscape": "Rainbow",
+    "Type": "Building",
+    "Cost": 0,
+    "Text": "While your Creature in this Lane has exactly 3 Damage on it, it has +3 ATK."
+}

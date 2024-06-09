@@ -15,7 +15,7 @@
 + 2 Teleport
 + 2 Woad Talisman
 + 2 Psionic Architect
-1 Uni-Knight - creature targeting, until end of turn effects
++ 1 Uni-Knight
 
 1 Woad Blood - until end of turn effects, creature movement detection
 1 Woadic Chief - detecting amount of spells played

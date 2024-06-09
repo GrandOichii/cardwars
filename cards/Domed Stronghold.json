@@ -1,0 +1,7 @@
+{
+    "Name": "Domed Stronghold",
+    "Landscape": "Blue Plains",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Your Creature on this Landscape has +2 DEF and cannot be damaged by your foe's Spells."
+}

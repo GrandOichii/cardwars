@@ -1,0 +1,9 @@
+{
+    "Name": "Bog Ban-She Angel",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Pay 1 Action >>> Move all Damage on this Creature to target Creature.",
+    "Attack": 2,
+    "Defence": 7
+}

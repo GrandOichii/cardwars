@@ -1,0 +1,7 @@
+{
+    "Name": "Ogre Braces",
+    "Landscape": "Useless Swamp",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "You heal 1 Hit Point for every 5 cards in your discard pile."
+}

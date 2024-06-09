@@ -1,0 +1,9 @@
+{
+    "Name": "Chronomancer",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Each time Chronomancer changes Lanes, gain 1 Action.",
+    "Attack": 3,
+    "Defence": 6
+}

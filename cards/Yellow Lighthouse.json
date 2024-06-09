@@ -1,0 +1,7 @@
+{
+    "Name": "Yellow Lighthouse",
+    "Landscape": "Cornfield",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "At the start of your turn, each players who controls a Creature in this Lane draws a card."
+}

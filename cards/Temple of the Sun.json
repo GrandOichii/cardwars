@@ -1,0 +1,7 @@
+{
+    "Name": "Temple of the Sun",
+    "Landscape": "SandyLands",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "When a SandyLands Creature with cost 1 or greater you control enters play in this Lane, you may return it to its owner's hand."
+}

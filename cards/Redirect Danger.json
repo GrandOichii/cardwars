@@ -1,0 +1,7 @@
+{
+    "Name": "Redirect Danger",
+    "Landscape": "Blue Plains",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Move up to 3 Damage on a Creature you control to target opposing Creature in its Lane."
+}

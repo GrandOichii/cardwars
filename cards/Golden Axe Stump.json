@@ -1,0 +1,9 @@
+{
+    "Name": "Golden Axe Stump",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Whenever an opponent draws a card, deal 1 Damage to that player.",
+    "Attack": 1,
+    "Defence": 7
+}

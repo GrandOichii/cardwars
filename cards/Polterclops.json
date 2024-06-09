@@ -1,0 +1,9 @@
+{
+    "Name": "Polterclops",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "+1 DEF for each different Landscape type you control.",
+    "Attack": 4,
+    "Defence": 1
+}

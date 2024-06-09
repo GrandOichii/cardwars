@@ -1,0 +1,9 @@
+{
+    "Name": "Loveable Lamb",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "At the start of your turn, if Loveable Lamb has 4 or more Damage on it, deal 2 Damage to target opposing Creature in this Lane.",
+    "Attack": 2,
+    "Defence": 7
+}

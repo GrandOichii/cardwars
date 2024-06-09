@@ -1,0 +1,7 @@
+{
+    "Name": "Sand Pyramid",
+    "Landscape": "SandyLands",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Pay 2 Actions >>> Return each Creature in this Lane to its owner's hand. (Affects both players.)"
+}

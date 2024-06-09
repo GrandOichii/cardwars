@@ -1,9 +1,0 @@
-{
-    "name": "Ancient Scholar",
-    "landscape": "Blue Plains",
-    "type": "Creature",
-    "cost": 1,
-    "attack": 1,
-    "defence": 7,
-    "text": "FLOOP >>> Return a random Rainbow card from your discard pile to your hand. If you control a Building in this lane, gain 1 Action."
-}
