@@ -80,6 +80,12 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public InPlayCardState GetBuilding(string id) {
+        var result = _match.GetInPlayBuilding(id);
+        return result;
+    }
+
+    [LuaCommand]
     public CreatureState? GetCreatureOrDefault(string id) {
         var result = _match.GetInPlayCreatureOrDefault(id);
         return result;
@@ -183,8 +189,28 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public string ChooseBuilding(int playerI, LuaTable optionsTable, string hint) {
+        var player = _match.GetPlayerState(playerI);
+
+        var options = new List<string>();
+        foreach (var v in optionsTable.Values)
+            options.Add(v.ToString()!);
+
+        var result = player.Original.PickBuilding(options, hint)
+            .GetAwaiter().GetResult();
+
+        return result;
+    }
+
+    [LuaCommand]
     public void MoveCreature(string creatureId, int toI) {
         _match.MoveCreature(creatureId, toI)
+            .Wait();
+    } 
+
+    [LuaCommand]
+    public void MoveBuilding(string buildingId, int toI) {
+        _match.MoveBuilding(buildingId, toI)
             .Wait();
     } 
 

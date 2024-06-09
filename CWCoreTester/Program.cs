@@ -184,7 +184,6 @@ public class ConsolePlayerController : IPlayerController
 
     public Task<string> PickCreature(GameMatch match, Player player, List<string> options, string hint)
     {
-        
         System.Console.Write("Options: ");
         foreach (var option in options)
             System.Console.Write($"{option} ");
@@ -194,6 +193,22 @@ public class ConsolePlayerController : IPlayerController
         System.Console.WriteLine("(Choose in-play creature)");
         var result = Console.ReadLine()
             ?? throw new Exception("failed to read creature id")
+        ;
+
+        return Task.FromResult(result);
+    }
+
+    public Task<string> PickBuilding(GameMatch match, Player player, List<string> options, string hint)
+    {
+        System.Console.Write("Options: ");
+        foreach (var option in options)
+            System.Console.Write($"{option} ");
+        System.Console.WriteLine();
+
+        System.Console.WriteLine($"\"{hint}\"");
+        System.Console.WriteLine("(Choose in-play building)");
+        var result = Console.ReadLine()
+            ?? throw new Exception("failed to read building id")
         ;
 
         return Task.FromResult(result);

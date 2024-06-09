@@ -245,6 +245,24 @@ function Common.State:FilterCreatures(state, predicate)
     return result
 end
 
+function Common.State:FilterBuildings(state, predicate)
+    local result = {}
+
+    for pi = 1, state.Players.Length do
+        local pState = state.Players[pi - 1]
+        for li = 1, pState.Landscapes.Count do
+            local lane = pState.Landscapes[li - 1]
+            if lane.Building ~= nil then
+                if predicate(lane.Building) then
+                    result[#result+1] = lane.Building
+                end
+            end
+        end
+    end
+
+    return result
+end
+
 function Common.State:FilterLandscapes(state, predicate)
     local result = {}
 
@@ -280,6 +298,27 @@ function Common.State:CreatureIDs(state, predicate)
     local result = {}
     for _, creature in ipairs(creatures) do
         result[#result+1] = creature.Original.Card.ID
+    end
+    return result
+end
+
+function Common.State:BuildingIDs(state, predicate)
+    local buildings = Common.State:FilterBuildings(state, predicate)
+    local result = {}
+    for _, building in ipairs(buildings) do
+        result[#result+1] = building.Original.Card.ID
+    end
+    return result
+end
+
+
+function Common.State:LandscapeLanes(state, playerI, predicate)
+    local landscapes = Common.State:FilterLandscapes(state, predicate)
+    local result = {}
+    for _, landscape in ipairs(landscapes) do
+        if landscape.Original.OwnerI == playerI then
+            result[#result+1] = landscape.Original.Idx
+        end
     end
     return result
 end

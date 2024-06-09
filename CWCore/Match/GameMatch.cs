@@ -250,6 +250,13 @@ public class GameMatch {
         ;
         return result;
     }
+
+    public InPlayCardState GetInPlayBuilding(string id) {
+        var result = GetInPlayBuildingOrDefault(id)
+            ?? throw new CWCoreException($"Failed to find in-play building with id {id}")
+        ;
+        return result;
+    }
     
     public CreatureState? GetInPlayCreatureOrDefault(string id) {
         foreach (var player in LastState.Players)
@@ -259,6 +266,13 @@ public class GameMatch {
         return null;
     }
 
+    public InPlayCardState? GetInPlayBuildingOrDefault(string id) {
+        foreach (var player in LastState.Players)
+            foreach (var lane in player.Landscapes)
+                if (lane.Building is not null && lane.Building.Original.Card.ID == id)
+                    return lane.Building;
+        return null;
+    }
 
     public InPlayCardState GetInPlayCard(string id) {
         foreach (var player in LastState.Players) {
@@ -374,5 +388,45 @@ public class GameMatch {
             }
         }
         throw new CWCoreException($"failed to find creature with id {creatureId} to move to lane {toI}");
+    }
+
+    public async Task MoveBuilding(string buildingId, int toI) {
+        // TODO mostly repeated code from MoveCreature
+        foreach (var player in LastState.Players) {
+            foreach (var lane in player.Landscapes) {
+                var building = lane.Building;
+                if (building is null || building.Original.Card.ID != buildingId) continue;
+
+                var prevLaneI = lane.Original.Idx;
+                if (prevLaneI == toI) {
+                    ActionError($"Tried to move building {building.Original.Card.LogFriendlyName} from lane {prevLaneI} to lane {toI}, which are the same");
+                    return;
+                }
+
+                var newLane = player.Landscapes[toI];
+
+                if (newLane.Original.Building is not null)
+                    throw new CWCoreException($"tried to move a building to lane {toI}, which is not empty");
+                    
+                lane.Original.Building = null;
+                newLane.Original.Building = building.Original;
+                building.Original.MovementCount++;
+
+                building.Original.Card.ExecFunction(
+                    InPlayCard.ON_MOVE_FNAME,
+                    building.Original.Card.Data,
+                    player.Original.Idx, 
+                    prevLaneI,
+                    toI
+                );
+
+                // TODO? add update
+                // TODO trigger
+
+                LogInfo($"Moved building {building.Original.Card.LogFriendlyName} from lane {prevLaneI} to lane {toI}");
+                return;
+            }
+        }
+        throw new CWCoreException($"failed to find building with id {buildingId} to move to lane {toI}");
     }
 }

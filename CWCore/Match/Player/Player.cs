@@ -125,7 +125,7 @@ public class Player {
         // TODO validate landscape choice
         
         for (int i = 0; i < result.Count; i++) {
-            var landscape = new Landscape(result[i], i);
+            var landscape = new Landscape(result[i], Idx, i);
             Landscapes.Add(landscape);
         }
     }
@@ -199,6 +199,12 @@ public class Player {
 
     public async Task<string> PickCreature(List<string> options, string hint) {
         var result = await Controller.PickCreature(_match, this, options, hint);
+        // TODO validate
+        return result;
+    }
+
+    public async Task<string> PickBuilding(List<string> options, string hint) {
+        var result = await Controller.PickBuilding(_match, this, options, hint);
         // TODO validate
         return result;
     }

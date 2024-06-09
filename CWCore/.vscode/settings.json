@@ -31,6 +31,9 @@
         "ChooseCardInHand",
         "DiscardFromHand",
         "GetCreature",
-        "ReturnCreatureToOwnersHand"
+        "ReturnCreatureToOwnersHand",
+        "ChooseBuilding",
+        "MoveBuilding",
+        "GetBuilding"
     ]
 }
