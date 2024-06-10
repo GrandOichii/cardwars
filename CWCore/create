@@ -15,13 +15,14 @@ if not Path(original_path).exists():
     exit(1)
 
 data = open(original_path, 'r').read()
+card_data = json.loads(data)
 name = name.lower().replace(' ', '_').replace('\'', '').replace('-', '_')
 
 print('creating .json file')
 open(join('cards', name + '.json'), 'w').write(data)
 
 print('creating script file')
-open(join('cards', name + '.lua'), 'w').write('-- Implement card logic here')
+open(join('cards', name + '.lua'), 'w').write('-- ' + card_data['text'])
 
 print('adding to manifest file')
 manifest_path = join('cards', 'manifest.json')
