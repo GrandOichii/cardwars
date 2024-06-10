@@ -304,12 +304,13 @@ public class Program {
             await match.AddPlayer("player1", deck1, controller1);
             await match.AddPlayer("player2", deck2, controller2);
 
-            try {
+            // try {
                 await match.Run();
-            } catch (Exception e) {
-                PrintException(e);
-                ++failed;
-            }
+        //     } catch (Exception e) {
+        //         PrintException(e);
+                
+        //         ++failed;
+        //     }
         }
 
         System.Console.WriteLine($"S/F: {amount - failed}/{amount}");

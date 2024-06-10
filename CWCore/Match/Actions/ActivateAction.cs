@@ -67,10 +67,14 @@ public class ActivateAction : IAction
             foreach (var card in pair.Value) {
                 for (int i = 0; i < card.ActivatedEffects.Count; i++) {
                     var effect = card.ActivatedEffects[i];
-                    var canActivate = effect.CanActivate(pState, card, laneI);
-                    if (!canActivate) continue;
+                    try {
+                        var canActivate = effect.CanActivate(pState, card, laneI);
+                        if (!canActivate) continue;
 
-                    result.Add($"{ActionWord()} {card.Original.Card.ID} {i}");
+                        result.Add($"{ActionWord()} {card.Original.Card.ID} {i}");
+                    } catch (Exception e) {
+                        throw new CWCoreException($"failed to activate check of ability {i} of card {card.Original.Card.Template.Name}", e);
+                    }
                 }
             }
         }

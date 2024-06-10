@@ -17,17 +17,19 @@ function _Create(props)
             end
 
             local empty = Common:Lanes(Common:LandscapesWithoutBuildings(playerI))
-
+            
             if #empty == 0 then
+                
                 return
             end
-
+                
             local options = Common:IDs(Common:Buildings(playerI))
-
+            
             if #options == 0 then
+
                 return
             end
-
+            
             local buildingId = ChooseBuilding(playerI, options, 'Choose a building to move')
             local building = GetBuilding(buildingId)
 
@@ -39,6 +41,7 @@ function _Create(props)
             local newLane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')
 
             MoveBuilding(buildingId, newLane)
+
         end
     )
 

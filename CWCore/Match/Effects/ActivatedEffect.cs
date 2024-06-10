@@ -6,8 +6,6 @@ using NLua;
 namespace CWCore.Match.Effects;
 
 public class ActivatedEffect {
-    private readonly LuaTable _table;
-
     public LuaFunction CheckF { get; }
     public LuaFunction CostF { get; }
     public LuaFunction EffectF { get; }
@@ -15,8 +13,6 @@ public class ActivatedEffect {
     public int ActivatedThisTurn { get; set; }
 
     public ActivatedEffect(LuaTable table) {
-        _table = table;
-
         CheckF = LuaUtility.TableGet<LuaFunction>(table, "checkF");
         CostF = LuaUtility.TableGet<LuaFunction>(table, "costF");
         EffectF = LuaUtility.TableGet<LuaFunction>(table, "effectF");

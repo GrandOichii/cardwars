@@ -16,7 +16,7 @@ function _Create(props)
         effectF = function (me, playerI, laneI)
             local count = #Common:LandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
 
-            local options = Common.IDs(Common:Creatures(1 - playerI))
+            local options = Common:IDs(Common:Creatures(1 - playerI))
 
             for i = 1, count do
                 if #options == 0 then

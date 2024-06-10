@@ -13,15 +13,16 @@ function _Create(props)
             if STATE.Players[playerI].Landscapes[laneI].Creature ~= nil then
                 return false
             end
-            return #Common.AdjacentCreatures(playerI, laneI) > 0
+            return #Common:AdjacentCreatures(playerI, laneI) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local options = Common:IDs(Common.AdjacentCreatures(playerI, laneI))
+            local options = Common:IDs(Common:AdjacentCreatures(playerI, laneI))
             local choice = ChooseCreature(playerI, options, 'Choose a creature to move to lane '..laneI)
+
             MoveCreature(choice, laneI)
         end
     })

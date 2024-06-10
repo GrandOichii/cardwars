@@ -18,7 +18,6 @@ function _Create(props)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            print('effect '..laneI)
             local os = Common:LandscapesOfTypeInLane(CardWars.Landscapes.Cornfield, laneI)
             local options = Common:Lanes(os[1])
             local opponentOptions = Common:Lanes(os[2])

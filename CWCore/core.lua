@@ -336,7 +336,6 @@ end
 
 function Common:AdjacentLandscapes(playerI, laneI)
     local result = {}
-
     local lanes = STATE.Players[playerI].Landscapes
     if laneI - 1 >= 0 then
         result[#result+1] = lanes[laneI - 1]
@@ -355,7 +354,7 @@ function Common:AdjacentLandscapesTyped(playerI, laneI, type)
     if laneI - 1 >= 0 and lanes[laneI - 1]:Is(type) then
         result[#result+1] = lanes[laneI - 1]
     end
-    if laneI + 1 < lanes.Count and lanes[laneI - 1]:Is(type) then
+    if laneI + 1 < lanes.Count and lanes[laneI + 1]:Is(type) then
         result[#result+1] = lanes[laneI + 1]
     end
 
@@ -364,6 +363,7 @@ end
 
 function Common:AdjacentCreatures(playerI, laneI)
     local result = {}
+    
     local adjacent = Common:AdjacentLandscapes(playerI, laneI)
     for _, landscape in ipairs(adjacent) do
         if landscape.Creature ~= nil then
@@ -443,6 +443,7 @@ end
 function Common:FaceDownLandscapes(playerI)
     local result = {}
     local landscapes = STATE.Players[playerI].Landscapes
+
     for i = 1, landscapes.Count do
         local landscape = landscapes[i - 1]
         if landscape.Original.FaceDown then

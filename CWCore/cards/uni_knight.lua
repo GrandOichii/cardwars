@@ -14,7 +14,7 @@ function _Create(props)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local options = Common.CreaturesInLane(laneI)
+            local options = Common:CreaturesInLane(laneI)
 
             local target = TargetCreature(playerI, options, 'Choose a creature to debuff')
 

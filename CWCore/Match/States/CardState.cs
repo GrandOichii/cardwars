@@ -25,6 +25,12 @@ public class CardState {
             if (landscapes.Count == 0) return false;
         }
 
+        // check if there is free space for buildings
+        if (Original.Template.Type == "Building") {
+            var landscapes = player.Original.LandscapesAvailableForBuildings();
+            if (landscapes.Count == 0) return false;
+        }
+
         // TODO add state-based effects
         return player.Original.ActionPoints >= Original.Template.Cost;
     }

@@ -18,7 +18,7 @@ function _Create(props)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local options = Common:FaceDownLandscapes(playerI)
+            local options = Common:Lanes(Common:FaceDownLandscapes(playerI))
 
             -- TODO? change to target
             local lane = ChooseLandscape(playerI, options, {}, 'Choose a face-down Landscape to flip')

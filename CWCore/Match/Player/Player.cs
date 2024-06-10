@@ -153,6 +153,19 @@ public class Player {
         return result;
     }
 
+    public List<int> LandscapesAvailableForBuildings() {
+        var result = new List<int>();
+        for (int i = 0; i < Landscapes.Count; i++) {
+            var landscape = Landscapes[i];
+            var building = landscape.Building;
+            if (building is not null) {
+                if (building.IsFlooped()) continue;
+            }
+            result.Add(i);
+        }
+        return result;
+    }
+
     public async Task<int> PickLaneForCreature() {
         var options = LandscapesAvailableForCreatures();
         var result = await Controller.PickLaneForCreature(Match, this, options);
@@ -162,15 +175,7 @@ public class Player {
     public async Task<int> PickLaneForBuilding() {
         // TODO not specified in the rules, check
 
-        var options = new List<int>();
-        for (int i = 0; i < Landscapes.Count; i++) {
-            var landscape = Landscapes[i];
-            var building = landscape.Building;
-            if (building is not null) {
-                if (building.IsFlooped()) continue;
-            }
-            options.Add(i);
-        }
+        var options = LandscapesAvailableForBuildings();
         var result = await Controller.PickLaneForBuilding(Match, this, options);
         return result;
     }
@@ -234,6 +239,7 @@ public class Player {
     public async Task<string> PickCreature(List<string> options, string hint) {
         var result = await Controller.PickCreature(Match, this, options, hint);
         // TODO validate
+
         return result;
     }
 

@@ -10,17 +10,17 @@ function _Create(props)
             if not Common:CanFloop(me) then
                 return false
             end
-            return #Common:LandscapesWithoutCreatures(playerI)
+            return #Common:LandscapesWithoutCreatures(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local creatures = Common:Creatures(playerI)
+            local creatures = Common:IDs(Common:Creatures(playerI))
             local creatureId = ChooseCreature(playerI, creatures, 'Choose a creature to move')
 
-            local options = Common:LandscapesWithoutCreatures(playerI)
+            local options = Common:Lanes(Common:LandscapesWithoutCreatures(playerI))
             local lane = ChooseLane(playerI, options, 'Choose an empty Lane to move to')
 
             MoveCreature(creatureId, lane)
