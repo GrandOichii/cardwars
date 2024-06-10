@@ -19,5 +19,11 @@ function _Create(props)
         TurnLandscapeFaceDown(lane[0], lane[1])
     end)
 
+    result.OnEnterP:AddLayer(function(playerI, laneI)
+        -- When  enters play, 
+    
+        
+    end)
+
     return result
 end

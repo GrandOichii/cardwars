@@ -1,4 +1,3 @@
-
 -- Status: Implemented
 
 function _Create(props)
@@ -24,7 +23,6 @@ function _Create(props)
         effectF = function (me, playerI, laneI)
             local creature = getCreature(playerI, laneI)
             ReturnCreatureToOwnersHand(creature.Original.Card.ID)
-
         end
     })
 

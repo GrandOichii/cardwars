@@ -1,0 +1,161 @@
+{
+	"creature": {
+		"scope": "lua",
+		"prefix": "creature",
+		"description": "creature card",
+		"body": [
+			"-- Status: Implemented",
+			"",
+			"function _Create(props)",
+			"\tlocal result = CardWars:Creature(props)",
+			"",
+			"\t$0",
+			"",
+			"\treturn result",
+			"end",
+		]
+	},
+	"spell": {
+		"scope": "lua",
+		"prefix": "spell",
+		"description": "spell card",
+		"body": [
+			"-- Status: Implemented",
+			"",
+			"function _Create(props)",
+			"\tlocal result = CardWars:Spell(props)",
+			"",
+			"\tresult.EffectP:AddLayer(",
+			"\t\tfunction (playerI)",
+			"\t\t\t-- $1",
+			"\t\t\t",
+			"\t\t\t$0",
+			"\t\tend",
+			"\t)",
+			"",
+			"\treturn result",
+			"end",
+		]
+	},
+	"floop": {
+		"scope": "lua",
+		"prefix": "floop",
+		"description": "add floop ability",
+		"body": [
+			"result:AddActivatedEffect({",
+			"\t-- FLOOP >>> $1.",
+			"\t",
+			"\tcheckF = function (me, playerI, laneI)",
+			"\t\treturn not me.Original:IsFlooped()",
+			"\tend,",
+			"\tcostF = function (me, playerI, laneI)",
+			"\t\tFloopCard(me.Original.Card.ID)",
+			"\t\treturn true",
+			"\tend,",
+			"\teffectF = function (me, playerI, laneI)",
+			"\t\t$0",
+			"\tend",
+			"})",
+		
+		]
+	},
+	"activated_ability": {
+		"scope": "lua",
+		"prefix": "aa",
+		"description": "add activated ability",
+		"body": [
+			"result:AddActivatedEffect({",
+			"\t-- $1 >>> $2",
+			"\t",
+			"\tcheckF = function (me, playerI, laneI)",
+			"\t\t$3",
+			"\tend,",
+			"\tcostF = function (me, playerI, laneI)",
+			"\t\t$4",
+			"\tend,",
+			"\teffectF = function (me, playerI, laneI)",
+			"\t\t$0",
+			"\tend",
+			"})",
+		]
+	},
+	"state_modifier": {
+		"scope": "lua",
+		"prefix": "statemod",
+		"description": "add state modifier",
+		"body": [
+			"result:AddStateModifier(function (state, me)",
+			"\t-- $1",
+			"",
+			"\t$0",
+			"end)",
+		]
+	},
+	"turn_start": {
+		"scope": "lua",
+		"prefix": "turnstart",
+		"description": "turn start trigger",
+		"body": [
+			"result:AddTrigger({",
+			"\t-- At the start of your turn, $1",
+			"\t",
+			"\ttrigger = CardWars.Triggers.TurnStart,",
+			"\tcheckF = function (me, ownerI, laneI)",
+			"\t\treturn GetCurPlayerI() == ownerI",
+			"\tend,",
+			"\tcostF = function (me, ownerI, laneI)",
+			"\t\treturn true",
+			"\tend,",
+			"\teffectF = function (me, ownerI, laneI)",
+			"\t\t$0",
+			"\tend",
+			"})",
+		]
+	},
+	"enter_play": {
+		"scope": "lua",
+		"prefix": "enterplay",
+		"description": "enter play effect",
+		"body": [
+			"result.OnEnterP:AddLayer(function(playerI, laneI)",
+			"\t-- When $1 enters play, $2",
+			"",
+			"\t$0",
+			"end)",
+		]
+	},
+	"leave_play": {
+		"scope": "lua",
+		"prefix": "leaveplay",
+		"description": "leave play effect",
+		"body": [
+			"result.OnLeavePlayP:AddLayer(function(playerI, laneI)",
+			"\t-- When $1 leaves play, $2",
+			"\t",
+			"\t$0",
+			"end)",
+		]
+	},
+	"until_end_of_turn": {
+		"scope": "lua",
+		"prefix": "ueot",
+		"description": "until end of turn effect",
+		"body": [
+			"UntilEndOfTurn(function (state)",
+			"\t$0",
+            "end)",
+		]
+	},
+	"lane_change": {
+		"scope": "lua",
+		"prefix": "changelane",
+		"description": "change lane effect",
+		"body": [
+			"result.OnMoveP:AddLayer(function(playerI, fromI, toI)",
+			"\t-- When $1 changes Lanes${2: during a turn}, $3",
+			"",
+			"\t$0",
+			"end)",
+		]
+	}
+}

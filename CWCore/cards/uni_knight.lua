@@ -4,7 +4,7 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
-        -- Pay 1 Action >>> Target Creature in this Lane has -10 ATK.
+        -- Pay 1 Action >>> Target Creature in this Lane has -10 ATK this turn.
 
         checkF = function (me, playerI, laneI)
             return GetPlayer(playerI).Original.ActionPoints >= 1

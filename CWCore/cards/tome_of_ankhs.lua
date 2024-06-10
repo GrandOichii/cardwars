@@ -5,8 +5,8 @@ function _Create(props)
 
     result.EffectP:AddLayer(
         function (playerI)
-            -- Draw 3 cards.
-            
+            -- Draw a card for each of your empty Lanes.
+
             local player = GetPlayer(playerI)
             local amount = 0
             local lanes = player.Landscapes
@@ -16,7 +16,7 @@ function _Create(props)
                     amount = amount + 1
                 end
             end
-    
+
             Draw(playerI, amount)
         end
     )
