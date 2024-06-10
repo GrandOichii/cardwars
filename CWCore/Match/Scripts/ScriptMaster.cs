@@ -338,4 +338,11 @@ public class ScriptMaster {
         _match.HealDamage(creature, amount)
             .Wait();
     }
+
+    [LuaCommand]
+    public void LoseHitPoints(int playerI, int amount) {
+        var player = _match.GetPlayer(playerI);
+        player.LoseHitPoints(amount)
+            .Wait();
+    }
 }

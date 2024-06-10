@@ -256,4 +256,14 @@ public class Player {
 
         // TODO add trigger
     }
+
+    public async Task LoseHitPoints(int amount) {
+        Life -= amount;
+        if (Life < 0) {
+            Life = 0;
+            // TODO tell match
+        }
+
+        // TODO add trigger
+    }
 }

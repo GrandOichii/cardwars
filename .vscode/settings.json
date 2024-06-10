@@ -36,6 +36,7 @@
         "MoveBuilding",
         "GetBuilding",
         "HealHitPoints",
-        "HealDamage"
+        "HealDamage",
+        "LoseHitPoints"
     ]
 }
