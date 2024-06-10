@@ -1,4 +1,4 @@
--- Status: Implemented, could use some more testing
+-- Status: implemented, could use some more testing
 -- TODO replace with Common functions
 
 function _Create(props)

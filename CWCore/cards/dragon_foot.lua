@@ -1,4 +1,4 @@
--- Status: Implemented, kinda sus code
+-- Status: implemented, kinda sus code
 
 function _Create(props)
     local result = CardWars:Creature(props)

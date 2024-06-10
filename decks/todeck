@@ -1,0 +1,23 @@
+#!/bin/python3
+
+import json
+from pathlib import Path
+from sys import argv
+
+if len(argv) != 2:
+    print('specify deck file')
+    exit(1)
+
+lines = open(argv[1], 'r').read().split('\n')
+cards = {}
+landscapes = {}
+for line in lines:
+    split = line.split(' ')
+    count = int(line[0])
+    name = ''.join(line[1:])[1:]
+    cards[name] = count
+
+open(Path(argv[1]).stem + '.json', 'w').write(json.dumps({
+    'Cards': cards,
+    'Landscapes': {}
+}, indent=4))

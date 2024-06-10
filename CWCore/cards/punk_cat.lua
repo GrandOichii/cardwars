@@ -1,4 +1,4 @@
--- Status: Implemented
+-- Status: implemented
 -- TODO? does this effect the opponents creatures?
 
 function _Create(props)

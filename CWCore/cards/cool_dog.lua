@@ -1,4 +1,4 @@
--- Status: Implemented, requires further testing
+-- Status: implemented, requires further testing
 
 function _Create(props)
     local result = CardWars:Creature(props)

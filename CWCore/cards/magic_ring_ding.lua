@@ -1,4 +1,4 @@
--- Status: Implemented, not tested
+-- Status: implemented, not tested
 
 function _Create(props)
     local result = CardWars:Spell(props)
