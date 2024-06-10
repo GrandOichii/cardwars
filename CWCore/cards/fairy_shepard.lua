@@ -1,0 +1,20 @@
+-- Status: not tested
+
+function _Create(props)
+    local result = CardWars:Creature(props)
+
+    result:AddStateModifier(function (state, me)
+        -- Each Adjacent NiceLands Creature has +2 DEF.
+
+        local ownerI = me.Original.OwnerI
+
+        local adjacent = Common.State:AdjacentLandscapes(state, ownerI, me.LaneI)
+        for _, landscape in ipairs(adjacent) do
+            if landscape.Creature ~= nil and landscape.Creature.Original.Card.Template == 'NiceLands' then
+                landscape.Creature.Defense = landscape.Creature.Defense + 2
+            end
+        end
+    end)
+
+    return result
+end

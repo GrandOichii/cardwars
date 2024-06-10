@@ -157,5 +157,31 @@
 			"\t$0",
 			"end)",
 		]
+	},
+	"target_creature": {
+		"scope": "lua",
+		"prefix": "targetcreature",
+		"description": "target creature",
+		"body": [
+			"local ids = Common.State:CreatureIDs(${1:GetState()}, function (creature) return ${2:true} end)",
+            "local target = TargetCreature(playerI, ids, '$3')",
+			"$0"
+		]
+	},
+	"building": {
+		"scope": "lua",
+		"prefix": "building",
+		"description": "building card",
+		"body": [
+			"-- Status: Implemented",
+			"",
+			"function _Create(props)",
+			"\tlocal result = CardWars:InPlay(props)",
+			"",
+			"\t$0",
+			"",
+			"\treturn result",
+			"end"
+		]
 	}
 }

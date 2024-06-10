@@ -1,7 +1,7 @@
 -- Status: Implemented
 
 function _Create(props)
-    local result = CardWars:Creature(props)
+    local result = CardWars:InPlay(props)
 
     result:AddStateModifier(function (state, me)
         -- Your Creature in this Lane has +3 DEF.

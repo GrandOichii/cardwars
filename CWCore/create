@@ -22,7 +22,7 @@ print('creating .json file')
 open(join('cards', name + '.json'), 'w').write(data)
 
 print('creating script file')
-open(join('cards', name + '.lua'), 'w').write('-- ' + card_data['text'])
+open(join('cards', name + '.lua'), 'w').write('-- ' + card_data['Text'])
 
 print('adding to manifest file')
 manifest_path = join('cards', 'manifest.json')

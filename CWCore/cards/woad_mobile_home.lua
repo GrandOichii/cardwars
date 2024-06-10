@@ -1,7 +1,7 @@
 -- Status: Implemented
 
 function _Create(props)
-    local result = CardWars:Creature(props)
+    local result = CardWars:InPlay(props)
 
     local getOptions = function (playerI, laneI)
         local state = GetState()
