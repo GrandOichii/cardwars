@@ -4,19 +4,17 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddStateModifier(function (state, me)
-        -- Woadic Chief has +2 ATK this turn for each Spell you have played this turn.
+        -- If you played one or more Rainbow cards this turn, Infant Scholar has +3 ATK this turn,
 
         local ownerI = me.Original.OwnerI
         local player = state.Players[ownerI].Original
 
-        local count = 0
         for i = 1, player.CardsPlayedThisTurn.Count do
-            if player.CardsPlayedThisTurn[i - 1].Template.Type == 'Spell' then
-                count = count + 1
+            if player.CardsPlayedThisTurn[i - 1].Template.Landscape == 'Rainbow' then
+                me.Attack = me.Attack + 3
+                return
             end
         end
-
-        me.Attack = me.Attack + count * 2
     end)
 
     return result

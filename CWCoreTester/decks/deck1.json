@@ -40,7 +40,7 @@
         "Dragon Claw": 0,
         "Punk Cat": 0,
         "Uni-Knight": 0,
-        "Teleport": 0,
+        "Teleport": 10,
         "Corn Scepter": 0,
         "Sandhorn Devil": 0,
         "The Mariachi": 0,
@@ -58,7 +58,8 @@
         "Reclaim Landscape": 0,
         "Sand Sphinx": 0,
         "Cutie": 0,
-        "Angel of Chocolate": 10,
+        "Infant Scholar": 10,
+        "Angel of Chocolate": 0,
         "Ms. Mummy": 0,
         "Field of Nightmares": 0
     },
