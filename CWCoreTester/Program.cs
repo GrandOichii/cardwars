@@ -275,6 +275,7 @@ public class Program {
                 StrictMode = false,
                 CardDrawCost = 1,
                 StartHandSize = 5,
+                CheckLandscapesForPlayingCards = false,
             };
 
             var cm = new FileCardMaster();

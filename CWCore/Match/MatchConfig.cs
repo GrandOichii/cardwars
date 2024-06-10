@@ -7,4 +7,5 @@ public class MatchConfig {
     public required bool StrictMode { get; set; }
     public required int CardDrawCost { get; set; }
     public required int StartHandSize { get; set; }
+    public required bool CheckLandscapesForPlayingCards { get; set; }
 }

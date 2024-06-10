@@ -15,7 +15,7 @@ public class Player {
     public int ActionPoints { get; set; }
     public List<Landscape> Landscapes { get; set; } = new();
 
-    private readonly GameMatch _match;
+    public GameMatch Match { get; }
     public LinkedList<MatchCard> Deck { get; private set; }
 
     public List<MatchCard> Hand { get; }
@@ -26,7 +26,7 @@ public class Player {
     public List<MatchCard> EnteredDiscardThisTurn { get; }
 
     public Player(GameMatch match, string name, int idx, Dictionary<string, int> landscapeIndex, LinkedList<MatchCard> deck, IPlayerController controller) {
-        _match = match;
+        Match = match;
         Name = name;
         Idx = idx;
         Controller = controller;
@@ -42,17 +42,17 @@ public class Player {
     public string LogFriendlyName => $"{Name} [{Idx}]";
 
     public async Task ResetActionPoints() {
-        ActionPoints = _match.Config.ActionPointsPerTurn;
+        ActionPoints = Match.Config.ActionPointsPerTurn;
         // TODO? add update
     }
 
     public async Task ReadyInPlayCards() {
         foreach (var lane in Landscapes) {
             if (lane.Creature is not null) {
-                await _match.ReadyCard(lane.Creature);
+                await Match.ReadyCard(lane.Creature);
             }
             if (lane.Building is not null) {
-                await _match.ReadyCard(lane.Building);
+                await Match.ReadyCard(lane.Building);
             }
         }
     }
@@ -61,7 +61,7 @@ public class Player {
         int drawn = 0;
         for (int i = 0; i < amount; i++) {
             if (Deck.Count == 0) {
-                _match.LogInfo($"Player {LogFriendlyName} tried to draw out of an empty deck");
+                Match.LogInfo($"Player {LogFriendlyName} tried to draw out of an empty deck");
                 break;
             }
 
@@ -73,7 +73,7 @@ public class Player {
             drawn++;
         }
 
-        _match.LogInfo($"Player {LogFriendlyName} drew {drawn} cards");
+        Match.LogInfo($"Player {LogFriendlyName} drew {drawn} cards");
 
         return drawn;
     }
@@ -81,7 +81,7 @@ public class Player {
     public void PayActionPoints(int amount) {
         ActionPoints -= amount;        
         if (ActionPoints < 0) {
-            _match.LogError($"Player payed {amount} ap, which resulted in their ap being equal to {ActionPoints}");
+            Match.LogError($"Player payed {amount} ap, which resulted in their ap being equal to {ActionPoints}");
         }
         // TODO? add update
     }
@@ -109,17 +109,17 @@ public class Player {
 
         result -= Life;
 
-        _match.LogInfo($"Player {LogFriendlyName} was dealt {result} damage");
+        Match.LogInfo($"Player {LogFriendlyName} was dealt {result} damage");
 
         return Task.FromResult(result);
     }
 
     public async Task Setup() {
-        Life = _match.Config.StartingLifeTotal;
+        Life = Match.Config.StartingLifeTotal;
         await PlaceLandscapes();
 
-        Deck = Common.Shuffled(Deck, _match.Rng);
-        Draw(_match.Config.StartHandSize);
+        Deck = Common.Shuffled(Deck, Match.Rng);
+        Draw(Match.Config.StartHandSize);
     }
 
     private async Task PlaceLandscapes() {
@@ -150,7 +150,7 @@ public class Player {
             }
             options.Add(i);
         }
-        var result = await Controller.PickLaneForCreature(_match, this, options);
+        var result = await Controller.PickLaneForCreature(Match, this, options);
         return result;
     }
 
@@ -166,12 +166,12 @@ public class Player {
             }
             options.Add(i);
         }
-        var result = await Controller.PickLaneForBuilding(_match, this, options);
+        var result = await Controller.PickLaneForBuilding(Match, this, options);
         return result;
     }
 
     public async Task<int> PickAttackLane(List<int> options) {
-        var result = await Controller.PickAttackLane(_match, this, options);
+        var result = await Controller.PickAttackLane(Match, this, options);
         return result;
     }
 
@@ -187,7 +187,7 @@ public class Player {
 
         CardsPlayedThisTurn.Add(card);
 
-        await _match.ReloadState();
+        await Match.ReloadState();
         creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI);
         // TODO add triggers
     }
@@ -203,43 +203,43 @@ public class Player {
         lane.Building = building;
 
         CardsPlayedThisTurn.Add(card);
-        await _match.ReloadState();
+        await Match.ReloadState();
         building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, Idx, laneI);
         // TODO add triggers
     }
 
     public async Task<int> PickLane(List<int> options, string hint) {
-        var result = await Controller.PickLane(_match, this, options, hint);
+        var result = await Controller.PickLane(Match, this, options, hint);
         // TODO validate
         return result;
     }
 
     public async Task<int[]> PickLandscape(List<int> options, List<int> opponentOptions, string hint) {
-        var result = await Controller.PickLandscape(_match, this, options, opponentOptions, hint);
+        var result = await Controller.PickLandscape(Match, this, options, opponentOptions, hint);
         // TODO validate
         return result;
     }
 
     public async Task<string> PickCreature(List<string> options, string hint) {
-        var result = await Controller.PickCreature(_match, this, options, hint);
+        var result = await Controller.PickCreature(Match, this, options, hint);
         // TODO validate
         return result;
     }
 
     public async Task<string> PickBuilding(List<string> options, string hint) {
-        var result = await Controller.PickBuilding(_match, this, options, hint);
+        var result = await Controller.PickBuilding(Match, this, options, hint);
         // TODO validate
         return result;
     }
 
     public async Task<string> Pick(List<string> options, string hint) {
-        var result = await Controller.PickOption(_match, this, options, hint);
+        var result = await Controller.PickOption(Match, this, options, hint);
         // TODO validate
         return result;
     }
 
     public async Task<int> PickCardInHand(List<int> options, string hint) {
-        var result = await Controller.PickCardInHand(_match, this, options, hint);
+        var result = await Controller.PickCardInHand(Match, this, options, hint);
         // TODO validate
         return result;
     }
@@ -271,8 +271,8 @@ public class Player {
 
     public async Task HealHitPoints(int amount) {
         Life += amount;
-        if (Life > _match.Config.StartingLifeTotal)
-            Life = _match.Config.StartingLifeTotal;
+        if (Life > Match.Config.StartingLifeTotal)
+            Life = Match.Config.StartingLifeTotal;
 
         // TODO add trigger
     }

@@ -45,4 +45,19 @@ public class PlayerState : IStateModifier {
         }
         return result;
     }
+
+    public Dictionary<string, int> GetLandscapeCounts() {
+        var result = new Dictionary<string, int>();
+
+        foreach (var landscape in Landscapes) {
+            // TODO replace with landscape.Name
+            var name = landscape.Original.Name;
+            if (!result.ContainsKey(name))
+                result.Add(name, 0);
+            result[name]++;
+        }
+
+        return result;
+    }
+
 }
