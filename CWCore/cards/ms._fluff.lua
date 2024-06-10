@@ -4,10 +4,10 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddStateModifier(function (state, me)
-        -- While Wall of Chocolate has no Damage on it, it has +3 ATK.
+        -- While Ms. Fluff has exactly 7 Damage on it, it has +7 ATK.
 
-        if me.Original.Damage == 0 then
-            me.Attack = me.Attack + 3
+        if me.Original.Damage == 7 then
+            me.Attack = me.Attack + 7
         end
     end)
 
