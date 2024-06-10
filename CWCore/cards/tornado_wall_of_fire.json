@@ -1,0 +1,9 @@
+{
+    "Name": "Tornado Wall Of Fire",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "FLOOP >>> Tornado Wall of Fire has +3 ATK while Flooped.",
+    "Attack": 0,
+    "Defense": 10
+}

@@ -7,6 +7,10 @@
 + 1 Celestial Castle
 + 2 Magic Ring Ding
 
+2 Gray Eyebat - returning cards from discard to hand, rng
+2 Red Eyeling - returning cards from discard to hand
+1 Tree of Undeath - returning cards from discard to hand
+2 Snake Eye Ring - returning cards from discard to hand
 2 Wandering Bald Man - milling
 1 Abraca Amadeus - card discarding, opponent targeting
 1 Spirit Tower - "at the end of turn" effects
@@ -19,8 +23,4 @@
 1 Teeth Leaf - cost modification
 2 Bone Wand - cast checks, card discarding
 2 Ogre Gas - deck card revealing
-2 Gray Eyebat - returning cards from discard to hand, rng
-2 Red Eyeling - returning cards from discard to hand
-1 Tree of Undeath - returning cards from discard to hand
-2 Snake Eye Ring - returning cards from discard to hand
 1 Palace of Bone - disabling OnEnter and OnLeave effects

@@ -1,0 +1,9 @@
+{
+    "Name": "Kernel Queen",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Kernel Queen has +1 ATK for each Flooped Creature you control.",
+    "Attack": 1,
+    "Defense": 6
+}

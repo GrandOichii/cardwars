@@ -14,11 +14,13 @@
 + 2 Sand Sphinx
 2 Sandsnake
 
-1 Lost Golem - cost modification
-2 Unempty Coffin - other card action cost modification
-2 ZaZo's Magic Seeds - entered play this turn check, until end of turn effects
 2 Beach Mummy - targeted returning creatures to hand
+
 2 Sand Eyebat - creature enter trigger
 2 Shark - creature enter trigger
 2 SandWitch - creature enter trigger
 2 Peach Djinni - creature enter trigger
+
+1 Lost Golem - cost modification
+2 Unempty Coffin - other card action cost modification
+2 ZaZo's Magic Seeds - entered play this turn check, until end of turn effects

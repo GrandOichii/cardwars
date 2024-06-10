@@ -4,13 +4,15 @@
 1 Cute Overload
 2 Industrial Assassin
 2 Spazzy Cola
+
+2 Tapped Out - "at the time you play this" (not a problem, just modify state)
 1 Fancy Spa - fight phase start trigger
 1 Magenapping - play checks
-2 Tapped Out - "at the time you play this" (not a problem, just modify state)
-2 Fatigued Librarian - "comes into play exhausted, doesnt ready at the start of turn"
-2 Weakened Warrior - "comes into play exhausted, doesnt ready at the start of turn"
 2 Tired Wombat - moving into enemy landscapes
 2 Woadic Ring Leader - creature destruction
+2 Fatigued Librarian - "comes into play exhausted, doesnt ready at the start of turn"
+2 Weakened Warrior - "comes into play exhausted, doesnt ready at the start of turn"
+
 2 Frosted Deanimator - frost tokens
 1 Frosted Snowwoman - frost tokens
 1 Glacier Racer - frost tokens

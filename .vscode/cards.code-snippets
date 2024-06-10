@@ -4,7 +4,7 @@
 		"prefix": "creature",
 		"description": "creature card",
 		"body": [
-			"-- Status: Implemented",
+			"-- Status: not tested",
 			"",
 			"function _Create(props)",
 			"\tlocal result = CardWars:Creature(props)",
@@ -20,7 +20,7 @@
 		"prefix": "spell",
 		"description": "spell card",
 		"body": [
-			"-- Status: Implemented",
+			"-- Status: not tested",
 			"",
 			"function _Create(props)",
 			"\tlocal result = CardWars:Spell(props)",
@@ -87,7 +87,7 @@
 			"result:AddStateModifier(function (state, me, layer)",
 			"\t-- $1",
 			"",
-			"\tif layer == CardWars.ModificationLayers.$2 then",
+			"\tif layer == CardWars.ModificationLayers.${2:ATK_AND_DEF} then",
 			"\t\t$0",
 			"\tend",
 			"",
@@ -145,7 +145,7 @@
 		"description": "until end of turn effect",
 		"body": [
 			"UntilEndOfTurn(function (state, layer)",
-			"\tif layer == CardWars.ModificationLayers.$1 then",
+			"\tif layer == CardWars.ModificationLayers.${1:ATK_AND_DEF} then",
 			"\t\t$0",
 			"\tend",
             "end)",
@@ -178,7 +178,7 @@
 		"prefix": "building",
 		"description": "building card",
 		"body": [
-			"-- Status: Implemented",
+			"-- Status: not tested",
 			"",
 			"function _Create(props)",
 			"\tlocal result = CardWars:InPlay(props)",

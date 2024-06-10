@@ -1,0 +1,9 @@
+{
+    "Name": "Corns Templar",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Heal 1 Damage from Corns Templar.",
+    "Attack": 1,
+    "Defense": 7
+}

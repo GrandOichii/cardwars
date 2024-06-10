@@ -233,6 +233,14 @@ end
 
 Common = {}
 
+function Common:IDs(stateArr)
+    local result = {}
+    for _, card in ipairs(stateArr) do
+        result[#result+1] = card.Original.Card.ID
+    end
+    return result
+end
+
 Common.State = {}
 
 function Common.State:FilterCreatures(state, predicate)
@@ -319,7 +327,6 @@ function Common.State:BuildingIDs(state, predicate)
     return result
 end
 
-
 function Common.State:LandscapeLanes(state, playerI, predicate)
     local landscapes = Common.State:FilterLandscapes(state, predicate)
     local result = {}
@@ -336,4 +343,34 @@ function Common.State:CanFloop(state, card)
         return false
     end
     return not card.Original:IsFlooped()
+end
+
+function Common.State:EmptyLandscapes(state, playerI)
+    local result = Common.State:LandscapeLanes(state, playerI, function (landscape)
+        return landscape.Original.OwnerI == playerI and landscape.Building == nil
+    end)
+    return result
+end
+
+function Common.State:Buildings(state, playerI)
+    local result = Common.State:BuildingIDs(state, function (building)
+        return building.Original.OwnerI == playerI
+    end)
+    return result
+end
+
+function Common.State:FloopedCreatures(state, playerI)
+    return Common.State:FilterCreatures(state, function (creature)
+        return
+            creature.Original.OwnerI == playerI and
+            creature.Original:IsFlooped()
+    end)
+end
+
+function Common.State:LandscapesWithBuildings(state, playerI)
+    return Common.State:FilterLandscapes(state, function (landscape)
+        return
+            landscape.Original.OwnerI == playerI and
+            landscape.Building ~= nil
+    end)
 end

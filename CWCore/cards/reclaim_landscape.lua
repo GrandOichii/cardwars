@@ -1,4 +1,5 @@
 -- Status: Implemented, could use some more testing
+-- TODO replace with Common functions
 
 function _Create(props)
     local result = CardWars:Spell(props)
@@ -38,7 +39,7 @@ function _Create(props)
 
             local buildingId = ChooseBuilding(playerI, options, 'Choose a building to move')
             local building = GetBuilding(buildingId)
-            
+
             local accept = YesNo(playerI, 'Move '..building.Original.Card.Template.Name..' to an empty lane?')
             if not accept then
                 return

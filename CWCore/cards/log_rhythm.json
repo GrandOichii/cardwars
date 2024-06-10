@@ -1,0 +1,7 @@
+{
+    "Name": "Log Rhythm",
+    "Landscape": "Cornfield",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Each Creature you control with a Building on its Landscape had +2 ATK this turn."
+}
