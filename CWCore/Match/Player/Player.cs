@@ -245,4 +245,12 @@ public class Player {
     public async Task ReturnBuildingToHand(int laneI) {
         // TODO
     }
+
+    public async Task HealHitPoints(int amount) {
+        Life += amount;
+        if (Life > _match.Config.StartingLifeTotal)
+            Life = _match.Config.StartingLifeTotal;
+
+        // TODO add trigger
+    }
 }

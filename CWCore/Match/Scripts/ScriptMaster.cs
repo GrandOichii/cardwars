@@ -324,4 +324,11 @@ public class ScriptMaster {
         }
         throw new CWCoreException($"failed to find creature with id {id} to return to hand");
     }
+
+    [LuaCommand]
+    public void HealHitPoints(int playerI, int amount) {
+        var player = _match.GetPlayer(playerI);
+        player.HealHitPoints(amount)
+            .Wait();
+    }
 }
