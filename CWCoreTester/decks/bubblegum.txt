@@ -13,11 +13,11 @@
 + 2 Green Candy
 + 1 Windmill of Health
 + 1 Fairy Shepard
++ 2 Rainbow Eyebat
++ 2 Pieclops
++ 2 Apple Pieclops
 
-2 Apple Pieclops
 2 Niceasaurus Rex
-2 Rainbow Eyebat
-2 Pieclops
 2 Snakemint
 2 Ring of Fluffy
 1 Falling Star

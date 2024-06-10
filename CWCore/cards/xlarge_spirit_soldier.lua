@@ -7,7 +7,6 @@ function _Create(props)
         -- Each adjacent Creature has +1 ATK.
 
         local ownerI = me.Original.OwnerI
-        local id = me.Original.Card.ID
 
         local adjacent = Common.State:AdjacentLandscapes(state, ownerI, me.LaneI)
         for _, landscape in ipairs(adjacent) do
