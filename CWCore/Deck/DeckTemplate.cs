@@ -4,6 +4,8 @@ using NLua;
 
 namespace CWCore.Decks;
 
+// TODO add max card amount checks (default = 3)
+
 public class DeckTemplate {
     public required Dictionary<string, int> Cards { get; set; }
     public required Dictionary<string, int> Landscapes { get; set; }

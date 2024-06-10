@@ -3,5 +3,6 @@
     "Landscape": "Rainbow",
     "Type": "Building",
     "Cost": 1,
-    "Text": "Each time an opposing Creature in this Lane takes Damage, increase the amount by 1."
+    "Text": "Each time an opposing Creature in this Lane takes Damage, increase the amount by 1.",
+    "notes": "add \"DamageMod\" value to LandscapeState, each time a damage request is made, add the DamageMod value to the total damage - this has to be a state modifier"
 }

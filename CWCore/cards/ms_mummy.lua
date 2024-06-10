@@ -1,3 +1,5 @@
+-- Status: changed what "gains 1 DEF" means rules-wise, not tested
+
 function _Create(props)
     local result = CardWars:Creature(props)
 
@@ -30,8 +32,11 @@ function _Create(props)
             local target = TargetCreature(ownerI, creatures, 'Choose a creature to return to buff')
             local creature = GetCreature(target)
 
-            -- TODO? use state or original for base defense
-            creature.Original.Defense = creature.Original.Defense + 1
+            if creature.Original.Damage == 0 then
+                creature.Original.Defense = creature.Original.Defense + 1
+                return
+            end
+            HealDamage(creature.Original.Card.ID, 1)
         end
     })
 
