@@ -12,14 +12,11 @@ function _Create(props)
         end
 
         if replaced then
-            local options = Common:IDs(Common:FilterCreatures(function (creature)
-                return
-                    creature.Original.Card.ID ~= me.Original.Card.ID and
-                    creature.LaneI == laneI
-            end))
+            local options = Common:IDs(Common:CreaturesInLaneExcept(laneI, me.Original.Card.ID))
             if #options == 0 then
                 return
             end
+
             local id = ChooseCreature(playerI, options, 'Choose a creature to deal damage to')
             DealDamageToCreature(id, 3)
         end

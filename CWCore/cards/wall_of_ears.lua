@@ -10,9 +10,7 @@ function _Create(props)
             local ownerI = me.Original.OwnerI
             local id = me.Original.Card.ID
 
-            local cornfields = Common:FilterLandscapes( function (landscape)
-                return landscape:Is('Cornfield')
-            end)
+            local cornfields = Common.AllPlayers:LandscapesTyped(CardWars.Landscapes.Cornfield)
 
             me.Defense = me.Defense + #cornfields
         end

@@ -1,4 +1,4 @@
--- Status: implemented, requires further testing
+-- Status: not tested, requires further testing
 
 function _Create(props)
     local result = CardWars:Creature(props)
@@ -13,14 +13,12 @@ function _Create(props)
             local id = me.Original.Card.ID
             local opponentI = 1 - ownerI
             local opponent = STATE.Players[opponentI]
-            local landscapes = Common:AdjacentLandscapes( ownerI, me.LaneI)
+            local landscapes = Common:AdjacentCreatures(ownerI, me.LaneI)
             local lanes = opponent.Landscapes
-            for _, landscape in ipairs(landscapes) do
-                if landscape.Creature ~= nil then
-                    local laneI = landscape.Creature.LaneI
-                    if lanes[laneI].Creature ~= nil then
-                        lanes[laneI].Creature.CanAttack = false
-                    end
+            for _, creature in ipairs(landscapes) do
+                local laneI = creature.LaneI
+                if lanes[laneI].Creature ~= nil then
+                    lanes[laneI].Creature.CanAttack = false
                 end
             end
         end

@@ -6,7 +6,7 @@ function _Create(props)
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
         -- When Sandhorn Devil enters play, deal 1 Damage to each Creature in play, (including each of your Creatures).
 
-        local ids = Common:IDs(Common:FilterCreatures(function(card) return true end))
+        local ids = Common:IDs(Common.AllPlayers:Creatures())
 
         for _, id in ipairs(ids) do
             DealDamageToCreature(id, 1)

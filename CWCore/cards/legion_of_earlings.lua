@@ -7,15 +7,7 @@ function _Create(props)
         -- When Legion of Earlings enters play, you may return target Creature in this Lane to its owner's hand.
         -- TODO duplicated code fron Uni-Knight
 
-        local options = {}
-        local players = GetPlayers()
-        for i = 1, 2 do
-            local player = players[i]
-            local lane = player.Landscapes[laneI]
-            if lane.Creature ~= nil then
-                options[#options+1] = lane.Creature.Original.Card.ID
-            end
-        end
+        local options = Common:IDs(Common:CreaturesInLane(laneI))
 
         local target = TargetCreature(playerI, options, 'Choose a creature to return to hand')
         local creature = GetCreature(target)

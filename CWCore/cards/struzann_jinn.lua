@@ -9,12 +9,7 @@ function _Create(props)
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
 
-            local creatures = Common:FilterCreatures( function (creature)
-                return
-                    creature.Original.OwnerI == ownerI and
-                    creature.Original:IsFlooped()
-            end)
-
+            local creatures = Common:FloopedCreatures(ownerI)
             me.Attack = me.Attack + #creatures * 2
 
         end

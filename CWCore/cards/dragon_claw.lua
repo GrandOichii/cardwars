@@ -3,18 +3,6 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    local getLaneOptions = function (playerI)
-        local options = {}
-        local lanes = GetLanes(playerI)
-        for i = 1, lanes.Count do
-            local lane = lanes[i - 1]
-            if lane.Creature == nil then
-                options[#options+1] = lane.Original.Idx
-            end
-        end
-        return options
-    end
-
     result:AddActivatedEffect({
         -- FLOOP >>> Move a Creature you control to an empty Lane.
 
@@ -22,22 +10,17 @@ function _Create(props)
             if not Common:CanFloop(me) then
                 return false
             end
-            return #getLaneOptions(playerI) > 0
+            return #Common:LandscapesWithoutCreatures(playerI)
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local creatures = GetCreatures(playerI)
-            local creatureOptions = {}
-            for _, creature in ipairs(creatures) do
-                creatureOptions[#creatureOptions+1] = creature.Original.Card.ID
-            end
+            local creatures = Common:Creatures(playerI)
+            local creatureId = ChooseCreature(playerI, creatures, 'Choose a creature to move')
 
-            local creatureId = ChooseCreature(playerI, creatureOptions, 'Choose a creature to move')
-
-            local options = getLaneOptions(playerI)
+            local options = Common:LandscapesWithoutCreatures(playerI)
             local lane = ChooseLane(playerI, options, 'Choose an empty Lane to move to')
 
             MoveCreature(creatureId, lane)

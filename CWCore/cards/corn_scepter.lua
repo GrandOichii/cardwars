@@ -7,16 +7,9 @@ function _Create(props)
         function (playerI)
             -- Deal 1 Damage to target creature for each Cornfield Landscape you control.
 
-            local lanes = STATE.Players[playerI].Landscapes
-            local amount = 0
-            for i = 1, lanes.Count do
-                local lane = lanes[i - 1]
-                if lane:Is('Cornfield') then
-                    amount = amount + 1
-                end
-            end
+            local amount = #Common:LandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
 
-            local creatureIds = Common:IDs(Common:FilterCreatures(function () return true end))
+            local creatureIds = Common:IDs(Common.AllPlayers:Creatures())
             local creatureId = ChooseCreature(playerI, creatureIds, 'Choose a creature to deal damage to')
 
             DealDamageToCreature(creatureId, amount)

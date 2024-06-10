@@ -85,7 +85,10 @@ CardWars.Triggers = {
 
 CardWars.Landscapes = {
     Rainbow = 'rainbow',
-    BluePlains = 'Blue Plains'
+    BluePlains = 'Blue Plains',
+    SandyLands = 'SandyLands',
+    Cornfield = 'Cornfield',
+    NiceLands = 'NiceLands',
 }
 
 -- Modifiction layers
@@ -294,6 +297,43 @@ function Common:FilterLandscapes(predicate)
     return result
 end
 
+function Common:CreaturesInLane(laneI)
+    return Common:CreaturesInLaneExcept(laneI, '__empty_id__')
+end
+
+function Common:CreaturesNamed(playerI, name)
+    return Common:FilterCreatures( function (creature)
+        return
+            creature.Original.OwnerI == playerI and
+            creature.Original.Card.Template.Name == name
+    end)
+end
+
+function Common:CreaturesInLaneExcept(laneI, id)
+    local result = {}
+    local players = GetPlayers()
+
+    for i = 1, 2 do
+        local player = players[i]
+        local lane = player.Landscapes[laneI]
+        if lane.Creature ~= nil then
+            local cid = lane.Creature.Original.Card.ID
+            if cid ~= id then
+                result[#result+1] = lane.Creature
+            end
+        end
+    end
+
+    return result
+end
+
+function Common:CanFloop(card)
+    if not GetConfig().CanFloopOnFirstTurn and STATE.TurnCount == 1 then
+        return false
+    end
+    return not card.Original:IsFlooped()
+end
+
 function Common:AdjacentLandscapes(playerI, laneI)
     local result = {}
 
@@ -308,60 +348,64 @@ function Common:AdjacentLandscapes(playerI, laneI)
     return result
 end
 
-function Common:BuildingIDs(predicate)
-    local buildings = Common:FilterBuildings(predicate)
+function Common:AdjacentLandscapesTyped(playerI, laneI, type)
     local result = {}
-    for _, building in ipairs(buildings) do
-        result[#result+1] = building.Original.Card.ID
+
+    local lanes = STATE.Players[playerI].Landscapes
+    if laneI - 1 >= 0 and lanes[laneI - 1]:Is(type) then
+        result[#result+1] = lanes[laneI - 1]
     end
+    if laneI + 1 < lanes.Count and lanes[laneI - 1]:Is(type) then
+        result[#result+1] = lanes[laneI + 1]
+    end
+
     return result
 end
 
-function Common:LandscapeLanes(playerI, predicate)
-    local landscapes = Common:FilterLandscapes(predicate)
+function Common:AdjacentCreatures(playerI, laneI)
     local result = {}
-    for _, landscape in ipairs(landscapes) do
-        if landscape.Original.OwnerI == playerI then
-            result[#result+1] = landscape.Original.Idx
+    local adjacent = Common:AdjacentLandscapes(playerI, laneI)
+    for _, landscape in ipairs(adjacent) do
+        if landscape.Creature ~= nil then
+            result[#result+1] = landscape.Creature
         end
     end
     return result
 end
 
-function Common:CanFloop(card)
-    if not GetConfig().CanFloopOnFirstTurn and STATE.TurnCount == 1 then
-        return false
+function Common:AdjacentCreaturesTyped(playerI, laneI, type)
+    local result = {}
+    local adjacent = Common:AdjacentLandscapes(playerI, laneI)
+    for _, landscape in ipairs(adjacent) do
+        if landscape.Creature ~= nil and landscape.Creature:IsType(type) then
+            result[#result+1] = landscape.Creature
+        end
     end
-    return not card.Original:IsFlooped()
+    return result
 end
 
 function Common:LandscapesWithoutBuildings(playerI)
-    local result = Common:LandscapeLanes(playerI, function (landscape)
+    return Common:FilterLandscapes(function (landscape)
         return landscape.Original.OwnerI == playerI and landscape.Building == nil
     end)
-    return result
 end
 
 function Common:LandscapesWithoutCreatures(playerI)
-    local result = Common:LandscapeLanes(playerI, function (landscape)
+    return Common:FilterLandscapes(function (landscape)
         return landscape.Original.OwnerI == playerI and landscape.Creature == nil
     end)
-    return result
 end
 
 function Common:Creatures(playerI)
-    local result = Common:FilterCreatures(function (building)
+    return Common:FilterCreatures(function (building)
         return building.Original.OwnerI == playerI
     end)
-    return result
-
 end
 
 function Common:Buildings(playerI)
-    local result = Common:FilterBuildings(function (building)
+    return Common:FilterBuildings(function (building)
         return building.Original.OwnerI == playerI
     end)
-    return result
 end
 
 function Common:FloopedCreatures(playerI)
@@ -373,11 +417,7 @@ function Common:FloopedCreatures(playerI)
 end
 
 function Common:CreaturesTyped(playerI, landscape)
-    return Common:FilterCreatures(function (creature)
-        return
-            creature.Original.OwnerI == playerI and
-            creature.Original.Card.Template.Landscape == landscape
-    end)
+    return Common:CreaturesTypedExcept(playerI, landscape, '__empty_id__')
 end
 
 function Common:LandscapesWithBuildings(playerI)
@@ -388,14 +428,139 @@ function Common:LandscapesWithBuildings(playerI)
     end)
 end
 
-function Common:FaceDownLandscapes(playerI)
+function Common:LandscapesTyped(playerI, type)
     local result = {}
-    local lanes = STATE.Players[playerI].Landscapes
-    for i = 1, lanes.Count do
-        local lane = lanes[i - 1]
-        if lane.Original.FaceDown then
-            result[#result+1] = i - 1
+    local landscapes = STATE.Players[playerI].Landscapes
+    for i = 1, landscapes.Count do
+        local landscape = landscapes[i - 1]
+        if landscape:Is(type) then
+            result[#result+1] = landscape
         end
     end
     return result
+end
+
+function Common:FaceDownLandscapes(playerI)
+    local result = {}
+    local landscapes = STATE.Players[playerI].Landscapes
+    for i = 1, landscapes.Count do
+        local landscape = landscapes[i - 1]
+        if landscape.Original.FaceDown then
+            result[#result+1] = landscape
+        end
+    end
+    return result
+end
+
+function Common:Lanes(landscapes)
+    local result = {}
+    for _, landscape in ipairs(landscapes) do
+        result[#result+1] = landscape.Original.Idx
+    end
+    return result
+end
+
+function Common:CardsPlayedThisTurnTyped(playerI, type)
+    local player = STATE.Players[playerI].Original
+
+    local count = 0
+    for i = 1, player.CardsPlayedThisTurn.Count do
+        if player.CardsPlayedThisTurn[i - 1].Template.Landscape == type then
+            count = count + 1
+        end
+    end
+    return count
+end
+
+function Common:SpellsPlayedThisTurn(playerI)
+    local player = STATE.Players[playerI].Original
+
+    local count = 0
+    for i = 1, player.CardsPlayedThisTurn.Count do
+        if player.CardsPlayedThisTurn[i - 1].Template.Type == 'Spell' then
+            count = count + 1
+        end
+    end
+    return count
+end
+
+function Common:CreaturesTypedExcept(playerI, landscape, id)
+    return Common:FilterCreatures(function (creature)
+        return
+            creature.Original.OwnerI == playerI and
+            creature:IsType(landscape) and
+            creature.Original.Card.ID ~= id
+    end)
+end
+
+function Common:CreaturesThatChangedLanes(playerI)
+    return Common:FilterCreatures(function (creature)
+        return
+            creature.Original.OwnerI == playerI and
+            creature.Original.MovementCount > 0
+    end)
+end
+
+function Common:CreaturesWithNoDamage(playerI)
+    local landscapes = STATE.Players[playerI].Landscapes
+    local result = {}
+    for i = 1, landscapes.Count do
+        local landscape = landscapes[i - 1]
+        local creature = landscape.Creature
+        if creature ~= nil and creature.Original.Damage == 0 then
+            result[#result+1] = creature
+        end
+    end
+    return result
+end
+
+function Common:CreaturesWithBuildings(playerI)
+    local result = {}
+    local landscapes = Common:LandscapesWithBuildings( playerI)
+    for _, landscape in ipairs(landscapes) do
+        local creature = landscape.Creature
+        if creature ~= nil then
+            result[#result+1] = creature
+        end
+    end
+    return result
+end
+
+function Common:LandscapesOfTypeInLane(type, laneI)
+    local result = {}
+    for i = 1, 2 do
+        local landscapes = STATE.Players[i - 1].Landscapes
+        result[i] = {}
+
+        if landscapes[laneI]:Is(type) then
+            result[i] = {landscapes[laneI]}
+        end
+    end
+    return result
+end
+
+function Common:ChooseAndDiscardCard(playerI, hint)
+    hint = hint or 'Choose a card to discard'
+    local cards = STATE.Players[playerI].Hand
+    local ids = {}
+    for i = 1, cards.Count do
+        ids[#ids+1] = i - 1
+    end
+
+    local result = ChooseCardInHand(playerI, ids, 'Choose a card to discard')
+    DiscardFromHand(playerI, result)
+    
+    return result
+end
+
+Common.AllPlayers = {}
+
+function Common.AllPlayers:LandscapesTyped(type)
+    return Common:FilterLandscapes(function (landscape)
+        return landscape:Is(type)
+    end)
+end
+
+function Common.AllPlayers:Creatures()
+    return Common:FilterCreatures(function (_) return true end)
 end

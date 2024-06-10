@@ -1,4 +1,4 @@
--- Status: implemented
+-- Status: not tested
 
 function _Create(props)
     local result = CardWars:Creature(props)
@@ -9,14 +9,9 @@ function _Create(props)
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
 
-            local landscapes = Common:AdjacentLandscapes(ownerI, me.LaneI)
+            local landscapes = Common:AdjacentLandscapesTyped(ownerI, me.LaneI, CardWars.Landscapes.Cornfield)
 
-            for _, landscape in ipairs(landscapes) do
-                if landscape:Is('Cornfield') then
-                    me.Attack = me.Attack + 1
-                end
-            end
-
+            me.Attack = me.Attack + #landscapes
         end
 
     end)

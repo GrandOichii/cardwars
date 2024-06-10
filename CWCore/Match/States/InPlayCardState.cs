@@ -28,4 +28,9 @@ public class InPlayCardState : IStateModifier {
     {
         Original.Card.ExecFunction(MODIFY_STATE_FNAME, Original.Card.Data, (int)layer);
     }
+
+    public bool IsType(string type) {
+        // TODO some cards effect this
+        return Original.Card.Template.Type == type;
+    }
 }

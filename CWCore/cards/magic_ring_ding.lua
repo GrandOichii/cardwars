@@ -9,9 +9,7 @@ function _Create(props)
 
             UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creatures = Common:FilterCreatures( function (creature)
-                        return creature.Original.OwnerI == playerI
-                    end)
+                    local creatures = Common:Creatures(playerI)
 
                     local amount = STATE.Players[playerI].DiscardPile.Count
                     if amount == 0 then

@@ -1,5 +1,4 @@
--- Status: implemented, could use some more testing
--- TODO replace with Common functions
+-- Status: not tested
 
 function _Create(props)
     local result = CardWars:Spell(props)
@@ -7,9 +6,7 @@ function _Create(props)
     result.EffectP:AddLayer(
         function (playerI)
             -- You may flip one of your Landscapes face up, and you may move one of your Buildings to one of your Lanes without one."
-            local lanes = Common:LandscapeLanes( playerI, function (landscape)
-                return landscape.Original.FaceDown
-            end)
+            local lanes = Common:Lanes(Common:FaceDownLandscapes(playerI))
 
             if #lanes ~= 0 then
                 local lane = ChooseLandscape(playerI, lanes, {}, 'Choose a Cornfield Landscape to flip face-up')
@@ -19,17 +16,13 @@ function _Create(props)
                 end
             end
 
-            local empty = Common:LandscapeLanes( playerI, function (landscape)
-                return landscape.Original.OwnerI == playerI and landscape.Building == nil
-            end)
+            local empty = Common:Lanes(Common:LandscapesWithoutBuildings(playerI))
 
             if #empty == 0 then
                 return
             end
 
-            local options = Common:BuildingIDs( function (building)
-                return building.Original.OwnerI == playerI
-            end)
+            local options = Common:IDs(Common:Buildings(playerI))
 
             if #options == 0 then
                 return

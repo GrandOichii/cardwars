@@ -1,28 +1,16 @@
--- Status: not implemented
+-- Status: not tested
 
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    local getOptions = function (laneI)
-        local options = {}
-        for i = 1, 2 do
-            local lanes = GetPlayer(i - 1).Landscapes
-            options[i] = {}
-            if lanes[laneI]:Is('Cornfield') then
-                options[i] = {laneI}
-            end
-        end
-        return options
-    end
-
     result:AddActivatedEffect({
-        -- FLOOP >>> Flip target face-down Landscape you control face up.
+        -- FLOOP >>> Flip target Cornfield Landscape in this Lane face down.
 
         checkF = function (me, playerI, laneI)
             if not Common:CanFloop(me) then
                 return false
             end
-            local options = getOptions(laneI)
+            local options = Common:LandscapesOfTypeInLane(CardWars.Landscapes.Cornfield, laneI)
             return #options[1] + #options[2] > 0
         end,
         costF = function (me, playerI, laneI)
@@ -30,9 +18,10 @@ function _Create(props)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local os = getOptions(laneI)
-            local options = os[1]
-            local opponentOptions = os[2]
+            print('effect '..laneI)
+            local os = Common:LandscapesOfTypeInLane(CardWars.Landscapes.Cornfield, laneI)
+            local options = Common:Lanes(os[1])
+            local opponentOptions = Common:Lanes(os[2])
 
             -- TODO? change to target
             local lane = ChooseLandscape(playerI, options, opponentOptions, 'Choose a Cornfield Landscape to flip face-down')

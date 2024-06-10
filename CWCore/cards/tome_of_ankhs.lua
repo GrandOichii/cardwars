@@ -6,6 +6,7 @@ function _Create(props)
     result.EffectP:AddLayer(
         function (playerI)
             -- Draw a card for each of your empty Lanes.
+            -- TODO not clear what "empty" means - without creatures, buildings, or both?
 
             local player = GetPlayer(playerI)
             local amount = 0

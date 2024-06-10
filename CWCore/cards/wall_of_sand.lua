@@ -1,4 +1,4 @@
--- Status: implemented
+-- Status: not tested
 
 function _Create(props)
     local result = CardWars:Creature(props)
@@ -8,17 +8,12 @@ function _Create(props)
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             -- TODO? the "enter play during your turn" kinda scares me
-    
+
             local ownerI = me.Original.OwnerI
             local id = me.Original.Card.ID
-    
-            local creatures = Common:FilterCreatures( function (creature)
-                return
-                    creature.Original.OwnerI == ownerI and
-                    creature.Original.Card.Template.Landscape == 'SandyLands' and
-                    creature.Original.Card.ID ~= id
-            end)
-    
+
+            local creatures = Common:CreaturesTypedExcept(ownerI, CardWars.Landscapes.SandyLands, id)
+
             if #creatures > 0 then
                 me.Attack = me.Attack + 2
             end

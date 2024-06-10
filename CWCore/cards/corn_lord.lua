@@ -10,14 +10,9 @@ function _Create(props)
             local ownerI = me.Original.OwnerI
             local id = me.Original.Card.ID
 
-            local cornCreatures = Common:FilterCreatures(function (creature)
-                return
-                    creature.Original.OwnerI == ownerI and
-                    creature.Original.Card.Template.Landscape == 'Cornfield' and
-                    creature.Original.Card.ID ~= id
-            end)
+            local creatures = Common:CreaturesTypedExcept(ownerI, CardWars.Landscapes.Cornfield, id)
 
-            me.Attack = me.Attack + #cornCreatures
+            me.Attack = me.Attack + #creatures
         end
 
     end)

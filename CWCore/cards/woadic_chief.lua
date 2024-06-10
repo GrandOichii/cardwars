@@ -8,14 +8,7 @@ function _Create(props)
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
-            local player = STATE.Players[ownerI].Original
-
-            local count = 0
-            for i = 1, player.CardsPlayedThisTurn.Count do
-                if player.CardsPlayedThisTurn[i - 1].Template.Type == 'Spell' then
-                    count = count + 1
-                end
-            end
+            local count = Common:SpellsPlayedThisTurn(ownerI)
 
             me.Attack = me.Attack + count * 2
 

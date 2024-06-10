@@ -15,11 +15,7 @@ function _Create(props)
         end,
         effectF = function (me, playerI, laneI)
             local ownerI = me.Original.OwnerI
-            local creatures = Common:FilterCreatures(function (creature)
-                return
-                    creature.Original.OwnerI == ownerI and
-                    creature.Original:IsFlooped()
-            end)
+            local creatures = Common:FloopedCreatures(playerI)
             Draw(playerI, #creatures)
         end
     })

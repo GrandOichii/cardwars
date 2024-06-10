@@ -9,13 +9,8 @@ function _Create(props)
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
-            local id = me.Original.Card.ID
 
-            local creatures = Common:FilterCreatures( function (creature)
-                return
-                    creature.Original.OwnerI == ownerI and
-                    creature.Original.MovementCount > 0
-            end)
+            local creatures = Common:CreaturesThatChangedLanes(ownerI)
 
             for _, creature in ipairs(creatures) do
                 creature.Attack = creature.Attack + 2

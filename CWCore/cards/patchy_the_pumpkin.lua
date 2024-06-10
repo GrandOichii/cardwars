@@ -14,19 +14,9 @@ function _Create(props)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local lanes = STATE.Players[playerI].Landscapes
-            local count = 0
-            for i = 1, lanes.Count do
-                local lane = lanes[i - 1]
-                if lane:Is('Cornfield') then
-                    count = count + 1
-                end
-            end
+            local count = #Common:LandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
 
-            local options = Common:IDs(Common:FilterCreatures( function (creature)
-                -- TODO? not implicitly said, but without this Patchy will be forced to deal damage to itself
-                return creature.Original.OwnerI ~= playerI
-            end))
+            local options = Common.IDs(Common:Creatures(1 - playerI))
 
             for i = 1, count do
                 if #options == 0 then

@@ -10,11 +10,9 @@ function _Create(props)
 
             local ownerI = me.Original.OwnerI
 
-            local adjacent = Common:AdjacentLandscapes(ownerI, me.LaneI)
-            for _, landscape in ipairs(adjacent) do
-                if landscape.Creature ~= nil and landscape.Creature.Original.Card.Template == 'NiceLands' then
-                    landscape.Creature.Defense = landscape.Creature.Defense + 2
-                end
+            local adjacent = Common:AdjacentCreaturesTyped(ownerI, me.LaneI, CardWars.Landscapes.NiceLands)
+            for _, creature in ipairs(adjacent) do
+                creature.Defense = creature.Defense + 2
             end
 
         end

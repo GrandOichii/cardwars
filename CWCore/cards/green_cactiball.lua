@@ -8,13 +8,9 @@ function _Create(props)
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
-            local cornCreatures = Common:FilterCreatures( function (creature)
-                return
-                    creature.Original.OwnerI == ownerI and
-                    creature.Original.Card.Template.Name == 'Green Cactiball'
-            end)
+            local count = Common:CreaturesNamed(ownerI, 'Green Cactiball')
 
-            me.Attack = me.Attack + #cornCreatures * 2
+            me.Attack = me.Attack + #count * 2
         end
         
     end)

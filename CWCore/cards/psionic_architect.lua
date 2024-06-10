@@ -6,11 +6,7 @@ function _Create(props)
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
         -- When Psionic Architect enters play, you may ready a Flooped Creature you control.
 
-        local ids = Common:IDs(Common:FilterCreatures( function (creature)
-            return
-                creature.Original.OwnerI == playerI and
-                creature.Original:IsFlooped()
-        end))
+        local ids = Common:IDs(Common:FloopedCreatures(playerI))
 
         if #ids == 0 then
             return
