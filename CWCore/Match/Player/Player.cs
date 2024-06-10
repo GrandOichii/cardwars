@@ -21,7 +21,9 @@ public class Player {
     public List<MatchCard> Hand { get; }
     public List<MatchCard> DiscardPile { get; set; }
 
-    public List<MatchCard> CardsPlayedThisTurn { get; } = new();
+    public List<MatchCard> CardsPlayedThisTurn { get; }
+    // TODO utilize
+    public List<MatchCard> EnteredDiscardThisTurn { get; }
 
     public Player(GameMatch match, string name, int idx, Dictionary<string, int> landscapeIndex, LinkedList<MatchCard> deck, IPlayerController controller) {
         _match = match;
@@ -34,6 +36,7 @@ public class Player {
         Hand = new();
         DiscardPile = new();
         CardsPlayedThisTurn = new();
+        EnteredDiscardThisTurn = new();
     }
 
     public string LogFriendlyName => $"{Name} [{Idx}]";
