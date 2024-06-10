@@ -16,10 +16,10 @@
 + 2 Rainbow Eyebat
 + 2 Pieclops
 + 2 Apple Pieclops
++ 2 Niceasaurus Rex
++ 2 Ring of Fluffy
 
-2 Niceasaurus Rex
-2 Snakemint
-2 Ring of Fluffy
-1 Falling Star
-2 Blue Candy
-1 Cave of Solitude
+2 Snakemint - on deal damage effects
+1 Falling Star - damage prevention
+2 Blue Candy - "heal up to 3 damage"
+1 Cave of Solitude - "can't be targeted or attacked until the start of your next turn"

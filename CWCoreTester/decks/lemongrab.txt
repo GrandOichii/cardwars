@@ -6,23 +6,24 @@
 2 Quake Maker
 2 Rebounding Zebracorn
 2 Rock 'n Roller
-1 Carmel Camel
 1 Grand Mummy
 1 Sandasaurus Rex
 1 Sandmagus
-2 Ska-pion
-1 Dragoon Parrotrooper
-1 Husky Parrotrooper
-2 Jinxed Parrotrooper
-2 Static Parrotrooper
 2 TNTimmy
 1 Amaizing Avalanche
 2 Free Fall
 1 Quick Pick Me Up
 2 Drop Zone
 1 Ham Fist
-2 Rock Out!
-1 Silo of Freedom
-1 Sinkhole
 1 Lunchpad
 1 Parrotmilitary Outpost
+
+1 Sinkhole - "until the start of your next turn"
+1 Silo of Freedom - landscape changing, "until the start of your next turn"
+2 Rock Out! - "flip Landscape until the start of your next turn"
+1 Husky Parrotrooper - "cannot be replaced", placing into enemy landscapes
+2 Jinxed Parrotrooper - "cannot be replaced", placing into enemy landscapes
+2 Static Parrotrooper - "cannot be replaced", placing into enemy landscapes
+1 Dragoon Parrotrooper - "cannot be replaced", placing into enemy landscapes
+2 Ska-pion - cost modification
+1 Carmel Camel - "put it underneath this creature instead"

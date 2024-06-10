@@ -1,10 +1,3 @@
-2 Ban-She Princess
-1 Ban-She Queen
-1 Bog Ban-She Angel
-2 Bog Bum
-1 Bog Frog Bomb
-2 Fly Swatter
-2 Man-Witch
 2 Unicyclops
 2 Cottonpult
 2 Dr. Stuffenstein
@@ -13,12 +6,20 @@
 2 Music Mallard
 2 Papercut Tiger
 2 Furious Chick
-2 Blood Bath
-2 Bums Away!
-2 Pentaid
 2 Black Hole Pendant
-1 Blood Transfusion
-1 Cardboard Mansion
-1 Funeral Home
 1 Auto-Plucker
 1 The Big Hen House
+
+1 Funeral Home - discard trigger
+1 Cardboard Mansion - cost modification
+1 Blood Transfusion - removing cards from game
+2 Pentaid - "heal exactly 5 damage"
+2 Bums Away! - opponent targeting
+2 Blood Bath - opponent targeting
+2 Man-Witch - discard trigger
+2 Fly Swatter - hand revealing
+1 Bog Frog Bomb - "leaves play while ready"
+2 Bog Bum - "leaves play while ready"
+2 Ban-She Princess - landscape token removal
+1 Ban-She Queen - landscape token removal
+1 Bog Ban-She Angel - landscape token removal
