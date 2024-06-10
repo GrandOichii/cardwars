@@ -156,6 +156,7 @@ public class Player {
 
     public async Task<int> PickLaneForBuilding() {
         // TODO not specified in the rules, check
+
         var options = new List<int>();
         for (int i = 0; i < Landscapes.Count; i++) {
             var landscape = Landscapes[i];
@@ -196,7 +197,7 @@ public class Player {
         var building = new InPlayCard(card, Idx);
 
         if (lane.Building is not null) {
-            // TODO ???
+            await LeavePlay(lane, lane.Building);
         }
 
         lane.Building = building;
