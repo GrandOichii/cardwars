@@ -1,0 +1,30 @@
+#!/bin/python3
+from sys import argv
+from os.path import join
+from pathlib import Path
+import json
+
+if len(argv) < 2:
+    print('specify card name to create')
+    exit(1)
+
+name = ' '.join(argv[1:])
+original_path = join('..', 'cards', name + '.json')
+if not Path(original_path).exists():
+    print(f'no card with name {name}')
+    exit(1)
+
+data = open(original_path, 'r').read()
+name = name.lower().replace(' ', '_').replace('\'', '').replace('-', '_')
+
+print('creating .json file')
+open(join('cards', name + '.json'), 'w').write(data)
+
+print('creating script file')
+open(join('cards', name + '.lua'), 'w').write('-- Implement card logic here')
+
+print('adding to manifest file')
+manifest_path = join('cards', 'manifest.json')
+manifest = json.loads(open(manifest_path, 'r').read())
+manifest['cards'] += [name]
+open(manifest_path, 'w').write(json.dumps(manifest, indent=4))
