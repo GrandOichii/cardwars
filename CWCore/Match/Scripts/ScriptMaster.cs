@@ -331,4 +331,11 @@ public class ScriptMaster {
         player.HealHitPoints(amount)
             .Wait();
     }
+
+    [LuaCommand]
+    public void HealDamage(string creatureId, int amount) {
+        var creature = _match.GetInPlayCreature(creatureId);
+        _match.HealDamage(creature, amount)
+            .Wait();
+    }
 }

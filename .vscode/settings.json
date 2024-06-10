@@ -35,6 +35,7 @@
         "ChooseBuilding",
         "MoveBuilding",
         "GetBuilding",
-        "HealHitPoints"
+        "HealHitPoints",
+        "HealDamage"
     ]
 }

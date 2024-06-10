@@ -429,4 +429,12 @@ public class GameMatch {
         }
         throw new CWCoreException($"failed to find building with id {buildingId} to move to lane {toI}");
     }
+
+    public async Task HealDamage(CreatureState creature, int amount) {
+        var original = creature.GetOriginal();
+        original.Damage -= amount;
+        if (original.Damage < 0) original.Damage = 0;
+
+        // TODO trigger
+    }
 }
