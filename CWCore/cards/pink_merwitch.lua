@@ -11,7 +11,7 @@ function _Create(props)
             return GetHandCount(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            local cards = GetState().Players[playerI].Hand
+            local cards = STATE.Players[playerI].Hand
             local ids = {}
             for i = 1, cards.Count do
                 ids[#ids+1] = i - 1

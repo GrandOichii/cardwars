@@ -7,10 +7,10 @@ function _Create(props)
         function (playerI)
             -- Each of your Cornfield Creatures has +1 ATK this turn for each different Landscape type you control.
 
-            UntilEndOfTurn(function (state, layer)
+            UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
 
-                    local creatures = Common.State:FilterCreatures(state, function (creature)
+                    local creatures = Common:FilterCreatures(function (creature)
                         return
                             creature.Original.OwnerI == playerI and
                             creature.Original.Card.Template.Landscape == 'Cornfield'

@@ -7,9 +7,9 @@ function _Create(props)
         function (playerI)
             -- Each of your Creatures with no Damage has +2 ATK this turn.
 
-            UntilEndOfTurn(function (state, layer)
+            UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local landscapes = state.Players[playerI].Landscapes
+                    local landscapes = STATE.Players[playerI].Landscapes
                     for i = 1, landscapes.Count do
                         local landscape = landscapes[i - 1]
                         local creature = landscape.Creature

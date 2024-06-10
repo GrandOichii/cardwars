@@ -266,8 +266,59 @@ public class ConsolePlayerController : IPlayerController
 }
 
 public class Program {
+    public static async Task TestRandom(int amount) {
+         var config = new MatchConfig() {
+            StartingLifeTotal = 25,
+            ActionPointsPerTurn = 12,
+            LaneCount = 4,
+            StrictMode = true,
+            CardDrawCost = 1,
+            StartHandSize = 5,
+            CheckLandscapesForPlayingCards = false,
+            CanFloopOnFirstTurn = true,
+            CanAttackOnFirstTurn = true,
+        };
+
+        var cm = new FileCardMaster();
+        cm.Load("../CWCore/cards");
+
+        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/deck1.json"))
+            ?? throw new Exception("failed to read deck file")
+        ;
+        var deck2 = deck1;
+
+        int failed = 0;
+        for (int i = 0; i < amount; i++) {
+            System.Console.WriteLine("Seed: " + i);
+
+            var controller1 = new RandomPlayerController(i);
+            var controller2 = new RandomPlayerController(i);
+
+            var match = new GameMatch(config, i, cm, File.ReadAllText("../CWCore/core.lua"))
+            {
+                // Logger = LoggerFactory
+                //     .Create(builder => builder.AddConsole())
+                //     .CreateLogger("Program")
+            };
+
+            await match.AddPlayer("player1", deck1, controller1);
+            await match.AddPlayer("player2", deck2, controller2);
+
+            try {
+                await match.Run();
+            } catch (Exception e) {
+                PrintException(e);
+                ++failed;
+            }
+        }
+
+        System.Console.WriteLine($"S/F: {amount - failed}/{amount}");
+    }
+
     public static async Task Main(string[] args) {
         try {
+            await TestRandom(100);
+            return;
             var config = new MatchConfig() {
                 StartingLifeTotal = 25,
                 ActionPointsPerTurn = 12,
@@ -291,7 +342,7 @@ public class Program {
             var controller1 = new ConsolePlayerController();
             var controller2 = controller1;
 
-            var match = new GameMatch(config, cm, File.ReadAllText("../CWCore/core.lua"))
+            var match = new GameMatch(config, 0, cm, File.ReadAllText("../CWCore/core.lua"))
             {
                 Logger = LoggerFactory
                     .Create(builder => builder.AddConsole())

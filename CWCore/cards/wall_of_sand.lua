@@ -3,7 +3,7 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (state, me, layer)
+    result:AddStateModifier(function ( me, layer)
         -- If one or more other SandyLand Creatures enter play during you turn, Wall of Sand has +2 ATK this turn.
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
@@ -12,7 +12,7 @@ function _Create(props)
             local ownerI = me.Original.OwnerI
             local id = me.Original.Card.ID
     
-            local creatures = Common.State:FilterCreatures(state, function (creature)
+            local creatures = Common:FilterCreatures( function (creature)
                 return
                     creature.Original.OwnerI == ownerI and
                     creature.Original.Card.Template.Landscape == 'SandyLands' and

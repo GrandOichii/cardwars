@@ -7,14 +7,18 @@ function _Create(props)
         function (playerI)
             -- Each of your Creatures has +1 ATK this turn for every 5 cards in your discard pile.
 
-            UntilEndOfTurn(function (state, layer)
+            UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creatures = Common.State:FilterCreatures(state, function (creature)
+                    local creatures = Common:FilterCreatures( function (creature)
                         return creature.Original.OwnerI == playerI
                     end)
 
-                    local amount = state.Players[playerI].DiscardPile.Count
+                    local amount = STATE.Players[playerI].DiscardPile.Count
+                    if amount == 0 then
+                        return
+                    end
                     for _, creature in ipairs(creatures) do
+            
                         creature.Attack = creature.Attack + math.floor(amount / 5)
                     end
                 end

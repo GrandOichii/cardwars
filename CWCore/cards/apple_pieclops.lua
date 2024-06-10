@@ -14,9 +14,9 @@ function _Create(props)
             return true
         end,
         effectF = function (me, ownerI, laneI)
-            local ids = Common.State:CreatureIDs(GetState(), function (creature)
-                return creature.Original.OwnerI == ownerI
-            end)
+            local ids = Common:IDs(
+                Common:Creatures(ownerI)
+            )
 
             local accept = YesNo(ownerI, 'Heal 1 damage to each Creature you control?')
             if accept then

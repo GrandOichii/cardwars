@@ -4,8 +4,7 @@ function _Create(props)
     local result = CardWars:InPlay(props)
 
     local getCreature = function (playerI, laneI)
-        local state = GetState()
-        local player = state.Players[playerI]
+        local player = STATE.Players[playerI]
         local landscape = player.Landscapes[laneI]
         return landscape.Creature
     end
@@ -14,7 +13,7 @@ function _Create(props)
         -- FLOOP >>> Return a Creature you control in this Lane to its owner's hand.
 
         checkF = function (me, playerI, laneI)
-            return Common.State:CanFloop(GetState(), me) and getCreature(playerI, laneI) ~= nil
+            return Common:CanFloop(me) and getCreature(playerI, laneI) ~= nil
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)

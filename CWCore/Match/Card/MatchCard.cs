@@ -20,7 +20,7 @@ public class MatchCard {
         ID = generator.Next();
 
         state.DoString(card.Script);
-        var creationF = LuaUtility.GetGlobalF(state, CARD_CREATION_FNAME);
+        var creationF = LuaUtility.GetGlobalF(state,  CARD_CREATION_FNAME);
         var props = card.GetProps(state);
         var returned = creationF.Call(props);
         Data = LuaUtility.GetReturnAs<LuaTable>(returned);

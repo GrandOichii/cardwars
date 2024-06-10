@@ -9,11 +9,11 @@ public class BattlePhase : IPhase
     public async Task Exec(GameMatch match, int playerI)
     {
         var player = match.GetPlayer(playerI);
-        var opponent = match.GetPlayer(1 - playerI);
         match.LogInfo($"Player {player.LogFriendlyName} proceeds to battle");
         
         while (true) {
             await match.ReloadState();
+            if (!match.Active) return;
         
             if (!match.Config.CanAttackOnFirstTurn && match.TurnCount == 1) {
                 break;
@@ -62,9 +62,7 @@ public class BattlePhase : IPhase
             match.LogInfo($"{attacker.Card.LogFriendlyName} attacks {defender.Card.LogFriendlyName} in lane {laneI}");
             await match.DealDamageToCreature(defender, attackerState.Attack);
             await match.DealDamageToCreature(attacker, defenderState.Attack);
-            await match.CheckDeadCreatures();
         }
-
     }
 
     private static List<int> AvailableAttacks(PlayerState playerState) {

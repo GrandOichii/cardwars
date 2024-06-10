@@ -9,15 +9,14 @@ function _Create(props)
         function (playerI)
             -- Target Blue Plains Creature you control has +2 ATK this turn.
 
-            local s = GetState()
-            local ids = Common.State:CreatureIDs(s, function (creature)
+            local ids = Common:IDs(Common:FilterCreatures(function (creature)
                 return
                     creature.Original.OwnerI == playerI and
                     creature.Original.Card.Template.Landscape == 'Blue Plains'
-            end)
+            end))
             local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
 
-            UntilEndOfTurn(function (state, layer)
+            UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     local creature = GetCreatureOrDefault(target)
                     if creature == nil then

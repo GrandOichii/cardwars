@@ -190,6 +190,8 @@ public class Player {
         CardsPlayedThisTurn.Add(card);
 
         await Match.ReloadState();
+        if (!Match.Active) return;
+
         creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI, replaced);
         // TODO add triggers
     }

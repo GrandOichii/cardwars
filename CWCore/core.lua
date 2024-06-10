@@ -1,3 +1,5 @@
+STATE = {}
+
 -- Core
 
 Core = {}
@@ -167,9 +169,9 @@ function CardWars:InPlay(props)
         result.StateModifiers[#result.StateModifiers+1] = modF
     end
 
-    function result:ModifyState(state, me, layer)
+    function result:ModifyState(me, layer)
         for _, modF in ipairs(result.StateModifiers) do
-            modF(state, me, layer)
+            modF(me, layer)
         end
     end
 
@@ -241,13 +243,10 @@ function Common:IDs(stateArr)
     return result
 end
 
-Common.State = {}
-
-function Common.State:FilterCreatures(state, predicate)
+function Common:FilterCreatures(predicate)
     local result = {}
-
-    for pi = 1, state.Players.Length do
-        local pState = state.Players[pi - 1]
+    for pi = 1, STATE.Players.Length do
+        local pState = STATE.Players[pi - 1]
         for li = 1, pState.Landscapes.Count do
             local lane = pState.Landscapes[li - 1]
             if lane.Creature ~= nil then
@@ -261,11 +260,10 @@ function Common.State:FilterCreatures(state, predicate)
     return result
 end
 
-function Common.State:FilterBuildings(state, predicate)
+function Common:FilterBuildings(predicate)
     local result = {}
-
-    for pi = 1, state.Players.Length do
-        local pState = state.Players[pi - 1]
+    for pi = 1, STATE.Players.Length do
+        local pState = STATE.Players[pi - 1]
         for li = 1, pState.Landscapes.Count do
             local lane = pState.Landscapes[li - 1]
             if lane.Building ~= nil then
@@ -279,11 +277,11 @@ function Common.State:FilterBuildings(state, predicate)
     return result
 end
 
-function Common.State:FilterLandscapes(state, predicate)
+function Common:FilterLandscapes(predicate)
     local result = {}
 
-    for pi = 1, state.Players.Length do
-        local pState = state.Players[pi - 1]
+    for pi = 1, STATE.Players.Length do
+        local pState = STATE.Players[pi - 1]
         for li = 1, pState.Landscapes.Count do
             local lane = pState.Landscapes[li - 1]
             if predicate(lane) then
@@ -295,10 +293,10 @@ function Common.State:FilterLandscapes(state, predicate)
     return result
 end
 
-function Common.State:AdjacentLandscapes(state, playerI, laneI)
+function Common:AdjacentLandscapes(playerI, laneI)
     local result = {}
 
-    local lanes = state.Players[playerI].Landscapes
+    local lanes = STATE.Players[playerI].Landscapes
     if laneI - 1 >= 0 then
         result[#result+1] = lanes[laneI - 1]
     end
@@ -309,17 +307,8 @@ function Common.State:AdjacentLandscapes(state, playerI, laneI)
     return result
 end
 
-function Common.State:CreatureIDs(state, predicate)
-    local creatures = Common.State:FilterCreatures(state, predicate)
-    local result = {}
-    for _, creature in ipairs(creatures) do
-        result[#result+1] = creature.Original.Card.ID
-    end
-    return result
-end
-
-function Common.State:BuildingIDs(state, predicate)
-    local buildings = Common.State:FilterBuildings(state, predicate)
+function Common:BuildingIDs(predicate)
+    local buildings = Common:FilterBuildings(predicate)
     local result = {}
     for _, building in ipairs(buildings) do
         result[#result+1] = building.Original.Card.ID
@@ -327,8 +316,8 @@ function Common.State:BuildingIDs(state, predicate)
     return result
 end
 
-function Common.State:LandscapeLanes(state, playerI, predicate)
-    local landscapes = Common.State:FilterLandscapes(state, predicate)
+function Common:LandscapeLanes(playerI, predicate)
+    local landscapes = Common:FilterLandscapes(predicate)
     local result = {}
     for _, landscape in ipairs(landscapes) do
         if landscape.Original.OwnerI == playerI then
@@ -338,39 +327,59 @@ function Common.State:LandscapeLanes(state, playerI, predicate)
     return result
 end
 
-function Common.State:CanFloop(state, card)
-    if not GetConfig().CanFloopOnFirstTurn and state.TurnCount == 1 then
+function Common:CanFloop(card)
+    if not GetConfig().CanFloopOnFirstTurn and STATE.TurnCount == 1 then
         return false
     end
     return not card.Original:IsFlooped()
 end
 
-function Common.State:EmptyLandscapes(state, playerI)
-    local result = Common.State:LandscapeLanes(state, playerI, function (landscape)
+function Common:EmptyLandscapes(playerI)
+    local result = Common:LandscapeLanes(playerI, function (landscape)
         return landscape.Original.OwnerI == playerI and landscape.Building == nil
     end)
     return result
 end
 
-function Common.State:Buildings(state, playerI)
-    local result = Common.State:BuildingIDs(state, function (building)
+function Common:Creatures(playerI)
+    local result = Common:FilterCreatures(function (building)
+        return building.Original.OwnerI == playerI
+    end)
+    return result
+
+end
+
+function Common:Buildings(playerI)
+    local result = Common:FilterBuildings(function (building)
         return building.Original.OwnerI == playerI
     end)
     return result
 end
 
-function Common.State:FloopedCreatures(state, playerI)
-    return Common.State:FilterCreatures(state, function (creature)
+function Common:FloopedCreatures(playerI)
+    return Common:FilterCreatures(function (creature)
         return
             creature.Original.OwnerI == playerI and
             creature.Original:IsFlooped()
     end)
 end
 
-function Common.State:LandscapesWithBuildings(state, playerI)
-    return Common.State:FilterLandscapes(state, function (landscape)
+function Common:LandscapesWithBuildings(playerI)
+    return Common:FilterLandscapes(function (landscape)
         return
             landscape.Original.OwnerI == playerI and
             landscape.Building ~= nil
     end)
+end
+
+function Common:FaceDownLandscapes(playerI)
+    local result = {}
+    local lanes = STATE.Players[playerI].Landscapes
+    for i = 1, lanes.Count do
+        local lane = lanes[i - 1]
+        if lane.Original.FaceDown then
+            result[#result+1] = i - 1
+        end
+    end
+    return result
 end

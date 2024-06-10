@@ -7,14 +7,14 @@ function _Create(props)
         -- FLOOP >>> Tornado Wall of Fire has +3 ATK while Flooped.
     
         checkF = function (me, playerI, laneI)
-            return Common.State:CanFloop(GetState(), me)
+            return Common:CanFloop(me)
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            UntilEndOfTurn(function (state, layer)
+            UntilEndOfTurn(function ( layer)
                 local id = me.Original.Card.ID
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     local creature = GetCreature(id)

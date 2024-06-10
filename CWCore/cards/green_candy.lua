@@ -7,7 +7,7 @@ function _Create(props)
         function (playerI)
             -- Heal or deal 1 Damage to target Creature.
 
-            local ids = Common.State:CreatureIDs(GetState(), function (creature) return true end)
+            local ids = Common:IDs(Common:FilterCreatures(function (creature) return true end))
             local target = TargetCreature(playerI, ids, 'Choose a creature')
             local creature = GetCreature(target)
 

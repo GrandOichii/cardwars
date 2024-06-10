@@ -26,10 +26,10 @@ public class PlayerState : IStateModifier {
         }
     }
     
-    public void Modify(MatchState state, ModificationLayer layer)
+    public void Modify(ModificationLayer layer)
     {
         foreach (var lane in Landscapes) {
-            lane.Modify(state, layer);
+            lane.Modify(layer);
         }
     }
 

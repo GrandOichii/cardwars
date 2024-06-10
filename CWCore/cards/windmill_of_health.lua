@@ -3,12 +3,12 @@
 function _Create(props)
     local result = CardWars:InPlay(props)
 
-    result:AddStateModifier(function (state, me, layer)
+    result:AddStateModifier(function ( me, layer)
         -- While your Creature in this Lane has no Damage on it, it has +2 ATK.
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
-            local player = state.Players[ownerI]
+            local player = STATE.Players[ownerI]
             local lane = player.Landscapes[me.LaneI]
 
             if lane.Creature ~= nil and lane.Creature.Original.Damage == 0 then

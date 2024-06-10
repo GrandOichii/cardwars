@@ -33,9 +33,11 @@ public class ActionPhase : IPhase {
     public async Task Exec(GameMatch match, int playerI) {
         string action;
         var player = match.GetPlayer(playerI);
+
         while (true)
         {
             await match.ReloadState();
+            if (!match.Active) return;
             
             action = await PromptAction(match, playerI);
             var words = action.Split(" ");
@@ -46,12 +48,13 @@ public class ActionPhase : IPhase {
             
             if (!ACTION_MAP.ContainsKey(actionWord)) {
                 if (!match.Config.StrictMode) continue;
+
                 throw new UnknownActionException("Unknown action from player " + player.Name + ": " + actionWord);
             }
+
             await ACTION_MAP[actionWord].Exec(match, playerI, words);
 
-            await match.PushUpdates();
-            if (!match.Active) break;   
+            if (!match.Active) break;
         }
     }
 

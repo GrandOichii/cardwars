@@ -24,8 +24,8 @@ public class InPlayCardState : IStateModifier {
             TriggeredEffects.Add(effect);
     }
 
-    public void Modify(MatchState state, ModificationLayer layer)
+    public void Modify(ModificationLayer layer)
     {
-        Original.Card.ExecFunction(MODIFY_STATE_FNAME, Original.Card.Data, state, this, (int)layer);
+        Original.Card.ExecFunction(MODIFY_STATE_FNAME, Original.Card.Data, (int)layer);
     }
 }

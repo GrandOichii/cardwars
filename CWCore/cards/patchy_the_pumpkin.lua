@@ -7,16 +7,14 @@ function _Create(props)
         -- FLOOP >>> Deal 1 Damage to target Creature. Do this once for each Cornfield Landscape you control. (May only target each Creature once.)
 
         checkF = function (me, playerI, laneI)
-            return Common.State:CanFloop(GetState(), me)
+            return Common:CanFloop(me)
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local state = GetState()
-
-            local lanes = state.Players[playerI].Landscapes
+            local lanes = STATE.Players[playerI].Landscapes
             local count = 0
             for i = 1, lanes.Count do
                 local lane = lanes[i - 1]
@@ -25,10 +23,10 @@ function _Create(props)
                 end
             end
 
-            local options = Common.State:CreatureIDs(state, function (creature)
+            local options = Common:IDs(Common:FilterCreatures( function (creature)
                 -- TODO? not implicitly said, but without this Patchy will be forced to deal damage to itself
                 return creature.Original.OwnerI ~= playerI
-            end)
+            end))
 
             for i = 1, count do
                 if #options == 0 then

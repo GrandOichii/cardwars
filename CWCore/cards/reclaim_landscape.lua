@@ -7,9 +7,7 @@ function _Create(props)
     result.EffectP:AddLayer(
         function (playerI)
             -- You may flip one of your Landscapes face up, and you may move one of your Buildings to one of your Lanes without one."
-            local state = GetState()
-
-            local lanes = Common.State:LandscapeLanes(state, playerI, function (landscape)
+            local lanes = Common:LandscapeLanes( playerI, function (landscape)
                 return landscape.Original.FaceDown
             end)
 
@@ -21,7 +19,7 @@ function _Create(props)
                 end
             end
 
-            local empty = Common.State:LandscapeLanes(state, playerI, function (landscape)
+            local empty = Common:LandscapeLanes( playerI, function (landscape)
                 return landscape.Original.OwnerI == playerI and landscape.Building == nil
             end)
 
@@ -29,7 +27,7 @@ function _Create(props)
                 return
             end
 
-            local options = Common.State:BuildingIDs(state, function (building)
+            local options = Common:BuildingIDs( function (building)
                 return building.Original.OwnerI == playerI
             end)
 

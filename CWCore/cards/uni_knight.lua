@@ -26,7 +26,7 @@ function _Create(props)
 
             local target = TargetCreature(playerI, options, 'Choose a creature to debuff')
 
-            UntilEndOfTurn(function (state, layer)
+            UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     local creature = GetCreatureOrDefault(target)
                     if creature == nil then

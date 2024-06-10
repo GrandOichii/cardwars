@@ -11,7 +11,7 @@ function _Create(props)
             return GetHandCount(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            local cards = GetState().Players[playerI].Hand
+            local cards = STATE.Players[playerI].Hand
             local ids = {}
             for i = 1, cards.Count do
                 ids[#ids+1] = i - 1
@@ -22,12 +22,12 @@ function _Create(props)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            UntilEndOfTurn(function (state, layer)
-                local c = state.Players[playerI].Landscapes[laneI].Creature
-                if c == nil then
-                    -- * shouldn't ever happen
-                    error('tried to fetch myself, but i was nil (Dragon Foot)')
-                end
+            local c = STATE.Players[playerI].Landscapes[laneI].Creature
+            if c == nil then
+                -- * shouldn't ever happen
+                error('tried to fetch myself, but i was nil (Dragon Foot)')
+            end
+            UntilEndOfTurn(function (layer)
 
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     local creature = GetCreatureOrDefault(c.Original.Card.ID)

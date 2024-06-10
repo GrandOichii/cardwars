@@ -7,7 +7,7 @@ function _Create(props)
         -- FLOOP >>> Draw a card, then discard a card.
 
         checkF = function (me, playerI, laneI)
-            return Common.State:CanFloop(GetState(), me)
+            return Common:CanFloop(me)
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
@@ -17,8 +17,7 @@ function _Create(props)
             Draw(playerI, 1)
             UpdateState()
 
-            local state = GetState()
-            local cards = state.Players[playerI].Hand
+            local cards = STATE.Players[playerI].Hand
             local ids = {}
             for i = 1, cards.Count do
                 ids[#ids+1] = i - 1

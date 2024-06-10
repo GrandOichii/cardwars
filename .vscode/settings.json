@@ -4,7 +4,6 @@
         "PlayerLogFriendlyName",
         "AddActionPoints",
         "FloopCard",
-        "GetState",
         "Draw",
         "GetPlayers",
         "GetCurPlayerI",

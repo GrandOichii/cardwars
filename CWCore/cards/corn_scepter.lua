@@ -7,8 +7,7 @@ function _Create(props)
         function (playerI)
             -- Deal 1 Damage to target creature for each Cornfield Landscape you control.
 
-            local state = GetState()
-            local lanes = state.Players[playerI].Landscapes
+            local lanes = STATE.Players[playerI].Landscapes
             local amount = 0
             for i = 1, lanes.Count do
                 local lane = lanes[i - 1]
@@ -17,7 +16,7 @@ function _Create(props)
                 end
             end
 
-            local creatureIds = Common.State:CreatureIDs(state, function () return true end)
+            local creatureIds = Common:IDs(Common:FilterCreatures(function () return true end))
             local creatureId = ChooseCreature(playerI, creatureIds, 'Choose a creature to deal damage to')
 
             DealDamageToCreature(creatureId, amount)

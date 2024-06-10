@@ -3,7 +3,7 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (state, me, layer)
+    result:AddStateModifier(function (me, layer)
         -- Your Creatures on adjacent Lanes may not be Attacked.
 
         -- TODO change layer
@@ -12,8 +12,8 @@ function _Create(props)
             local ownerI = me.Original.OwnerI
             local id = me.Original.Card.ID
             local opponentI = 1 - ownerI
-            local opponent = state.Players[opponentI]
-            local landscapes = Common.State:AdjacentLandscapes(state, ownerI, me.LaneI)
+            local opponent = STATE.Players[opponentI]
+            local landscapes = Common:AdjacentLandscapes( ownerI, me.LaneI)
             local lanes = opponent.Landscapes
             for _, landscape in ipairs(landscapes) do
                 if landscape.Creature ~= nil then

@@ -9,5 +9,5 @@ public enum ModificationLayer {
 }
 
 public interface IStateModifier {
-    public void Modify(MatchState state, ModificationLayer layer);
+    public void Modify(ModificationLayer layer);
 }

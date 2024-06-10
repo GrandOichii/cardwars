@@ -20,11 +20,11 @@ function _Create(props)
         end,
         effectF = function (me, ownerI, laneI)
             -- TODO? should this be in check
-            local creatures = Common.State:CreatureIDs(GetState(), function (creature)
+            local creatures = Common:IDs(Common:FilterCreatures(function (creature)
                 return
                     creature.Original.OwnerI == ownerI and
                     creature.Original.Card.Template.Landscape == 'SandyLands'
-            end)
+            end))
             if #creatures == 0 then
                 return
             end

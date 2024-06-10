@@ -27,7 +27,5 @@ public class TurnStartPhase : IPhase {
         await match.Emit("turn_start", new(){ {"playerI", playerI} });
 
         player.Draw(1);
-
-        await match.ReloadState();
     }
 }

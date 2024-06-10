@@ -3,13 +3,13 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (state, me, layer)
+    result:AddStateModifier(function ( me, layer)
         -- +2 ATK for each Flooped Creature you control.
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
 
-            local creatures = Common.State:FilterCreatures(state, function (creature)
+            local creatures = Common:FilterCreatures( function (creature)
                 return
                     creature.Original.OwnerI == ownerI and
                     creature.Original:IsFlooped()

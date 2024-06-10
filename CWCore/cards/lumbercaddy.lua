@@ -7,22 +7,20 @@ function _Create(props)
         -- FLOOP >>> Move target Building you control to any Landscape without one.
 
         checkF = function (me, playerI, laneI)
-            if not Common.State:CanFloop(GetState(), me) then
+            if not Common:CanFloop(me) then
                 return false
             end
-            local state = GetState()
             return
-                #Common.State:EmptyLandscapes(state, playerI) > 0 and
-                #Common.State:Buildings(state, playerI) > 0
+                #Common:EmptyLandscapes( playerI) > 0 and
+                #Common:Buildings( playerI) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local state = GetState()
-            local empty = Common.State:EmptyLandscapes(state, playerI)
-            local ids = Common:IDs(Common.State:Buildings(state, playerI))
+            local empty = Common:EmptyLandscapes( playerI)
+            local ids = Common:IDs(Common:Buildings( playerI))
 
             local buildingId = ChooseBuilding(playerI, ids, 'Choose a building to move')
             local newLane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')

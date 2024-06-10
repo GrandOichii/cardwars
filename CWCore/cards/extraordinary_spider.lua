@@ -17,6 +17,9 @@ function _Create(props)
             local opponentI = 1 - ownerI
             local player = GetPlayer(ownerI)
             local discardCount = player.DiscardPile.Count
+            if discardCount == 0 then
+                return
+            end
             DealDamageToPlayer(opponentI, math.floor(discardCount / 5))
         end
     })

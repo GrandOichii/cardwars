@@ -43,12 +43,12 @@ public class GameMatch {
 
     public List<LuaFunction> UEOTEffects { get; }
 
-    public GameMatch(MatchConfig config, ICardMaster cardMaster, string setupScript) {
+    public GameMatch(MatchConfig config, int seed, ICardMaster cardMaster, string setupScript) {
         _cardMaster = cardMaster;
         Config = config;
 
         // TODO add seeding
-        Rng = new();
+        Rng = new(seed);
 
         LogInfo("Running setup script");
         LState.DoString(setupScript);
@@ -131,7 +131,10 @@ public class GameMatch {
         // Logger.ParseAndLog("Match started");
         while (Active) {
             TurnCount++;
+
             await ReloadState();
+            if (!Active) return;
+
             var cPlayer = CurrentPlayer;
 
             LogInfo($"Player {cPlayer.LogFriendlyName} starts their turn");
@@ -139,8 +142,9 @@ public class GameMatch {
 
             foreach (var phase in _phases) {
                 await phase.Exec(this, CurPlayerI);
-
-                if (!Active) break;
+                
+                await ReloadState();
+                if (!Active) return;
             }
             // Logger.ParseAndLog("Player " + cPlayer.Name + " passed their turn.");
             
@@ -197,9 +201,23 @@ public class GameMatch {
     }
 
     public async Task ReloadState() {
+        // TODO ordering
+        await CheckDeadPlayers();
+        await CheckDeadCreatures();
+
         await PushUpdates();
         LastState = new(this);
+        LState["STATE"] = LastState;
         LastState.Modify();
+    }
+
+    public async Task CheckDeadPlayers() {
+        foreach (var player in Players) {
+            if (player.Life <= 0) {
+                _winnerI = player.Idx;
+                break;
+            }
+        }
     }
 
     public async Task DealDamageToCreature(Creature creature, int amount) {

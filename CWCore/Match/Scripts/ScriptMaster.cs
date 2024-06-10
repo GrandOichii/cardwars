@@ -96,8 +96,6 @@ public class ScriptMaster {
         var creature = _match.GetInPlayCreature(creatureId);
         _match.DealDamageToCreature(creature.GetOriginal(), amount)
             .Wait();
-        _match.CheckDeadCreatures()
-            .Wait();
     }
 
     [LuaCommand]
@@ -117,11 +115,6 @@ public class ScriptMaster {
         var card = _match.GetInPlayCard(id); 
         _match.FloopCard(card)
             .Wait();
-    }
-
-    [LuaCommand]
-    public MatchState GetState() {
-        return _match.LastState;
     }
 
     [LuaCommand]

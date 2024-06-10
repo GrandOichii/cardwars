@@ -3,7 +3,7 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (state, me, layer)
+    result:AddStateModifier(function ( me, layer)
         -- +3 ATK while your opponent does not control a Creature in this Lane.
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
@@ -12,7 +12,7 @@ function _Create(props)
             local opponentI = 1 - ownerI
             local id = me.Original.Card.ID
 
-            local opponent = state.Players[opponentI]
+            local opponent = STATE.Players[opponentI]
             local lanes = opponent.Landscapes
             local lane = lanes[me.LaneI]
             local mod = 0

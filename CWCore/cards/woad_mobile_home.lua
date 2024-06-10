@@ -4,12 +4,11 @@ function _Create(props)
     local result = CardWars:InPlay(props)
 
     local getOptions = function (playerI, laneI)
-        local state = GetState()
-        if state.Players[playerI].Landscapes[laneI].Creature ~= nil then
+        if STATE.Players[playerI].Landscapes[laneI].Creature ~= nil then
             return {}
         end
 
-        local landscapes = Common.State:AdjacentLandscapes(state, playerI, laneI)
+        local landscapes = Common:AdjacentLandscapes( playerI, laneI)
         local options = {}
 
         for _, landscape in ipairs(landscapes) do
@@ -25,7 +24,7 @@ function _Create(props)
         -- FLOOP >>> Move a Creature in an adjacent Lane to this Lane (if empty).
 
         checkF = function (me, playerI, laneI)
-            if not Common.State:CanFloop(GetState(), me) then
+            if not Common:CanFloop(me) then
                 return false
             end
             return #getOptions(playerI, laneI) > 0

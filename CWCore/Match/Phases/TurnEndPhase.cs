@@ -20,7 +20,5 @@ public class TurnEndPhase : IPhase {
                 }
             }
         }
-
-        await match.ReloadState();
     }
 }

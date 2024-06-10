@@ -31,11 +31,11 @@ public class MatchState {
     public void Modify() {
         foreach (var layer in STATE_MODIFICATION_LAYERS) {
             foreach (var player in Players) {
-                player.Modify(this, layer);
+                player.Modify(layer);
             }
 
             foreach (var effect in UEOTEffects) {
-                effect.Call(this, (int)layer);
+                effect.Call((int)layer);
             }
         }
     }

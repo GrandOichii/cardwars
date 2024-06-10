@@ -46,7 +46,7 @@
 			"\t-- FLOOP >>> $1.",
 			"",
 			"\tcheckF = function (me, playerI, laneI)",
-			"\t\treturn Common.State:CanFloop(GetState(), me)",
+			"\t\treturn Common:CanFloop(me)",
 			"\tend,",
 			"\tcostF = function (me, playerI, laneI)",
 			"\t\tFloopCard(me.Original.Card.ID)",
@@ -84,7 +84,7 @@
 		"prefix": "statemod",
 		"description": "add state modifier",
 		"body": [
-			"result:AddStateModifier(function (state, me, layer)",
+			"result:AddStateModifier(function (me, layer)",
 			"\t-- $1",
 			"",
 			"\tif layer == CardWars.ModificationLayers.${2:ATK_AND_DEF} then",
@@ -144,7 +144,7 @@
 		"prefix": "ueot",
 		"description": "until end of turn effect",
 		"body": [
-			"UntilEndOfTurn(function (state, layer)",
+			"UntilEndOfTurn(function (layer)",
 			"\tif layer == CardWars.ModificationLayers.${1:ATK_AND_DEF} then",
 			"\t\t$0",
 			"\tend",
@@ -168,8 +168,8 @@
 		"prefix": "targetcreature",
 		"description": "target creature",
 		"body": [
-			"local ids = Common.State:CreatureIDs(${1:GetState()}, function (creature) return ${2:true} end)",
-            "local target = TargetCreature(playerI, ids, '$3')",
+			"local ids = Common:IDs(Common:FilterCreatures(function (creature) return ${1:true} end))",
+            "local target = TargetCreature(playerI, ids, '$2')",
 			"$0"
 		]
 	},
@@ -194,14 +194,14 @@
 		"prefix": "discardcard",
 		"description": "discard a card",
 		"body": [
-			"local cards = ${1:GetState()}.Players[${2:playerI}].Hand",
+			"local cards = STATE.Players[${1:playerI}].Hand",
             "local ids = {}",
             "for i = 1, cards.Count do",
             "    ids[#ids+1] = i - 1",
             "end",
 			"",
-            "local cardI = ChooseCardInHand(${2:playerI}, ids, '${3:Choose a card to discard}')",
-            "DiscardFromHand(${2:playerI}, cardI)",
+            "local cardI = ChooseCardInHand(${1:playerI}, ids, '${2:Choose a card to discard}')",
+            "DiscardFromHand(${1:playerI}, cardI)",
 		]
 	}
 }
