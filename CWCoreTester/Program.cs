@@ -41,7 +41,7 @@ public class ConsolePlayerController : IPlayerController
 {
     private void PrintInfo(GameMatch match, Player player) {
         foreach (var p in match.Players) {
-            System.Console.WriteLine($"{p.LogFriendlyName} - {p.Life} {p.Hand.Count} [[{p.Deck.Count}]]");
+            System.Console.WriteLine($"{p.LogFriendlyName} - {p.Life} {p.Hand.Count} [[{p.Deck.Count}]] _{p.DiscardPile.Count}_");
         }
         System.Console.WriteLine("Lanes:");
         var landscapes = match.LastState.Players[player.Idx].Landscapes;
@@ -72,9 +72,14 @@ public class ConsolePlayerController : IPlayerController
         return Task.FromResult(int.Parse(result));
     }
 
-    public Task<int> PickLaneForCreature(GameMatch match, Player player)
+    public Task<int> PickLaneForCreature(GameMatch match, Player player, List<int> options)
     {
         PrintInfo(match, player);
+        System.Console.Write("Options: ");
+        foreach (var option in options)
+            System.Console.Write($"{option} ");
+        System.Console.WriteLine();
+
         Console.Write("Pick lane for creature: ");
         var result = Console.ReadLine()
             ?? throw new Exception("failed to read lane idx for creature")
@@ -108,9 +113,15 @@ public class ConsolePlayerController : IPlayerController
         });
     }
 
-    public Task<int> PickLaneForBuilding(GameMatch match, Player player)
+    public Task<int> PickLaneForBuilding(GameMatch match, Player player, List<int> options)
     {
         PrintInfo(match, player);
+
+        System.Console.Write("Options: ");
+        foreach (var option in options)
+            System.Console.Write($"{option} ");
+        System.Console.WriteLine();
+
         Console.Write("Pick lane for building: ");
         var result = Console.ReadLine()
             ?? throw new Exception("failed to read lane idx for building")

@@ -141,12 +141,31 @@ public class Player {
     }
 
     public async Task<int> PickLaneForCreature() {
-        var result = await Controller.PickLaneForCreature(_match, this);
+        var options = new List<int>();
+        for (int i = 0; i < Landscapes.Count; i++) {
+            var landscape = Landscapes[i];
+            var creature = landscape.Creature;
+            if (creature is not null) {
+                if (!creature.CanAttack()) continue;
+            }
+            options.Add(i);
+        }
+        var result = await Controller.PickLaneForCreature(_match, this, options);
         return result;
     }
 
     public async Task<int> PickLaneForBuilding() {
-        var result = await Controller.PickLaneForBuilding(_match, this);
+        // TODO not specified in the rules, check
+        var options = new List<int>();
+        for (int i = 0; i < Landscapes.Count; i++) {
+            var landscape = Landscapes[i];
+            var building = landscape.Building;
+            if (building is not null) {
+                if (building.IsFlooped()) continue;
+            }
+            options.Add(i);
+        }
+        var result = await Controller.PickLaneForBuilding(_match, this, options);
         return result;
     }
 
@@ -160,7 +179,7 @@ public class Player {
         var creature = new Creature(card, Idx);
 
         if (lane.Creature is not null) {
-            // TODO add creature replacement
+            await LeavePlay(lane, lane.Creature);
         }
 
         lane.Creature = creature;
@@ -265,5 +284,16 @@ public class Player {
         }
 
         // TODO add trigger
+    }
+
+    public async Task LeavePlay(Landscape landscape, InPlayCard card) {
+        AddToDiscard(card.Card);
+
+        card.Card.ExecFunction(
+            InPlayCard.ON_LEAVE_PLAY_FNAME, 
+            card.Card.Data, 
+            Idx, 
+            landscape.Idx
+        );
     }
 }

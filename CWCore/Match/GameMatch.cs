@@ -216,15 +216,8 @@ public class GameMatch {
 
         landscape.Original.Creature = null;
 
-        player.Original.AddToDiscard(creature.Original.Card);
-
-        creature.Original.Card.ExecFunction(
-            InPlayCard.ON_LEAVE_PLAY_FNAME, 
-            creature.Original.Card.Data, 
-            player.Original.Idx, 
-            landscape.Original.Idx
-        );
-
+        await player.Original.LeavePlay(landscape.Original, creature.Original);
+        
         // TODO add trigger
 
         LogInfo($"{creature.Original.Card.LogFriendlyName} in lane {creature.LaneI} dies!");
