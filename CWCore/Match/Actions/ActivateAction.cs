@@ -31,7 +31,8 @@ public class ActivateAction : IAction
                 }
 
                 var effect = effects[abilityI];
-                var canActivate = effect.ExecCheck(pState, card, laneI);
+
+                var canActivate = effect.CanActivate(pState, card, laneI);
                 if (!canActivate) {
                     match.ActionError($"Player {player.LogFriendlyName} tried to activate ability {abilityI} of card {card.Original.Card.LogFriendlyName}, but failed check");
                     return;
@@ -46,6 +47,7 @@ public class ActivateAction : IAction
 
                 match.LogInfo($"Player {player.LogFriendlyName} activated ability {abilityI} of card {card.Original.Card.LogFriendlyName}");
                 effect.ExecEffect(pState, card, laneI);
+                effect.ActivatedThisTurn++;
 
                 return;
 
@@ -65,7 +67,7 @@ public class ActivateAction : IAction
             foreach (var card in pair.Value) {
                 for (int i = 0; i < card.ActivatedEffects.Count; i++) {
                     var effect = card.ActivatedEffects[i];
-                    var canActivate = effect.ExecCheck(pState, card, laneI);
+                    var canActivate = effect.CanActivate(pState, card, laneI);
                     if (!canActivate) continue;
 
                     result.Add($"{ActionWord()} {card.Original.Card.ID} {i}");

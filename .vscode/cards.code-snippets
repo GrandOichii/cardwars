@@ -56,7 +56,6 @@
 			"\t\t$0",
 			"\tend",
 			"})",
-		
 		]
 	},
 	"activated_ability": {
@@ -67,11 +66,12 @@
 			"result:AddActivatedEffect({",
 			"\t-- $1 >>> $2",
 			"",
+			"\tmaxActivationsPerTurn = ${3:-1},",
 			"\tcheckF = function (me, playerI, laneI)",
-			"\t\t$3",
+			"\t\t$4",
 			"\tend,",
 			"\tcostF = function (me, playerI, laneI)",
-			"\t\t$4",
+			"\t\t$5",
 			"\tend,",
 			"\teffectF = function (me, playerI, laneI)",
 			"\t\t$0",
@@ -187,6 +187,21 @@
 			"",
 			"\treturn result",
 			"end"
+		]
+	},
+	"discard_a_card": {
+		"scope": "lua",
+		"prefix": "discardcard",
+		"description": "discard a card",
+		"body": [
+			"local cards = ${1:GetState()}.Players[${2:playerI}].Hand",
+            "local ids = {}",
+            "for i = 1, cards.Count do",
+            "    ids[#ids+1] = i - 1",
+            "end",
+			"",
+            "local cardI = ChooseCardInHand(${2:playerI}, ids, '${3:Choose a card to discard}')",
+            "DiscardFromHand(${2:playerI}, cardI)",
 		]
 	}
 }

@@ -175,6 +175,7 @@ function CardWars:InPlay(props)
 
     result.ActivatedEffects = {}
     function result:AddActivatedEffect(effect)
+        effect.maxActivationsPerTurn = effect.maxActivationsPerTurn or -1
         result.ActivatedEffects[#result.ActivatedEffects+1] = effect
     end
 
