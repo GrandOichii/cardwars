@@ -44,7 +44,7 @@
 		"body": [
 			"result:AddActivatedEffect({",
 			"\t-- FLOOP >>> $1.",
-			"\t",
+			"",
 			"\tcheckF = function (me, playerI, laneI)",
 			"\t\treturn not me.Original:IsFlooped()",
 			"\tend,",
@@ -66,7 +66,7 @@
 		"body": [
 			"result:AddActivatedEffect({",
 			"\t-- $1 >>> $2",
-			"\t",
+			"",
 			"\tcheckF = function (me, playerI, laneI)",
 			"\t\t$3",
 			"\tend,",
@@ -98,7 +98,7 @@
 		"body": [
 			"result:AddTrigger({",
 			"\t-- At the start of your turn, $1",
-			"\t",
+			"",
 			"\ttrigger = CardWars.Triggers.TurnStart,",
 			"\tcheckF = function (me, ownerI, laneI)",
 			"\t\treturn GetCurPlayerI() == ownerI",
@@ -131,7 +131,7 @@
 		"body": [
 			"result.OnLeavePlayP:AddLayer(function(playerI, laneI)",
 			"\t-- When $1 leaves play, $2",
-			"\t",
+			"",
 			"\t$0",
 			"end)",
 		]
