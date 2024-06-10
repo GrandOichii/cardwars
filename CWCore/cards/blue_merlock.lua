@@ -7,7 +7,7 @@ function _Create(props)
         -- FLOOP >>> Draw a card, then discard a card.
 
         checkF = function (me, playerI, laneI)
-            return not me.Original:IsFlooped()
+            return Common.State:CanFloop(GetState(), me)
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)

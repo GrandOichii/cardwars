@@ -7,7 +7,7 @@ function _Create(props)
         -- FLOOP >>> Deal 1 Damage to target Creature. Do this once for each Cornfield Landscape you control. (May only target each Creature once.)
 
         checkF = function (me, playerI, laneI)
-            return not me.Original:IsFlooped()
+            return Common.State:CanFloop(GetState(), me)
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)

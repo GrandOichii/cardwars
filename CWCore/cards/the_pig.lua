@@ -18,7 +18,7 @@ function _Create(props)
         -- FLOOP >>> Flip target face-down Landscape you control face up.
 
         checkF = function (me, playerI, laneI)
-            if me.Original:IsFlooped() then
+            if not Common.State:CanFloop(GetState(), me) then
                 return false
             end
             return #getOptions(laneI) > 0

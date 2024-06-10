@@ -322,3 +322,10 @@ function Common.State:LandscapeLanes(state, playerI, predicate)
     end
     return result
 end
+
+function Common.State:CanFloop(state, card)
+    if state.TurnCount == 1 then
+        return false
+    end
+    return not card.Original:IsFlooped()
+end

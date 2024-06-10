@@ -7,10 +7,12 @@ namespace CWCore.Match.States;
 public class MatchState {
     public PlayerState[] Players { get; }
     public List<LuaFunction> UEOTEffects { get; }
+    public int TurnCount { get; set; }
 
     public MatchState() {
         Players = Array.Empty<PlayerState>();
         UEOTEffects = new();
+        TurnCount = -1;
     }
 
     public MatchState(GameMatch match) {
@@ -19,6 +21,8 @@ public class MatchState {
         for (int i = 0; i < 2; i++) {
             Players[i] = new PlayerState(match.Players[i]);
         }
+
+        TurnCount = match.TurnCount;
     }
 
     public void Modify() {

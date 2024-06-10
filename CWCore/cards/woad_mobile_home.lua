@@ -25,7 +25,7 @@ function _Create(props)
         -- FLOOP >>> Move a Creature in an adjacent Lane to this Lane (if empty).
 
         checkF = function (me, playerI, laneI)
-            if me.Original:IsFlooped() then
+            if not Common.State:CanFloop(GetState(), me) then
                 return false
             end
             return #getOptions(playerI, laneI) > 0
