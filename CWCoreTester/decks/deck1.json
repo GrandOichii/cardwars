@@ -2,7 +2,7 @@
     "Cards": {
         "Gnome Snot": 0,
         "Archer Dan": 0,
-        "Corn Lord": 0,
+        "Corn Lord": 10,
         "Corn Ronin": 0,
         "Husker Knight": 0,
         "Wall of Ears": 0,
@@ -56,7 +56,8 @@
         "Legion of Earlings": 0,
         "Patchy the Pumpkin": 0,
         "Reclaim Landscape": 0,
-        "Ms. Mummy": 10,
+        "Sand Sphinx": 10,
+        "Ms. Mummy": 0,
         "Field of Nightmares": 0
     },
     "Landscapes": {
