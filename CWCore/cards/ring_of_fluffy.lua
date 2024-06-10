@@ -12,9 +12,12 @@ function _Create(props)
             end)
 
             local target = TargetCreature(playerI, creatures, 'Choose a creature to buff')
-            UntilEndOfTurn(function (state)
-                local creature = GetCreature(target)
-                creature.Attack = creature.Attack + creature.Original.Damage
+
+            UntilEndOfTurn(function (state, layer)
+                if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+                    local creature = GetCreature(target)
+                    creature.Attack = creature.Attack + creature.Original.Damage
+                end
             end)
         end
     )

@@ -21,10 +21,10 @@ public class LandscapeState : IStateModifier {
         }
     }
 
-    public void Modify(MatchState state)
+    public void Modify(MatchState state, ModificationLayer layer)
     {
-        Creature?.Modify(state);
-        Building?.Modify(state);
+        Creature?.Modify(state, layer);
+        Building?.Modify(state, layer);
     }
 
     public bool Is(string name) {

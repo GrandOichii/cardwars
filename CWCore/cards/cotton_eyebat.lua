@@ -3,12 +3,16 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (state, me)
+    result:AddStateModifier(function (state, me, layer)
         -- While Cotton Eyebat has exactly 4 Damage on it, it has +4 ATK.
 
-        if me.Original.Damage == 4 then
-            me.Attack = me.Attack + 4
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+            if me.Original.Damage == 4 then
+                me.Attack = me.Attack + 4
+            end
         end
+
+
     end)
 
     return result

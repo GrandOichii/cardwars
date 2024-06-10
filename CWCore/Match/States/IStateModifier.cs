@@ -1,7 +1,13 @@
 namespace CWCore.Match.States;
 
-// TODO add layering - Puppy Parade has to apply it's effect BEFORE any ATK and DEF boosts
+// TODO implement layering
+
+public enum ModificationLayer {
+    ATK_AND_DEF = 1,
+    IN_PLAY_CARD_TYPE,
+    LANDSCAPE_TYPE
+}
 
 public interface IStateModifier {
-    public void Modify(MatchState state);
+    public void Modify(MatchState state, ModificationLayer layer);
 }

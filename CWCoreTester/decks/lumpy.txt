@@ -1,3 +1,4 @@
++ 2 Future Scholar
 + 1 Blood Fortress
 2 Fatapillar
 2 Steakchop
@@ -11,17 +12,17 @@
 2 Squatting Bald Man
 2 Infinite Figure
 
+1 Headphone Jerk - "if it replaced a creature"
+2 Blueberry Djini - "if it replaced a creature"
+2 Grape Djini - "if it replaced a creature"
+2 Brain Gooey - "if it replaced a creature"
+2 Goat - "if it replaced a creature"
+
 1 Volcano - bulding destruction
 1 Pink Merwitch - limit the amount of activations per turn
 2 Herculeye - limit the amount of activations per turn
 2 Dogboy - limit the amount of activations per turn
 2 Dragon Foot - limit the amount of activations per turn
 1 Travelin' Skeleton - "change lanes with each other"
-1 Headphone Jerk - "if it replaced a creature"
-2 Future Scholar - "if it replaced a creature"
-2 Blueberry Djini - "if it replaced a creature"
-2 Grape Djini - "if it replaced a creature"
-2 Brain Gooey - "if it replaced a creature"
-2 Goat - "if it replaced a creature"
 1 Skeletal Hand - milling and knowing the cards that were milled
 1 Pyramidia - "gain 1 Action. Use it only to play a Creature into this Lane"

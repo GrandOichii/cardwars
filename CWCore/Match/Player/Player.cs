@@ -179,8 +179,10 @@ public class Player {
         var lane = Landscapes[laneI];
         var creature = new Creature(card, Idx);
 
+        var replaced = false;
         if (lane.Creature is not null) {
             await LeavePlay(lane, lane.Creature);
+            replaced = true;
         }
 
         lane.Creature = creature;
@@ -188,7 +190,7 @@ public class Player {
         CardsPlayedThisTurn.Add(card);
 
         await Match.ReloadState();
-        creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI);
+        creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI, replaced);
         // TODO add triggers
     }
 
@@ -196,15 +198,17 @@ public class Player {
         var lane = Landscapes[laneI];
         var building = new InPlayCard(card, Idx);
 
+        var replaced = false;
         if (lane.Building is not null) {
             await LeavePlay(lane, lane.Building);
+            replaced = true;
         }
 
         lane.Building = building;
 
         CardsPlayedThisTurn.Add(card);
         await Match.ReloadState();
-        building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, Idx, laneI);
+        building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, Idx, laneI, replaced);
         // TODO add triggers
     }
 

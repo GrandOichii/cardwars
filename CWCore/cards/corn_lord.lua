@@ -3,20 +3,23 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (state, me)
+    result:AddStateModifier(function (state, me, layer)
         -- Corn Lord has +1 ATK for each other Cornfield Creature you control. 
 
-        local ownerI = me.Original.OwnerI
-        local id = me.Original.Card.ID
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+            local ownerI = me.Original.OwnerI
+            local id = me.Original.Card.ID
 
-        local cornCreatures = Common.State:FilterCreatures(state, function (creature)
-            return
-                creature.Original.OwnerI == ownerI and
-                creature.Original.Card.Template.Landscape == 'Cornfield' and
-                creature.Original.Card.ID ~= id
-        end)
+            local cornCreatures = Common.State:FilterCreatures(state, function (creature)
+                return
+                    creature.Original.OwnerI == ownerI and
+                    creature.Original.Card.Template.Landscape == 'Cornfield' and
+                    creature.Original.Card.ID ~= id
+            end)
 
-        me.Attack = me.Attack + #cornCreatures
+            me.Attack = me.Attack + #cornCreatures
+        end
+
     end)
 
     return result

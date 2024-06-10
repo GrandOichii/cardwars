@@ -2,7 +2,6 @@
 
 Core = {}
 
-
 -- Pipeline layer
 Core.PipelineLayer = {}
 
@@ -86,6 +85,14 @@ CardWars.Landscapes = {
     Rainbow = 'rainbow'
 }
 
+-- Modifiction layers
+
+CardWars.ModificationLayers = {
+    ATK_AND_DEF = 1,
+    IN_PLAY_CARD_TYPE = 2,
+    LANDSCAPE_TYPE = 3,
+}
+
 -- Card Types
 
 function CardWars:Card(props)
@@ -160,9 +167,9 @@ function CardWars:InPlay(props)
         result.StateModifiers[#result.StateModifiers+1] = modF
     end
 
-    function result:ModifyState(state, me)
+    function result:ModifyState(state, me, layer)
         for _, modF in ipairs(result.StateModifiers) do
-            modF(state, me)
+            modF(state, me, layer)
         end
     end
 
@@ -178,14 +185,14 @@ function CardWars:InPlay(props)
 
     result.OnEnterP = Core.Pipeline:New()
     result.OnEnterP:AddLayer(
-        function(playerI, laneI)
+        function(playerI, laneI, replaced)
             LogInfo('Creature '..result.name .. ' entered play on lane ' ..laneI)
             return nil, true
         end
     )
 
-    function result:OnEnter(playerI, laneI)
-        self.OnEnterP:Exec(playerI, laneI)
+    function result:OnEnter(playerI, laneI, replaced)
+        self.OnEnterP:Exec(playerI, laneI, replaced)
     end
 
     result.OnLeavePlayP = Core.Pipeline:New()

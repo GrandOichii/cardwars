@@ -3,7 +3,7 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result.OnEnterP:AddLayer(function(playerI, laneI)
+    result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
         -- When Husker Worm enters play, flip a Cornfield Landscape you control face down.
 
         local options = {}
@@ -17,12 +17,6 @@ function _Create(props)
 
         local lane = ChooseLandscape(playerI, options, {}, 'Choose a Cornfield lane to flip face down')
         TurnLandscapeFaceDown(lane[0], lane[1])
-    end)
-
-    result.OnEnterP:AddLayer(function(playerI, laneI)
-        -- When  enters play, 
-    
-        
     end)
 
     return result

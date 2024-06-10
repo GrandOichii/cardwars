@@ -3,11 +3,13 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (state, me)
+    result:AddStateModifier(function (state, me, layer)
         -- While Wall of Chocolate has no Damage on it, it has +3 ATK.
 
-        if me.Original.Damage == 0 then
-            me.Attack = me.Attack + 3
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+            if me.Original.Damage == 0 then
+                me.Attack = me.Attack + 3
+            end
         end
     end)
 

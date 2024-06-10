@@ -3,12 +3,15 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (state, me)
+    result:AddStateModifier(function (state, me, layer)
         -- While Cutie Koala has 4 or more Damage on it, it has +2 ATK.
 
-        if me.Original.Damage >= 4 then
-            me.Attack = me.Attack + 2
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+            if me.Original.Damage >= 4 then
+                me.Attack = me.Attack + 2
+            end
         end
+
     end)
 
     return result

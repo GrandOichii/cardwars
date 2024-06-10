@@ -1,0 +1,9 @@
+{
+    "Name": "Future Scholar",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "When Future Scholar enters play, if it replaced a Creature, gain 1 Action.",
+    "Attack": 2,
+    "Defense": 8
+}

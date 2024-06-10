@@ -17,12 +17,14 @@ function _Create(props)
             end)
             local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
 
-            UntilEndOfTurn(function (state)
-                local creature = GetCreatureOrDefault(target)
-                if creature == nil then
-                    return
+            UntilEndOfTurn(function (state, layer)
+                if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+                    local creature = GetCreatureOrDefault(target)
+                    if creature == nil then
+                        return
+                    end
+                    creature.Attack = creature.Attack + 2
                 end
-                creature.Attack = creature.Attack + 2
             end)
         end
     )

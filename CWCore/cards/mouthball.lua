@@ -3,14 +3,17 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (state, me)
+    result:AddStateModifier(function (state, me, layer)
         -- +2 DEF for every 5 cards in your discard pile.
 
-        local ownerI = me.Original.OwnerI
-        local player = state.Players[ownerI]
-        local discardCount = player.DiscardPile.Count
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
 
-        me.Defense = me.Defense + math.floor(discardCount / 5) * 2
+            local ownerI = me.Original.OwnerI
+            local player = state.Players[ownerI]
+            local discardCount = player.DiscardPile.Count
+
+            me.Defense = me.Defense + math.floor(discardCount / 5) * 2
+        end
     end)
 
     return result

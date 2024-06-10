@@ -7,14 +7,16 @@ function _Create(props)
         function (playerI)
             -- Each Creature that changed Lanes this turn has +2 ATK this turn.
 
-            UntilEndOfTurn(function (state)
-                local creatures = Common.State:FilterCreatures(state, function (creature)
-                    return
-                        creature.Original.MovementCount > 0
-                end)
+            UntilEndOfTurn(function (state, layer)
+                if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+                    local creatures = Common.State:FilterCreatures(state, function (creature)
+                        return
+                            creature.Original.MovementCount > 0
+                    end)
 
-                for _, creature in ipairs(creatures) do
-                    creature.Attack = creature.Attack + 2
+                    for _, creature in ipairs(creatures) do
+                        creature.Attack = creature.Attack + 2
+                    end
                 end
             end)
         end
