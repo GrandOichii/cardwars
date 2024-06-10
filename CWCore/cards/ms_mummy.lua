@@ -29,7 +29,7 @@ function _Create(props)
                 return
             end
 
-            local target = TargetCreature(ownerI, creatures, 'Choose a creature to return to buff')
+            local target = TargetCreature(ownerI, creatures, 'Choose a creature to buff')
             local creature = GetCreature(target)
 
             if creature.Original.Damage == 0 then
