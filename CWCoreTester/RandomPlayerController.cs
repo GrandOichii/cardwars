@@ -35,7 +35,7 @@ public class RandomPlayerController : IPlayerController
             });
         }
         return Task.FromResult(new int[2] {
-            1, opponentOptions[_rnd.Next() % options.Count]
+            1, opponentOptions[_rnd.Next() % opponentOptions.Count]
         });
     }
 

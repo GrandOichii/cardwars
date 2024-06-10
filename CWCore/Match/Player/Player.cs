@@ -140,16 +140,21 @@ public class Player {
         return Task.CompletedTask;
     }
 
-    public async Task<int> PickLaneForCreature() {
-        var options = new List<int>();
+    public List<int> LandscapesAvailableForCreatures() {
+        var result = new List<int>();
         for (int i = 0; i < Landscapes.Count; i++) {
             var landscape = Landscapes[i];
             var creature = landscape.Creature;
             if (creature is not null) {
-                if (!creature.CanAttack()) continue;
+                if (creature.Exhausted) continue;
             }
-            options.Add(i);
+            result.Add(i);
         }
+        return result;
+    }
+
+    public async Task<int> PickLaneForCreature() {
+        var options = LandscapesAvailableForCreatures();
         var result = await Controller.PickLaneForCreature(Match, this, options);
         return result;
     }

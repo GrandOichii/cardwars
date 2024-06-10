@@ -3,6 +3,7 @@ using CWCore.Match.Players;
 using NLua;
 using CWCore.Utility;
 using CWCore.Match.States;
+using CWCore.Exceptions;
 
 namespace CWCore.Match;
 
@@ -33,7 +34,11 @@ public class MatchCard {
     public bool IsBuilding => Template.Type == "Building";
 
     public object[] ExecFunction(string fName, params object[] args) {
-        var f = LuaUtility.TableGet<LuaFunction>(Data, fName);
-        return f.Call(args);
+        try {
+            var f = LuaUtility.TableGet<LuaFunction>(Data, fName);
+            return f.Call(args);
+        } catch (Exception e) {
+            throw new CWCoreException($"exception in function {fName} of card {Template.Name}", e);
+        }
     }
 }

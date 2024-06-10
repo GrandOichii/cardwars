@@ -84,7 +84,8 @@ CardWars.Triggers = {
 -- Landscapes
 
 CardWars.Landscapes = {
-    Rainbow = 'rainbow'
+    Rainbow = 'rainbow',
+    BluePlains = 'Blue Plains'
 }
 
 -- Modifiction layers
@@ -334,9 +335,16 @@ function Common:CanFloop(card)
     return not card.Original:IsFlooped()
 end
 
-function Common:EmptyLandscapes(playerI)
+function Common:LandscapesWithoutBuildings(playerI)
     local result = Common:LandscapeLanes(playerI, function (landscape)
         return landscape.Original.OwnerI == playerI and landscape.Building == nil
+    end)
+    return result
+end
+
+function Common:LandscapesWithoutCreatures(playerI)
+    local result = Common:LandscapeLanes(playerI, function (landscape)
+        return landscape.Original.OwnerI == playerI and landscape.Creature == nil
     end)
     return result
 end
@@ -361,6 +369,14 @@ function Common:FloopedCreatures(playerI)
         return
             creature.Original.OwnerI == playerI and
             creature.Original:IsFlooped()
+    end)
+end
+
+function Common:CreaturesTyped(playerI, landscape)
+    return Common:FilterCreatures(function (creature)
+        return
+            creature.Original.OwnerI == playerI and
+            creature.Original.Card.Template.Landscape == landscape
     end)
 end
 

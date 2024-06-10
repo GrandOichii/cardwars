@@ -14,6 +14,9 @@ function _Create(props)
                 options[#options+1] = i - 1
             end
         end
+        if #options == 0 then
+            return
+        end
 
         local lane = ChooseLandscape(playerI, options, {}, 'Choose a Cornfield lane to flip face down')
         TurnLandscapeFaceDown(lane[0], lane[1])

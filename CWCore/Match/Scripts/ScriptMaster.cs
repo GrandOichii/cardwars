@@ -209,7 +209,12 @@ public class ScriptMaster {
 
     [LuaCommand]
     public int[] ChooseLandscape(int playerI, LuaTable optionsTable, LuaTable opponentOptionsTable, string hint) {
-         var player = _match.GetPlayerState(playerI);
+        // TODO haven't tested this BUT i this this should work
+        if (playerI == 0) {
+            (opponentOptionsTable, optionsTable) = (optionsTable, opponentOptionsTable);
+        }
+
+        var player = _match.GetPlayerState(playerI);
 
         var options = new List<int>();
         foreach (var v in optionsTable.Values)

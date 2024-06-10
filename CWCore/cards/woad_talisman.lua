@@ -3,17 +3,17 @@
 function _Create(props)
     local result = CardWars:Spell(props)
 
-    -- TODO add check - any creatures in play
+    -- !FIXME add check - any creatures in play
 
     result.EffectP:AddLayer(
         function (playerI)
             -- Target Blue Plains Creature you control has +2 ATK this turn.
 
-            local ids = Common:IDs(Common:FilterCreatures(function (creature)
+            local ids = Common:IDs(Common:CreaturesTyped(playerI, CardWars.Landscapes.BluePlains))
+            -- TODO remove
+            if #ids == 0 then
                 return
-                    creature.Original.OwnerI == playerI and
-                    creature.Original.Card.Template.Landscape == 'Blue Plains'
-            end))
+            end
             local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
 
             UntilEndOfTurn(function ( layer)

@@ -17,7 +17,13 @@ function _Create(props)
             Draw(playerI, 1)
             UpdateState()
 
+            -- * hand count still be 0 if no cards in deck!
+
             local cards = STATE.Players[playerI].Hand
+            if cards.Count == 0 then
+                return
+            end
+
             local ids = {}
             for i = 1, cards.Count do
                 ids[#ids+1] = i - 1

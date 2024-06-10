@@ -7,8 +7,9 @@ function _Create(props)
         local options = {}
         for i = 1, 2 do
             local lanes = GetPlayer(i - 1).Landscapes
+            options[i] = {}
             if lanes[laneI]:Is('Cornfield') then
-                options[#options+1] = {laneI}
+                options[i] = {laneI}
             end
         end
         return options
@@ -21,7 +22,8 @@ function _Create(props)
             if not Common:CanFloop(me) then
                 return false
             end
-            return #getOptions(laneI) > 0
+            local options = getOptions(laneI)
+            return #options[1] + #options[2] > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)

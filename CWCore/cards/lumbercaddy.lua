@@ -11,7 +11,7 @@ function _Create(props)
                 return false
             end
             return
-                #Common:EmptyLandscapes( playerI) > 0 and
+                #Common:LandscapesWithoutBuildings( playerI) > 0 and
                 #Common:Buildings( playerI) > 0
         end,
         costF = function (me, playerI, laneI)
