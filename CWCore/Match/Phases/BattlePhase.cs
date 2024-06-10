@@ -15,7 +15,7 @@ public class BattlePhase : IPhase
         while (true) {
             await match.ReloadState();
         
-            if (match.TurnCount == 1) {
+            if (!match.Config.CanAttackOnFirstTurn && match.TurnCount == 1) {
                 break;
             }
 

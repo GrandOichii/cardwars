@@ -345,4 +345,9 @@ public class ScriptMaster {
         player.LoseHitPoints(amount)
             .Wait();
     }
+
+    [LuaCommand]
+    public MatchConfig GetConfig() {
+        return _match.Config;
+    }
 }

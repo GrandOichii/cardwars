@@ -37,6 +37,7 @@
         "GetBuilding",
         "HealHitPoints",
         "HealDamage",
-        "LoseHitPoints"
+        "LoseHitPoints",
+        "GetConfig"
     ]
 }
