@@ -12,7 +12,7 @@
 + 2 Wall of Sand
 + 1 Ms. Mummy
 + 2 Sand Sphinx
-+ 1 Lost Golem - cost modification
++ 1 Lost Golem
 2 Sandsnake
 
 2 Beach Mummy - targeted returning creatures to hand

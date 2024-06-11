@@ -1,15 +1,15 @@
-2 Unicyclops
-2 Cottonpult
-2 Dr. Stuffenstein
-2 Furious Hen
-2 Furious Rooster
-2 Music Mallard
-2 Papercut Tiger
-2 Furious Chick
++ 2 Cottonpult
++ 1 Cardboard Mansion
++ 2 Unicyclops
++ 2 Furious Hen
++ 2 Furious Rooster
++ 2 Music Mallard
++ 2 Papercut Tiger
++ 2 Furious Chick
+1 The Big Hen House
 2 Black Hole Pendant
 1 Auto-Plucker
-1 The Big Hen House
-+ 1 Cardboard Mansion
+2 Dr. Stuffenstein
 
 1 Funeral Home - discard trigger
 1 Blood Transfusion - removing cards from game
