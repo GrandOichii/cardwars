@@ -27,6 +27,8 @@ public class Creature : InPlayCard {
         return !Exhausted && !Attacking;
     }
 
-    public override bool IsFlooped() => Exhausted && !Attacking;
+    public override bool IsFlooped() {
+        return Exhausted && !Attacking;
+    }
 
 }

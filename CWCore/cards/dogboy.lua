@@ -17,15 +17,10 @@ function _Create(props)
             return true
         end,
         effectF = function (me, playerI, laneI)
+            local id = me.Original.Card.ID
             UntilEndOfTurn(function (layer)
-                local c = STATE.Players[playerI].Landscapes[laneI].Creature
-                if c == nil then
-                    -- * shouldn't ever happen
-                    error('tried to fetch myself, but i was nil (Dogboy)')
-                end
-
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creature = GetCreatureOrDefault(c.Original.Card.ID)
+                    local creature = GetCreatureOrDefault(id)
                     if creature == nil then
                         return
                     end

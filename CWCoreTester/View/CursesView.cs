@@ -176,7 +176,7 @@ public class CursesView : IMatchView
 
         // draw text
         NCurses.MoveAddString(y+1, x+2, card.Template.Cost.ToString());
-        NCurses.MoveAddString(y+1, x+5, card.Template.Name);
+        NCurses.MoveAddString(y+1, x+5, card.Template.Name + $"[{card.ID}]");
         NCurses.MoveAddString(y+3, x+1, card.Template.Landscape + " " + card.Template.Type);
         
         var lines = WordWrap(card.Template.Text, 26);

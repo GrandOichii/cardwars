@@ -1,4 +1,5 @@
 using CWCore.Cards;
+using CWCore.Exceptions;
 using CWCore.Match;
 using NLua;
 
@@ -13,10 +14,18 @@ public class DeckTemplate {
     public async Task<LinkedList<MatchCard>> ToDeck(int ownerI, ICardMaster cardMaster, Lua state, IIDGenerator generator) {
         var result = new LinkedList<MatchCard>();
         foreach (var pair in Cards)  {
+            
             var cardName = pair.Key;
-            var card = await cardMaster.Get(cardName);
-            for (int i = 0; i < pair.Value; i++)
-                result.AddLast(new LinkedListNode<MatchCard>(new(card, ownerI, state, generator)));
+
+            var template = await cardMaster.Get(cardName);
+            try {
+                for (int i = 0; i < pair.Value; i++) {
+                    var card = new MatchCard(template, ownerI, state, generator);
+                    result.AddLast(new LinkedListNode<MatchCard>(card));
+                }
+            } catch (Exception e) {
+                throw new CWCoreException($"failed to create card {template.Name}", e);
+            }
         }
         return result;
     }

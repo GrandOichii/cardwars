@@ -193,12 +193,6 @@ function CardWars:InPlay(props)
     end
 
     result.OnEnterP = Core.Pipeline:New()
-    result.OnEnterP:AddLayer(
-        function(playerI, laneI, replaced)
-            LogInfo('Creature '..result.name .. ' entered play on lane ' ..laneI)
-            return nil, true
-        end
-    )
 
     function result:OnEnter(playerI, laneI, replaced)
         self.OnEnterP:Exec(playerI, laneI, replaced)
@@ -233,6 +227,13 @@ end
 
 function CardWars:Creature(props)
     local result = CardWars:InPlay(props)
+
+    result.OnEnterP:AddLayer(
+        function(playerI, laneI, replaced)
+            LogInfo('Creature '..result.name .. ' with id ' .. STATE.Players[playerI].Landscapes[laneI].Creature.Original.Card.ID .. ' entered play on lane ' ..laneI)
+            return nil, true
+        end
+    )
 
     return result
 end
@@ -557,6 +558,10 @@ end
 function Common.ChooseAndDiscardCard(playerI, hint)
     hint = hint or 'Choose a card to discard'
     local cards = STATE.Players[playerI].Hand
+    if cards.Count == 0 then
+        return nil
+    end
+
     local ids = {}
     for i = 1, cards.Count do
         ids[#ids+1] = i - 1
@@ -564,7 +569,7 @@ function Common.ChooseAndDiscardCard(playerI, hint)
 
     local result = ChooseCardInHand(playerI, ids, 'Choose a card to discard')
     DiscardFromHand(playerI, result)
-    
+
     return result
 end
 

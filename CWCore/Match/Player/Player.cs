@@ -95,7 +95,8 @@ public class Player {
     public void RemoveFromHand(MatchCard card) {
         // TODO? add to update
 
-        Hand.Remove(card);
+        var removed = Hand.Remove(card);
+        if (!removed) throw new CWCoreException($"tried to remove card with id {card.ID} from hand of player {LogFriendlyName}, which they don't have in hand");
     }
 
     public void AddToDiscard(MatchCard card) {
@@ -263,9 +264,10 @@ public class Player {
 
     public async Task DiscardCardFromHand(int cardI) {
         var card = Hand[cardI];
-        Hand.Remove(card);
+        RemoveFromHand(card);
         AddToDiscard(card);
 
+        Match.LogInfo($"Player {LogFriendlyName} discarded card {card.ID} (idx: {cardI})");
         // TODO add to "cards discarded this turn" counter
         // TODO add trigger
     }

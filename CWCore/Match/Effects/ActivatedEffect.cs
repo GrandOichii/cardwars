@@ -36,7 +36,6 @@ public class ActivatedEffect {
         if (MaxActivationsPerTurn != -1 && ActivatedThisTurn >= MaxActivationsPerTurn) {
             return false;
         }
-
         return ExecCheck(player, card, laneI);
     }
 }

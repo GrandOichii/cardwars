@@ -28,6 +28,8 @@ public class MatchCard {
 
         ID = generator.Next();
 
+        // System.Console.WriteLine($"Generated ID {ID} for card {card.Name}");
+
         state.DoString(card.Script);
         var creationF = LuaUtility.GetGlobalF(state,  CARD_CREATION_FNAME);
         var props = card.GetProps(state);

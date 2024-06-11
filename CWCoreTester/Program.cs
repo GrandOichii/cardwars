@@ -401,7 +401,7 @@ public class Program {
         var cm = new FileCardMaster();
         cm.Load("../CWCore/cards");
 
-        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/deck1.json"))
+        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/all.json"))
             ?? throw new Exception("failed to read deck file")
         ;
         var deck2 = deck1;
@@ -436,12 +436,11 @@ public class Program {
     }
 
     public static async Task Main(string[] args) {
+        await TestRandom(100);
+        return;
         var view = new CursesView();
+        var seed = 5;
         try {
-            // view.Run();
-            // return;
-            // await TestRandom(100);
-            // return;
             var config = new MatchConfig() {
                 StartingLifeTotal = 25,
                 ActionPointsPerTurn = 2,
@@ -462,10 +461,10 @@ public class Program {
             ;
             var deck2 = deck1;
 
-            var controller1 = new CursesPlayerController(0, view);
+            var controller1 = new CursesPlayerController(seed, view);
             var controller2 = controller1;
 
-            var match = new GameMatch(config, 0, cm, File.ReadAllText("../CWCore/core.lua"))
+            var match = new GameMatch(config, seed, cm, File.ReadAllText("../CWCore/core.lua"))
             {
                 View = view,
                 Logger = new CursesLogger(view)

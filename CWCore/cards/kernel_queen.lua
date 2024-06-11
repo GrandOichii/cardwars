@@ -11,7 +11,7 @@ function _Create(props)
             local creatures = Common.FloopedCreatures(ownerI)
 
             me.Attack = me.Attack + #creatures
-            me.Defence = me.Defence + #creatures
+            me.Defense = me.Defense + #creatures
         end
 
     end)
