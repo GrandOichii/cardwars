@@ -12,7 +12,7 @@ function _Create(props)
         end
 
         if replaced then
-            local options = Common:IDs(Common:CreaturesInLaneExcept(laneI, me.Original.Card.ID))
+            local options = Common.IDs(Common.CreaturesInLaneExcept(laneI, me.Original.Card.ID))
             if #options == 0 then
                 return
             end

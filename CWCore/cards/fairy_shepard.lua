@@ -10,7 +10,7 @@ function _Create(props)
 
             local ownerI = me.Original.OwnerI
 
-            local adjacent = Common:AdjacentCreaturesTyped(ownerI, me.LaneI, CardWars.Landscapes.NiceLands)
+            local adjacent = Common.AdjacentCreaturesTyped(ownerI, me.LaneI, CardWars.Landscapes.NiceLands)
             for _, creature in ipairs(adjacent) do
                 creature.Defense = creature.Defense + 2
             end

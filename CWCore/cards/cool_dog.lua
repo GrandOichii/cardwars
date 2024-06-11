@@ -13,7 +13,7 @@ function _Create(props)
             local id = me.Original.Card.ID
             local opponentI = 1 - ownerI
             local opponent = STATE.Players[opponentI]
-            local landscapes = Common:AdjacentCreatures(ownerI, me.LaneI)
+            local landscapes = Common.AdjacentCreatures(ownerI, me.LaneI)
             local lanes = opponent.Landscapes
             for _, creature in ipairs(landscapes) do
                 local laneI = creature.LaneI

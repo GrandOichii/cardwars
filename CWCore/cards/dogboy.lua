@@ -12,7 +12,7 @@ function _Create(props)
             return GetHandCount(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            Common:ChooseAndDiscardCard(playerI, laneI)
+            Common.ChooseAndDiscardCard(playerI, laneI)
             
             return true
         end,

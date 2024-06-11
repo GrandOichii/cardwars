@@ -8,7 +8,7 @@ function _Create(props)
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
-            local count = Common:CardsPlayedThisTurnTyped(ownerI, CardWars.Landscapes.Rainbow)
+            local count = Common.CardsPlayedThisTurnTyped(ownerI, CardWars.Landscapes.Rainbow)
             if count > 3 then
                 me.Attack = me.Attack + 3
             end

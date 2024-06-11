@@ -8,7 +8,7 @@ function _Create(props)
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
-            local count = #Common:LandscapesTyped(ownerI, CardWars.Landscapes.Cornfield)
+            local count = #Common.LandscapesTyped(ownerI, CardWars.Landscapes.Cornfield)
             
             me.Attack = me.Attack + count
             me.Defense = me.Defense + count * 2

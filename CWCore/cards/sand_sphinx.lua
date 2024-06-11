@@ -13,7 +13,7 @@ function _Create(props)
         -- FLOOP >>> Return a Creature you control in this Lane to its owner's hand.
 
         checkF = function (me, playerI, laneI)
-            return Common:CanFloop(me) and getCreature(playerI, laneI) ~= nil
+            return Common.CanFloop(me) and getCreature(playerI, laneI) ~= nil
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)

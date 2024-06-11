@@ -9,7 +9,7 @@ function _Create(props)
 
             UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creatures = Common:FilterCreatures( function (creature)
+                    local creatures = Common.FilterCreatures( function (creature)
                         return
                             creature.Original.MovementCount > 0
                     end)

@@ -9,7 +9,7 @@ function _Create(props)
         function (playerI)
             -- Target Blue Plains Creature you control has +2 ATK this turn.
 
-            local ids = Common:IDs(Common:CreaturesTyped(playerI, CardWars.Landscapes.BluePlains))
+            local ids = Common.IDs(Common.CreaturesTyped(playerI, CardWars.Landscapes.BluePlains))
             -- TODO remove
             if #ids == 0 then
                 return

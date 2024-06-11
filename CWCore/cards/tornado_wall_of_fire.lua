@@ -7,7 +7,7 @@ function _Create(props)
         -- FLOOP >>> Tornado Wall of Fire has +3 ATK while Flooped.
     
         checkF = function (me, playerI, laneI)
-            return Common:CanFloop(me)
+            return Common.CanFloop(me)
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)

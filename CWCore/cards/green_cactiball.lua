@@ -8,7 +8,7 @@ function _Create(props)
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
-            local count = Common:CreaturesNamed(ownerI, 'Green Cactiball')
+            local count = Common.CreaturesNamed(ownerI, 'Green Cactiball')
 
             me.Attack = me.Attack + #count * 2
         end

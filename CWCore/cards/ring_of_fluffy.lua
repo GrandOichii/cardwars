@@ -9,7 +9,7 @@ function _Create(props)
         function (playerI)
             -- Target Creature you control has +X ATK this turn, where X is the amount of Damage on it.
             
-            local creatures = Common:IDs(Common:Creatures(playerI))
+            local creatures = Common.IDs(Common.Creatures(playerI))
             -- TODO remove
             if #creatures == 0 then
                 return

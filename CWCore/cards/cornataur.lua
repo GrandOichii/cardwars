@@ -7,7 +7,7 @@ function _Create(props)
         -- When Cornataur enters play, deal 1 Damage to your opponent for each Cornfield Landscape you control.
 
         local opponentI = 1 - playerI
-        local count = #Common:LandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
+        local count = #Common.LandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
 
         DealDamageToPlayer(opponentI, count)
     end)

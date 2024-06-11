@@ -10,7 +10,7 @@ function _Create(props)
             local ownerI = me.Original.OwnerI
             local id = me.Original.Card.ID
 
-            local creatures = Common:CreaturesTypedExcept(ownerI, CardWars.Landscapes.Cornfield, id)
+            local creatures = Common.CreaturesTypedExcept(ownerI, CardWars.Landscapes.Cornfield, id)
 
             me.Attack = me.Attack + #creatures
         end

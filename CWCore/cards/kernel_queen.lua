@@ -8,7 +8,7 @@ function _Create(props)
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
-            local creatures = Common:FloopedCreatures(ownerI)
+            local creatures = Common.FloopedCreatures(ownerI)
 
             me.Attack = me.Attack + #creatures
             me.Defence = me.Defence + #creatures

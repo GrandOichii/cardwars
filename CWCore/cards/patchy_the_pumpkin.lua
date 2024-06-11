@@ -7,16 +7,16 @@ function _Create(props)
         -- FLOOP >>> Deal 1 Damage to target Creature. Do this once for each Cornfield Landscape you control. (May only target each Creature once.)
 
         checkF = function (me, playerI, laneI)
-            return Common:CanFloop(me)
+            return Common.CanFloop(me)
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local count = #Common:LandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
+            local count = #Common.LandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
 
-            local options = Common:IDs(Common:Creatures(1 - playerI))
+            local options = Common.IDs(Common.Creatures(1 - playerI))
 
             for i = 1, count do
                 if #options == 0 then

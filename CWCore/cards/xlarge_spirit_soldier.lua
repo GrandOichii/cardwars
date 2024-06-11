@@ -9,7 +9,7 @@ function _Create(props)
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
 
-            local adjacent = Common:AdjacentCreatures(ownerI, me.LaneI)
+            local adjacent = Common.AdjacentCreatures(ownerI, me.LaneI)
             for _, creature in ipairs(adjacent) do
                 creature.Attack = creature.Attack + 1
             end

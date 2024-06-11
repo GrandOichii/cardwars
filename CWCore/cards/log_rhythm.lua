@@ -9,7 +9,7 @@ function _Create(props)
 
             UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creatures = Common:CreaturesWithBuildings(playerI)
+                    local creatures = Common.CreaturesWithBuildings(playerI)
                     for _, creature in ipairs(creatures) do
                         creature.Attack = creature.Attack + 2
                     end

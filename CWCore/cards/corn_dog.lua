@@ -9,7 +9,7 @@ function _Create(props)
         if layer == CardWars.ModificationLayers.ATK_AND_DEF then
             local ownerI = me.Original.OwnerI
             local lanes = STATE.Players[ownerI].Landscapes
-            local count = #Common:LandscapesTyped(ownerI, CardWars.Landscapes.Cornfield)
+            local count = #Common.LandscapesTyped(ownerI, CardWars.Landscapes.Cornfield)
             me.Defense = me.Defense + count
             if count <= 3 then
                 me.Attack = me.Attack + 1

@@ -10,7 +10,7 @@ function _Create(props)
             local ownerI = me.Original.OwnerI
             local id = me.Original.Card.ID
 
-            local cornfields = Common.AllPlayers:LandscapesTyped(CardWars.Landscapes.Cornfield)
+            local cornfields = Common.AllPlayers.LandscapesTyped(CardWars.Landscapes.Cornfield)
 
             me.Defense = me.Defense + #cornfields
         end

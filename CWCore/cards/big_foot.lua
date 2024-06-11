@@ -7,18 +7,18 @@ function _Create(props)
         -- FLOOP >>> Flip target face-down Landscape you control face up. 
 
         checkF = function (me, playerI, laneI)
-            if not Common:CanFloop(me) then
+            if not Common.CanFloop(me) then
                 return false
             end
 
-            return #Common:FaceDownLandscapes(playerI) > 0
+            return #Common.FaceDownLandscapes(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local options = Common:Lanes(Common:FaceDownLandscapes(playerI))
+            local options = Common.Lanes(Common.FaceDownLandscapes(playerI))
 
             -- TODO? change to target
             local lane = ChooseLandscape(playerI, options, {}, 'Choose a face-down Landscape to flip')

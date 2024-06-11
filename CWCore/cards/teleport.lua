@@ -12,11 +12,11 @@ function _Create(props)
             -- Move one of your Creatures to one of your empty Lanes.
 
             -- !FIXME remove
-            local creatures = Common:IDs(Common:Creatures(playerI))
+            local creatures = Common.IDs(Common.Creatures(playerI))
             if #creatures == 0 then
                 return
             end
-            local empty = Common:Lanes(Common:LandscapesWithoutCreatures(playerI))
+            local empty = Common.Lanes(Common.LandscapesWithoutCreatures(playerI))
             if #empty == 0 then
                 return
             end

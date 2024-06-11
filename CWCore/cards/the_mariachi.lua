@@ -7,7 +7,7 @@ function _Create(props)
         -- FLOOP >>> Deal 1 Damage to target Creature for each Creature that entered play this turn.
 
         checkF = function (me, playerI, laneI)
-            return Common:CanFloop(me)
+            return Common.CanFloop(me)
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
@@ -15,9 +15,9 @@ function _Create(props)
         end,
         effectF = function (me, playerI, laneI)
             -- TODO rework, doesn't count the creatures that were replaced
-            local creatures = Common:FilterCreatures( function (creature) return creature.Original.EnteredThisTurn end)
+            local creatures = Common.FilterCreatures( function (creature) return creature.Original.EnteredThisTurn end)
             local amount = #creatures
-            local ids = Common:IDs(Common:FilterCreatures( function (creature) return true end))
+            local ids = Common.IDs(Common.FilterCreatures( function (creature) return true end))
 
             local target = TargetCreature(playerI, ids, 'Choose a creature to deal damage to')
 
