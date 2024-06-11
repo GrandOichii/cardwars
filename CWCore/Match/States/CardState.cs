@@ -7,6 +7,8 @@ public class CardState : IStateModifier {
     public MatchCard Original { get; }
     public int Cost { get; set; }
 
+    public CardState() {}
+
     public CardState(MatchCard card) {
         Original = card;
         Cost = Original.Template.Cost;

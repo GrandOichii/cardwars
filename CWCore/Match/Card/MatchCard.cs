@@ -16,6 +16,12 @@ public class MatchCard {
     public LuaTable Data { get; }
     public int OwnerI { get; set; }
 
+    // * for testing purposes
+    public MatchCard(string id, CardTemplate template) {
+        ID = id;
+        Template = template;
+    }
+
     public MatchCard(CardTemplate card, int ownerI, Lua state, IIDGenerator generator) {
         Template = card;
         OwnerI = ownerI;

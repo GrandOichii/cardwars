@@ -7,6 +7,8 @@ using CWCore.Match;
 using CWCore.Match.States;
 using CWCore.Match.Players;
 using Microsoft.Extensions.Logging;
+using Mindmagma.Curses;
+using System.ComponentModel.Design;
 
 public class FileCardMasterData {
     [JsonPropertyName("cards")]
@@ -276,11 +278,117 @@ public class ConsolePlayerController : IPlayerController
     }
 }
 
+public class CursesPlayerController : IPlayerController
+{
+    private readonly RandomPlayerController _playerController;
+    private readonly CursesView _view;
+    public CursesPlayerController(int seed, CursesView view) {
+        _view = view;
+        _playerController = new RandomPlayerController(seed);
+    }
+
+    public void Wait() {
+        var c = NCurses.GetChar();
+        if (c == 'q') {
+            throw new Exception("forced match end");
+        }
+    }
+
+    public Task<int> PickAttackLane(GameMatch match, int playerI, List<int> options)
+    {
+        Wait();
+        return _playerController.PickAttackLane(match, playerI, options);
+    }
+
+    public Task<string> PickBuilding(GameMatch match, int playerI, List<string> options, string hint)
+    {
+        Wait();
+        return _playerController.PickBuilding(match, playerI, options, hint);
+    }
+
+    public Task<int> PickCardInHand(GameMatch match, int playerI, List<int> options, string hint)
+    {
+        Wait();
+        return _playerController.PickCardInHand(match, playerI, options, hint);
+    }
+
+    public Task<string> PickCreature(GameMatch match, int playerI, List<string> options, string hint)
+    {
+        Wait();
+        return _playerController.PickCreature(match, playerI, options, hint);
+    }
+
+    public Task<int[]> PickLandscape(GameMatch match, int playerI, List<int> options, List<int> opponentOptions, string hint)
+    {
+        Wait();
+        return _playerController.PickLandscape(match, playerI, options, opponentOptions, hint);
+    }
+
+    public Task<int> PickLane(GameMatch match, int playerI, List<int> options, string hint)
+    {
+        Wait();
+        return _playerController.PickLane(match, playerI, options, hint);
+    }
+
+    public Task<int> PickLaneForBuilding(GameMatch match, int playerI, List<int> options)
+    {
+        Wait();
+        return _playerController.PickLaneForBuilding(match, playerI, options);
+    }
+
+    public Task<int> PickLaneForCreature(GameMatch match, int playerI, List<int> options)
+    {
+        Wait();
+        return _playerController.PickLaneForCreature(match, playerI, options);
+    }
+
+    public Task<string> PickOption(GameMatch match, int playerI, List<string> options, string hint)
+    {
+        Wait();
+        return _playerController.PickOption(match, playerI, options, hint);
+    }
+
+    public Task<string> PromptAction(GameMatch match, int playerI, IEnumerable<string> options)
+    {
+        Wait();
+        return _playerController.PromptAction(match, playerI, options);
+    }
+
+    public Task<List<string>> PromptLandscapePlacement(int playerI, Dictionary<string, int> landscapeIndex)
+    {
+        Wait();
+        return _playerController.PromptLandscapePlacement(playerI, landscapeIndex);
+    }
+}
+
+public class CursesLogger : ILogger
+{
+    private readonly CursesView _view;
+    public CursesLogger(CursesView view) {
+        _view = view;
+    }
+    public IDisposable BeginScope<TState>(TState state) where TState : notnull => default!;
+
+	// TODO
+	public bool IsEnabled(LogLevel logLevel) => true;
+		// getCurrentConfig().LogLevelToColorMap.ContainsKey(logLevel);
+
+
+
+	public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+	{
+		var log = formatter(state, exception);
+        var logs = new List<string>();
+        foreach (var l in CursesView.WordWrap(log, 50)) 
+		_view.Logs.Add(l);
+	}
+}
+
 public class Program {
     public static async Task TestRandom(int amount) {
          var config = new MatchConfig() {
             StartingLifeTotal = 25,
-            ActionPointsPerTurn = 12,
+            ActionPointsPerTurn = 2,
             LaneCount = 4,
             StrictMode = true,
             CardDrawCost = 1,
@@ -328,19 +436,22 @@ public class Program {
     }
 
     public static async Task Main(string[] args) {
+        var view = new CursesView();
         try {
+            // view.Run();
+            // return;
             // await TestRandom(100);
             // return;
             var config = new MatchConfig() {
                 StartingLifeTotal = 25,
-                ActionPointsPerTurn = 20,
+                ActionPointsPerTurn = 2,
                 LaneCount = 4,
                 StrictMode = false,
                 CardDrawCost = 1,
                 StartHandSize = 5,
                 CheckLandscapesForPlayingCards = false,
-                CanFloopOnFirstTurn = true,
-                CanAttackOnFirstTurn = true,
+                CanFloopOnFirstTurn = false,
+                CanAttackOnFirstTurn = false,
             };
 
             var cm = new FileCardMaster();
@@ -351,14 +462,16 @@ public class Program {
             ;
             var deck2 = deck1;
 
-            var controller1 = new ConsolePlayerController();
+            var controller1 = new CursesPlayerController(0, view);
             var controller2 = controller1;
 
             var match = new GameMatch(config, 0, cm, File.ReadAllText("../CWCore/core.lua"))
             {
-                Logger = LoggerFactory
-                    .Create(builder => builder.AddConsole())
-                    .CreateLogger("Program")
+                View = view,
+                Logger = new CursesLogger(view)
+                // Logger = LoggerFactory
+                //     .Create(builder => builder.AddConsole())
+                //     .CreateLogger("Program")
             };
 
             await match.AddPlayer("player1", deck1, controller1);
@@ -366,6 +479,7 @@ public class Program {
 
             await match.Run();
         } catch (Exception e) {
+            await view.End();
             PrintException(e);
         }
 

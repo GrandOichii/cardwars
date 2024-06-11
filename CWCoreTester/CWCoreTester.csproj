@@ -4,6 +4,10 @@
     <ProjectReference Include="..\CWCore\CWCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="dotnet-curses" Version="1.0.3" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>

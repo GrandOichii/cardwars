@@ -205,10 +205,10 @@ public class GameMatch {
         await CheckDeadPlayers();
         await CheckDeadCreatures();
 
-        await PushUpdates();
         LastState = new(this);
         LState["STATE"] = LastState;
         LastState.Modify();
+        await PushUpdates();
     }
 
     public async Task CheckDeadPlayers() {
