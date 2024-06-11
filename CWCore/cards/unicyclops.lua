@@ -6,7 +6,7 @@ function _Create(props)
     result:AddTrigger({
         -- At the start of your turn, each player draws a card and then discards a card.
 
-        trigger = CardWars.Triggers.TurnStart,
+        trigger = CardWars.Triggers.TURN_START,
         checkF = function (me, ownerI, laneI)
             return GetCurPlayerI() == ownerI
         end,

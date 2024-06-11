@@ -6,7 +6,7 @@ function _Create(props)
     result:AddTrigger({
         -- At the start of your turn, deal 1 Damage to target opponent for every 5 cards in your discard pile.
 
-        trigger = CardWars.Triggers.TurnStart,
+        trigger = CardWars.Triggers.TURN_START,
         checkF = function (me, ownerI, laneI)
             return GetCurPlayerI() == ownerI
         end,

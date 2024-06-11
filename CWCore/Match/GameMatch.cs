@@ -304,9 +304,12 @@ public class GameMatch {
 
     public async Task Emit(string signal, Dictionary<string, object> args) {
         var logMessage = "Emitted signal " + signal + ", args: ";
-        foreach (var pair in args) 
+        var argsTable = LuaUtility.CreateTable(LState, args);
+        foreach (var pair in args) {
             logMessage += pair.Key + ":" + pair.Value.ToString() + " ";
+        }
         LogInfo(logMessage);
+        await ReloadState();
 
         foreach (var player in LastState.Players) {
             foreach (var lane in player.Landscapes) {
@@ -322,18 +325,18 @@ public class GameMatch {
                         var on = trigger.Trigger;
                         if (on != signal) continue;
 
-                        var canTrigger = trigger.ExecCheck(player, card, lane.Original.Idx);
+                        var canTrigger = trigger.ExecCheck(player, card, lane.Original.Idx, argsTable);
                         if (!canTrigger) {
                             continue;
                         }
 
-                        var payedCosts = trigger.ExecCosts(player, card, lane.Original.Idx);
+                        var payedCosts = trigger.ExecCosts(player, card, lane.Original.Idx, argsTable);
                         if (!payedCosts) {
                             continue;
                         }
 
                         LogInfo($"Card {card.Original.Card.LogFriendlyName} triggers!");
-                        trigger.ExecEffect(player, card, lane.Original.Idx);
+                        trigger.ExecEffect(player, card, lane.Original.Idx, argsTable);
                     }
                 }
             }

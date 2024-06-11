@@ -21,21 +21,31 @@ public class ActivatedEffect {
         ActivatedThisTurn = 0;
     }
 
-    private static bool CheckFunction(LuaFunction f, PlayerState player, InPlayCardState state, int laneI) {
-        var returned = f.Call(state, player.Original.Idx, laneI);
-        return LuaUtility.GetReturnAsBool(returned);
+    private static bool CheckFunction(LuaFunction f, PlayerState player, InPlayCardState state, int laneI, LuaTable? args) {
+        
+        return LuaUtility.GetReturnAsBool(
+            args is not null
+                ? f.Call(state, player.Original.Idx, laneI, args)
+                : f.Call(state, player.Original.Idx, laneI)
+        );
     }
 
-    public bool ExecCheck(PlayerState player, InPlayCardState state, int laneI) => CheckFunction(CheckF, player, state, laneI);
+    public bool ExecCheck(PlayerState player, InPlayCardState state, int laneI, LuaTable? args = null) => CheckFunction(CheckF, player, state, laneI, args);
     
-    public bool ExecCosts(PlayerState player, InPlayCardState state, int laneI) => CheckFunction(CostF, player, state, laneI);
+    public bool ExecCosts(PlayerState player, InPlayCardState state, int laneI, LuaTable? args = null) => CheckFunction(CostF, player, state, laneI, args);
 
-    public void ExecEffect(PlayerState player, InPlayCardState state, int laneI) => EffectF.Call(state, player.Original.Idx, laneI);
+    public void ExecEffect(PlayerState player, InPlayCardState state, int laneI, LuaTable? args = null){
+        if (args is not null) {
+            EffectF.Call(state, player.Original.Idx, laneI, args);
+            return;
+        }
+        EffectF.Call(state, player.Original.Idx, laneI);
+    }
 
-    public bool CanActivate(PlayerState player, InPlayCardState card, int laneI) {
+    public bool CanActivate(PlayerState player, InPlayCardState card, int laneI, LuaTable? args = null) {
         if (MaxActivationsPerTurn != -1 && ActivatedThisTurn >= MaxActivationsPerTurn) {
             return false;
         }
-        return ExecCheck(player, card, laneI);
+        return ExecCheck(player, card, laneI, args);
     }
 }

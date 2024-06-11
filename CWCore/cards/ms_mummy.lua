@@ -1,4 +1,4 @@
--- Status: changed what "gains 1 DEF" means rules-wise, not tested
+-- Status: not tested
 
 function _Create(props)
     local result = CardWars:Creature(props)
@@ -6,7 +6,7 @@ function _Create(props)
     result:AddTrigger({
         -- At the start of you turn, you may return Ms. Mummy to its owner's hand. If you do, target SandyLands Creature you control gains 1 DEF.",
 
-        trigger = CardWars.Triggers.TurnStart,
+        trigger = CardWars.Triggers.TURN_START,
         checkF = function (me, ownerI, laneI)
             return GetCurPlayerI() == ownerI
         end,
@@ -28,11 +28,7 @@ function _Create(props)
             local target = TargetCreature(ownerI, creatures, 'Choose a creature to buff')
             local creature = GetCreature(target)
 
-            if creature.Original.Damage == 0 then
-                creature.Original.Defense = creature.Original.Defense + 1
-                return
-            end
-            HealDamage(creature.Original.Card.ID, 1)
+            Common.GainDefense(creature, 1)
         end
     })
 

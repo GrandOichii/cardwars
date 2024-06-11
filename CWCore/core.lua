@@ -79,7 +79,8 @@ CardWars.Zones = {
 -- Triggers
 
 CardWars.Triggers = {
-    TurnStart = 'turn_start'
+    TURN_START = 'turn_start',
+    CREATURE_ENTER = 'creature_enter'
 }
 
 -- Landscapes
@@ -341,6 +342,16 @@ function Common.FreezeLandscape(playerI, laneI)
     PlaceTokenOnLandscape(playerI, laneI, 'Frozen')
 end
 
+function Common.GainDefense(creature, amount)
+    local def = 0
+    if amount > creature.Original.Damage then
+        def = amount - creature.Original.Damage
+        amount = creature.Original.Damage
+    end
+
+    HealDamage(creature.Original.Card.ID, amount)
+    creature.Original.Defense = creature.Original.Defense + def
+end
 
 function Common.AdjacentLandscapes(playerI, laneI)
     local result = {}
@@ -597,4 +608,21 @@ function Common.Mod.Cost(me, amount)
     if me.Cost < 0 then
         me.Cost = 0
     end
+end
+
+Common.Triggers = {}
+
+function Common.Triggers.OnAnotherCreatureEnterPlayUnderYourControl(card, effect)
+    card:AddTrigger({
+        trigger = CardWars.Triggers.CREATURE_ENTER,
+        checkF = function (me, ownerI, laneI, args)
+            return args.ownerI == ownerI and args.laneI ~= laneI
+        end,
+        costF = function (me, ownerI, laneI, args)
+            return true
+        end,
+        effectF = function (me, ownerI, laneI, args)
+            effect(me, ownerI, laneI, args)
+        end
+    })
 end

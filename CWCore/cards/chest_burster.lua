@@ -6,7 +6,7 @@ function _Create(props)
     result:AddTrigger({
         -- At the start of your turn, deal 3 Damage to each opponent who was no cards in hand.
 
-        trigger = CardWars.Triggers.TurnStart,
+        trigger = CardWars.Triggers.TURN_START,
         checkF = function (me, ownerI, laneI)
             return GetCurPlayerI() == ownerI
         end,

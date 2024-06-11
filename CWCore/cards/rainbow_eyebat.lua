@@ -6,7 +6,7 @@ function _Create(props)
     result:AddTrigger({
         -- At the start of your turn, you heal 1 Hit Point for each different Landscape type you control. (Can 't go over 25.)
 
-        trigger = CardWars.Triggers.TurnStart,
+        trigger = CardWars.Triggers.TURN_START,
         checkF = function (me, ownerI, laneI)
             return GetCurPlayerI() == ownerI
         end,

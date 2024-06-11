@@ -164,7 +164,12 @@ public class Player {
         if (!Match.Active) return;
 
         creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI, replaced);
-        // TODO add triggers
+
+        await Match.Emit("creature_enter", new() {
+            {"ownerI", Idx},
+            {"laneI", laneI},
+            {"replaced", replaced}
+        });
     }
 
     public async Task PlaceBuildingInLane(MatchCard card, int laneI) {
