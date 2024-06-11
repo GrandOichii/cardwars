@@ -18,14 +18,21 @@ data = open(original_path, 'r').read()
 card_data = json.loads(data)
 name = name.lower().replace(' ', '_').replace('\'', '').replace('-', '_')
 
+
+print('adding to manifest file')
+manifest_path = join('cards', 'manifest.json')
+manifest = json.loads(open(manifest_path, 'r').read())
+
+if name in manifest['cards']:
+    print(f'{name} already present in manifest')
+    exit(0)
+
+manifest['cards'] += [name]
+open(manifest_path, 'w').write(json.dumps(manifest, indent=4))
+
 print('creating .json file')
 open(join('cards', name + '.json'), 'w').write(data)
 
 print('creating script file')
 open(join('cards', name + '.lua'), 'w').write('-- ' + card_data['Text'])
 
-print('adding to manifest file')
-manifest_path = join('cards', 'manifest.json')
-manifest = json.loads(open(manifest_path, 'r').read())
-manifest['cards'] += [name]
-open(manifest_path, 'w').write(json.dumps(manifest, indent=4))

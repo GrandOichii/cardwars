@@ -26,7 +26,7 @@ public class InPlayCardState : IStateModifier {
 
     public void Modify(ModificationLayer layer)
     {
-        Original.Card.ExecFunction(MODIFY_STATE_FNAME, Original.Card.Data, (int)layer);
+        Original.Card.ExecFunction(MODIFY_STATE_FNAME, Original.Card.Data, this, (int)layer, "in_play");
     }
 
     public bool IsType(string type) {

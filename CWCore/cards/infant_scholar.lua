@@ -6,7 +6,7 @@ function _Create(props)
     result:AddStateModifier(function ( me, layer)
         -- If you played one or more Rainbow cards this turn, Infant Scholar has +3 ATK this turn,
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
             local ownerI = me.Original.OwnerI
             local count = Common.CardsPlayedThisTurnTyped(ownerI, CardWars.Landscapes.Rainbow)
             if count > 3 then

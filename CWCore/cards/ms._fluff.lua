@@ -6,7 +6,7 @@ function _Create(props)
     result:AddStateModifier(function ( me, layer)
         -- While Ms. Fluff has exactly 7 Damage on it, it has +7 ATK.
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
             if me.Original.Damage == 7 then
                 me.Attack = me.Attack + 7
             end

@@ -24,7 +24,7 @@ function _Create(props)
                     error('tried to fetch myself, but i was nil (Herculeye)')
                 end
 
-                if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+                if layer == CardWars.ModificationLayers.ATK_AND_DEF  then
                     local creature = GetCreatureOrDefault(c.Original.Card.ID)
                     if creature == nil then
                         return

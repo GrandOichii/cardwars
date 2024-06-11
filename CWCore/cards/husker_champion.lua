@@ -6,7 +6,7 @@ function _Create(props)
     result:AddStateModifier(function ( me, layer)
         -- Husker Champion has +2 ATK and +2 DEF if you control a Building on this Landscape.
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
 
             local ownerI = me.Original.OwnerI
             local laneI = me.LaneI

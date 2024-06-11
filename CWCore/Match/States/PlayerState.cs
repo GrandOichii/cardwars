@@ -28,6 +28,9 @@ public class PlayerState : IStateModifier {
     
     public void Modify(ModificationLayer layer)
     {
+        foreach (var card in Hand) {
+            card.Modify(layer);
+        }
         foreach (var lane in Landscapes) {
             lane.Modify(layer);
         }

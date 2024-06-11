@@ -89,7 +89,7 @@ public class Player {
     public void PayToPlay(CardState card) {
         // TODO pay additional costs
         
-        PayActionPoints(card.Original.Template.Cost);
+        PayActionPoints(card.Cost);
     }
 
     public void RemoveFromHand(MatchCard card) {
@@ -123,7 +123,7 @@ public class Player {
     }
 
     private async Task PlaceLandscapes() {
-        var result = await Controller.PromptLandscapePlacement(this, _landscapeIndex);
+        var result = await Controller.PromptLandscapePlacement(Idx, _landscapeIndex);
         
         // TODO validate landscape choice
         
@@ -168,7 +168,7 @@ public class Player {
 
     public async Task<int> PickLaneForCreature() {
         var options = LandscapesAvailableForCreatures();
-        var result = await Controller.PickLaneForCreature(Match, this, options);
+        var result = await Controller.PickLaneForCreature(Match, Idx, options);
         return result;
     }
 
@@ -176,12 +176,12 @@ public class Player {
         // TODO not specified in the rules, check
 
         var options = LandscapesAvailableForBuildings();
-        var result = await Controller.PickLaneForBuilding(Match, this, options);
+        var result = await Controller.PickLaneForBuilding(Match, Idx, options);
         return result;
     }
 
     public async Task<int> PickAttackLane(List<int> options) {
-        var result = await Controller.PickAttackLane(Match, this, options);
+        var result = await Controller.PickAttackLane(Match, Idx, options);
         return result;
     }
 
@@ -225,38 +225,38 @@ public class Player {
     }
 
     public async Task<int> PickLane(List<int> options, string hint) {
-        var result = await Controller.PickLane(Match, this, options, hint);
+        var result = await Controller.PickLane(Match, Idx, options, hint);
         // TODO validate
         return result;
     }
 
     public async Task<int[]> PickLandscape(List<int> options, List<int> opponentOptions, string hint) {
-        var result = await Controller.PickLandscape(Match, this, options, opponentOptions, hint);
+        var result = await Controller.PickLandscape(Match, Idx, options, opponentOptions, hint);
         // TODO validate
         return result;
     }
 
     public async Task<string> PickCreature(List<string> options, string hint) {
-        var result = await Controller.PickCreature(Match, this, options, hint);
+        var result = await Controller.PickCreature(Match, Idx, options, hint);
         // TODO validate
 
         return result;
     }
 
     public async Task<string> PickBuilding(List<string> options, string hint) {
-        var result = await Controller.PickBuilding(Match, this, options, hint);
+        var result = await Controller.PickBuilding(Match, Idx, options, hint);
         // TODO validate
         return result;
     }
 
     public async Task<string> Pick(List<string> options, string hint) {
-        var result = await Controller.PickOption(Match, this, options, hint);
+        var result = await Controller.PickOption(Match, Idx, options, hint);
         // TODO validate
         return result;
     }
 
     public async Task<int> PickCardInHand(List<int> options, string hint) {
-        var result = await Controller.PickCardInHand(Match, this, options, hint);
+        var result = await Controller.PickCardInHand(Match, Idx, options, hint);
         // TODO validate
         return result;
     }

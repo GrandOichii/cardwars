@@ -71,8 +71,9 @@ CardWars = {}
 -- Zones
 
 CardWars.Zones = {
-    Discard = 'discard',
-    InPlay = 'in_play'
+    DISCARD = 'discard',
+    IN_PLAY = 'in_play',
+    HAND = 'hand',
 }
 
 -- Triggers
@@ -97,6 +98,7 @@ CardWars.ModificationLayers = {
     ATK_AND_DEF = 1,
     IN_PLAY_CARD_TYPE = 2,
     LANDSCAPE_TYPE = 3,
+    CARD_COST = 4,
 }
 
 -- Card Types
@@ -143,6 +145,18 @@ function CardWars:Card(props)
     --     return string.find(result.type, 'Unit') ~= nil
     -- end
 
+    result.StateModifiers = {}
+
+    function result:AddStateModifier(modF)
+        result.StateModifiers[#result.StateModifiers+1] = modF
+    end
+
+    function result:ModifyState(me, layer, zone)
+        for _, modF in ipairs(result.StateModifiers) do
+            modF(me, layer, zone)
+        end
+    end
+
     return result
 end
 
@@ -166,18 +180,6 @@ end
 
 function CardWars:InPlay(props)
     local result = CardWars:Card(props)
-
-    result.StateModifiers = {}
-
-    function result:AddStateModifier(modF)
-        result.StateModifiers[#result.StateModifiers+1] = modF
-    end
-
-    function result:ModifyState(me, layer)
-        for _, modF in ipairs(result.StateModifiers) do
-            modF(me, layer)
-        end
-    end
 
     result.ActivatedEffects = {}
     function result:AddActivatedEffect(effect)

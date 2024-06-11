@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using CWCore.Cards;
 using CWCore.Decks;
 using CWCore.Match;
+using CWCore.Match.States;
 using CWCore.Match.Players;
 using Microsoft.Extensions.Logging;
 
@@ -39,12 +40,12 @@ public class FileCardMaster : ICardMaster
 
 public class ConsolePlayerController : IPlayerController
 {
-    private void PrintInfo(GameMatch match, Player player) {
+    private void PrintInfo(GameMatch match, PlayerState player) {
         foreach (var p in match.Players) {
             System.Console.WriteLine($"{p.LogFriendlyName} - {p.Life} {p.Hand.Count} [[{p.Deck.Count}]] _{p.DiscardPile.Count}_");
         }
         System.Console.WriteLine("Lanes:");
-        var landscapes = match.LastState.Players[player.Idx].Landscapes;
+        var landscapes = match.LastState.Players[player.Original.Idx].Landscapes;
         
         foreach (var lane in landscapes)
             System.Console.Write("|" + (lane.Original.Name + " " + (lane.Original.FaceDown ? "(FACEDOWN)" : "")).PadRight(40) + "|");
@@ -58,8 +59,9 @@ public class ConsolePlayerController : IPlayerController
         System.Console.WriteLine();
     }
 
-    public Task<int> PickAttackLane(GameMatch match, Player player, List<int> options)
+    public Task<int> PickAttackLane(GameMatch match, int playerI, List<int> options)
     {
+        var player = match.GetPlayerState(playerI);
         PrintInfo(match, player);
         System.Console.Write("Attack options: ");
         foreach (var option in options )
@@ -72,8 +74,9 @@ public class ConsolePlayerController : IPlayerController
         return Task.FromResult(int.Parse(result));
     }
 
-    public Task<int> PickLaneForCreature(GameMatch match, Player player, List<int> options)
+    public Task<int> PickLaneForCreature(GameMatch match, int playerI, List<int> options)
     {
+        var player = match.GetPlayerState(playerI);
         PrintInfo(match, player);
         System.Console.Write("Options: ");
         foreach (var option in options)
@@ -87,14 +90,15 @@ public class ConsolePlayerController : IPlayerController
         return Task.FromResult(int.Parse(result));
     }
 
-    public Task<string> PromptAction(GameMatch match, Player player, IEnumerable<string> options)
+    public Task<string> PromptAction(GameMatch match, int playerI, IEnumerable<string> options)
     {
+        var player = match.GetPlayerState(playerI);
         PrintInfo(match, player);
         System.Console.WriteLine("Hand:");
         foreach (var card in player.Hand)
-            System.Console.WriteLine($"- {card.LogFriendlyName} <{card.Template.Cost}>");
-        Console.WriteLine($"AP: {player.ActionPoints}");
-        Console.WriteLine($"Available actions for {player.LogFriendlyName}:");
+            System.Console.WriteLine($"- {card.Original.LogFriendlyName} <{card.Cost}>");
+        Console.WriteLine($"AP: {player.Original.ActionPoints}");
+        Console.WriteLine($"Available actions for {player.Original.LogFriendlyName}:");
         foreach (var action in options)
             Console.WriteLine($"\t- {action}");
         var result = Console.ReadLine()
@@ -103,7 +107,7 @@ public class ConsolePlayerController : IPlayerController
         return Task.FromResult(result);
     }
 
-    public Task<List<string>> PromptLandscapePlacement(Player player, Dictionary<string, int> landscapeIndex)
+    public Task<List<string>> PromptLandscapePlacement(int playerI, Dictionary<string, int> landscapeIndex)
     {
         return Task.FromResult(new List<string> {
             "Cornfield",
@@ -113,8 +117,9 @@ public class ConsolePlayerController : IPlayerController
         });
     }
 
-    public Task<int> PickLaneForBuilding(GameMatch match, Player player, List<int> options)
+    public Task<int> PickLaneForBuilding(GameMatch match, int playerI, List<int> options)
     {
+        var player = match.GetPlayerState(playerI);
         PrintInfo(match, player);
 
         System.Console.Write("Options: ");
@@ -129,8 +134,9 @@ public class ConsolePlayerController : IPlayerController
         return Task.FromResult(int.Parse(result));
     }
 
-    public Task<int> PickLane(GameMatch match, Player player, List<int> options, string hint)
+    public Task<int> PickLane(GameMatch match, int playerI, List<int> options, string hint)
     {
+        var player = match.GetPlayerState(playerI);
         System.Console.Write("Lanes: ");
         foreach (var option in options)
             System.Console.Write($"{option} ");
@@ -147,8 +153,9 @@ public class ConsolePlayerController : IPlayerController
         );
     }
 
-    public Task<int[]> PickLandscape(GameMatch match, Player player, List<int> options, List<int> opponentOptions, string hint)
+    public Task<int[]> PickLandscape(GameMatch match, int playerI, List<int> options, List<int> opponentOptions, string hint)
     {
+        var player = match.GetPlayerState(playerI);
          if (options.Count > 0) {
             System.Console.Write("Your landscapes: ");
             foreach (var option in options)
@@ -193,8 +200,9 @@ public class ConsolePlayerController : IPlayerController
         );
     }
 
-    public Task<string> PickCreature(GameMatch match, Player player, List<string> options, string hint)
+    public Task<string> PickCreature(GameMatch match, int playerI, List<string> options, string hint)
     {
+        var player = match.GetPlayerState(playerI);
         System.Console.Write("Options: ");
         foreach (var option in options)
             System.Console.Write($"{option} ");
@@ -209,8 +217,9 @@ public class ConsolePlayerController : IPlayerController
         return Task.FromResult(result);
     }
 
-    public Task<string> PickBuilding(GameMatch match, Player player, List<string> options, string hint)
+    public Task<string> PickBuilding(GameMatch match, int playerI, List<string> options, string hint)
     {
+        var player = match.GetPlayerState(playerI);
         System.Console.Write("Options: ");
         foreach (var option in options)
             System.Console.Write($"{option} ");
@@ -225,8 +234,9 @@ public class ConsolePlayerController : IPlayerController
         return Task.FromResult(result);
     }
 
-    public Task<string> PickOption(GameMatch match, Player player, List<string> options, string hint)
+    public Task<string> PickOption(GameMatch match, int playerI, List<string> options, string hint)
     {
+        var player = match.GetPlayerState(playerI);
         System.Console.WriteLine("Options: ");
         for (int i = 0; i < options.Count; i++)
             System.Console.WriteLine($"{i}: {options[i]}");
@@ -241,11 +251,12 @@ public class ConsolePlayerController : IPlayerController
         );
     }
 
-    public Task<int> PickCardInHand(GameMatch match, Player player, List<int> options, string hint)
+    public Task<int> PickCardInHand(GameMatch match, int playerI, List<int> options, string hint)
     {
+        var player = match.GetPlayerState(playerI);
         System.Console.WriteLine("Hand:");
         foreach (var card in player.Hand)
-            System.Console.WriteLine($"- {card.LogFriendlyName} <{card.Template.Cost}>");
+            System.Console.WriteLine($"- {card.Original.LogFriendlyName} <{card.Cost}>");
             
         System.Console.Write("Options: ");
         foreach (var option in options)

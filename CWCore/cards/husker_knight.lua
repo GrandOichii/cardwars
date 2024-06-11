@@ -6,7 +6,7 @@ function _Create(props)
     result:AddStateModifier(function ( me, layer)
         -- Husker Knight has +1 ATK and +2 DEF for each Cornfield Landscape you control. 
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
             local ownerI = me.Original.OwnerI
             local count = #Common.LandscapesTyped(ownerI, CardWars.Landscapes.Cornfield)
             

@@ -4,6 +4,7 @@ namespace CWCore.Match.States;
 
 public class MatchState {
     private readonly static ModificationLayer[] STATE_MODIFICATION_LAYERS = new ModificationLayer[] {
+        ModificationLayer.CARD_COST,
         ModificationLayer.IN_PLAY_CARD_TYPE,
         ModificationLayer.ATK_AND_DEF,
     };

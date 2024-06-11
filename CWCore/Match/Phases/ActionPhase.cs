@@ -67,6 +67,6 @@ public class ActionPhase : IPhase {
         
         if (options.Count == 0) return "battle";
         var player = match.GetPlayer(playerI);
-        return await player.Controller.PromptAction(match, player, options);
+        return await player.Controller.PromptAction(match, player.Idx, options);
     } 
 }

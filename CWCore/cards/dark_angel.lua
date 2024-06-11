@@ -3,10 +3,10 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (me, layer)
+    result:AddStateModifier(function (me, layer, zone)
         -- +1 ATK for every 5 cards in your discard pile.
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
             local ownerI = me.Original.OwnerI
             local player = STATE.Players[ownerI]
             local discardCount = player.DiscardPile.Count

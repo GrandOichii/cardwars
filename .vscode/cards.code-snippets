@@ -84,10 +84,10 @@
 		"prefix": "statemod",
 		"description": "add state modifier",
 		"body": [
-			"result:AddStateModifier(function (me, layer)",
+			"result:AddStateModifier(function (me, layer, zone)",
 			"\t-- $1",
 			"",
-			"\tif layer == CardWars.ModificationLayers.${2:ATK_AND_DEF} then",
+			"\tif layer == CardWars.ModificationLayers.${2:ATK_AND_DEF} and zone == CardWars.Zones.${3:IN_PLAY} then",
 			"\t\t$0",
 			"\tend",
 			"",

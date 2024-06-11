@@ -3,10 +3,10 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (me, layer)
+    result:AddStateModifier(function (me, layer, zone)
         -- Corn Lord has +1 ATK for each other Cornfield Creature you control. 
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
             local ownerI = me.Original.OwnerI
             local id = me.Original.Card.ID
 

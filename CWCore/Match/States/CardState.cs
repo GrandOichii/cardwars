@@ -1,11 +1,15 @@
 namespace CWCore.Match.States;
 
-// TODO implement IStateModifier
-public class CardState {
+public class CardState : IStateModifier {
+    // TODO for now these are the same, might require to change
+    private readonly static string MODIFY_STATE_IN_HAND_FNAME = "ModifyState";
+    
     public MatchCard Original { get; }
+    public int Cost { get; set; }
 
     public CardState(MatchCard card) {
         Original = card;
+        Cost = Original.Template.Cost;
     }
 
     public bool CanPlay(PlayerState player) {
@@ -14,8 +18,8 @@ public class CardState {
             var counts = player.GetLandscapeCounts();
             var landscape = Original.Template.Landscape;
 
-            // TODO replace with field Cost
-            if (!counts.ContainsKey(landscape) || counts[landscape] < Original.Template.Cost)
+            // TODO don't actually know the rules interaction here
+            if (!counts.ContainsKey(landscape) || counts[landscape] < Cost)
                 return false;
         }
 
@@ -32,7 +36,7 @@ public class CardState {
         }
 
         // TODO add state-based effects
-        return player.Original.ActionPoints >= Original.Template.Cost;
+        return player.Original.ActionPoints >= Cost;
     }
 
     public bool IsLandscape(string landscape) {
@@ -40,4 +44,9 @@ public class CardState {
         return Original.Template.Landscape == landscape;
     }
 
+    public void Modify(ModificationLayer layer)
+    {
+        // TODO might change
+        Original.ExecFunction(MODIFY_STATE_IN_HAND_FNAME, Original.Data, this, (int)layer, "hand");
+    }
 }

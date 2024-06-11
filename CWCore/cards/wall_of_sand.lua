@@ -6,7 +6,7 @@ function _Create(props)
     result:AddStateModifier(function ( me, layer)
         -- If one or more other SandyLand Creatures enter play during you turn, Wall of Sand has +2 ATK this turn.
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
             -- TODO? the "enter play during your turn" kinda scares me
 
             local ownerI = me.Original.OwnerI

@@ -6,7 +6,7 @@ function _Create(props)
     result:AddStateModifier(function ( me, layer)
         -- +2 DEF for every 5 cards in your discard pile.
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
 
             local ownerI = me.Original.OwnerI
             local player = STATE.Players[ownerI]

@@ -11,6 +11,7 @@
 2 Red Eyeling - returning cards from discard to hand
 1 Tree of Undeath - returning cards from discard to hand
 2 Snake Eye Ring - returning cards from discard to hand
+
 2 Wandering Bald Man - milling
 1 Abraca Amadeus - card discarding, opponent targeting
 1 Spirit Tower - "at the end of turn" effects
