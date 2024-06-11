@@ -9,19 +9,19 @@ function _Create(props)
 
         checkF = function (me, playerI, laneI)
             return
-                Common.CanFloop(me) and 
+                Common.CanFloop(me) and
                 #Common.DiscardPileCardIndicies(playerI,
                     function (card)
                         return card.Cost == 0
                     end
-                )
+                ) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local choices = #Common.DiscardPileCardIndicies(playerI,
+            local choices = Common.DiscardPileCardIndicies(playerI,
                 function (card)
                     return card.Cost == 0
                 end

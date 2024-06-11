@@ -149,6 +149,10 @@ public class Player {
     }
 
     public async Task PlaceCreatureInLane(MatchCard card, int laneI) {
+        // TODO feels like a bandaid for when a replaced creature should die
+        await Match.ReloadState();
+        if (!Match.Active) return;
+
         var lane = Landscapes[laneI];
         var creature = new Creature(card, Idx);
 

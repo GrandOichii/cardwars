@@ -12,6 +12,7 @@ public class CursesView : IMatchView
         {"Blue Plains", CursesColor.BLUE}, 
         {"SandyLands", 220}, 
         {"NiceLands", 15}, 
+        {"IcyLands", 69}, // nice 
         {"Rainbow", 201}, 
     };
 

@@ -2,10 +2,10 @@
 
 function _Create(props)
     local result = CardWars:Creature(props)
-    
+
     result:AddStateModifier(function (me, layer, zone)
         -- Flooped Creatures you control have +1 ATK.
-    
+
         if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
             local ownerI = me.Original.OwnerI
 
@@ -16,7 +16,7 @@ function _Create(props)
             end
 
         end
-    
+
     end)
 
     return result

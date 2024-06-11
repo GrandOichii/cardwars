@@ -455,7 +455,7 @@ public class CursesLogger : ILogger
 }
 
 public class Program {
-    public static async Task TestRandom(int amount) {
+    public static async Task TestRandom(int start, int end) {
          var config = new MatchConfig() {
             StartingLifeTotal = 25,
             ActionPointsPerTurn = 2,
@@ -477,7 +477,7 @@ public class Program {
         var deck2 = deck1;
 
         int failed = 0;
-        for (int i = 0; i < amount; i++) {
+        for (int i = start; i < end; i++) {
             System.Console.WriteLine("Seed: " + i);
 
             var controller1 = new RandomPlayerController(i);
@@ -502,7 +502,7 @@ public class Program {
         //     }
         }
 
-        System.Console.WriteLine($"S/F: {amount - failed}/{amount}");
+        System.Console.WriteLine($"S/F: {end - start - failed}/{end - start}");
     }
 
     public static async Task SimpleConsole() {
@@ -554,11 +554,11 @@ public class Program {
         // await SimpleConsole();
         // return;
 
-        await TestRandom(1000);
+        await TestRandom(0, 100);
         return;
 
         var view = new CursesView();
-        var seed = 5;
+        var seed = 1;
         try {
             var config = new MatchConfig() {
                 StartingLifeTotal = 25,
@@ -575,7 +575,7 @@ public class Program {
             var cm = new FileCardMaster();
             cm.Load("../CWCore/cards");
 
-            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/deck1.json"))
+            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/all.json"))
                 ?? throw new Exception("failed to read deck file")
             ;
             var deck2 = deck1;

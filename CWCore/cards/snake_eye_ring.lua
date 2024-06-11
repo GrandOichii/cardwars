@@ -8,7 +8,7 @@ function _Create(props)
             -- Return a random Useless Swamp Creature from your discard pile to your hand.
 
             local idx = Common.RandomCardInDiscard(playerI, function (card)
-                return card.Template.Type == 'Creature' and card.Template.Landscape == CardWars.Landscapes.UselessSwamp
+                return card.Original.Template.Type == 'Creature' and card.Original.Template.Landscape == CardWars.Landscapes.UselessSwamp
             end)
             if idx == nil then
                 return
