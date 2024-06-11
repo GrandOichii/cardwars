@@ -119,26 +119,26 @@ function CardWars:Card(props)
     -- -- pipelines
 
     -- -- CanPlay pipeline
-    -- result.CanPlayP = Core.Pipeline.New()
-    -- result.CanPlayP:AddLayer(
-    --     function (playerID)
-    --         return nil, Common.HasEnoughEnergy(result.cost)(playerID)
-    --     end
-    -- )
-    -- function result:CanPlay(playerID)
-    --     local _, res = self.CanPlayP:Exec(playerID)
-    --     return res
-    -- end
+    result.CanPlayP = Core.Pipeline.New()
+    result.CanPlayP:AddLayer(
+        function (playerI)
+            return nil, true
+        end
+    )
+    function result:CanPlay(playerI)
+        local _, res = self.CanPlayP:Exec(playerI)
+        return res
+    end
 
     -- -- PayCosts pipeline
     -- result.PayCostsP = Core.Pipeline.New()
     -- result.PayCostsP:AddLayer(
-    --     function (playerID)
-    --         return nil, Common.PayEnergy(result.cost)(playerID)
+    --     function (playerI)
+    --         return nil, Common.PayEnergy(result.cost)(playerI)
     --     end
     -- )
-    -- function result:PayCosts(playerID)
-    --     local _, res = self.PayCostsP:Exec(playerID)
+    -- function result:PayCosts(playerI)
+    --     local _, res = self.PayCostsP:Exec(playerI)
     --     return res
     -- end
 
@@ -679,4 +679,8 @@ function Common.ActivatedEffects.Floop(card, effect)
         end,
         effectF = effect
     })
+end
+
+function Common.AddRestriction(card, restriction)
+    card.CanPlayP:AddLayer(restriction)
 end

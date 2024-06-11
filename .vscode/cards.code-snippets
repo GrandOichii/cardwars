@@ -203,5 +203,16 @@
             "local cardI = ChooseCardInHand(${1:playerI}, ids, '${2:Choose a card to discard}')",
             "DiscardFromHand(${1:playerI}, cardI)",
 		]
+	},
+	"restriction": {
+		"scope": "lua",
+		"prefix": "restriction",
+		"description": "add card play restriction",
+		"body": [
+			"Common.AddRestriction(result, function (playerI)",
+			"\treturn nil, $0",
+			"end",
+			")"
+		]
 	}
 }

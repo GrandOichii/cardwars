@@ -1,21 +1,20 @@
--- Status: partially implemented
+-- Status: implemented
 
 function _Create(props)
     local result = CardWars:Spell(props)
 
-    -- !FIXME add check function - check that a creature exists and can be moved
-
-    -- TODO repeated code
+    Common.AddRestriction(result, function (playerI)
+        return nil,
+            #Common.Creatures(playerI) > 0 and
+            #Common.LandscapesWithoutCreatures(playerI) > 0
+        end
+    )
 
     result.EffectP:AddLayer(
         function (playerI)
             -- Move one of your Creatures to one of your empty Lanes.
 
-            -- !FIXME remove
             local creatures = Common.IDs(Common.Creatures(playerI))
-            if #creatures == 0 then
-                return
-            end
             local empty = Common.Lanes(Common.LandscapesWithoutCreatures(playerI))
             if #empty == 0 then
                 return

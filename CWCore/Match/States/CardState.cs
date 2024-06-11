@@ -1,8 +1,11 @@
+using CWCore.Utility;
+
 namespace CWCore.Match.States;
 
 public class CardState : IStateModifier {
     // TODO for now these are the same, might require to change
     private readonly static string MODIFY_STATE_IN_HAND_FNAME = "ModifyState";
+    private readonly static string PLAY_CHECK_FNAME = "CanPlay";
     
     public MatchCard Original { get; }
     public int Cost { get; set; }
@@ -20,7 +23,7 @@ public class CardState : IStateModifier {
             var counts = player.GetLandscapeCounts();
             var landscape = Original.Template.Landscape;
 
-            // TODO don't actually know the rules interaction here
+            // TODO? don't actually know the rules interaction here - if cost is modified below 0, does card landscape type matter?
             if (!counts.ContainsKey(landscape) || counts[landscape] < Cost)
                 return false;
         }
@@ -37,7 +40,10 @@ public class CardState : IStateModifier {
             if (landscapes.Count == 0) return false;
         }
 
-        // TODO add state-based effects
+        var result = Original.ExecFunction(PLAY_CHECK_FNAME, Original.Data, player.Original.Idx);
+        if (!LuaUtility.GetReturnAsBool(result))
+            return false;
+
         return player.Original.ActionPoints >= Cost;
     }
 

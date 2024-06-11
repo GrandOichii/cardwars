@@ -533,8 +533,8 @@ public class Program {
 
     public static async Task Main(string[] args) {
 
-        await SimpleConsole();
-        return;
+        // await SimpleConsole();
+        // return;
 
         await TestRandom(100);
         return;

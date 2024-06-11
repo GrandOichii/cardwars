@@ -3,18 +3,16 @@
 function _Create(props)
     local result = CardWars:Spell(props)
 
-    -- !FIXME add play check
+    Common.AddRestriction(result, function (playerI)
+        return nil, #Common.Creatures(playerI) > 0
+    end
+    )
 
     result.EffectP:AddLayer(
         function (playerI)
             -- Target Creature you control has +X ATK this turn, where X is the amount of Damage on it.
-            
-            local creatures = Common.IDs(Common.Creatures(playerI))
-            -- TODO remove
-            if #creatures == 0 then
-                return
-            end
 
+            local creatures = Common.IDs(Common.Creatures(playerI))
             local target = TargetCreature(playerI, creatures, 'Choose a creature to buff')
 
             UntilEndOfTurn(function ( layer)

@@ -14,6 +14,7 @@ function _Create(props)
 
             for i = 1, count do
                 Common.ChooseAndDiscardCard(opponent, 1)
+                UpdateState()
             end
         end
     )
