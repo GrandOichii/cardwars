@@ -12,6 +12,7 @@
 + 2 Log Rhythm
 + 1 Void Thimble
 + 2 Celestial Fortress
++ 1 Cabin of Many Woods
 1 Sharp Guy
 
 1 Deforestation - additional playing costs, deck searching, building placement
@@ -21,5 +22,4 @@
 1 Archer Danica - building destruction
 2 Blood Castle - increasing the amount of damage dealt to creatures
 1 Farmhouse - "counts as an additional Cornfield Landscape"
-1 Cabin of Many Woods - cost modification
 1 Harvest Moon - targeting cards in discard, building placement

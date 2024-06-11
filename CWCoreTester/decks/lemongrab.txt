@@ -25,5 +25,5 @@
 2 Jinxed Parrotrooper - "cannot be replaced", placing into enemy landscapes
 2 Static Parrotrooper - "cannot be replaced", placing into enemy landscapes
 1 Dragoon Parrotrooper - "cannot be replaced", placing into enemy landscapes
-2 Ska-pion - cost modification
 1 Carmel Camel - "put it underneath this creature instead"
+2 Ska-pion - cost modification, detecting stolen in-play cards

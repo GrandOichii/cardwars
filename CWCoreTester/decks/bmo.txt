@@ -6,6 +6,7 @@
 + 2 Blood Fortress
 + 1 Celestial Castle
 + 2 Magic Ring Ding
++ 1 Teeth Leaf
 
 2 Gray Eyebat - returning cards from discard to hand, rng
 2 Red Eyeling - returning cards from discard to hand
@@ -21,7 +22,6 @@
 2 Hot Eyebat - casting check
 2 Immortal Maize Walker - damage multiplication
 2 Mace Stump - self sacrifice in cost, card discarding
-1 Teeth Leaf - cost modification
 2 Bone Wand - cast checks, card discarding
 2 Ogre Gas - deck card revealing
 1 Palace of Bone - disabling OnEnter and OnLeave effects

@@ -8,7 +8,7 @@ function _Create(props)
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
             local ownerI = me.Original.OwnerI
-            local count = Common.SpellsPlayedThisTurn(ownerI)
+            local count = Common.SpellsPlayedThisTurnCount(ownerI)
 
             me.Attack = me.Attack + count * 2
 

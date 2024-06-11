@@ -46,7 +46,7 @@
 			"\t-- FLOOP >>> $1.",
 			"",
 			"\tcheckF = function (me, playerI, laneI)",
-			"\t\treturn Common:CanFloop(me)",
+			"\t\treturn Common.CanFloop(me)",
 			"\tend,",
 			"\tcostF = function (me, playerI, laneI)",
 			"\t\tFloopCard(me.Original.Card.ID)",
@@ -168,7 +168,7 @@
 		"prefix": "targetcreature",
 		"description": "target creature",
 		"body": [
-			"local ids = Common:IDs(Common:FilterCreatures(function (creature) return ${1:true} end))",
+			"local ids = Common.IDs(Common.FilterCreatures(function (creature) return ${1:true} end))",
             "local target = TargetCreature(playerI, ids, '$2')",
 			"$0"
 		]

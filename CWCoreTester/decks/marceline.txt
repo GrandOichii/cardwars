@@ -9,9 +9,9 @@
 2 Black Hole Pendant
 1 Auto-Plucker
 1 The Big Hen House
++ 1 Cardboard Mansion
 
 1 Funeral Home - discard trigger
-1 Cardboard Mansion - cost modification
 1 Blood Transfusion - removing cards from game
 2 Pentaid - "heal exactly 5 damage"
 2 Bums Away! - opponent targeting

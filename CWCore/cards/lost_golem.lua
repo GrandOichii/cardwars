@@ -1,14 +1,19 @@
+-- Lost Golem costs 1 less to play for each other Creature you have played this turn.
+
 -- Status: not tested
 
 function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddStateModifier(function (me, layer, zone)
-        -- Blueberry Pieclops costs 1 less to play for each Spell you have played this turn.
+        -- 
+    
         if layer == CardWars.ModificationLayers.CARD_COST and zone == CardWars.Zones.HAND then
-            Common.Mod.Cost(me, -Common.SpellsPlayedThisTurnCount(me.Original.OwnerI))
+            local ownerI = me.Original.OwnerI
+            local count = Common.SpellsPlayedThisTurnCount(ownerI)
+            Common.Mod.Cost(me, -count)
         end
-
+    
     end)
 
     return result

@@ -333,7 +333,7 @@ public class Program {
             // return;
             var config = new MatchConfig() {
                 StartingLifeTotal = 25,
-                ActionPointsPerTurn = 12,
+                ActionPointsPerTurn = 20,
                 LaneCount = 4,
                 StrictMode = false,
                 CardDrawCost = 1,

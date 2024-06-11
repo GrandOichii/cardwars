@@ -475,12 +475,24 @@ function Common.CardsPlayedThisTurnTyped(playerI, type)
     return count
 end
 
-function Common.SpellsPlayedThisTurn(playerI)
+function Common.SpellsPlayedThisTurnCount(playerI)
     local player = STATE.Players[playerI].Original
 
     local count = 0
     for i = 1, player.CardsPlayedThisTurn.Count do
         if player.CardsPlayedThisTurn[i - 1].Template.Type == 'Spell' then
+            count = count + 1
+        end
+    end
+    return count
+end
+
+function Common.CreaturesPlayedThisTurnCount(playerI)
+    local player = STATE.Players[playerI].Original
+
+    local count = 0
+    for i = 1, player.CardsPlayedThisTurn.Count do
+        if player.CardsPlayedThisTurn[i - 1].Template.Type == 'Creature' then
             count = count + 1
         end
     end
@@ -566,4 +578,13 @@ end
 
 function Common.AllPlayers.Creatures()
     return Common.FilterCreatures(function (_) return true end)
+end
+
+Common.Mod = {}
+
+function Common.Mod.Cost(me, amount)
+    me.Cost = me.Cost + amount
+    if me.Cost < 0 then
+        me.Cost = 0
+    end
 end
