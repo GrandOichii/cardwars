@@ -31,6 +31,6 @@ public class InPlayCardState : IStateModifier {
 
     public bool IsType(string type) {
         // TODO some cards effect this
-        return Original.Card.Template.Type == type;
+        return Original.Card.Template.Landscape == type;
     }
 }

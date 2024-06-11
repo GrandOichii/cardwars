@@ -166,6 +166,7 @@ public class Player {
         creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI, replaced);
 
         await Match.Emit("creature_enter", new() {
+            {"id", creature.Card.ID},
             {"ownerI", Idx},
             {"laneI", laneI},
             {"replaced", replaced}

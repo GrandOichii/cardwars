@@ -1,0 +1,9 @@
+{
+    "Name": "Peach Djinni",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Text": "When a SandyLands Creature enters play under your control, Peach Djinni has +1 ATK this turn.",
+    "Attack": 0,
+    "Defense": 6
+}
