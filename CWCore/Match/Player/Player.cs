@@ -17,6 +17,7 @@ public class Player {
 
     public GameMatch Match { get; }
     public LinkedList<MatchCard> Deck { get; private set; }
+    public Hero? Hero { get; set; }
 
     public List<MatchCard> Hand { get; }
     public List<MatchCard> DiscardPile { get; set; }
@@ -25,13 +26,14 @@ public class Player {
     // TODO utilize
     public List<MatchCard> EnteredDiscardThisTurn { get; }
 
-    public Player(GameMatch match, string name, int idx, Dictionary<string, int> landscapeIndex, LinkedList<MatchCard> deck, IPlayerController controller) {
+    public Player(GameMatch match, string name, int idx, Dictionary<string, int> landscapeIndex, LinkedList<MatchCard> deck, Hero? hero, IPlayerController controller) {
         Match = match;
         Name = name;
         Idx = idx;
         Controller = controller;
         Deck = deck;
         _landscapeIndex = landscapeIndex;
+        Hero = hero;
 
         Hand = new();
         DiscardPile = new();

@@ -24,7 +24,6 @@ function _Create(props)
             end
             local id = choice[1]
 
-            print(playerI, id)
             PlaceFromDiscardOnTopOfDeck(playerI, id)
         end
     )

@@ -10,6 +10,7 @@ namespace CWCore.Decks;
 public class DeckTemplate {
     public required Dictionary<string, int> Cards { get; set; }
     public required Dictionary<string, int> Landscapes { get; set; }
+    public string Hero { get; set; } = "";
 
     public async Task<LinkedList<MatchCard>> ToDeck(int ownerI, ICardMaster cardMaster, Lua state, IIDGenerator generator) {
         var result = new LinkedList<MatchCard>();

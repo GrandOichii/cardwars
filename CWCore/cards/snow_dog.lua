@@ -21,7 +21,7 @@ function _Create(props)
                     if c == nil then
                         return
                     end
-                    local adjacent = Common.AdjacentCreatures(playerI, c.Original.LaneI)
+                    local adjacent = Common.AdjacentCreatures(playerI, c.LaneI)
                     for _, creature in ipairs(adjacent) do
                         creature.Attack = creature.Attack + 2
                     end

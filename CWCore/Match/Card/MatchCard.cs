@@ -48,7 +48,7 @@ public class MatchCard {
             var f = LuaUtility.TableGet<LuaFunction>(Data, fName);
             return f.Call(args);
         } catch (Exception e) {
-            throw new CWCoreException($"exception in function {fName} of card {Template.Name}", e);
+            throw new CWCoreException($"exception in function {fName} of card {LogFriendlyName}", e);
         }
     }
 }

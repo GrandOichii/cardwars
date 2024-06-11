@@ -64,7 +64,20 @@ public class GameMatch {
         }
         
         var deck = await template.ToDeck(Players.Count, _cardMaster, LState, CardIDGenerator);
-        var player = new Player(this, name, Players.Count, template.Landscapes, deck, controller);
+        var hero = new Hero(
+            await _cardMaster.GetHero(template.Hero),
+            Players.Count,
+            LState
+        );
+        var player = new Player(
+            this,
+            name,
+            Players.Count,
+            template.Landscapes,
+            deck,
+            hero,
+            controller
+        );
 
         Players.Add(player);
     }
@@ -311,6 +324,29 @@ public class GameMatch {
         await ReloadState();
 
         foreach (var player in LastState.Players) {
+            // heroes
+            var hero = player.Original.Hero;
+            if (hero is not null && hero.TriggeredEffects.Count > 0) {
+                foreach (var trigger in hero.TriggeredEffects) {
+                    var on = trigger.Trigger;
+                    if (on != signal) continue;
+
+                    var canTrigger = trigger.ExecCheck(player, argsTable);
+                    if (!canTrigger) {
+                        continue;
+                    }
+
+                    var payedCosts = trigger.ExecCosts(player, argsTable);
+                    if (!payedCosts) {
+                        continue;
+                    }
+
+                    LogInfo($"Hero card {hero.LogFriendlyName} triggers!");
+                    trigger.ExecEffect(player, argsTable);
+                }
+            }
+
+            // landscapes
             foreach (var lane in player.Landscapes) {
                 var cards = new List<InPlayCardState>();
                 if (lane.Creature is not null && lane.Creature.TriggeredEffects.Count > 0) {

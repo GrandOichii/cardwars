@@ -3,25 +3,20 @@ using CWCore.Utility;
 
 namespace CWCore.Cards;
 
-public class CardTemplate {
-    public required string Name { get; set; }
+public class CardTemplate :  HeroTemplate {
     public required string Type { get; set; }
     public required string Landscape { get; set; }
     public required int Cost { get; set; }
     public int Attack { get; set; } = -1;
     public int Defense { get; set; } = -1;
-    public required string Text { get; set; }
-    public string Script { get; set; } = "";
 
-    public LuaTable GetProps(Lua state) {
-        var result = LuaUtility.CreateTable(state);
+    public override LuaTable GetProps(Lua state) {
+        var result = base.GetProps(state);
         
-        result["name"] = Name;
         result["cost"] = Cost;
         result["type"] = Type;
         result["attack"] = Attack;
         result["defense"] = Defense;
-        result["text"] = Text;
 
         return result;
     }

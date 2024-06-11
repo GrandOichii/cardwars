@@ -1,4 +1,8 @@
 {
+    "heroes": [
+        "fionna",
+        "bmo"
+    ],
     "cards": [
         "gnome_snot",
         "field_of_nightmares",

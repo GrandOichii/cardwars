@@ -86,7 +86,7 @@ CardWars.Triggers = {
 -- Landscapes
 
 CardWars.Landscapes = {
-    Rainbow = 'rainbow',
+    Rainbow = 'Rainbow',
     BluePlains = 'Blue Plains',
     SandyLands = 'SandyLands',
     Cornfield = 'Cornfield',
@@ -103,6 +103,34 @@ CardWars.ModificationLayers = {
 }
 
 -- Card Types
+
+function CardWars:Hero(props)
+    local result = {}
+
+    result.StateModifiers = {}
+    function result:AddStateModifier(modF)
+        result.StateModifiers[#result.StateModifiers+1] = modF
+    end
+
+    function result:ModifyState(me, layer)
+        for _, modF in ipairs(result.StateModifiers) do
+            modF(me, layer)
+        end
+    end
+
+    result.ActivatedEffects = {}
+    function result:AddActivatedEffect(effect)
+        effect.maxActivationsPerTurn = effect.maxActivationsPerTurn or -1
+        result.ActivatedEffects[#result.ActivatedEffects+1] = effect
+    end
+
+    result.Triggers = {}
+    function result:AddTrigger(trigger)
+        result.Triggers[#result.Triggers+1] = trigger
+    end
+
+    return result
+end
 
 function CardWars:Card(props)
     local required = {'name', 'cost', 'type', 'attack', 'defen', 'text'}
@@ -382,7 +410,6 @@ end
 
 function Common.AdjacentCreatures(playerI, laneI)
     local result = {}
-    
     local adjacent = Common.AdjacentLandscapes(playerI, laneI)
     for _, landscape in ipairs(adjacent) do
         if landscape.Creature ~= nil then

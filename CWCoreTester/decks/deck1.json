@@ -1,4 +1,5 @@
 {
+    "Hero": "Fionna",
     "Cards": {
         "Gnome Snot": 0,
         "Archer Dan": 0,
@@ -21,7 +22,7 @@
         "Cerebral Bloodstorm": 0,
         "Cornataur": 0,
         "Corn Lord": 0,
-        "Fummy": 10,
+        "Fummy": 0,
         "Heavenly Gazer": 0,
         "Shark": 0,
         "SandWitch": 0,
@@ -74,7 +75,7 @@
         "Dragon Foot": 0,
         "Reclaim Landscape": 0,
         "Future Scholar": 0,
-        "Angel Heart": 0,
+        "Angel Heart": 10,
         "Ring of Fluffy": 0,
         "Void Thimble": 0,
         "Husker Champion": 0,

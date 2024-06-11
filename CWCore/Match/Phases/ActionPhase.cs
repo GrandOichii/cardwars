@@ -20,6 +20,7 @@ public class ActionPhase : IPhase {
         new DrawCardAction(),
         new PlayAction(),
         new ActivateAction(),
+        new ActivateHeroAction(),
     };
 
     private static readonly Dictionary<string, IAction> ACTION_MAP = new(){};

@@ -214,5 +214,21 @@
 			"end",
 			")"
 		]
+	},
+	"hero": {
+		"scope": "lua",
+		"prefix": "hero",
+		"description": "hero card",
+		"body": [
+			"-- Status: not tested",
+			"",
+			"function _Create(props)",
+			"\tlocal result = CardWars:Hero(props)",
+			"",
+			"\t$0",
+			"",
+			"\treturn result",
+			"end"
+		]
 	}
 }
