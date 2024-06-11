@@ -7,14 +7,13 @@
 + 1 Celestial Castle
 + 2 Magic Ring Ding
 + 1 Teeth Leaf
-
++ 2 Wandering Bald Man
++ 1 Abraca Amadeus
 2 Gray Eyebat - returning cards from discard to hand, rng
 2 Red Eyeling - returning cards from discard to hand
 1 Tree of Undeath - returning cards from discard to hand
 2 Snake Eye Ring - returning cards from discard to hand
 
-2 Wandering Bald Man - milling
-1 Abraca Amadeus - card discarding, opponent targeting
 1 Spirit Tower - "at the end of turn" effects
 2 Green Mermaid - self sacrifice in cost
 1 Dr. Death - creature destruction in cost, targeted creature destruction

@@ -391,4 +391,12 @@ public class ScriptMaster {
         var result = player.Mill(amount);
         return LuaUtility.CreateTable(_match.LState, result);
     }
+
+    [LuaCommand]
+    public void ReturnToHandFromDiscard(int playerI, int cardI) {
+        var player = _match.GetPlayer(playerI);
+        var card = player.DiscardPile[cardI];
+        player.DiscardPile.Remove(card);
+        player.Hand.Add(card);
+    }
 }

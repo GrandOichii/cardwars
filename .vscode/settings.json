@@ -42,6 +42,7 @@
         "ChooseCardInDiscard",
         "PlaceFromDiscardOnTopOfDeck",
         "SwapCreatures",
-        "Mill"
+        "Mill",
+        "ReturnToHandFromDiscard"
     ]
 }

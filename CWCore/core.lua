@@ -601,6 +601,22 @@ function Common.ControlBuildingInLane(playerI, laneI)
     return STATE.Players[playerI].Landscapes[laneI].Building ~= nil
 end
 
+function Common.TargetOpponent(playerI)
+    -- TODO? i don't think teams will be implemented, but just in case, i will leave this here to be edited soon
+    return 1 - playerI
+end
+
+function Common.DiscardPileCardIndicies(playerI, predicate)
+    local discard = STATE.Players[playerI].DiscardPile
+    local result = {}
+    for i = 1, discard.Count do
+        if predicate(discard[i - 1]) then
+            result[#result+1] = i - 1
+        end
+    end
+    return result
+end
+
 Common.AllPlayers = {}
 
 function Common.AllPlayers.LandscapesTyped(type)

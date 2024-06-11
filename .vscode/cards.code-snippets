@@ -46,7 +46,7 @@
 			"\t-- FLOOP >>> $1.",
 			"",
 			"\tcheckF = function (me, playerI, laneI)",
-			"\t\treturn Common.CanFloop(me)",
+			"\t\treturn Common.CanFloop(me)$2",
 			"\tend,",
 			"\tcostF = function (me, playerI, laneI)",
 			"\t\tFloopCard(me.Original.Card.ID)",

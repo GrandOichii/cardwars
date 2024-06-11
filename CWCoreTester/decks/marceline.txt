@@ -20,6 +20,7 @@
 2 Fly Swatter - hand revealing
 1 Bog Frog Bomb - "leaves play while ready"
 2 Bog Bum - "leaves play while ready"
+
 2 Ban-She Princess - landscape token removal
 1 Ban-She Queen - landscape token removal
 1 Bog Ban-She Angel - landscape token removal
