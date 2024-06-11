@@ -264,7 +264,6 @@ public class ScriptMaster {
 
     [LuaCommand]
     public bool YesNo(int playerI, string hint) {
-        // TODO
         var player = _match.GetPlayer(playerI);
         var result = player.Pick(new List<string>() {
             "Yes", "No"
@@ -351,5 +350,32 @@ public class ScriptMaster {
     public void PlaceTokenOnLandscape(int playerI, int laneI, string token) {
         _match.PlaceTokenOnLandscape(playerI, laneI, token)
             .Wait();
+    }
+
+    [LuaCommand]
+    public int[] ChooseCardInDiscard(int playerI, LuaTable optionsTable, LuaTable opponentOptionsTable, string hint) {
+        var player = _match.GetPlayerState(playerI);
+
+        var options = new List<int>();
+        foreach (var v in optionsTable.Values)
+            options.Add(Convert.ToInt32(v));
+
+        var opponentOptions = new List<int>();
+        foreach (var v in opponentOptionsTable.Values)
+            opponentOptions.Add(Convert.ToInt32(v));
+
+        var result = player.Original.PickCardInDiscard(options, opponentOptions, hint)
+            .GetAwaiter().GetResult();
+
+        if (playerI == 1)
+            result[0] = 1 - result[0];
+
+        return result;
+    }
+
+    [LuaCommand]
+    public void PlaceFromDiscardOnTopOfDeck(int playerI, int cardI) {
+        var player = _match.GetPlayer(playerI);
+        player.PlaceFromDiscardOnTopOfDeck(cardI);
     }
 }

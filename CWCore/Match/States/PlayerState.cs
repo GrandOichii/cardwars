@@ -4,9 +4,10 @@ namespace CWCore.Match.States;
 
 public class PlayerState : IStateModifier {
     public Player Original { get; }
-    public List<LandscapeState> Landscapes { get; set; } = new();
-    public List<CardState> DiscardPile { get; set; } = new();
-    public List<CardState> Hand { get; set; } = new();
+    public List<LandscapeState> Landscapes { get; } = new();
+    public List<CardState> DiscardPile { get; } = new();
+    public List<CardState> Hand { get; } = new();
+    
     public PlayerState(Player player) {
         Original = player;
         
@@ -63,7 +64,7 @@ public class PlayerState : IStateModifier {
         return result;
     }
 
-        public List<int> LandscapesAvailableForCreatures() {
+    public List<int> LandscapesAvailableForCreatures() {
         var result = new List<int>();
         for (int i = 0; i < Landscapes.Count; i++) {
             var landscape = Landscapes[i];

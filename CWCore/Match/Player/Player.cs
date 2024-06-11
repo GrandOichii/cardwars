@@ -203,6 +203,12 @@ public class Player {
         return result;
     }
 
+    public async Task<int[]> PickCardInDiscard(List<int> options, List<int> opponentOptions, string hint) {
+        var result = await Controller.PickCardInDiscard(Match, Idx, options, opponentOptions, hint);
+        // TODO validate
+        return result;
+    }
+
     public async Task<string> PickCreature(List<string> options, string hint) {
         var result = await Controller.PickCreature(Match, Idx, options, hint);
         // TODO validate
@@ -281,5 +287,12 @@ public class Player {
             Idx, 
             landscape.Idx
         );
+    }
+
+    public void PlaceFromDiscardOnTopOfDeck(int cardI) {
+        var card = DiscardPile[cardI];
+
+        DiscardPile.Remove(card);
+        Deck.AddLast(card);
     }
 }

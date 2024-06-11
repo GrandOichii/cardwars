@@ -38,6 +38,8 @@
         "HealDamage",
         "LoseHitPoints",
         "GetConfig",
-        "PlaceTokenOnLandscape"
+        "PlaceTokenOnLandscape",
+        "ChooseCardInDiscard",
+        "PlaceFromDiscardOnTopOfDeck"
     ]
 }

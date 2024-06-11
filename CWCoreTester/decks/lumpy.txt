@@ -1,3 +1,11 @@
++ 2 Blueberry Djini
++ 2 Goat
++ 2 Brain Gooey
++ 1 Headphone Jerk
++ 2 Dragon Foot
++ 1 Pink Merwitch
++ 2 Herculeye
++ 2 Dogboy
 + 2 Future Scholar
 + 1 Blood Fortress
 2 Fatapillar
@@ -11,14 +19,6 @@
 2 Subliminal Strength
 2 Squatting Bald Man
 2 Infinite Figure
-+ 2 Blueberry Djini
-+ 2 Goat
-+ 2 Brain Gooey
-+ 1 Headphone Jerk
-+ 2 Dragon Foot
-+ 1 Pink Merwitch
-+ 2 Herculeye
-+ 2 Dogboy
 
 2 Grape Djini - choosing cards in discard, returning cards from discard to top of deck
 1 Volcano - bulding destruction

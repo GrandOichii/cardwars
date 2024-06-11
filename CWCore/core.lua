@@ -589,6 +589,10 @@ function Common.ChooseAndDiscardCard(playerI, hint)
     return result
 end
 
+function Common.ControlBuildingInLane(playerI, laneI)
+    return STATE.Players[playerI].Landscapes[laneI].Building ~= nil
+end
+
 Common.AllPlayers = {}
 
 function Common.AllPlayers.LandscapesTyped(type)
@@ -621,8 +625,21 @@ function Common.Triggers.OnAnotherCreatureEnterPlayUnderYourControl(card, effect
         costF = function (me, ownerI, laneI, args)
             return true
         end,
-        effectF = function (me, ownerI, laneI, args)
-            effect(me, ownerI, laneI, args)
-        end
+        effectF = effect
+    })
+end
+
+Common.ActivatedEffects = {}
+
+function Common.ActivatedEffects.Floop(card, effect)
+    card:AddActivatedEffect({
+        checkF = function (me, playerI, laneI)
+            return Common.CanFloop(me)
+        end,
+        costF = function (me, playerI, laneI)
+            FloopCard(me.Original.Card.ID)
+            return true
+        end,
+        effectF = effect
     })
 end

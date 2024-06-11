@@ -18,7 +18,7 @@
 + 1 Uni-Knight
 + 1 Woad Blood
 + 1 Woadic Chief
++ 1 Heavenly Gazer
 
 2 Ancient Scholar - returning cards from discard
-1 Heavenly Gazer - selecting cards in discard, placing cards from discard to top of deck
 1 Schoolhouse - ability removal, ability granting

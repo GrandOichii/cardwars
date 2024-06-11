@@ -8,6 +8,7 @@ public interface IPlayerController {
     public Task<int> PickAttackLane(GameMatch match, int playerI, List<int> options);
     public Task<int> PickLane(GameMatch match, int playerI, List<int> options, string hint);
     public Task<int[]> PickLandscape(GameMatch match, int playerI, List<int> options, List<int> opponentOptions, string hint);
+    public Task<int[]> PickCardInDiscard(GameMatch match, int playerI, List<int> options, List<int> opponentOptions, string hint);
     public Task<string> PickCreature(GameMatch match, int playerI, List<string> options, string hint);
     public Task<string> PickBuilding(GameMatch match, int playerI, List<string> options, string hint);
     public Task<string> PickOption(GameMatch match, int playerI, List<string> options, string hint);

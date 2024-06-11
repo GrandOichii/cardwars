@@ -44,6 +44,19 @@ public class RandomPlayerController : IPlayerController
         });
     }
 
+    public Task<int[]> PickCardInDiscard(GameMatch match, int playerI, List<int> options, List<int> opponentOptions, string hint)
+    {
+        var player = match.GetPlayer(playerI);
+        if (options.Count > 0) {
+            return Task.FromResult(new int[2] {
+                0, options[_rnd.Next() % options.Count]
+            });
+        }
+        return Task.FromResult(new int[2] {
+            1, opponentOptions[_rnd.Next() % opponentOptions.Count]
+        });
+    }
+
     public Task<int> PickLane(GameMatch match, int playerI, List<int> options, string hint)
     {
         var player = match.GetPlayer(playerI);

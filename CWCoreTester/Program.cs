@@ -202,6 +202,52 @@ public class ConsolePlayerController : IPlayerController
         );
     }
 
+    public Task<int[]> PickCardInDiscard(GameMatch match, int playerI, List<int> options, List<int> opponentOptions, string hint)
+    {
+        if (options.Count > 0) {
+            System.Console.WriteLine("Your cards: ");
+            foreach (var option in options)
+                System.Console.WriteLine($"{option}: {match.LastState.Players[playerI].DiscardPile[option].Original.LogFriendlyName}");
+            System.Console.WriteLine();
+        }
+        if (opponentOptions.Count > 0) {
+            System.Console.WriteLine("Opponent's cards: ");
+            foreach (var option in opponentOptions)
+                System.Console.WriteLine($"{option}: {match.LastState.Players[1 - playerI].DiscardPile[option].Original.LogFriendlyName}");
+            System.Console.WriteLine();
+        }
+
+        System.Console.WriteLine($"\"{hint}\"");
+        System.Console.WriteLine("(Choose card in discard)");
+        var result = Console.ReadLine()
+            ?? throw new Exception("failed to read discard card idx")
+        ;
+        if (options.Count == 0) {
+            return Task.FromResult(
+                new int[2] {
+                    1, int.Parse(result)
+                }
+            );
+        }
+
+        if (opponentOptions.Count == 0) {
+            return Task.FromResult(
+                new int[2] {
+                    0, int.Parse(result)
+                }
+            );
+        }
+
+        var split = result.Split(" ");
+
+        return Task.FromResult(
+            new int[2] {
+                int.Parse(split[0]),
+                int.Parse(split[1]),
+            }
+        );
+    }
+
     public Task<string> PickCreature(GameMatch match, int playerI, List<string> options, string hint)
     {
         var player = match.GetPlayerState(playerI);
@@ -319,6 +365,12 @@ public class CursesPlayerController : IPlayerController
     }
 
     public Task<int[]> PickLandscape(GameMatch match, int playerI, List<int> options, List<int> opponentOptions, string hint)
+    {
+        Wait();
+        return _playerController.PickLandscape(match, playerI, options, opponentOptions, hint);
+    }
+
+    public Task<int[]> PickCardInDiscard(GameMatch match, int playerI, List<int> options, List<int> opponentOptions, string hint)
     {
         Wait();
         return _playerController.PickLandscape(match, playerI, options, opponentOptions, hint);
