@@ -1,0 +1,9 @@
+{
+    "Name": "Spike Icicle",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Text": "Look out below!",
+    "Attack": 3,
+    "Defense": 1
+}

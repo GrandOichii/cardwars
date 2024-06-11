@@ -1,12 +1,12 @@
-2 Abdominal Snowman
-1 Celestial Castle
-2 Spike Icicle
-2 Cold Soldier
-2 Snow Dog
++ 2 Abdominal Snowman
++ 1 Celestial Castle
++ 2 Spike Icicle
++ 2 Cold Soldier
++ 2 Snow Dog
++ 2 Frost Dragon
 
 1 Boarder Collie - frost tokens
 2 Emperor Penguin - frost tokens
-2 Frost Dragon - frost tokens
 2 Frozen Fish - frost tokens
 2 Icemeister - frost tokens
 2 Reign Deer - frost tokens
