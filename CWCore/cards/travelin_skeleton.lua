@@ -1,13 +1,11 @@
--- FLOOP >>> Travelin' Skeleton and another Creature you control change Lanes with each other.
-
--- Status: not tested
+-- Status: implemented, requires some more testing
 
 function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >>> .
-    
+        -- FLOOP >>> Travelin' Skeleton and another Creature you control change Lanes with each other.
+
         checkF = function (me, playerI, laneI)
             return Common.CanFloop(me) and #Common.Creatures(playerI) >= 2
         end,

@@ -295,4 +295,19 @@ public class Player {
         DiscardPile.Remove(card);
         Deck.AddLast(card);
     }
+
+    public List<string> Mill(int amount) {
+        var result = new List<string>();
+
+        while (amount > 0) {
+            if (Deck.Count == 0) break;
+            var card = Deck.Last!.Value;
+            Deck.RemoveLast();
+            AddToDiscard(card);
+            result.Add(card.ID);
+            amount--;
+        }
+
+        return result;
+    }
 }

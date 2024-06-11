@@ -1,3 +1,4 @@
++ 1 Travelin' Skeleton
 + 2 Blueberry Djini
 + 2 Goat
 + 2 Brain Gooey
@@ -20,9 +21,8 @@
 2 Squatting Bald Man
 2 Infinite Figure
 
+1 Skeletal Hand - milling and knowing the cards that were milled
 2 Grape Djini - choosing cards in discard, returning cards from discard to top of deck
 
 1 Volcano - bulding destruction
-1 Travelin' Skeleton - "change lanes with each other"
-1 Skeletal Hand - milling and knowing the cards that were milled
 1 Pyramidia - "gain 1 Action. Use it only to play a Creature into this Lane"

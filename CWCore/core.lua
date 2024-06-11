@@ -624,6 +624,19 @@ end
 
 Common.Triggers = {}
 
+function Common.Triggers.AtTheStartOfYourTurn(card, effect)
+    card:AddTrigger({
+        trigger = CardWars.Triggers.TURN_START,
+        checkF = function (me, ownerI, laneI, args)
+            return args.playerI == ownerI
+        end,
+        costF = function (me, ownerI, laneI, args)
+            return true
+        end,
+        effectF = effect
+    })
+end
+
 function Common.Triggers.OnAnotherCreatureEnterPlayUnderYourControl(card, effect)
     card:AddTrigger({
         trigger = CardWars.Triggers.CREATURE_ENTER,

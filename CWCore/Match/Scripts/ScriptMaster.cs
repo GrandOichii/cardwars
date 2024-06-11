@@ -384,4 +384,11 @@ public class ScriptMaster {
         _match.SwapCreatures(id1, id2)
             .Wait();
     }
+
+    [LuaCommand]
+    public LuaTable Mill(int playerI, int amount) {
+        var player = _match.GetPlayer(playerI);
+        var result = player.Mill(amount);
+        return LuaUtility.CreateTable(_match.LState, result);
+    }
 }

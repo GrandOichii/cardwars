@@ -41,6 +41,7 @@
         "PlaceTokenOnLandscape",
         "ChooseCardInDiscard",
         "PlaceFromDiscardOnTopOfDeck",
-        "SwapCreatures"
+        "SwapCreatures",
+        "Mill"
     ]
 }
