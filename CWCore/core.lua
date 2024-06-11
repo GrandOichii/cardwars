@@ -337,6 +337,11 @@ function Common.CanFloop(card)
     return not card.Original:IsFlooped()
 end
 
+function Common.FreezeLandscape(playerI, laneI)
+    PlaceTokenOnLandscape(playerI, laneI, 'Frozen')
+end
+
+
 function Common.AdjacentLandscapes(playerI, laneI)
     local result = {}
     local lanes = STATE.Players[playerI].Landscapes

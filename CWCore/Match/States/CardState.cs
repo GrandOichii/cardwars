@@ -27,13 +27,13 @@ public class CardState : IStateModifier {
 
         // check if there is free space for creatures
         if (Original.Template.Type == "Creature") {
-            var landscapes = player.Original.LandscapesAvailableForCreatures();
+            var landscapes = player.LandscapesAvailableForCreatures();
             if (landscapes.Count == 0) return false;
         }
 
         // check if there is free space for buildings
         if (Original.Template.Type == "Building") {
-            var landscapes = player.Original.LandscapesAvailableForBuildings();
+            var landscapes = player.LandscapesAvailableForBuildings();
             if (landscapes.Count == 0) return false;
         }
 

@@ -63,4 +63,46 @@ public class PlayerState : IStateModifier {
         return result;
     }
 
+        public List<int> LandscapesAvailableForCreatures() {
+        var result = new List<int>();
+        for (int i = 0; i < Landscapes.Count; i++) {
+            var landscape = Landscapes[i];
+            if (!landscape.CanPlayCreature) continue;
+            var creature = landscape.Creature;
+            if (creature is not null) {
+                if (creature.Original.Exhausted) continue;
+            }
+            result.Add(i);
+        }
+        return result;
+    }
+
+    public List<int> LandscapesAvailableForBuildings() {
+        var result = new List<int>();
+        for (int i = 0; i < Landscapes.Count; i++) {
+            var landscape = Landscapes[i];
+            if (!landscape.CanPlayBuilding) continue;
+            var building = landscape.Building;
+            if (building is not null) {
+                if (building.Original.IsFlooped()) continue;
+            }
+            result.Add(i);
+        }
+        return result;
+    }
+
+    public async Task<int> PickLaneForCreature() {
+        var options = LandscapesAvailableForCreatures();
+        var result = await Original.Controller.PickLaneForCreature(Original.Match, Original.Idx, options);
+        return result;
+    }
+
+    public async Task<int> PickLaneForBuilding() {
+        // TODO not specified in the rules, check
+
+        var options = LandscapesAvailableForBuildings();
+        var result = await Original.Controller.PickLaneForBuilding(Original.Match, Original.Idx, options);
+        return result;
+    }
+
 }

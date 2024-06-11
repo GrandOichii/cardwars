@@ -38,7 +38,7 @@ public class PlayAction : IAction
         }
 
         if (card.Original.IsCreature) {
-            var laneI = await player.PickLaneForCreature();
+            var laneI = await playerState.PickLaneForCreature();
 
             if (laneI >= match.Config.LaneCount || laneI < 0) {
                 var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
@@ -51,7 +51,7 @@ public class PlayAction : IAction
         }
 
         if (card.Original.IsBuilding) {
-            var laneI = await player.PickLaneForBuilding();
+            var laneI = await playerState.PickLaneForBuilding();
 
             if (laneI >= match.Config.LaneCount || laneI < 0) {
                 var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";

@@ -448,4 +448,11 @@ public class GameMatch {
 
         // TODO trigger
     }
+
+    public async Task PlaceTokenOnLandscape(int playerI, int laneI, string token) {
+        var player = GetPlayer(playerI);
+        player.Landscapes[laneI].Tokens.Add(token);
+
+        // TODO trigger
+    }
 }

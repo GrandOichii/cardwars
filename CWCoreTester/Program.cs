@@ -435,9 +435,58 @@ public class Program {
         System.Console.WriteLine($"S/F: {amount - failed}/{amount}");
     }
 
+    public static async Task SimpleConsole() {
+        try {
+            var seed = 0;
+            var config = new MatchConfig() {
+                StartingLifeTotal = 25,
+                ActionPointsPerTurn = 20,
+                LaneCount = 4,
+                StrictMode = false,
+                CardDrawCost = 1,
+                StartHandSize = 5,
+                CheckLandscapesForPlayingCards = false,
+                CanFloopOnFirstTurn = true,
+                CanAttackOnFirstTurn = true,
+            };
+
+            var cm = new FileCardMaster();
+            cm.Load("../CWCore/cards");
+
+            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/deck1.json"))
+                ?? throw new Exception("failed to read deck file")
+            ;
+            var deck2 = deck1;
+
+            var controller1 = new ConsolePlayerController();
+            var controller2 = controller1;
+
+            var match = new GameMatch(config, seed, cm, File.ReadAllText("../CWCore/core.lua"))
+            {
+                // View = view,
+                // Logger = new CursesLogger(view)
+                Logger = LoggerFactory
+                    .Create(builder => builder.AddConsole())
+                    .CreateLogger("Program")
+            };
+
+            await match.AddPlayer("player1", deck1, controller1);
+            await match.AddPlayer("player2", deck2, controller2);
+
+            await match.Run();
+        } catch (Exception e) {
+            PrintException(e);
+        }
+    }
+
     public static async Task Main(string[] args) {
+
+        await SimpleConsole();
+        return;
+
         await TestRandom(100);
         return;
+
         var view = new CursesView();
         var seed = 5;
         try {

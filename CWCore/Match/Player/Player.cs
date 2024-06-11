@@ -141,46 +141,6 @@ public class Player {
         return Task.CompletedTask;
     }
 
-    public List<int> LandscapesAvailableForCreatures() {
-        var result = new List<int>();
-        for (int i = 0; i < Landscapes.Count; i++) {
-            var landscape = Landscapes[i];
-            var creature = landscape.Creature;
-            if (creature is not null) {
-                if (creature.Exhausted) continue;
-            }
-            result.Add(i);
-        }
-        return result;
-    }
-
-    public List<int> LandscapesAvailableForBuildings() {
-        var result = new List<int>();
-        for (int i = 0; i < Landscapes.Count; i++) {
-            var landscape = Landscapes[i];
-            var building = landscape.Building;
-            if (building is not null) {
-                if (building.IsFlooped()) continue;
-            }
-            result.Add(i);
-        }
-        return result;
-    }
-
-    public async Task<int> PickLaneForCreature() {
-        var options = LandscapesAvailableForCreatures();
-        var result = await Controller.PickLaneForCreature(Match, Idx, options);
-        return result;
-    }
-
-    public async Task<int> PickLaneForBuilding() {
-        // TODO not specified in the rules, check
-
-        var options = LandscapesAvailableForBuildings();
-        var result = await Controller.PickLaneForBuilding(Match, Idx, options);
-        return result;
-    }
-
     public async Task<int> PickAttackLane(List<int> options) {
         var result = await Controller.PickAttackLane(Match, Idx, options);
         return result;

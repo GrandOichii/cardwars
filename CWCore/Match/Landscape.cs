@@ -8,6 +8,9 @@ public class Landscape {
     public Creature? Creature { get; set; }
     public InPlayCard? Building { get; set; }
 
+    // TODO add option to discard a card to remove a Frozen token
+    public List<string> Tokens { get; }
+
     public Landscape(string name, int ownerI, int idx) {
         Name = name;
         Idx = idx;
@@ -16,5 +19,6 @@ public class Landscape {
         Creature = null;
         Building = null;
         FaceDown = false;
+        Tokens = new();
     }
 }

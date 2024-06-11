@@ -209,11 +209,6 @@ public class ScriptMaster {
 
     [LuaCommand]
     public int[] ChooseLandscape(int playerI, LuaTable optionsTable, LuaTable opponentOptionsTable, string hint) {
-        // TODO haven't tested this BUT i this this should work
-        if (playerI == 0) {
-            (opponentOptionsTable, optionsTable) = (optionsTable, opponentOptionsTable);
-        }
-
         var player = _match.GetPlayerState(playerI);
 
         var options = new List<int>();
@@ -226,6 +221,9 @@ public class ScriptMaster {
 
         var result = player.Original.PickLandscape(options, opponentOptions, hint)
             .GetAwaiter().GetResult();
+
+        if (playerI == 1)
+            result[0] = 1 - result[0];
 
         return result;
     }
@@ -347,5 +345,11 @@ public class ScriptMaster {
     [LuaCommand]
     public MatchConfig GetConfig() {
         return _match.Config;
+    }
+
+    [LuaCommand]
+    public void PlaceTokenOnLandscape(int playerI, int laneI, string token) {
+        _match.PlaceTokenOnLandscape(playerI, laneI, token)
+            .Wait();
     }
 }

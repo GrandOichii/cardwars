@@ -19,6 +19,12 @@ public class LandscapeState : IStateModifier {
         if (landscape.Building is not null) {
             Building = new InPlayCardState(landscape.Building, laneI);
         }
+
+        // TODO seems like a bad way to manage special abilities of tokens
+        bool isFrozen = Original.Tokens.Contains("Frozen");
+        
+        CanPlayBuilding = !isFrozen;
+        CanPlayCreature = !isFrozen;
     }
 
     public void Modify(ModificationLayer layer)
@@ -30,4 +36,8 @@ public class LandscapeState : IStateModifier {
     public bool Is(string name) {
         return !Original.FaceDown && Original.Name == name;
     }
+
+
+    public bool CanPlayBuilding { get; set; }
+    public bool CanPlayCreature { get; set; }
 }

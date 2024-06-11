@@ -37,6 +37,7 @@
         "HealHitPoints",
         "HealDamage",
         "LoseHitPoints",
-        "GetConfig"
+        "GetConfig",
+        "PlaceTokenOnLandscape"
     ]
 }
