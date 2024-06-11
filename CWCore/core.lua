@@ -91,6 +91,7 @@ CardWars.Landscapes = {
     SandyLands = 'SandyLands',
     Cornfield = 'Cornfield',
     NiceLands = 'NiceLands',
+    UselessSwamp = 'UselessSwamp',
 }
 
 -- Modifiction layers
@@ -338,6 +339,14 @@ function Common.CreaturesNamed(playerI, name)
         return
             creature.Original.OwnerI == playerI and
             creature.Original.Card.Template.Name == name
+    end)
+end
+
+function Common.BuildingsNamed(playerI, name)
+    return Common.FilterBuildings(function (building)
+        return
+            building.Original.OwnerI == playerI and
+            building.Original.Card.Template.Name == name
     end)
 end
 
@@ -624,6 +633,14 @@ function Common.ChooseAndDiscardCard(playerI, hint)
     return result
 end
 
+function Common.DiscardNCards(playerI, amount)
+    -- TODO could be better
+    for i = 1, amount do
+        Common.ChooseAndDiscardCard(playerI, 1)
+        UpdateState()
+    end
+end
+
 function Common.ControlBuildingInLane(playerI, laneI)
     return STATE.Players[playerI].Landscapes[laneI].Building ~= nil
 end
@@ -644,6 +661,11 @@ function Common.DiscardPileCardIndicies(playerI, predicate)
     return result
 end
 
+function Common.RandomCardInDiscard(playerI, predicate)
+    local choices = Common.DiscardPileCardIndicies(playerI, predicate)
+    return choices[Random(1, #choices + 1)]
+end
+
 Common.AllPlayers = {}
 
 function Common.AllPlayers.LandscapesTyped(type)
@@ -654,6 +676,12 @@ end
 
 function Common.AllPlayers.Creatures()
     return Common.FilterCreatures(function (_) return true end)
+end
+
+function Common.AllPlayers.FloopedCreatures()
+    return Common.FilterCreatures(function (creature)
+        return creature.Original:IsFlooped()
+    end)
 end
 
 Common.Mod = {}
@@ -702,6 +730,19 @@ function Common.ActivatedEffects.Floop(card, effect)
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
+            return true
+        end,
+        effectF = effect
+    })
+end
+
+function Common.ActivatedEffects.PayActionPoints(card, amount, effect)
+    card:AddActivatedEffect({
+        checkF = function (me, playerI, laneI)
+            return GetPlayer(playerI).Original.ActionPoints >= amount
+        end,
+        costF = function (me, playerI, laneI)
+            PayActionPoints(playerI, -amount)
             return true
         end,
         effectF = effect

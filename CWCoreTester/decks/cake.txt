@@ -14,12 +14,12 @@
 + 2 Celestial Fortress
 + 1 Cabin of Many Woods
 + 2 Helping Hand
-1 Sharp Guy
++ 1 Sharp Guy
 
+1 Archer Danica - building destruction
+1 Harvest Moon - targeting cards in discard, building placement
 1 Deforestation - additional playing costs, deck searching, building placement
 2 Pied Piper - "When Pied Piper attacks an opposing Creature, you may have a Flooped Creature you control attack it instead."
 2 Burly Lumberjack - "you may play additional buildings onto this landscape"
-1 Archer Danica - building destruction
 2 Blood Castle - increasing the amount of damage dealt to creatures
 1 Farmhouse - "counts as an additional Cornfield Landscape"
-1 Harvest Moon - targeting cards in discard, building placement

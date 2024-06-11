@@ -64,11 +64,14 @@ public class GameMatch {
         }
         
         var deck = await template.ToDeck(Players.Count, _cardMaster, LState, CardIDGenerator);
-        var hero = new Hero(
-            await _cardMaster.GetHero(template.Hero),
-            Players.Count,
-            LState
-        );
+        Hero? hero = null;
+        if (!string.IsNullOrEmpty(template.Hero)) {
+            hero = new Hero(
+                await _cardMaster.GetHero(template.Hero),
+                Players.Count,
+                LState
+            );
+        }
         var player = new Player(
             this,
             name,

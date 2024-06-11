@@ -12,10 +12,7 @@ function _Create(props)
                 return
             end
 
-            for i = 1, count do
-                Common.ChooseAndDiscardCard(opponent, 1)
-                UpdateState()
-            end
+            Common.DiscardNCards(opponent, count)
         end
     )
 

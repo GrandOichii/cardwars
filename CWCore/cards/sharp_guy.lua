@@ -1,22 +1,24 @@
--- FLOOP >>> Deal 2 Damage to target opposing Creature in this Lane.
-
--- Status: not implemented - target opposing creature?
+-- Status: not tested
 
 function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >>> .
-    
+        -- FLOOP >>> Deal 2 Damage to target opposing Creature in this Lane.
+
         checkF = function (me, playerI, laneI)
-            return Common.CanFloop(me)
+            return
+                Common.CanFloop(me) and
+                #Common.CreaturesInLaneExcept(laneI, me.Creature.Card.ID) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            
+            local ids = Common.IDs(Common.CreaturesInLaneExcept(laneI, me.Creature.Card.ID))
+            local target = TargetCreature(playerI, ids, 'Choose a creature to deal damage to')
+            DealDamageToCreature(target, 2)
         end
     })
 

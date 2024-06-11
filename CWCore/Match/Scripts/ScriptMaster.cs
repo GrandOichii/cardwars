@@ -399,4 +399,9 @@ public class ScriptMaster {
         player.DiscardPile.Remove(card);
         player.Hand.Add(card);
     }
+
+    [LuaCommand]
+    public int Random(int from, int to) {
+        return _match.Rng.Next(to, from);
+    }
 }

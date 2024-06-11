@@ -43,6 +43,7 @@
         "PlaceFromDiscardOnTopOfDeck",
         "SwapCreatures",
         "Mill",
-        "ReturnToHandFromDiscard"
+        "ReturnToHandFromDiscard",
+        "Random"
     ]
 }

@@ -131,7 +131,7 @@ public class ConsolePlayerController : IPlayerController
     {
         return Task.FromResult(new List<string> {
             "Cornfield",
-            "Cornfield",
+            "Blue Plains",
             "Cornfield",
             "Cornfield"
         });
@@ -551,11 +551,11 @@ public class Program {
 
     public static async Task Main(string[] args) {
 
-        await SimpleConsole();
-        return;
-
-        // await TestRandom(100);
+        // await SimpleConsole();
         // return;
+
+        await TestRandom(1000);
+        return;
 
         var view = new CursesView();
         var seed = 5;

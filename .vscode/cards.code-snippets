@@ -37,9 +37,9 @@
 			"end",
 		]
 	},
-	"floop": {
+	"floopfull": {
 		"scope": "lua",
-		"prefix": "floop",
+		"prefix": "floopfull",
 		"description": "add floop ability",
 		"body": [
 			"result:AddActivatedEffect({",
@@ -229,6 +229,18 @@
 			"",
 			"\treturn result",
 			"end"
+		]
+	},
+	"floop": {
+		"scope": "lua",
+		"prefix": "floop",
+		"description": "add short floop ability",
+		"body": [
+			"Common.ActivatedEffects.Floop(result,",
+			"\tfunction (me, playerI, laneI)",
+			"\t\t$0",
+			"\tend",
+			")"
 		]
 	}
 }

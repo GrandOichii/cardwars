@@ -1,19 +1,11 @@
--- Status: implemented
+-- Status: not tested
 
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddActivatedEffect({
-        -- Pay 1 Action >>> Target Creature in this Lane has -10 ATK this turn.
-
-        checkF = function (me, playerI, laneI)
-            return GetPlayer(playerI).Original.ActionPoints >= 1
-        end,
-        costF = function (me, playerI, laneI)
-            PayActionPoints(playerI, -1)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
+    -- Pay 1 Action >>> Target Creature in this Lane has -10 ATK this turn.
+    Common.ActivatedEffects.PayActionPoints(result, 1,
+        function (me, playerI, laneI)
             local options = Common.CreaturesInLane(laneI)
 
             local target = TargetCreature(playerI, options, 'Choose a creature to debuff')
@@ -31,7 +23,7 @@ function _Create(props)
                 end
             end)
         end
-    })
+    )
 
     return result
 end
