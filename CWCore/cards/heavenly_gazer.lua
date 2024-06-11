@@ -6,6 +6,7 @@ function _Create(props)
     -- FLOOP >>> Put a Spell from your discard pile on top of your deck.
     Common.ActivatedEffects.Floop(result,
         function (me, playerI, laneI)
+            
             local discard = STATE.Players[playerI].DiscardPile
             local ids = {}
             for i = 1, discard.Count do

@@ -378,4 +378,10 @@ public class ScriptMaster {
         var player = _match.GetPlayer(playerI);
         player.PlaceFromDiscardOnTopOfDeck(cardI);
     }
+
+    [LuaCommand]
+    public void SwapCreatures(string id1, string id2) {
+        _match.SwapCreatures(id1, id2)
+            .Wait();
+    }
 }

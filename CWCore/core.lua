@@ -416,8 +416,16 @@ function Common.LandscapesWithoutCreatures(playerI)
 end
 
 function Common.Creatures(playerI)
-    return Common.FilterCreatures(function (building)
-        return building.Original.OwnerI == playerI
+    return Common.FilterCreatures(function (creature)
+        return creature.Original.OwnerI == playerI
+    end)
+end
+
+function Common.CreaturesExcept(playerI, id)
+    return Common.FilterCreatures(function (creature)
+        return
+            creature.Original.OwnerI == playerI and
+            creature.Original.Card.ID ~= id
     end)
 end
 

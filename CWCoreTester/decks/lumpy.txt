@@ -21,6 +21,7 @@
 2 Infinite Figure
 
 2 Grape Djini - choosing cards in discard, returning cards from discard to top of deck
+
 1 Volcano - bulding destruction
 1 Travelin' Skeleton - "change lanes with each other"
 1 Skeletal Hand - milling and knowing the cards that were milled

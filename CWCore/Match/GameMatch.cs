@@ -83,7 +83,6 @@ public class GameMatch {
         return LastState.Players[playerI];
     }
 
-
     public void LogInfo(string info) {
         Logger?.LogInformation(info);
     }
@@ -384,16 +383,8 @@ public class GameMatch {
                     
                 lane.Original.Creature = null;
                 newLane.Original.Creature = creature.GetOriginal();
-                creature.Original.MovementCount++;
 
-                creature.Original.Card.ExecFunction(
-                    InPlayCard.ON_MOVE_FNAME, 
-                    creature.Original.Card.Data,
-                    player.Original.Idx, 
-                    prevLaneI,
-                    toI
-                );
-
+                creature.Original.ProcessMove(player.Original.Idx, prevLaneI, toI);
                 // TODO? add update
                 // TODO trigger
 
@@ -402,6 +393,21 @@ public class GameMatch {
             }
         }
         throw new CWCoreException($"failed to find creature with id {creatureId} to move to lane {toI}");
+    }
+
+    public async Task SwapCreatures(string id1, string id2) {
+        // TODO implement swapping with opponent's creatures
+
+        var creature1 = GetInPlayCreature(id1);
+        var creature2 = GetInPlayCreature(id2);
+
+        var landscape1 = Players[creature1.Original.OwnerI].Landscapes[creature1.LaneI];
+        var landscape2 = Players[creature2.Original.OwnerI].Landscapes[creature2.LaneI];
+
+        (landscape1.Creature, landscape2.Creature) = (landscape2.Creature, landscape1.Creature);
+
+        landscape1.Creature!.ProcessMove(creature1.Original.OwnerI, landscape2.Idx, landscape1.Idx);
+        landscape2.Creature!.ProcessMove(creature2.Original.OwnerI, landscape1.Idx, landscape2.Idx);
     }
 
     public async Task MoveBuilding(string buildingId, int toI) {
@@ -424,15 +430,8 @@ public class GameMatch {
                     
                 lane.Original.Building = null;
                 newLane.Original.Building = building.Original;
-                building.Original.MovementCount++;
 
-                building.Original.Card.ExecFunction(
-                    InPlayCard.ON_MOVE_FNAME,
-                    building.Original.Card.Data,
-                    player.Original.Idx, 
-                    prevLaneI,
-                    toI
-                );
+                building.Original.ProcessMove(player.Original.Idx, prevLaneI, toI);
 
                 // TODO? add update
                 // TODO trigger
