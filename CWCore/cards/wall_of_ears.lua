@@ -3,7 +3,7 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function ( me, layer)
+    result:AddStateModifier(function ( me, layer, zone)
         -- +1 DEF for each Cornfield Landscape in play (counting all players).
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then

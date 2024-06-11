@@ -3,7 +3,7 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function ( me, layer)
+    result:AddStateModifier(function ( me, layer, zone)
         -- If you played one or more Rainbow cards this turn, Infant Scholar has +3 ATK this turn,
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then

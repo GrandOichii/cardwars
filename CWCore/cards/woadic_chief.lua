@@ -3,7 +3,7 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function ( me, layer)
+    result:AddStateModifier(function ( me, layer, zone)
         -- Woadic Chief has +2 ATK this turn for each Spell you have played this turn.
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then

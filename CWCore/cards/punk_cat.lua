@@ -4,7 +4,7 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function ( me, layer)
+    result:AddStateModifier(function ( me, layer, zone)
         -- Each Creature that changed Lanes this turn has +2 ATK his turn.
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then

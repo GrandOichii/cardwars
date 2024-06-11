@@ -3,7 +3,7 @@
 function _Create(props)
     local result = CardWars:InPlay(props)
 
-    result:AddStateModifier(function ( me, layer)
+    result:AddStateModifier(function ( me, layer, zone)
         -- While your Creature in this Lane has no Damage on it, it has +2 ATK.
 
         if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then

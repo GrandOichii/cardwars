@@ -3,7 +3,7 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function ( me, layer)
+    result:AddStateModifier(function ( me, layer, zone)
         -- Husker Valkyrie has +2 ATK and +2 DEF if you control a Building on this Landscape.
 
         local ownerI = me.Original.OwnerI
