@@ -14,9 +14,11 @@ public class MatchCard {
     public string ID { get; }
     public CardTemplate Template { get; }
     public LuaTable Data { get; }
+    public int OwnerI { get; set; }
 
-    public MatchCard(CardTemplate card, Lua state, IIDGenerator generator) {
+    public MatchCard(CardTemplate card, int ownerI, Lua state, IIDGenerator generator) {
         Template = card;
+        OwnerI = ownerI;
 
         ID = generator.Next();
 

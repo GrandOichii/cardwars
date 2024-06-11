@@ -329,8 +329,8 @@ public class Program {
 
     public static async Task Main(string[] args) {
         try {
-            await TestRandom(100);
-            return;
+            // await TestRandom(100);
+            // return;
             var config = new MatchConfig() {
                 StartingLifeTotal = 25,
                 ActionPointsPerTurn = 12,

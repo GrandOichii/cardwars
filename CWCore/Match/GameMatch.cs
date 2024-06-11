@@ -63,7 +63,7 @@ public class GameMatch {
             throw new GameMatchException("can't add player to match - already full");
         }
         
-        var deck = await template.ToDeck(_cardMaster, LState, CardIDGenerator);
+        var deck = await template.ToDeck(Players.Count, _cardMaster, LState, CardIDGenerator);
         var player = new Player(this, name, Players.Count, template.Landscapes, deck, controller);
 
         Players.Add(player);
