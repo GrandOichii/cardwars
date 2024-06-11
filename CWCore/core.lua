@@ -479,6 +479,14 @@ function Common.FloopedCreatures(playerI)
     end)
 end
 
+function Common.ExhaustedCreatures(playerI)
+    return Common.FilterCreatures(function (creature)
+        return
+            creature.Original.OwnerI == playerI and
+            creature.Original.Exhausted
+    end)
+end
+
 function Common.CreaturesTyped(playerI, landscape)
     return Common.CreaturesTypedExcept(playerI, landscape, '__empty_id__')
 end

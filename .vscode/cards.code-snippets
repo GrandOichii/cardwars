@@ -209,9 +209,10 @@
 		"prefix": "restriction",
 		"description": "add card play restriction",
 		"body": [
-			"Common.AddRestriction(result, function (playerI)",
-			"\treturn nil, $0",
-			"end",
+			"Common.AddRestriction(result,",
+			"\tfunction (playerI)",
+			"\t\treturn nil, $0",
+			"\tend",
 			")"
 		]
 	},
