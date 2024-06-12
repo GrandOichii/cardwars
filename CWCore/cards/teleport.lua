@@ -16,9 +16,6 @@ function _Create(props)
 
             local creatures = Common.IDs(Common.Creatures(playerI))
             local empty = Common.Lanes(Common.LandscapesWithoutCreatures(playerI))
-            if #empty == 0 then
-                return
-            end
 
             local creatureId = ChooseCreature(playerI, creatures, 'Choose a creature to move')
             local lane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')

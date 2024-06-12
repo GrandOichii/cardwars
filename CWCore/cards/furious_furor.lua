@@ -10,7 +10,7 @@ function _Create(props)
             local ids = Common.IDs(Common.AllPlayers.Creatures())
             local target = TargetCreature(playerI, ids, 'Choose creature to buff')
 
-            UntilEndOfTurn(function ( layer)
+            UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     local creature = GetCreatureOrDefault(target)
                     if creature == nil then

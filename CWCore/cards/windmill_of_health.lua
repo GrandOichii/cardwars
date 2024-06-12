@@ -3,18 +3,14 @@
 function _Create(props)
     local result = CardWars:InPlay(props)
 
-    result:AddStateModifier(function ( me, layer, zone)
-        -- While your Creature in this Lane has no Damage on it, it has +2 ATK.
+    -- While your Creature in this Lane has no Damage on it, it has +2 ATK.
+    Common.State.ModATKDEF(result, function (me)
+        local ownerI = me.Original.OwnerI
+        local player = STATE.Players[ownerI]
+        local lane = player.Landscapes[me.LaneI]
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
-            local ownerI = me.Original.OwnerI
-            local player = STATE.Players[ownerI]
-            local lane = player.Landscapes[me.LaneI]
-
-            if lane.Creature ~= nil and lane.Creature.Original.Damage == 0 then
-                lane.Creature.Attack = lane.Creature.Attack + 2
-            end
-
+        if lane.Creature ~= nil and lane.Creature.Original.Damage == 0 then
+            lane.Creature.Attack = lane.Creature.Attack + 2
         end
     end)
 

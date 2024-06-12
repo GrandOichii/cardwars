@@ -3,16 +3,12 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function ( me, layer, zone)
-        -- Woadic Chief has +2 ATK this turn for each Spell you have played this turn.
+    -- Woadic Chief has +2 ATK this turn for each Spell you have played this turn.
+    Common.State.ModATKDEF(result, function (me)
+        local ownerI = me.Original.OwnerI
+        local count = Common.SpellsPlayedThisTurnCount(ownerI)
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
-            local ownerI = me.Original.OwnerI
-            local count = Common.SpellsPlayedThisTurnCount(ownerI)
-
-            me.Attack = me.Attack + count * 2
-
-        end
+        me.Attack = me.Attack + count * 2
     end)
 
     return result

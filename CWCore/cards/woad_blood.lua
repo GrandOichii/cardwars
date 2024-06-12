@@ -3,9 +3,9 @@
 function _Create(props)
     local result = CardWars:Spell(props)
 
+    -- Each Creature that changed Lanes this turn has +2 ATK this turn.
     result.EffectP:AddLayer(
         function (playerI)
-            -- Each Creature that changed Lanes this turn has +2 ATK this turn.
 
             UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then

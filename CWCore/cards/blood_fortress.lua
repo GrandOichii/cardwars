@@ -14,4 +14,5 @@ function _Create(props)
         end
     end)
 
+    return result
 end

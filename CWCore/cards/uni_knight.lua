@@ -6,7 +6,7 @@ function _Create(props)
     -- Pay 1 Action >>> Target Creature in this Lane has -10 ATK this turn.
     Common.ActivatedEffects.PayActionPoints(result, 1,
         function (me, playerI, laneI)
-            local options = Common.CreaturesInLane(laneI)
+            local options = Common.AllPlayers.CreaturesInLane(laneI)
 
             local target = TargetCreature(playerI, options, 'Choose a creature to debuff')
 

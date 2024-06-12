@@ -3,17 +3,14 @@
 function _Create(props)
     local result = CardWars:InPlay(props)
 
+    -- FLOOP >>> Move a Creature in an adjacent Lane to this Lane (if empty).
     result:AddActivatedEffect({
-        -- FLOOP >>> Move a Creature in an adjacent Lane to this Lane (if empty).
 
         checkF = function (me, playerI, laneI)
-            if not Common.CanFloop(me) then
-                return false
-            end
-            if STATE.Players[playerI].Landscapes[laneI].Creature ~= nil then
-                return false
-            end
-            return #Common.AdjacentCreatures(playerI, laneI) > 0
+            return
+                Common.CanFloop(me) and
+                STATE.Players[playerI].Landscapes[laneI].Creature == nil and
+                #Common.AdjacentCreatures(playerI, laneI) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)

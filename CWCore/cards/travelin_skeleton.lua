@@ -3,11 +3,13 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
+    -- FLOOP >>> Travelin' Skeleton and another Creature you control change Lanes with each other.
     result:AddActivatedEffect({
-        -- FLOOP >>> Travelin' Skeleton and another Creature you control change Lanes with each other.
 
         checkF = function (me, playerI, laneI)
-            return Common.CanFloop(me) and #Common.Creatures(playerI) >= 2
+            return
+                Common.CanFloop(me) and
+                #Common.Creatures(playerI) >= 2
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)

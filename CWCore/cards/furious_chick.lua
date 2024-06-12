@@ -3,13 +3,9 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (me, layer, zone)
-        -- Furious Chick has +1 ATK for each Damage on it.
-
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
-            me.Attack = me.Attack + me.Original.Damage
-        end
-
+    -- Furious Chick has +1 ATK for each Damage on it.
+    Common.State.ModATKDEF(result, function (me)
+        me.Attack = me.Attack + me.Original.Damage
     end)
 
     return result

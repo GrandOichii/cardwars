@@ -25,7 +25,7 @@ function _Create(props)
                 return
             end
 
-            local target = TargetCreature(ownerI, creatures, 'Choose a creature to buff')
+            local target = TargetCreature(ownerI, creatures, 'Choose a creature to add 1 DEF to')
             local creature = GetCreature(target)
 
             Common.GainDefense(creature, 1)

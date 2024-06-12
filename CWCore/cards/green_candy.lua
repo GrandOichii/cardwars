@@ -3,10 +3,10 @@
 function _Create(props)
     local result = CardWars:Spell(props)
 
-    -- !FIXME add play check
-    Common.AddRestriction(result, function (playerI)
-        return nil, #Common.AllPlayers.Creatures() > 0
-    end
+    Common.AddRestriction(result, 
+        function (playerI)
+            return nil, #Common.AllPlayers.Creatures() > 0
+        end
     )
 
     result.EffectP:AddLayer(

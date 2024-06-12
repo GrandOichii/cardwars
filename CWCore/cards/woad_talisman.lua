@@ -3,7 +3,6 @@
 function _Create(props)
     local result = CardWars:Spell(props)
 
-    -- !FIXME add check - any creatures in play
     Common.AddRestriction(result, function (playerI)
         return nil, #Common.CreaturesTyped(playerI, CardWars.Landscapes.BluePlains) > 0
     end

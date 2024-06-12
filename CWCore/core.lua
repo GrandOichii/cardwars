@@ -330,10 +330,6 @@ function Common.FilterLandscapes(predicate)
     return result
 end
 
-function Common.CreaturesInLane(laneI)
-    return Common.CreaturesInLaneExcept(laneI, '__empty_id__')
-end
-
 function Common.CreaturesNamed(playerI, name)
     return Common.FilterCreatures( function (creature)
         return
@@ -348,24 +344,6 @@ function Common.BuildingsNamed(playerI, name)
             building.Original.OwnerI == playerI and
             building.Original.Card.Template.Name == name
     end)
-end
-
-function Common.CreaturesInLaneExcept(laneI, id)
-    local result = {}
-    local players = GetPlayers()
-
-    for i = 1, 2 do
-        local player = players[i]
-        local lane = player.Landscapes[laneI]
-        if lane.Creature ~= nil then
-            local cid = lane.Creature.Original.Card.ID
-            if cid ~= id then
-                result[#result+1] = lane.Creature
-            end
-        end
-    end
-
-    return result
 end
 
 function Common.CanFloop(card)
@@ -690,7 +668,50 @@ function Common.RandomCardInDiscard(playerI, predicate)
     return choices[res]
 end
 
+function Common.CreaturesInLane(playerI, laneI)
+    local result = {}
+    local player = STATE.Players[playerI]
+    local lane = player.Landscapes[laneI]
+    if lane.Creature ~= nil then
+        result[#result+1] = lane.Creature
+    end
+    return result
+end
+
+function Common.OpposingCreaturesInLane(playerI, laneI)
+    local result = {}
+    local player = STATE.Players[1 - playerI]
+    local lane = player.Landscapes[laneI]
+    if lane.Creature ~= nil then
+        result[#result+1] = lane.Creature
+    end
+    return result
+
+end
+
 Common.AllPlayers = {}
+
+function Common.AllPlayers.CreaturesInLane(laneI)
+    return Common.AllPlayers.CreaturesInLaneExcept(laneI, '__empty_id__')
+end
+
+function Common.AllPlayers.CreaturesInLaneExcept(laneI, id)
+    local result = {}
+    local players = GetPlayers()
+
+    for i = 1, 2 do
+        local player = players[i]
+        local lane = player.Landscapes[laneI]
+        if lane.Creature ~= nil then
+            local cid = lane.Creature.Original.Card.ID
+            if cid ~= id then
+                result[#result+1] = lane.Creature
+            end
+        end
+    end
+
+    return result
+end
 
 function Common.AllPlayers.LandscapesTyped(type)
     return Common.FilterLandscapes(function (landscape)

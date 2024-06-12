@@ -233,7 +233,7 @@
 			")"
 		]
 	},
-	"attack_defence_mod": {
+	"attack_defense_mod": {
 		"scope": "lua",
 		"prefix": "modatkdef",
 		"description": "Attack and Defense modification for cards in play",

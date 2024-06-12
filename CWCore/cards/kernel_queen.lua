@@ -3,17 +3,13 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (me, layer, zone)
-        -- Kernel Queen has +1 ATK for each Flooped Creature you control.
-
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
-            local ownerI = me.Original.OwnerI
-            local creatures = Common.FloopedCreatures(ownerI)
-
-            me.Attack = me.Attack + #creatures
-            me.Defense = me.Defense + #creatures
-        end
-
+    -- Kernel Queen has +1 ATK for each Flooped Creature you control.
+    Common.State.ModATKDEF(result, function (me)
+        local ownerI = me.Original.OwnerI
+        local creatures = Common.FloopedCreatures(ownerI)
+    
+        me.Attack = me.Attack + #creatures
+        me.Defense = me.Defense + #creatures    
     end)
 
     return result

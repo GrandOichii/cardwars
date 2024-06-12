@@ -3,23 +3,17 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (me, layer, zone)
-        -- +3 ATK while your opponent does not control a Creature in this Lane.
+    -- +3 ATK while your opponent does not control a Creature in this Lane.
+    Common.State.ModATKDEF(result, function (me)
+        local ownerI = me.Original.OwnerI
+        local opponentI = 1 - ownerI
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
-            local ownerI = me.Original.OwnerI
-            local opponentI = 1 - ownerI
+        local opponent = STATE.Players[opponentI]
+        local lanes = opponent.Landscapes
+        local lane = lanes[me.LaneI]
 
-            local opponent = STATE.Players[opponentI]
-            local lanes = opponent.Landscapes
-            local lane = lanes[me.LaneI]
-            local mod = 0
-            if lane.Creature == nil then
-                mod = 3
-            end
-
-            me.Attack = me.Attack + mod
-
+        if lane.Creature == nil then
+            me.Attack = me.Attack + 3
         end
 
     end)

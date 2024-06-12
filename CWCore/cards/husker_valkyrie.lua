@@ -3,20 +3,15 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function ( me, layer, zone)
-        -- Husker Valkyrie has +2 ATK and +2 DEF if you control a Building on this Landscape.
-
+    -- Husker Valkyrie has +2 ATK and +2 DEF if you control a Building on this Landscape.
+    Common.State.ModATKDEF(result, function (me)
         local ownerI = me.Original.OwnerI
-
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
-            local lane = me.LaneI
-            local landscapes = STATE.Players[ownerI].Landscapes
-            if landscapes[lane].Building ~= nil then
-                me.Attack = me.Attack + 2
-                me.Defense = me.Defense + 2
-            end
+        local lane = me.LaneI
+        local landscapes = STATE.Players[ownerI].Landscapes
+        if landscapes[lane].Building ~= nil then
+            me.Attack = me.Attack + 2
+            me.Defense = me.Defense + 2
         end
-    
     end)
 
     return result

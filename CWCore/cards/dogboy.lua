@@ -14,8 +14,8 @@ function _Create(props)
                 end
                 creature.Attack = creature.Attack + 2
             end
-        end, 1)
-    end)
+        end)
+    end, 1)
 
     return result
 end

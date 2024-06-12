@@ -1,4 +1,4 @@
--- Status: implemented
+-- Status: not tested
 
 function _Create(props)
     local result = CardWars:Creature(props)
@@ -6,7 +6,7 @@ function _Create(props)
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
         -- When Legion of Earlings enters play, you may return target Creature in this Lane to its owner's hand.
 
-        local options = Common.IDs(Common.CreaturesInLane(laneI))
+        local options = Common.IDs(Common.AllPlayers.CreaturesInLane(laneI))
 
         local target = TargetCreature(playerI, options, 'Choose a creature to return to hand')
         local creature = GetCreature(target)

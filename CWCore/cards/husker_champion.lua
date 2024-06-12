@@ -2,21 +2,15 @@
 
 function _Create(props)
     local result = CardWars:Creature(props)
-
-    result:AddStateModifier(function (me, layer, zone)
-        -- Husker Champion has +2 ATK and +2 DEF if you control a Building on this Landscape.
-
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
-
-            local ownerI = me.Original.OwnerI
-            local laneI = me.LaneI
-            if STATE.Players[ownerI].Landscapes[laneI].Building ~= nil then
-                me.Attack = me.Attack + 2
-                me.Defense = me.Defense + 2
-            end
-
+    
+    -- Husker Champion has +2 ATK and +2 DEF if you control a Building on this Landscape.
+    Common.State.ModATKDEF(result, function (me)
+        local ownerI = me.Original.OwnerI
+        local laneI = me.LaneI
+        if STATE.Players[ownerI].Landscapes[laneI].Building ~= nil then
+            me.Attack = me.Attack + 2
+            me.Defense = me.Defense + 2
         end
-
     end)
 
     return result

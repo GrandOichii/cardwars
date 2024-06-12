@@ -3,17 +3,9 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddActivatedEffect({
-        -- FLOOP >>> Each adjacent Creature has +2 ATK this turn.
-
-        checkF = function (me, playerI, laneI)
-            return Common.CanFloop(me)
-        end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
+    -- FLOOP >>> Each adjacent Creature has +2 ATK this turn.
+    Common.ActivatedEffects.Floop(result,
+        function (me, playerI, laneI)
             local id = me.Original.Card.ID
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
@@ -28,7 +20,7 @@ function _Create(props)
                 end
             end)
         end
-    })
+    )
 
     return result
 end

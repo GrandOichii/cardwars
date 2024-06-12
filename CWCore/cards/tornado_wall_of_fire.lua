@@ -2,20 +2,12 @@
 
 function _Create(props)
     local result = CardWars:Creature(props)
-    
-    result:AddActivatedEffect({
-        -- FLOOP >>> Tornado Wall of Fire has +3 ATK while Flooped.
-    
-        checkF = function (me, playerI, laneI)
-            return Common.CanFloop(me)
-        end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
+
+    -- FLOOP >>> Tornado Wall of Fire has +3 ATK while Flooped.
+    Common.ActivatedEffects.Floop(result,
+        function (me, playerI, laneI)
+            local id = me.Original.Card.ID
             UntilEndOfTurn(function ( layer)
-                local id = me.Original.Card.ID
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     local creature = GetCreatureOrDefault(id)
                     if creature == nil then
@@ -27,7 +19,7 @@ function _Create(props)
                 end
             end)
         end
-    })
+    )
 
     return result
 end
