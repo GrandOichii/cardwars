@@ -3,19 +3,14 @@
 function _Create(props)
     local result = CardWars:InPlay(props)
 
-    result:AddStateModifier(function (me, layer, zone)
-        -- Your Creature in this Lane has +3 DEF.
+    Common.State.ModATKDEF(result, function (me)
+        local ownerI = me.Original.OwnerI
+        local player = STATE.Players[ownerI]
+        local lane = player.Landscapes[me.LaneI]
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
-            local ownerI = me.Original.OwnerI
-            local player = STATE.Players[ownerI]
-            local lane = player.Landscapes[me.LaneI]
-
-            if lane.Creature ~= nil then
-                lane.Creature.Defense = lane.Creature.Defense + 3
-            end
+        if lane.Creature ~= nil then
+            lane.Creature.Defense = lane.Creature.Defense + 3
         end
-
     end)
 
     return result

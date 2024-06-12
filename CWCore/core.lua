@@ -773,6 +773,51 @@ function Common.ActivatedEffects.PayActionPoints(card, amount, effect)
     })
 end
 
+function Common.ActivatedEffects.DiscardCard(card, effect, maxActivationsPerTurn)
+    maxActivationsPerTurn = maxActivationsPerTurn or -1
+    card:AddActivatedEffect({
+        maxActivationsPerTurn = maxActivationsPerTurn,
+        checkF = function (me, playerI, laneI)
+            return GetHandCount(playerI) > 0
+        end,
+        costF = function (me, playerI, laneI)
+            Common.ChooseAndDiscardCard(playerI, laneI)
+            return true
+        end,
+        effectF = effect
+    })
+end
+
 function Common.AddRestriction(card, restriction)
     card.CanPlayP:AddLayer(restriction)
 end
+
+Common.State = {}
+
+function Common.State.ModATKDEF(card, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
+            effect(me)
+        end
+
+    end)
+end
+
+function Common.State.ModCostInHand(card, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        if layer == CardWars.ModificationLayers.CARD_COST and zone == CardWars.Zones.HAND then
+            effect(me)
+        end
+    end)
+end
+
+function Common.State.ModAttackRight(card, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        -- TODO change layer
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
+            effect(me)
+        end
+
+    end)
+end
+

@@ -3,17 +3,12 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    result:AddStateModifier(function (me, layer, zone)
-        -- +1 ATK for each adjacent Cornfield Landscape.
+    Common.State.ModATKDEF(result, function (me)
+        local ownerI = me.Original.OwnerI
 
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
-            local ownerI = me.Original.OwnerI
+        local landscapes = Common.AdjacentLandscapesTyped(ownerI, me.LaneI, CardWars.Landscapes.Cornfield)
 
-            local landscapes = Common.AdjacentLandscapesTyped(ownerI, me.LaneI, CardWars.Landscapes.Cornfield)
-
-            me.Attack = me.Attack + #landscapes
-        end
-
+        me.Attack = me.Attack + #landscapes
     end)
 
     return result

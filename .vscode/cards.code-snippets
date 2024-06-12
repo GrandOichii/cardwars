@@ -99,20 +99,9 @@
 		"prefix": "turnstart",
 		"description": "turn start trigger",
 		"body": [
-			"result:AddTrigger({",
-			"\t-- At the start of your turn, $1",
-			"",
-			"\ttrigger = CardWars.Triggers.TURN_START,",
-			"\tcheckF = function (me, ownerI, laneI, args)",
-			"\t\treturn args.playerI == ownerI",
-			"\tend,",
-			"\tcostF = function (me, ownerI, laneI, args)",
-			"\t\treturn true",
-			"\tend,",
-			"\teffectF = function (me, ownerI, laneI, args)",
-			"\t\t$0",
-			"\tend",
-			"})",
+			"Common.Triggers.AtTheStartOfYourTurn(result, function (me, ownerI, laneI, args)",
+			"\t$0",
+			"end)"
 		]
 	},
 	"enter_play": {
@@ -243,5 +232,25 @@
 			"\tend",
 			")"
 		]
-	}
+	},
+	"attack_defence_mod": {
+		"scope": "lua",
+		"prefix": "modatkdef",
+		"description": "Attack and Defense modification for cards in play",
+		"body": [
+			"Common.State.ModATKDEF(result, function (me)",
+			"\t$0",
+			"end)",
+		]
+	},
+	"cost_in_hand_mod": {
+		"scope": "lua",
+		"prefix": "modcost",
+		"description": "card play cost modification (in hand)",
+		"body": [
+			"Common.State.ModCostInHand(result, function (me)",
+			"\t$0",
+			"end)",
+		]
+	},
 }
