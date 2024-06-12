@@ -9,14 +9,14 @@ function _Create(props)
         checkF = function (me, playerI, laneI)
             return
                 Common.CanFloop(me) and
-                #Common.CreaturesInLaneExcept(laneI, me.Creature.Card.ID) > 0
+                #Common.CreaturesInLaneExcept(laneI, me.Original.Card.ID) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(Common.CreaturesInLaneExcept(laneI, me.Creature.Card.ID))
+            local ids = Common.IDs(Common.CreaturesInLaneExcept(laneI, me.Original.Card.ID))
             local target = TargetCreature(playerI, ids, 'Choose a creature to deal damage to')
             DealDamageToCreature(target, 2)
         end

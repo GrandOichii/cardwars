@@ -29,6 +29,7 @@ public class PlayAction : IAction
 
         player.PayToPlay(card);
         player.RemoveFromHand(card.Original);
+        match.CardsPlayed.Add(card.Original.LogFriendlyName);
 
         if (card.Original.IsSpell) {
             await player.PlaySpellEffect(card.Original);

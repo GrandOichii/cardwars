@@ -1,3 +1,4 @@
+using CWCore.Exceptions;
 using NLua;
 
 namespace CWCore.Match.States;
@@ -36,7 +37,11 @@ public class MatchState {
             }
 
             foreach (var effect in UEOTEffects) {
-                effect.Call((int)layer);
+                try {
+                    effect.Call((int)layer);
+                } catch (Exception e) {
+                    throw new CWCoreException($"failed to execute end of turn effect in layer {layer}", e);
+                }
             }
         }
     }

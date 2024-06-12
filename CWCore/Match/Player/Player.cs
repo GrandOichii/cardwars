@@ -139,7 +139,12 @@ public class Player {
     public Task PlaySpellEffect(MatchCard card) {
         CardsPlayedThisTurn.Add(card);
 
-        card.ExecFunction(MatchCard.SPELL_EFFECT_FNAME, card.Data, Idx);
+        try {
+            card.ExecFunction(MatchCard.SPELL_EFFECT_FNAME, card.Data, Idx);
+
+        } catch (Exception e) {
+            throw new CWCoreException($"error in spell effect of card {card.LogFriendlyName}", e);
+        }
         return Task.CompletedTask;
     }
 

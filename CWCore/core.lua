@@ -623,6 +623,16 @@ function Common.LandscapesOfTypeInLane(type, laneI)
     return result
 end
 
+function Common.DiscardCardIdx(playerI, id)
+    local discard = STATE.Players[playerI].DiscardPile
+    for i = 1, discard.Count do
+        if discard[i - 1].Original.ID == id then
+            return i - 1
+        end
+    end
+    return nil
+end
+
 function Common.ChooseAndDiscardCard(playerI, hint)
     hint = hint or 'Choose a card to discard'
     local cards = STATE.Players[playerI].Hand
@@ -636,9 +646,10 @@ function Common.ChooseAndDiscardCard(playerI, hint)
     end
 
     local result = ChooseCardInHand(playerI, ids, 'Choose a card to discard')
+    local cardId = STATE.Players[playerI].Hand[result].Original.ID
     DiscardFromHand(playerI, result)
 
-    return result
+    return cardId
 end
 
 function Common.DiscardNCards(playerI, amount)
@@ -671,7 +682,12 @@ end
 
 function Common.RandomCardInDiscard(playerI, predicate)
     local choices = Common.DiscardPileCardIndicies(playerI, predicate)
-    return choices[Random(1, #choices + 1)]
+    if #choices == 0 then
+        return nil
+    end
+
+    local res = Random(1, #choices + 1)
+    return choices[res]
 end
 
 Common.AllPlayers = {}

@@ -17,7 +17,7 @@ function _Create(props)
             UntilEndOfTurn(function ( layer)
                 local id = me.Original.Card.ID
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creature = GetCreature(id)
+                    local creature = GetCreatureOrDefault(id)
                     if creature == nil then
                         return
                     end

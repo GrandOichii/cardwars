@@ -43,6 +43,8 @@ public class GameMatch {
 
     public List<LuaFunction> UEOTEffects { get; }
 
+    public List<string> CardsPlayed { get; } = new();
+
     public GameMatch(MatchConfig config, int seed, ICardMaster cardMaster, string setupScript) {
         _cardMaster = cardMaster;
         Config = config;

@@ -493,16 +493,18 @@ public class Program {
             await match.AddPlayer("player1", deck1, controller1);
             await match.AddPlayer("player2", deck2, controller2);
 
-            // try {
+            try {
                 await match.Run();
-        //     } catch (Exception e) {
-        //         PrintException(e);
+            } catch (Exception e) {
+                PrintCardsPlayed(match);
+                PrintException(e);
                 
-        //         ++failed;
-        //     }
+                return;
+                ++failed;
+            }
         }
 
-        System.Console.WriteLine($"S/F: {end - start - failed}/{end - start}");
+        System.Console.WriteLine($"Success: {end - start - failed}/{end - start}");
     }
 
     public static async Task SimpleConsole() {
@@ -601,6 +603,12 @@ public class Program {
             PrintException(e);
         }
 
+    }
+
+    static void PrintCardsPlayed(GameMatch match) {
+        System.Console.WriteLine("Cards played:");
+        foreach (var card in match.CardsPlayed)
+            System.Console.WriteLine("\t" + card);
     }
 
     static void PrintException(Exception e) {

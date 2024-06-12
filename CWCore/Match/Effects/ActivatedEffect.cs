@@ -1,3 +1,4 @@
+using CWCore.Exceptions;
 using CWCore.Match.Players;
 using CWCore.Match.States;
 using CWCore.Utility;
@@ -22,12 +23,15 @@ public class ActivatedEffect {
     }
 
     private static bool CheckFunction(LuaFunction f, PlayerState player, InPlayCardState state, int laneI, LuaTable? args) {
-        
-        return LuaUtility.GetReturnAsBool(
-            args is not null
-                ? f.Call(state, player.Original.Idx, laneI, args)
-                : f.Call(state, player.Original.Idx, laneI)
-        );
+        try {
+            return LuaUtility.GetReturnAsBool(
+                args is not null
+                    ? f.Call(state, player.Original.Idx, laneI, args)
+                    : f.Call(state, player.Original.Idx, laneI)
+            );
+        } catch (Exception e) {
+            throw new CWCoreException($"failed to execute check function of activated effect of card {state.Original.Card.LogFriendlyName}", e);
+        }
     }
 
     public bool ExecCheck(PlayerState player, InPlayCardState state, int laneI, LuaTable? args = null) => CheckFunction(CheckF, player, state, laneI, args);
@@ -35,11 +39,15 @@ public class ActivatedEffect {
     public bool ExecCosts(PlayerState player, InPlayCardState state, int laneI, LuaTable? args = null) => CheckFunction(CostF, player, state, laneI, args);
 
     public void ExecEffect(PlayerState player, InPlayCardState state, int laneI, LuaTable? args = null){
-        if (args is not null) {
-            EffectF.Call(state, player.Original.Idx, laneI, args);
-            return;
+        try {
+            if (args is not null) {
+                EffectF.Call(state, player.Original.Idx, laneI, args);
+                return;
+            }
+            EffectF.Call(state, player.Original.Idx, laneI);
+        } catch (Exception e) {
+            throw new CWCoreException($"failed to execute effect function of activated effect of card {state.Original.Card.LogFriendlyName}", e);
         }
-        EffectF.Call(state, player.Original.Idx, laneI);
     }
 
     public bool CanActivate(PlayerState player, InPlayCardState card, int laneI, LuaTable? args = null) {

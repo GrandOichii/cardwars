@@ -9,8 +9,9 @@ function _Create(props)
             local idx = Common.RandomCardInDiscard(playerI, function (card)
                 return card.Original.Template.Landscape == CardWars.Landscapes.Rainbow
             end)
-
-            ReturnToHandFromDiscard(playerI, idx)
+            if idx ~= nil then
+                ReturnToHandFromDiscard(playerI, idx)
+            end
 
             if Common.ControlBuildingInLane(playerI, laneI) then
                 AddActionPoints(playerI, 1)

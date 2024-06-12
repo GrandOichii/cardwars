@@ -7,7 +7,7 @@ function _Create(props)
     Common.ActivatedEffects.Floop(result,
         function (me, playerI, laneI)
             local idx = Common.RandomCardInDiscard(playerI, function (card)
-                    return card.Template.Type == 'Creature'
+                    return card.Original.Template.Type == 'Creature'
                 end)
             if idx == nil then
                 return

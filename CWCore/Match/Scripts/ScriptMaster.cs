@@ -402,6 +402,6 @@ public class ScriptMaster {
 
     [LuaCommand]
     public int Random(int from, int to) {
-        return _match.Rng.Next(to, from);
+        return _match.Rng.Next(from, to);
     }
 }

@@ -1,3 +1,4 @@
+using CWCore.Exceptions;
 using CWCore.Match.Players;
 using CWCore.Match.States;
 using CWCore.Utility;
@@ -22,12 +23,15 @@ public class HeroActivatedEffect {
     }
 
     private static bool CheckFunction(LuaFunction f, PlayerState player, LuaTable? args) {
-        
-        return LuaUtility.GetReturnAsBool(
-            args is not null
-                ? f.Call(player.Original.Idx, args)
-                : f.Call(player.Original.Idx)
-        );
+         try {
+            return LuaUtility.GetReturnAsBool(
+                args is not null
+                    ? f.Call(player.Original.Idx, args)
+                    : f.Call(player.Original.Idx)
+            );
+        } catch (Exception e) {
+            throw new CWCoreException($"failed to execute check function of activated effect of hero card of player {player.Original.LogFriendlyName}", e);
+        }
     }
 
     public bool ExecCheck(PlayerState player, LuaTable? args = null) => CheckFunction(CheckF, player, args);
@@ -35,11 +39,15 @@ public class HeroActivatedEffect {
     public bool ExecCosts(PlayerState player, LuaTable? args = null) => CheckFunction(CostF, player, args);
 
     public void ExecEffect(PlayerState player, LuaTable? args = null){
-        if (args is not null) {
-            EffectF.Call(player.Original.Idx, args);
-            return;
+        try {
+            if (args is not null) {
+                EffectF.Call(player.Original.Idx, args);
+                return;
+            }
+            EffectF.Call(player.Original.Idx);
+        } catch (Exception e) {
+            throw new CWCoreException($"failed to execute effect function of activated effect of hero card of player {player.Original.LogFriendlyName}", e);
         }
-        EffectF.Call(player.Original.Idx);
     }
 
     public bool CanActivate(PlayerState player, LuaTable? args = null) {

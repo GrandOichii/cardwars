@@ -7,9 +7,11 @@ function _Create(props)
     Common.ActivatedEffects.Floop(result,
         function (me, playerI, laneI)
             Draw(playerI, 1)
-            local discardedI = Common.ChooseAndDiscardCard(playerI)
+            local discardedId = Common.ChooseAndDiscardCard(playerI)
             UpdateState()
-            local card = STATE.Players[playerI].DiscardPile[discardedI]
+
+            local idx = Common.DiscardCardIdx(playerI, discardedId)
+            local card = STATE.Players[playerI].DiscardPile[idx]
             if card.Original.Template.Landscape == CardWars.Landscapes.Rainbow then
                 AddActionPoints(playerI, 1)
             end

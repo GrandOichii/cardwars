@@ -16,10 +16,10 @@ function _Create(props)
 
         local ids = Common.IDs(Common.Creatures(playerI))
         local target = TargetCreature(playerI, ids, '')
-        local amount = Common.ExhaustedCreatures(playerI)
+        local amount = #Common.ExhaustedCreatures(playerI)
         UntilEndOfTurn(function (layer)
             if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                local c = GetCreature(target)
+                local c = GetCreatureOrDefault(target)
                 if c == nil then
                     return
                 end
