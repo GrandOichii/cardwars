@@ -43,10 +43,10 @@
 		"description": "add floop ability",
 		"body": [
 			"result:AddActivatedEffect({",
-			"\t-- FLOOP >>> $1.",
-			"",
 			"\tcheckF = function (me, playerI, laneI)",
-			"\t\treturn Common.CanFloop(me)$2",
+			"\t\treturn",
+			"\t\t\tCommon.CanFloop(me) and",
+			"\t\t\t${1}",
 			"\tend,",
 			"\tcostF = function (me, playerI, laneI)",
 			"\t\tFloopCard(me.Original.Card.ID)",
@@ -157,8 +157,8 @@
 		"prefix": "targetcreature",
 		"description": "target creature",
 		"body": [
-			"local ids = Common.IDs(Common.FilterCreatures(function (creature) return ${1:true} end))",
-            "local target = TargetCreature(playerI, ids, '$2')",
+			"local ids = Common.IDs(${1:Common.AllPlayers.Creatures()})",
+            "local target = ${2:TargetCreature}(playerI, ids, '$3')",
 			"$0"
 		]
 	},

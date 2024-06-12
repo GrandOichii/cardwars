@@ -3,6 +3,7 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
+    -- TODO change, very specific wording - change to something like PlayCost
     -- If you have 10 or more cards in your discard pile, pay 2 fewer Actions to play Teeth Leaf.
     Common.State.ModCostInHand(result, function (me)
         local ownerI = me.Original.OwnerI

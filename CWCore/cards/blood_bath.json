@@ -1,0 +1,7 @@
+{
+    "Name": "Blood Bath",
+    "Landscape": "Useless Swamp",
+    "Type": "Spell",
+    "Cost": 2,
+    "Text": "Target foe may discard a card with cost 2 or greater. If they do not, deal 5 Damage to that foe."
+}

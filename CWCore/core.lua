@@ -272,9 +272,9 @@ end
 
 Common = {}
 
-function Common.IDs(stateArr)
+function Common.IDs(tableArr)
     local result = {}
-    for _, card in ipairs(stateArr) do
+    for _, card in ipairs(tableArr) do
         result[#result+1] = card.Original.Card.ID
     end
     return result
@@ -645,6 +645,21 @@ end
 function Common.TargetOpponent(playerI)
     -- TODO? i don't think teams will be implemented, but just in case, i will leave this here to be edited soon
     return 1 - playerI
+end
+
+function Common.CardsInHandWithCostGreaterOrEqual(playerI, cost)
+    local result = {}
+
+    -- TODO move to filter function
+    local cards = STATE.Players[playerI].Hand
+    for i = 1, cards.Count do
+        local card = cards[i - 1]
+        if card.Cost >= cost then
+            result[#result+1] = i - 1
+        end
+    end
+
+    return result
 end
 
 function Common.DiscardPileCardIndicies(playerI, predicate)

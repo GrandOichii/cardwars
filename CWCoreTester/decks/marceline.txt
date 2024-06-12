@@ -6,12 +6,12 @@
 + 2 Music Mallard
 + 2 Papercut Tiger
 + 2 Furious Chick
-1 The Big Hen House
-2 Black Hole Pendant
-1 Auto-Plucker
-2 Dr. Stuffenstein
-2 Bums Away! - opponent targeting
-2 Blood Bath - opponent targeting
++ 1 Auto-Plucker
++ 2 Black Hole Pendant
++ 2 Dr. Stuffenstein
++ 2 Bums Away!
++ 2 Blood Bath
++ 1 The Big Hen House
 
 1 Funeral Home - discard trigger
 1 Blood Transfusion - removing cards from game

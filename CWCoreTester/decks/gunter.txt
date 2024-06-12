@@ -4,7 +4,7 @@
 + 2 Spazzy Cola
 + 2 Tapped Out
 
-2 Industrial Assassin - craeture destruction
+2 Industrial Assassin - creature destruction
 1 Cute Overload - creature destruction
 1 Fancy Spa - fight phase start trigger
 1 Magenapping - play checks
