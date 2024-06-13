@@ -1,5 +1,5 @@
 {
-    "Hero": "Fionna",
+    "Hero": "",
     "Cards": {
         "Gnome Snot": 0,
         "Archer Dan": 0,
@@ -9,6 +9,7 @@
         "Drooling Dude": 0,
         "Evil Eye": 0,
         "Phyllis": 0,
+        "Mace Stump": 10,
         "Sand Angel": 0,
         "Blonde MerWitch": 0,
         "Sand Knights": 0,
@@ -49,7 +50,7 @@
         "Dragon Claw": 0,
         "Punk Cat": 0,
         "Uni-Knight": 0,
-        "Teleport": 10,
+        "Teleport": 0,
         "Piestorm": 0,
         "Helping Hand": 0,
         "Wandering Bald Man": 0,
@@ -75,7 +76,7 @@
         "Dragon Foot": 0,
         "Reclaim Landscape": 0,
         "Future Scholar": 0,
-        "Angel Heart": 10,
+        "Angel Heart": 0,
         "Ring of Fluffy": 0,
         "Void Thimble": 0,
         "Husker Champion": 0,

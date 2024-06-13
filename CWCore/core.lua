@@ -693,6 +693,16 @@ function Common.CreaturesInLane(playerI, laneI)
     return result
 end
 
+function Common.BuildingsInLane(playerI, laneI)
+    local result = {}
+    local player = STATE.Players[playerI]
+    local lane = player.Landscapes[laneI]
+    if lane.Creature ~= nil then
+        result[#result+1] = lane.Creature
+    end
+    return result
+end
+
 function Common.OpposingCreaturesInLane(playerI, laneI)
     local result = {}
     local player = STATE.Players[1 - playerI]
@@ -722,6 +732,22 @@ function Common.AllPlayers.CreaturesInLaneExcept(laneI, id)
             if cid ~= id then
                 result[#result+1] = lane.Creature
             end
+        end
+    end
+
+    return result
+end
+
+function Common.AllPlayers.BuildingsInLane(laneI)
+    local result = {}
+    local players = GetPlayers()
+
+    for i = 1, 2 do
+        local player = players[i]
+        local lane = player.Landscapes[laneI]
+        if lane.Building ~= nil then
+            local cid = lane.Building.Original.Card.ID
+            result[#result+1] = lane.Building
         end
     end
 
@@ -782,6 +808,18 @@ function Common.Triggers.OnAnotherCreatureEnterPlayUnderYourControl(card, effect
 end
 
 Common.ActivatedEffects = {}
+
+function Common.ActivatedEffects.DestroyMe(card, effect)
+    card:AddActivatedEffect({
+        checkF = function (me, playerI, laneI)
+            return true
+        end,
+        costF = function (me, playerI, laneI)
+            return DestroyCreature(me.Original.Card.ID)
+        end,
+        effectF = effect
+    })
+end
 
 function Common.ActivatedEffects.Floop(card, effect)
     card:AddActivatedEffect({

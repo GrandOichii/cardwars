@@ -244,6 +244,14 @@ public class GameMatch {
         LogInfo($"{creature.Card.LogFriendlyName} is dealt {amount} damage");
     }
 
+    public async Task DestroyCreature(string id) {
+        var creature = GetInPlayCreature(id);
+        var player = GetPlayerState(creature.Original.OwnerI);
+        var landscape = player.Landscapes[creature.LaneI];
+        await DestroyCreature(player, landscape);
+    }
+
+
     public async Task DestroyCreature(PlayerState player, LandscapeState landscape) {
         var creature = landscape.Creature
             ?? throw new CWCoreException($"tried to destroy creature in landscape {landscape.Original.Name}, where it is not present")
@@ -256,7 +264,27 @@ public class GameMatch {
         // TODO add trigger
 
         LogInfo($"{creature.Original.Card.LogFriendlyName} in lane {creature.LaneI} dies!");
+    }
 
+    public async Task DestroyBuilding(string id) {
+        var building = GetInPlayBuilding(id);
+        var player = GetPlayerState(building.Original.OwnerI);
+        var landscape = player.Landscapes[building.LaneI];
+        await DestroyBuilding(player, landscape);
+    }
+
+    public async Task DestroyBuilding(PlayerState player, LandscapeState landscape) {
+        var building = landscape.Building
+            ?? throw new CWCoreException($"tried to destroy building in landscape {landscape.Original.Name}, where it is not present")
+        ;
+
+        landscape.Original.Building = null;
+
+        await player.Original.LeavePlay(landscape.Original, building.Original);
+        
+        // TODO add trigger
+
+        LogInfo($"{building.Original.Card.LogFriendlyName} in lane {building.LaneI} is destroyed!");
     }
 
     public async Task CheckDeadCreatures() {
@@ -498,4 +526,5 @@ public class GameMatch {
 
         // TODO trigger
     }
+
 }

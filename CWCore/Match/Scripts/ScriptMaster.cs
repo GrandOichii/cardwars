@@ -234,6 +234,12 @@ public class ScriptMaster {
         return ChooseCreature(playerI, optionsTable, hint);
     }
 
+    [LuaCommand]
+    public string TargetBuilding(int playerI, LuaTable optionsTable, string hint) {
+        // TODO? should be different
+        return ChooseBuilding(playerI, optionsTable, hint);
+    }
+
     [LuaCommand] 
     public void PayActionPoints(int playerI, int amount) {
         var player = _match.GetPlayer(playerI);
@@ -403,5 +409,19 @@ public class ScriptMaster {
     [LuaCommand]
     public int Random(int from, int to) {
         return _match.Rng.Next(from, to);
+    }
+
+    [LuaCommand]
+    public bool DestroyBuilding(string id) {
+        _match.DestroyBuilding(id)
+            .Wait();
+        return true;
+    }
+
+    [LuaCommand]
+    public bool DestroyCreature(string id) {
+        _match.DestroyCreature(id)
+            .Wait();
+        return true;
     }
 }

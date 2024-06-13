@@ -44,6 +44,9 @@
         "SwapCreatures",
         "Mill",
         "ReturnToHandFromDiscard",
-        "Random"
+        "Random",
+        "TargetBuilding",
+        "DestroyBuilding",
+        "DestroyCreature"
     ]
 }
