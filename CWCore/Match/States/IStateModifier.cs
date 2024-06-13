@@ -7,6 +7,7 @@ public enum ModificationLayer {
     IN_PLAY_CARD_TYPE,
     LANDSCAPE_TYPE,
     CARD_COST,
+    ABILITY_GRANTING_REMOVAL,
 }
 
 public interface IStateModifier {

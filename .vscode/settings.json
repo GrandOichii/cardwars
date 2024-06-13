@@ -47,6 +47,7 @@
         "Random",
         "TargetBuilding",
         "DestroyBuilding",
-        "DestroyCreature"
+        "DestroyCreature",
+        "DynamicActivatedEffect"
     ]
 }

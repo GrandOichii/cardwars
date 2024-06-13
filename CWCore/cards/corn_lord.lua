@@ -3,6 +3,7 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
+    -- Corn Lord has +1 ATK for each other Cornfield Creature you control.
     Common.State.ModATKDEF(result, function (me)
         local ownerI = me.Original.OwnerI
         local id = me.Original.Card.ID

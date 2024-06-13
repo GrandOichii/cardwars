@@ -101,6 +101,7 @@ CardWars.ModificationLayers = {
     IN_PLAY_CARD_TYPE = 2,
     LANDSCAPE_TYPE = 3,
     CARD_COST = 4,
+    ABILITY_GRANTING_REMOVAL = 5,
 }
 
 -- Card Types
@@ -213,7 +214,16 @@ function CardWars:InPlay(props)
 
     result.ActivatedEffects = {}
     function result:AddActivatedEffect(effect)
+        effect.Tags = effect.Tags or {}
         effect.maxActivationsPerTurn = effect.maxActivationsPerTurn or -1
+        function effect:HasTag(tag)
+            for _, t in ipairs(effect.Tags) do
+                if t == tag then
+                    return true
+                end
+            end
+            return false
+        end
         result.ActivatedEffects[#result.ActivatedEffects+1] = effect
     end
 
@@ -714,6 +724,24 @@ function Common.OpposingCreaturesInLane(playerI, laneI)
 
 end
 
+function Common.FloopAbilitiesOfCreaturesInDiscard(playerI)
+    local result = {}
+    local player = STATE.Players[playerI]
+    for i = 0, player.DiscardPile.Count - 1 do
+        local card = player.DiscardPile[i].Original
+        if card.Template.Type == 'Creature' then
+            local data = player.DiscardPile[i].Original.Data
+            for _, aa in ipairs(data.ActivatedEffects) do
+                if aa:HasTag('floop') then
+                    result[#result+1] = aa
+                end
+            end
+        end
+    end
+
+    return result
+end
+
 Common.AllPlayers = {}
 
 function Common.AllPlayers.CreaturesInLane(laneI)
@@ -823,6 +851,7 @@ end
 
 function Common.ActivatedEffects.Floop(card, effect)
     card:AddActivatedEffect({
+        Tags = {'floop'},
         checkF = function (me, playerI, laneI)
             return Common.CanFloop(me)
         end,
@@ -891,7 +920,18 @@ function Common.State.ModAttackRight(card, effect)
         if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
             effect(me)
         end
-
     end)
 end
 
+Common.AbilityGrantingRemoval = {}
+
+function Common.AbilityGrantingRemoval.RemovaAll(card)
+    card.ActivatedEffects:Clear()
+    card.TriggeredEffects:Clear()
+
+    local data = card.Original.Card.Data
+    data.OnEnter = function(...) end
+    data.OnLeavePlay = function(...) end
+    data.OnMove = function(...) end
+    data.ModifyState = function(...) end
+end

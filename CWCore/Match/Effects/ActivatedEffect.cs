@@ -7,6 +7,8 @@ using NLua;
 namespace CWCore.Match.Effects;
 
 public class ActivatedEffect {
+    public string Text { get; }
+    // public List<string> Tags { get; }
     public LuaFunction CheckF { get; }
     public LuaFunction CostF { get; }
     public LuaFunction EffectF { get; }
@@ -14,10 +16,17 @@ public class ActivatedEffect {
     public int ActivatedThisTurn { get; set; }
 
     public ActivatedEffect(LuaTable table) {
+        // TODO add back
+        // Text = LuaUtility.TableGet<string>(table, "Text");
         CheckF = LuaUtility.TableGet<LuaFunction>(table, "checkF");
         CostF = LuaUtility.TableGet<LuaFunction>(table, "costF");
         EffectF = LuaUtility.TableGet<LuaFunction>(table, "effectF");
         MaxActivationsPerTurn = Convert.ToInt32(table["maxActivationsPerTurn"]);
+
+        // Tags = new();
+        // var tagsTable = LuaUtility.TableGet<LuaFunction>(table, "tags");
+        // foreach (var value in tagsTable.Values)
+        //     Tags.Add(value.ToString());
 
         ActivatedThisTurn = 0;
     }

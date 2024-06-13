@@ -4,6 +4,7 @@
     "Type": "Creature",
     "Cost": 1,
     "Attack": 0,
-    "Defense": 4,
+    "Defense": 1,
+    "todo": "add defence back (4)",
     "Text": "When Ethan Allfire leaves play, draw 1 card for each Cornfield Landscape you control."
 }
