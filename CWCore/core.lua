@@ -175,16 +175,16 @@ function CardWars:Card(props)
     end
 
     -- -- PayCosts pipeline
-    -- result.PayCostsP = Core.Pipeline.New()
-    -- result.PayCostsP:AddLayer(
-    --     function (playerI)
-    --         return nil, Common.PayEnergy(result.cost)(playerI)
-    --     end
-    -- )
-    -- function result:PayCosts(playerI)
-    --     local _, res = self.PayCostsP:Exec(playerI)
-    --     return res
-    -- end
+    result.PayCostsP = Core.Pipeline.New()
+    result.PayCostsP:AddLayer(
+        function (playerI)
+            return nil, true
+        end
+    )
+    function result:PayCosts(playerI)
+        local _, res = self.PayCostsP:Exec(playerI)
+        return res
+    end
 
     -- function result:IsUnit()
     --     return string.find(result.type, 'Unit') ~= nil

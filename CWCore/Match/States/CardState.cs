@@ -6,6 +6,7 @@ public class CardState : IStateModifier {
     // TODO for now these are the same, might require to change
     private readonly static string MODIFY_STATE_IN_HAND_FNAME = "ModifyState";
     private readonly static string PLAY_CHECK_FNAME = "CanPlay";
+    private readonly static string PAY_COSTS_FNAME = "PayCosts";
     
     public MatchCard Original { get; }
     public int Cost { get; set; }
@@ -15,6 +16,16 @@ public class CardState : IStateModifier {
     public CardState(MatchCard card) {
         Original = card;
         Cost = Original.Template.Cost;
+    }
+
+    public bool PayCosts(PlayerState player) {
+        var returned = Original.ExecFunction(PAY_COSTS_FNAME, Original.Data, player.Original.Idx);
+        var additionalPayed = LuaUtility.GetReturnAsBool(returned);
+
+        if (!additionalPayed) return false;
+
+        player.Original.PayToPlay(this);
+        return true;
     }
 
     public bool CanPlay(PlayerState player, bool forFree = false) {

@@ -1,7 +1,7 @@
 {
     "Hero": "",
     "Cards": {
-        "Gnome Snot": 10,
+        "Gnome Snot": 0,
         "Archer Dan": 0,
         "Corn Ronin": 0,
         "Husker Knight": 0,
@@ -9,7 +9,7 @@
         "Drooling Dude": 0,
         "Evil Eye": 0,
         "Phyllis": 0,
-        "Silo of Truth": 10,
+        "Silo of Truth": 0,
         "Djini Ghost": 0,
         "Unempty Coffin": 0,
         "Schoolhouse": 0,
@@ -71,7 +71,7 @@
         "Psionic Architect": 0,
         "Woad Blood": 0,
         "Blue Merlock": 0,
-        "Field Reaper": 0,
+        "Field Reaper": 10,
         "Woadic Chief": 0,
         "Legion of Earlings": 0,
         "Patchy the Pumpkin": 0,

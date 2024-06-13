@@ -537,8 +537,13 @@ public class GameMatch {
             return;
         }
 
-        if (!forFree)
-            player.PayToPlay(card);
+        if (!forFree) {
+            var payed = card.PayCosts(playerState);
+            if (!payed) {
+                ActionError($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
+                return;
+            }
+        }
 
         if (owned)
             player.RemoveFromHand(card.Original);
