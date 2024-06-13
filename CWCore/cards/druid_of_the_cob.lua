@@ -5,9 +5,9 @@ function _Create(props)
 
     -- Flooped Creatures you control have +1 ATK.
     Common.State.ModATKDEF(result, function (me)
-        local ownerI = me.Original.OwnerI
+        local controllerI = me.Original.ControllerI
 
-        local creatures = Common.FloopedCreatures(ownerI)
+        local creatures = Common.FloopedCreatures(controllerI)
 
         for _, creature in ipairs(creatures) do
             creature.Attack = creature.Attack + 1

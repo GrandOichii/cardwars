@@ -4,7 +4,7 @@ function _Create(props)
     local result = CardWars:InPlay(props)
 
     Common.State.ModATKDEF(result, function (me)
-        local landscape = STATE.Players[1 - me.Original.OwnerI].Landscapes[me.LaneI]
+        local landscape = STATE.Players[1 - me.Original.ControllerI].Landscapes[me.LaneI]
         if landscape.Creature ~= nil then
             landscape.Creature.Defense = landscape.Creature.Defense - 2
         end

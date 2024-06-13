@@ -7,7 +7,7 @@ function _Create(props)
     Common.State.ModCostInHand(result, function (me)
         local ownerI = me.Original.OwnerI
         local count = Common.SpellsPlayedThisTurnCount(ownerI)
-        Common.Mod.Cost(me, -count)    
+        Common.Mod.Cost(me, -count)
     end)
 
     return result

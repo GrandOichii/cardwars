@@ -360,7 +360,7 @@ end
 function Common.CreaturesNamed(playerI, name)
     return Common.FilterCreatures( function (creature)
         return
-            creature.Original.OwnerI == playerI and
+            creature.Original.ControllerI == playerI and
             creature.Original.Card.Template.Name == name
     end)
 end
@@ -368,7 +368,7 @@ end
 function Common.BuildingsNamed(playerI, name)
     return Common.FilterBuildings(function (building)
         return
-            building.Original.OwnerI == playerI and
+            building.Original.ControllerI == playerI and
             building.Original.Card.Template.Name == name
     end)
 end
@@ -458,28 +458,28 @@ end
 
 function Common.Creatures(playerI)
     return Common.FilterCreatures(function (creature)
-        return creature.Original.OwnerI == playerI
+        return creature.Original.ControllerI == playerI
     end)
 end
 
 function Common.CreaturesExcept(playerI, id)
     return Common.FilterCreatures(function (creature)
         return
-            creature.Original.OwnerI == playerI and
+            creature.Original.ControllerI == playerI and
             creature.Original.Card.ID ~= id
     end)
 end
 
 function Common.Buildings(playerI)
     return Common.FilterBuildings(function (building)
-        return building.Original.OwnerI == playerI
+        return building.Original.ControllerI == playerI
     end)
 end
 
 function Common.FloopedCreatures(playerI)
     return Common.FilterCreatures(function (creature)
         return
-            creature.Original.OwnerI == playerI and
+            creature.Original.ControllerI == playerI and
             creature.Original:IsFlooped()
     end)
 end
@@ -487,7 +487,7 @@ end
 function Common.ExhaustedCreatures(playerI)
     return Common.FilterCreatures(function (creature)
         return
-            creature.Original.OwnerI == playerI and
+            creature.Original.ControllerI == playerI and
             creature.Original.Exhausted
     end)
 end
@@ -601,7 +601,7 @@ end
 function Common.CreaturesTypedExcept(playerI, landscape, id)
     return Common.FilterCreatures(function (creature)
         return
-            creature.Original.OwnerI == playerI and
+            creature.Original.ControllerI == playerI and
             creature:IsType(landscape) and
             creature.Original.Card.ID ~= id
     end)
@@ -610,7 +610,7 @@ end
 function Common.CreaturesThatChangedLanes(playerI)
     return Common.FilterCreatures(function (creature)
         return
-            creature.Original.OwnerI == playerI and
+            creature.Original.ControllerI == playerI and
             creature.Original.MovementCount > 0
     end)
 end
@@ -902,10 +902,10 @@ Common.Triggers = {}
 function Common.Triggers.AtTheStartOfYourTurn(card, effect)
     card:AddTrigger({
         trigger = CardWars.Triggers.TURN_START,
-        checkF = function (me, ownerI, laneI, args)
-            return args.playerI == ownerI
+        checkF = function (me, controllerI, laneI, args)
+            return args.playerI == controllerI
         end,
-        costF = function (me, ownerI, laneI, args)
+        costF = function (me, controllerI, laneI, args)
             return true
         end,
         effectF = effect
@@ -915,10 +915,10 @@ end
 function Common.Triggers.OnAnotherCreatureEnterPlayUnderYourControl(card, effect)
     card:AddTrigger({
         trigger = CardWars.Triggers.CREATURE_ENTER,
-        checkF = function (me, ownerI, laneI, args)
-            return args.ownerI == ownerI and args.laneI ~= laneI
+        checkF = function (me, controllerI, laneI, args)
+            return args.controllerI == controllerI and args.laneI ~= laneI
         end,
-        costF = function (me, ownerI, laneI, args)
+        costF = function (me, controllerI, laneI, args)
             return true
         end,
         effectF = effect

@@ -5,8 +5,8 @@ function _Create(props)
 
     -- Woadic Chief has +2 ATK this turn for each Spell you have played this turn.
     Common.State.ModATKDEF(result, function (me)
-        local ownerI = me.Original.OwnerI
-        local count = Common.SpellsPlayedThisTurnCount(ownerI)
+        local controllerI = me.Original.ControllerI
+        local count = Common.SpellsPlayedThisTurnCount(controllerI)
 
         me.Attack = me.Attack + count * 2
     end)

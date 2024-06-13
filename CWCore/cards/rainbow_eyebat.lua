@@ -3,9 +3,9 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    Common.Triggers.AtTheStartOfYourTurn(result, function (me, ownerI, laneI, args)
-        local amount = #GetUniqueLandscapeNames(ownerI)
-        HealHitPoints(ownerI, amount)
+    Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
+        local amount = #GetUniqueLandscapeNames(controllerI)
+        HealHitPoints(controllerI, amount)
     end)
 
     return result

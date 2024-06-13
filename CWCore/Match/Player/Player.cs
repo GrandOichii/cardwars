@@ -182,7 +182,7 @@ public class Player {
             {"id", creature.Card.ID},
             // TODO "Tiny Elephant"-like effects might ruin this
             {"Original", creature},
-            {"ownerI", Idx},
+            {"controllerI", Idx},
             {"laneI", laneI},
             {"replaced", replaced}
         });

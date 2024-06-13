@@ -5,11 +5,11 @@ function _Create(props)
 
     -- Kernel Queen has +1 ATK for each Flooped Creature you control.
     Common.State.ModATKDEF(result, function (me)
-        local ownerI = me.Original.OwnerI
-        local creatures = Common.FloopedCreatures(ownerI)
-    
+        local controllerI = me.Original.ControllerI
+        local creatures = Common.FloopedCreatures(controllerI)
+
         me.Attack = me.Attack + #creatures
-        me.Defense = me.Defense + #creatures    
+        me.Defense = me.Defense + #creatures
     end)
 
     return result

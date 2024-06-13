@@ -7,14 +7,14 @@ function _Create(props)
         -- At the start of your turn, if Niceasaurus Rex has Damage on it, draw a card.
 
         trigger = CardWars.Triggers.TURN_START,
-        checkF = function (me, ownerI, laneI)
-            return GetCurPlayerI() == ownerI and me.Original.Damage > 0
+        checkF = function (me, controllerI, laneI)
+            return GetCurPlayerI() == controllerI and me.Original.Damage > 0
         end,
-        costF = function (me, ownerI, laneI)
+        costF = function (me, controllerI, laneI)
             return true
             end,
-        effectF = function (me, ownerI, laneI)
-            Draw(ownerI, 1)
+        effectF = function (me, controllerI, laneI)
+            Draw(controllerI, 1)
         end
     })
 

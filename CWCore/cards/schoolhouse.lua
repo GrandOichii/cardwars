@@ -20,6 +20,13 @@ function _Create(props)
             local creature = Common.CreaturesInLane(playerI, laneI)[1]
             local id = creature.Original.Card.ID
 
+            local abilities = Common.FloopAbilitiesOfCreaturesInDiscard(playerI)
+            local a = nil
+            if #abilities > 0 then
+                local idx = Random(1, #abilities + 1)
+                local ability = abilities[idx]
+                a = DynamicActivatedEffect(ability)
+            end
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ABILITY_GRANTING_REMOVAL then
                     local c = GetCreatureOrDefault(id)
@@ -28,10 +35,9 @@ function _Create(props)
                     end
 
                     Common.AbilityGrantingRemoval.RemovaAll(c)
-                    local abilities = Common.FloopAbilitiesOfCreaturesInDiscard(playerI)
-                    local idx = Random(1, #abilities + 1)
-                    local ability = abilities[idx]
-                    local a = DynamicActivatedEffect(ability)
+                    if a == nil then
+                        return
+                    end
                     c.ActivatedEffects:Add(a)
                 end
             end)

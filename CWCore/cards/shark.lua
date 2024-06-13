@@ -7,13 +7,13 @@ function _Create(props)
 
     result:AddTrigger({
         trigger = CardWars.Triggers.CREATURE_ENTER,
-        checkF = function (me, ownerI, laneI, args)
-            return args.ownerI == ownerI and args.Original:IsType(CardWars.Landscapes.SandyLands)
+        checkF = function (me, controllerI, laneI, args)
+            return args.controllerI == controllerI and args.Original:IsType(CardWars.Landscapes.SandyLands)
         end,
-        costF = function (me, ownerI, laneI, args)
+        costF = function (me, controllerI, laneI, args)
             return true
         end,
-        effectF = function (me, ownerI, laneI, args)
+        effectF = function (me, controllerI, laneI, args)
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     local c = GetCreatureOrDefault(args.id)

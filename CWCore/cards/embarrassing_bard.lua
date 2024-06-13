@@ -6,7 +6,6 @@ function _Create(props)
     Common.ActivatedEffects.Floop(result,
         'FLOOP >>> Draw a card for each Flooped Creature you control (including this one).',
         function (me, playerI, laneI)
-            local ownerI = me.Original.OwnerI
             local creatures = Common.FloopedCreatures(playerI)
             Draw(playerI, #creatures)
         end

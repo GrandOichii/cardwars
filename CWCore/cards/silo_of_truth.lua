@@ -12,10 +12,11 @@ function _Create(props)
                 return
             end
 
-            local idx = Random(1, cards.Count + 1)
-            local card = RemoveCardFromHand(opponent, idx)
+            local idx = Random(0, cards.Count)
+            -- local card = RemoveCardFromHand(opponent, idx)
 
-            PlayCardIfPossible(playerI, card, true, false)
+            -- !FIXME throws error
+            -- PlayCardIfPossible(playerI, card, true)
         end
     )
 

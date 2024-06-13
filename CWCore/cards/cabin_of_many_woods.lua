@@ -10,8 +10,8 @@ function _Create(props)
     end)
 
     Common.State.ModATKDEF(result, function (me)
-        local ownerI = me.Original.OwnerI
-        local player = STATE.Players[ownerI]
+        local controllerI = me.Original.ControllerI
+        local player = STATE.Players[controllerI]
         local lane = player.Landscapes[me.LaneI]
 
         if lane.Creature ~= nil then

@@ -4,9 +4,9 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     -- At the start of your turn, deal 1 Damage to target opponent for every 5 cards in your discard pile.
-    Common.Triggers.AtTheStartOfYourTurn(result, function (me, ownerI, laneI, args)
-        local opponentI = 1 - ownerI
-        local player = GetPlayer(ownerI)
+    Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
+        local opponentI = 1 - controllerI
+        local player = GetPlayer(controllerI)
         local discardCount = player.DiscardPile.Count
         if discardCount == 0 then
             return

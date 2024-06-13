@@ -5,9 +5,9 @@ function _Create(props)
 
     -- +2 ATK if you control a Blue Plains Landscape.
     Common.State.ModATKDEF(result, function (me)
-        local ownerI = me.Original.OwnerI
+        local controllerI = me.Original.ControllerI
 
-        local landscapes = Common.LandscapesTyped(ownerI, CardWars.Landscapes.BluePlains)
+        local landscapes = Common.LandscapesTyped(controllerI, CardWars.Landscapes.BluePlains)
         if #landscapes > 0 then
             me.Attack = me.Attack + 2
         end

@@ -4,10 +4,10 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     -- At the start of your turn, you may heal or deal 1 Damage to each Creature you control. (Choose for each Creature.)
-    Common.Triggers.AtTheStartOfYourTurn(result, function (me, ownerI, laneI, args)
-        local ids = Common.IDs(Common.Creatures(ownerI))
+    Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
+        local ids = Common.IDs(Common.Creatures(controllerI))
 
-        local accept = YesNo(ownerI, 'Heal 1 damage to each Creature you control?')
+        local accept = YesNo(controllerI, 'Heal 1 damage to each Creature you control?')
         if accept then
             for _, id in ipairs(ids) do
                 HealDamage(id, 1)
@@ -15,7 +15,7 @@ function _Create(props)
             return
         end
 
-        accept = YesNo(ownerI, 'Deal 1 damage to each Creature you control?')
+        accept = YesNo(controllerI, 'Deal 1 damage to each Creature you control?')
         if accept then
             for _, id in ipairs(ids) do
                 DealDamageToCreature(id, 1)

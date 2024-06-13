@@ -4,8 +4,8 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     Common.State.ModATKDEF(result, function (me)
-        local ownerI = me.Original.OwnerI
-        local opponentI = 1 - ownerI
+        local controllerI = me.Original.ControllerI
+        local opponentI = 1 - controllerI
 
         local opponent = STATE.Players[opponentI]
         local lanes = opponent.Landscapes

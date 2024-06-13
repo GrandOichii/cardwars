@@ -6,8 +6,8 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     Common.Triggers.AtTheStartOfYourTurn(result,
-        function (me, ownerI, laneI, args)
-            Mill(ownerI, 1)
+        function (me, controllerI, laneI, args)
+            Mill(controllerI, 1)
         end
     )
 

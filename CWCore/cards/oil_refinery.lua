@@ -5,11 +5,12 @@ function _Create(props)
 
     -- Your Creature on this Landscape has +2 DEF for each Oil Refinery you control.
     Common.State.ModATKDEF(result, function (me)
-        local creature = STATE.Players[me.Original.OwnerI].Landscapes[me.LaneI].Creature
+        local controllerI = me.Original.ControllerI
+        local creature = STATE.Players[controllerI].Landscapes[me.LaneI].Creature
         if creature == nil then
             return
         end
-        creature.Defense = creature.Defense + #Common.BuildingsNamed(me.Original.OwnerI, 'Oil Refinery')
+        creature.Defense = creature.Defense + #Common.BuildingsNamed(controllerI, 'Oil Refinery')
     end)
 
     return result

@@ -7,25 +7,25 @@ function _Create(props)
         -- At the start of you turn, you may return Ms. Mummy to its owner's hand. If you do, target SandyLands Creature you control gains 1 DEF.",
 
         trigger = CardWars.Triggers.TURN_START,
-        checkF = function (me, ownerI, laneI)
-            return GetCurPlayerI() == ownerI
+        checkF = function (me, controllerI, laneI)
+            return GetCurPlayerI() == controllerI
         end,
-        costF = function (me, ownerI, laneI)
-            local accept = YesNo(ownerI, 'Return Ms.Mummy to its owner\'s hand?')
+        costF = function (me, controllerI, laneI)
+            local accept = YesNo(controllerI, 'Return Ms.Mummy to its owner\'s hand?')
             if not accept then
                 return false
             end
             ReturnCreatureToOwnersHand(me.Original.Card.ID)
             return true
         end,
-        effectF = function (me, ownerI, laneI)
+        effectF = function (me, controllerI, laneI)
             -- TODO? should this be in check
-            local creatures = Common.IDs(Common.CreaturesTyped(ownerI, CardWars.Landscapes.SandyLands))
+            local creatures = Common.IDs(Common.CreaturesTyped(controllerI, CardWars.Landscapes.SandyLands))
             if #creatures == 0 then
                 return
             end
 
-            local target = TargetCreature(ownerI, creatures, 'Choose a creature to add 1 DEF to')
+            local target = TargetCreature(controllerI, creatures, 'Choose a creature to add 1 DEF to')
             local creature = GetCreature(target)
 
             Common.GainDefense(creature, 1)

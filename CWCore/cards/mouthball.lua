@@ -5,8 +5,8 @@ function _Create(props)
 
     -- +2 DEF for every 5 cards in your discard pile.
     Common.State.ModATKDEF(result, function (me)
-        local ownerI = me.Original.OwnerI
-        local player = STATE.Players[ownerI]
+        local controllerI = me.Original.ControllerI
+        local player = STATE.Players[controllerI]
         local discardCount = player.DiscardPile.Count
 
         if discardCount == 0 then

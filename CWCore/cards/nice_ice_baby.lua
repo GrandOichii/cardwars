@@ -5,8 +5,8 @@ function _Create(props)
 
     -- +3 ATK while your opponent does not control a Creature in this Lane.
     Common.State.ModATKDEF(result, function (me)
-        local ownerI = me.Original.OwnerI
-        local opponentI = 1 - ownerI
+        local controllerI = me.Original.ControllerI
+        local opponentI = 1 - controllerI
 
         local opponent = STATE.Players[opponentI]
         local lanes = opponent.Landscapes

@@ -18,7 +18,7 @@ public class PlayAction : IAction
     {
         var player = match.GetPlayerState(playerI);
         foreach (var card in player.Hand) {
-            // if (!card.CanPlay(player)) continue; 
+            if (!card.CanPlay(player)) continue; 
             var result = $"{ActionWord()} {card.Original.ID}";
 
             yield return result;

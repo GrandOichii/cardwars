@@ -4,8 +4,8 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     Common.State.ModATKDEF(result, function (me)
-        local ownerI = me.Original.OwnerI
-        local player = STATE.Players[ownerI]
+        local controllerI = me.Original.ControllerI
+        local player = STATE.Players[controllerI]
         local discardCount = player.DiscardPile.Count
         if discardCount == 0 then
             return

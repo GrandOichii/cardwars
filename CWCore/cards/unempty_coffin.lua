@@ -10,7 +10,6 @@ function _Create(props)
             
             Common.Mod.ModNextCost(playerI, -2,
                 function (card)
-                    print(card)
                     return card.Original.Template.Type == 'Creature'
                 end
             )

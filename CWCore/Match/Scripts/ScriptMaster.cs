@@ -441,7 +441,7 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public void PlayCardIfPossible(int playerI, MatchCard card, bool forFree, bool owned) {
+    public void PlayCardIfPossible(int playerI, MatchCard card, bool forFree) {
         var cardState = new CardState(card);
         _match.PlayCard(playerI, cardState, forFree)
             .Wait();
