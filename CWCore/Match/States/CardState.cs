@@ -17,7 +17,7 @@ public class CardState : IStateModifier {
         Cost = Original.Template.Cost;
     }
 
-    public bool CanPlay(PlayerState player) {
+    public bool CanPlay(PlayerState player, bool forFree=false) {
         // check if have sufficient landscapes
         if (!IsLandscape("Rainbow") && player.Original.Match.Config.CheckLandscapesForPlayingCards) {
             var counts = player.GetLandscapeCounts();

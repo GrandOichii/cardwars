@@ -527,4 +527,62 @@ public class GameMatch {
         // TODO trigger
     }
 
+    public async Task PlayCard(int playerI, string cardId, bool forFree) {
+        var playerState = GetPlayerState(playerI);
+        var player = playerState.Original;
+        var card = playerState.Hand.FirstOrDefault(card => card.Original.ID == cardId);
+        var ap = player.ActionPoints;
+        if (card is null) {
+            var errMsg = $"Player {player.LogFriendlyName} tried to play a card with id {cardId}, which they don't have in their hand";
+            ActionError(errMsg);
+            return;
+        }
+
+        if (!card.CanPlay(playerState)) {
+            var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, which they cant";
+            ActionError(errMsg);
+            return;
+        }
+
+        player.PayToPlay(card);
+        player.RemoveFromHand(card.Original);
+        CardsPlayed.Add(card.Original.LogFriendlyName);
+
+        if (card.Original.IsSpell) {
+            await player.PlaySpellEffect(card.Original);
+
+            player.AddToDiscard(card.Original);
+            return;
+        }
+
+        if (card.Original.IsCreature) {
+            var laneI = await playerState.PickLaneForCreature();
+
+            if (laneI >= Config.LaneCount || laneI < 0) {
+                var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
+                throw new CWCoreException(errMsg);
+            }
+
+            await player.PlaceCreatureInLane(card.Original, laneI);
+
+            return;
+        }
+
+        if (card.Original.IsBuilding) {
+            var laneI = await playerState.PickLaneForBuilding();
+
+            if (laneI >= Config.LaneCount || laneI < 0) {
+                var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
+                throw new CWCoreException(errMsg);
+            }
+
+            await player.PlaceBuildingInLane(card.Original, laneI);
+
+            return;
+        }
+
+        throw new CWCoreException($"Unrecognized card type: {card.Original.Template.Type}");
+
+    }
+
 }
