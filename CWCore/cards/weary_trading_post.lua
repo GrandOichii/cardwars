@@ -4,7 +4,8 @@ function _Create(props)
     local result = CardWars:InPlay(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >> Move an exhausted Creature you control to this Landscape (if empty).
+        text = 'FLOOP >> Move an exhausted Creature you control to this Landscape (if empty).',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             return

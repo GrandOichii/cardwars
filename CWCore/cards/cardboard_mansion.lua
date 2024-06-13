@@ -13,6 +13,7 @@ function _Create(props)
     end)
 
     Common.ActivatedEffects.Floop(result,
+        'Cardboard Mansion costs 1 less to play for every 5 cards in your Discard Pile. FLOOP >>> Gain 1 Action.',
         function (me, playerI, laneI)
             AddActionPoints(playerI, 1)
         end

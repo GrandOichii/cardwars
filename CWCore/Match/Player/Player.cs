@@ -180,6 +180,7 @@ public class Player {
 
         await Match.Emit("creature_enter", new() {
             {"id", creature.Card.ID},
+            {"Original", creature},
             {"ownerI", Idx},
             {"laneI", laneI},
             {"replaced", replaced}

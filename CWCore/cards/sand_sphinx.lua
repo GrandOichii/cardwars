@@ -4,7 +4,8 @@ function _Create(props)
     local result = CardWars:InPlay(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >>> Return a Creature you control in this Lane to its owner's hand.
+        text = 'FLOOP >>> Return a Creature you control in this Lane to its owner\'s hand.',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             return

@@ -8,7 +8,7 @@ function _Create(props)
     result:AddTrigger({
         trigger = CardWars.Triggers.CREATURE_ENTER,
         checkF = function (me, ownerI, laneI, args)
-            return args.ownerI == ownerI and GetCreature(args.id):IsType(CardWars.Landscapes.SandyLands)
+            return args.ownerI == ownerI and args.Original:IsType(CardWars.Landscapes.SandyLands)
         end,
         costF = function (me, ownerI, laneI, args)
             return true

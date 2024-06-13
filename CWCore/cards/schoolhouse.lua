@@ -4,8 +4,9 @@ function _Create(props)
     local result = CardWars:InPlay(props)
 
     result:AddActivatedEffect({
-        Text = 'FLOOP >>> Your Creature in this Lane loses all abilities and gains the FLOOP ability of a random Creature (with a FLOOP ability) in your discard pile until end of turn.',
-        Tags = {'floop'},
+        text = 'FLOOP >>> Your Creature in this Lane loses all abilities and gains the FLOOP ability of a random Creature (with a FLOOP ability) in your discard pile until end of turn.',
+        tags = {'floop'},
+        
         checkF = function (me, playerI, laneI)
             return
                 Common.CanFloop(me) and

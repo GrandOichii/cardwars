@@ -3,8 +3,8 @@
 function _Create(props)
     local result = CardWars:Creature(props)
     
-    -- FLOOP >>> Draw a card, and then discard a card. If you discard a Rainbow card this way, gain 1 Action.
     Common.ActivatedEffects.Floop(result,
+        'FLOOP >>> Draw a card, and then discard a card. If you discard a Rainbow card this way, gain 1 Action.',
         function (me, playerI, laneI)
             Draw(playerI, 1)
             local discardedId = Common.ChooseAndDiscardCard(playerI)

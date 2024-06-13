@@ -4,7 +4,8 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >>> Deal 2 Damage to target opposing Creature in this Lane.
+        text = 'FLOOP >>> Deal 2 Damage to target opposing Creature in this Lane.',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             return

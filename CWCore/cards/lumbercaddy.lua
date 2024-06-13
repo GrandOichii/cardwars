@@ -4,7 +4,8 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >>> Move target Building you control to any Landscape without one.
+        text = 'FLOOP >>> Move target Building you control to any Landscape without one.',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             if not Common.CanFloop(me) then

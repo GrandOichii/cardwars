@@ -10,7 +10,6 @@ public class InPlayCard {
     public readonly static string ON_LEAVE_PLAY_FNAME = "OnLeavePlay";
     public readonly static string ON_MOVE_FNAME = "OnMove";
 
-
     public MatchCard Card { get; }
 
     public bool EnteredThisTurn { get; set; }
@@ -61,5 +60,9 @@ public class InPlayCard {
             prevLaneI,
             newLaneI
         );
+    }
+
+    public bool IsType(string type) {
+        return Card.Template.Landscape == type;
     }
 }

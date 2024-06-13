@@ -1,3 +1,5 @@
+-- TODO fix inconsistent casing - make all lua related stuff lowerCamelCase, all C# stuff already is CamelCase
+
 STATE = {}
 
 -- Core
@@ -122,6 +124,17 @@ function CardWars:Hero(props)
 
     result.ActivatedEffects = {}
     function result:AddActivatedEffect(effect)
+        effect.tags = effect.tags or {}
+        effect.text = effect.text or 'MISSING HERO CARD ACTIVATED ABILITY TEXT'
+        function effect:HasTag(tag)
+            for _, t in ipairs(effect.tags) do
+                if t == tag then
+                    return true
+                end
+            end
+            return false
+        end
+
         effect.maxActivationsPerTurn = effect.maxActivationsPerTurn or -1
         result.ActivatedEffects[#result.ActivatedEffects+1] = effect
     end
@@ -214,21 +227,24 @@ function CardWars:InPlay(props)
 
     result.ActivatedEffects = {}
     function result:AddActivatedEffect(effect)
-        effect.Tags = effect.Tags or {}
-        effect.maxActivationsPerTurn = effect.maxActivationsPerTurn or -1
+        effect.tags = effect.tags or {}
+        effect.text = effect.text or 'MISSING CARD ACTIVATED ABILITY TEXT'
         function effect:HasTag(tag)
-            for _, t in ipairs(effect.Tags) do
+            for _, t in ipairs(effect.tags) do
                 if t == tag then
                     return true
                 end
             end
             return false
         end
+        
+        effect.maxActivationsPerTurn = effect.maxActivationsPerTurn or -1
         result.ActivatedEffects[#result.ActivatedEffects+1] = effect
     end
 
     result.Triggers = {}
     function result:AddTrigger(trigger)
+        trigger.text = trigger.text or 'MISSING ACTIVATED ABILITY TEXT'
         result.Triggers[#result.Triggers+1] = trigger
     end
 
@@ -837,8 +853,9 @@ end
 
 Common.ActivatedEffects = {}
 
-function Common.ActivatedEffects.DestroyMe(card, effect)
+function Common.ActivatedEffects.DestroyMe(card, text, effect)
     card:AddActivatedEffect({
+        text = text,
         checkF = function (me, playerI, laneI)
             return true
         end,
@@ -849,9 +866,10 @@ function Common.ActivatedEffects.DestroyMe(card, effect)
     })
 end
 
-function Common.ActivatedEffects.Floop(card, effect)
+function Common.ActivatedEffects.Floop(card, text, effect)
     card:AddActivatedEffect({
-        Tags = {'floop'},
+        text = text,
+        tags = {'floop'},
         checkF = function (me, playerI, laneI)
             return Common.CanFloop(me)
         end,
@@ -863,8 +881,9 @@ function Common.ActivatedEffects.Floop(card, effect)
     })
 end
 
-function Common.ActivatedEffects.PayActionPoints(card, amount, effect)
+function Common.ActivatedEffects.PayActionPoints(card, amount, text, effect)
     card:AddActivatedEffect({
+        text = text,
         checkF = function (me, playerI, laneI)
             return GetPlayer(playerI).Original.ActionPoints >= amount
         end,
@@ -876,9 +895,10 @@ function Common.ActivatedEffects.PayActionPoints(card, amount, effect)
     })
 end
 
-function Common.ActivatedEffects.DiscardCard(card, effect, maxActivationsPerTurn)
+function Common.ActivatedEffects.DiscardCard(card, text, effect, maxActivationsPerTurn)
     maxActivationsPerTurn = maxActivationsPerTurn or -1
     card:AddActivatedEffect({
+        text = text,
         maxActivationsPerTurn = maxActivationsPerTurn,
         checkF = function (me, playerI, laneI)
             return GetHandCount(playerI) > 0

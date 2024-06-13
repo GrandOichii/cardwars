@@ -4,7 +4,8 @@ function _Create(props)
     local result = CardWars:Creature(props)
     
     result:AddActivatedEffect({
-        -- FLOOP >>> Deal 1 Damage to target Creature. Do this once for each Cornfield Landscape you control. (May only target each Creature once.)
+        text = 'FLOOP >>> Deal 1 Damage to target Creature. Do this once for each Cornfield Landscape you control. (May only target each Creature once.)',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             return Common.CanFloop(me)

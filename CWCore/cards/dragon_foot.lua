@@ -3,20 +3,23 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    -- Discard a card >>> Dragon Foot has +1 ATK this turn. (Use up to five times during each of your turns.)
-    Common.ActivatedEffects.DiscardCard(result, function (me, playerI, laneI)
-        local id = me.Original.Card.ID
-        UntilEndOfTurn(function (layer)
+    Common.ActivatedEffects.DiscardCard(result, 
+        'Discard a card >>> Dragon Foot has +1 ATK this turn. (Use up to five times during each of your turns.)',
 
-            if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                local creature = GetCreatureOrDefault(id)
-                if creature == nil then
-                    return
+        function (me, playerI, laneI)
+            local id = me.Original.Card.ID
+            UntilEndOfTurn(function (layer)
+
+                if layer == CardWars.ModificationLayers.ATK_AND_DEF then
+                    local creature = GetCreatureOrDefault(id)
+                    if creature == nil then
+                        return
+                    end
+                    creature.Attack = creature.Attack + 1
                 end
-                creature.Attack = creature.Attack + 1
-            end
-        end)
-    end, 5)
+            end)
+        end, 5
+    )
 
     return result
 end

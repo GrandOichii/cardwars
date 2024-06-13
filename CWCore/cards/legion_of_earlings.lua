@@ -15,7 +15,6 @@ function _Create(props)
         if not accept then
             return
         end
-
         ReturnCreatureToOwnersHand(target)
     end)
 

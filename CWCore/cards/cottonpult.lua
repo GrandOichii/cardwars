@@ -4,7 +4,8 @@ function _Create(props)
     local result = CardWars:InPlay(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >>> Deal 1 Damage to target Creature. If Cottonpult has 5 or more Damage on it, it heals 1 Damage and readies.
+        text = 'FLOOP >>> Deal 1 Damage to target Creature. If Cottonpult has 5 or more Damage on it, it heals 1 Damage and readies.',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             return

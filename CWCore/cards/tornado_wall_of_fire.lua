@@ -3,8 +3,8 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    -- FLOOP >>> Tornado Wall of Fire has +3 ATK while Flooped.
     Common.ActivatedEffects.Floop(result,
+        'FLOOP >>> Tornado Wall of Fire has +3 ATK while Flooped.',
         function (me, playerI, laneI)
             local id = me.Original.Card.ID
             UntilEndOfTurn(function ( layer)

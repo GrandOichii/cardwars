@@ -3,8 +3,8 @@
 function _Create(props)
     local result = CardWars:InPlay(props)
 
-    -- FLOOP >>> Return a random Creature from your discard pile to your hand.
     Common.ActivatedEffects.Floop(result,
+        'FLOOP >>> Return a random Creature from your discard pile to your hand.',
         function (me, playerI, laneI)
             local idx = Common.RandomCardInDiscard(playerI, function (card)
                     return card.Original.Template.Type == 'Creature'

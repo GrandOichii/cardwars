@@ -3,8 +3,9 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    -- FLOOP >>> Travelin' Skeleton and another Creature you control change Lanes with each other.
     result:AddActivatedEffect({
+        text = 'FLOOP >>> Travelin\' Skeleton and another Creature you control change Lanes with each other.',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             return

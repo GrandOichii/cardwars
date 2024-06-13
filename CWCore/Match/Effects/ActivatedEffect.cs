@@ -17,7 +17,7 @@ public class ActivatedEffect {
 
     public ActivatedEffect(LuaTable table) {
         // TODO add back
-        // Text = LuaUtility.TableGet<string>(table, "Text");
+        // Text = LuaUtility.TableGet<string>(table, "text");
         CheckF = LuaUtility.TableGet<LuaFunction>(table, "checkF");
         CostF = LuaUtility.TableGet<LuaFunction>(table, "costF");
         EffectF = LuaUtility.TableGet<LuaFunction>(table, "effectF");

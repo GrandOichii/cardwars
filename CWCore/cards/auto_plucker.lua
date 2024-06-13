@@ -5,6 +5,10 @@ function _Create(props)
 
     -- FLOOP >>> Heal or deal 1 Damage to your Creature in this Lane.
     result:AddActivatedEffect({
+        text = 'FLOOP >>> Heal or deal 1 Damage to your Creature in this Lane.',
+        tags = {'floop'},
+
+
         checkF = function (me, playerI, laneI)
             return
                 Common.CanFloop(me) and

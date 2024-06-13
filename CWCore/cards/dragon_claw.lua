@@ -4,7 +4,8 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >>> Move a Creature you control to an empty Lane.
+        text = 'FLOOP >>> Move a Creature you control to an empty Lane.',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             if not Common.CanFloop(me) then

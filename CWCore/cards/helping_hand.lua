@@ -4,7 +4,8 @@ function _Create(props)
     local result = CardWars:InPlay(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >>> Return a Building from your discard pile to your hand.
+        text = 'FLOOP >>> Return a Building from your discard pile to your hand.',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             return

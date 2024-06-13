@@ -3,8 +3,9 @@
 function _Create(props)
     local result = CardWars:InPlay(props)
 
-    -- FLOOP >>> Move a Creature in an adjacent Lane to this Lane (if empty).
     result:AddActivatedEffect({
+        text = 'FLOOP >>> Move a Creature in an adjacent Lane to this Lane (if empty).',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             return

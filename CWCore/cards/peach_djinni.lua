@@ -10,7 +10,7 @@ function _Create(props)
             return
                 args.ownerI == ownerI and
                 args.laneI ~= laneI and
-                STATE.Players[args.ownerI].Landscapes[args.laneI].Creature:IsType(CardWars.Landscapes.SandyLands)
+                args.Original:IsType(CardWars.Landscapes.SandyLands)
         end,
         costF = function (me, ownerI, laneI, args)
             return true

@@ -553,11 +553,11 @@ public class Program {
 
     public static async Task Main(string[] args) {
 
-        await SimpleConsole();
-        return;
-
-        // await TestRandom(0, 100);
+        // await SimpleConsole();
         // return;
+
+        await TestRandom(0, 100);
+        return;
 
         var view = new CursesView();
         var seed = 1;

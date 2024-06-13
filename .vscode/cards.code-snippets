@@ -43,10 +43,12 @@
 		"description": "add floop ability",
 		"body": [
 			"result:AddActivatedEffect({",
+			"\ttext = '$1',",
+			"\ttags = {'floop'},",
 			"\tcheckF = function (me, playerI, laneI)",
 			"\t\treturn",
 			"\t\t\tCommon.CanFloop(me) and",
-			"\t\t\t${1}",
+			"\t\t\t${2}",
 			"\tend,",
 			"\tcostF = function (me, playerI, laneI)",
 			"\t\tFloopCard(me.Original.Card.ID)",

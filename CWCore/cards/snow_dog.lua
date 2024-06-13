@@ -3,8 +3,8 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    -- FLOOP >>> Each adjacent Creature has +2 ATK this turn.
     Common.ActivatedEffects.Floop(result,
+        'FLOOP >>> Each adjacent Creature has +2 ATK this turn.',
         function (me, playerI, laneI)
             local id = me.Original.Card.ID
             UntilEndOfTurn(function (layer)

@@ -3,9 +3,9 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    -- FLOOP >>> Destroy target Building in Archer Dan's Lane.
-    -- TODO add activated abiltity
     result:AddActivatedEffect({
+        text = 'FLOOP >>> Destroy target Building in Archer Dan\'s Lane.',
+        tags = {'floop'},
         checkF = function (me, playerI, laneI)
             return
                 Common.CanFloop(me) and

@@ -4,7 +4,8 @@ function _Create(props)
     local result = CardWars:Hero(props)
 
     result:AddActivatedEffect({
-        -- Discard a card from you hand >>> Deal 1 Damage to target Creature.
+        text = 'Discard a card from you hand >>> Deal 1 Damage to target Creature.',
+        tags = {'floop'},
 
         maxActivationsPerTurn = -1,
         checkF = function (playerI)

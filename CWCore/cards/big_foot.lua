@@ -4,7 +4,9 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >>> Flip target face-down Landscape you control face up. 
+        text = 'FLOOP >>> Flip target face-down Landscape you control face up. ',
+        tags = {'floop'},
+
 
         checkF = function (me, playerI, laneI)
             if not Common.CanFloop(me) then

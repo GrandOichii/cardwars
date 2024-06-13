@@ -3,8 +3,8 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    -- Pay 1 Action >>> Target Creature in this Lane has -10 ATK this turn.
     Common.ActivatedEffects.PayActionPoints(result, 1,
+        'Pay 1 Action >>> Target Creature in this Lane has -10 ATK this turn.',
         function (me, playerI, laneI)
             local options = Common.AllPlayers.CreaturesInLane(laneI)
 

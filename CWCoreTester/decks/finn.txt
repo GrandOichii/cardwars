@@ -20,5 +20,4 @@
 + 1 Woadic Chief
 + 1 Heavenly Gazer
 + 2 Ancient Scholar
-
-1 Schoolhouse - ability removal, ability granting
++ 1 Schoolhouse

@@ -1,20 +1,27 @@
--- Status: implemented
+-- Status: not tested
 
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    -- FLOOP >>> Put a Spell from your discard pile on top of your deck.
-    Common.ActivatedEffects.Floop(result,
-        function (me, playerI, laneI)
+    result:AddActivatedEffect({
+        text = 'FLOOP >>> Put a Spell from your discard pile on top of your deck.',
+        tags = {'floop'},
+
+        checkF = function (me, playerI, laneI)
+            return
+                Common.CanFloop(me) and
+                #Common.DiscardPileCardIndicies(playerI, function (card)
+                    return card.Original.Template.Type == 'Spell'
+                end) > 0
+        end,
+        costF = function (me, playerI, laneI)
+            FloopCard(me.Original.Card.ID)
+            return true
+        end,
+        effectF = function (me, playerI, laneI)
             local ids = Common.DiscardPileCardIndicies(playerI, function (card)
                 return card.Original.Template.Type == 'Spell'
             end)
-
-            -- TODO replace with additional check in activated effect
-            if #ids == 0 then
-                return
-            end
-
             local choice = ChooseCardInDiscard(playerI, ids, {}, 'Choose a Rainbow card to place on top of your deck')
             local pI = choice[0]
             if pI ~= playerI then
@@ -25,8 +32,9 @@ function _Create(props)
             local id = choice[1]
 
             PlaceFromDiscardOnTopOfDeck(playerI, id)
+
         end
-    )
+    })
 
     return result
 end

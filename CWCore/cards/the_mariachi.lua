@@ -4,7 +4,8 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >>> Deal 1 Damage to target Creature for each Creature that entered play this turn.
+        text = 'FLOOP >>> Deal 1 Damage to target Creature for each Creature that entered play this turn.',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             return Common.CanFloop(me)
@@ -14,7 +15,7 @@ function _Create(props)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            -- TODO rework, doesn't count the creatures that were replaced
+            -- !FIXME rework, doesn't count the creatures that were replaced
             local creatures = Common.FilterCreatures( function (creature) return creature.Original.EnteredThisTurn end)
             local amount = #creatures
             local ids = Common.IDs(Common.FilterCreatures( function (creature) return true end))

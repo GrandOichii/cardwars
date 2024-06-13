@@ -5,7 +5,8 @@ function _Create(props)
     local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
-        -- FLOOP >>> Return a card with cost 0 from your discard pile to your hand.
+        text = 'FLOOP >>> Return a card with cost 0 from your discard pile to your hand.',
+        tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
             return
