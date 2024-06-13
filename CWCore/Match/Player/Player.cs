@@ -180,6 +180,7 @@ public class Player {
 
         await Match.Emit("creature_enter", new() {
             {"id", creature.Card.ID},
+            // TODO "Tiny Elephant"-like effects might ruin this
             {"Original", creature},
             {"ownerI", Idx},
             {"laneI", laneI},

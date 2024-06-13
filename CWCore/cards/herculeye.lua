@@ -1,5 +1,4 @@
 -- Status: not tested
--- TODO copied code from Dragon Foot
 
 function _Create(props)
     local result = CardWars:Creature(props)
