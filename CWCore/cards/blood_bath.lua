@@ -12,8 +12,7 @@ function _Create(props)
             if #cards > 0 then
                 local accept = YesNo(target, 'Discard a card? (2 Damage to each of your Creatures otherwise)')
                 if accept then
-                    -- !FIXME throws error
-                    -- Common.ChooseAndDiscardCard(playerI)
+                    Common.ChooseAndDiscardCard(target)
                     return
                 end
             end

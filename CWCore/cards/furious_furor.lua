@@ -3,11 +3,18 @@
 function _Create(props)
     local result = CardWars:Spell(props)
 
+    Common.AddRestriction(result,
+        function (playerI)
+            return nil, #Common.AllPlayers.Creatures() > 0
+        end
+    )
+
     result.EffectP:AddLayer(
         function (playerI)
             -- Target Creature has +2 ATK this turn for each Flooped Creature you control.
 
             local ids = Common.IDs(Common.AllPlayers.Creatures())
+
             local target = TargetCreature(playerI, ids, 'Choose creature to buff')
 
             UntilEndOfTurn(function (layer)

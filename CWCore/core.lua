@@ -698,6 +698,7 @@ function Common.ChooseAndDiscardCard(playerI, hint)
 
     local result = ChooseCardInHand(playerI, ids, 'Choose a card to discard')
     local cardId = STATE.Players[playerI].Hand[result].Original.ID
+
     DiscardFromHand(playerI, result)
 
     return cardId

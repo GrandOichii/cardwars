@@ -12,7 +12,7 @@ function _Create(props)
                 return
             end
 
-            Common.DiscardNCards(opponent, count)
+            Common.DiscardNCards(opponent, math.floor(count / 2))
         end
     )
 

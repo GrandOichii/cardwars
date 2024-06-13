@@ -531,7 +531,6 @@ public class GameMatch {
         var playerState = GetPlayerState(playerI);
         var player = playerState.Original;
         var owned = playerI == card.Original.OwnerI;
-
         if (!card.CanPlay(playerState, forFree)) {
             var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, which they cant";
             ActionError(errMsg);

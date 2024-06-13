@@ -10,15 +10,14 @@ function _Create(props)
 
             -- flipping
 
-            local lanes = Common.FaceDownLandscapes(playerI)
+            local lanes = Common.Lanes(Common.FaceDownLandscapes(playerI))
 
             if #lanes ~= 0 then
-                -- !FIXME threw error
-                -- local lane = ChooseLandscape(playerI, lanes, {}, 'Choose a Cornfield Landscape to flip face-up')
-                -- local accept = YesNo(playerI, 'Flip landscape face-up?')
-                -- if accept then
-                --     TurnLandscapeFaceUp(lane[0], lane[1])
-                -- end
+                local lane = ChooseLandscape(playerI, lanes, {}, 'Choose a Cornfield Landscape to flip face-up')
+                local accept = YesNo(playerI, 'Flip landscape face-up?')
+                if accept then
+                    TurnLandscapeFaceUp(lane[0], lane[1])
+                end
             end
 
             -- movement 
