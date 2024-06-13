@@ -537,16 +537,21 @@ public class GameMatch {
             return;
         }
 
+        if (owned)
+            player.RemoveFromHand(card.Original);
+        await player.Match.ReloadState();
+
         if (!forFree) {
+
             var payed = card.PayCosts(playerState);
             if (!payed) {
+                // TODO? is this required? could break
+                if (owned)
+                    player.Hand.Add(card.Original);
                 ActionError($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
                 return;
             }
         }
-
-        if (owned)
-            player.RemoveFromHand(card.Original);
 
         CardsPlayed.Add(card.Original.LogFriendlyName);
 

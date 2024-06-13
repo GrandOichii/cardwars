@@ -21,6 +21,6 @@
 + 2 Patchy the Pumpkin
 + 2 Reclaim Landscape
 + 1 Archer Dan
++ 1 Silo of Truth
 
 1 Field Reaper - creature targeting, additional cost to play, creature movement, creature stealing
-1 Silo of Truth - hand card stealing, playing stolen cards, modifying card cost
