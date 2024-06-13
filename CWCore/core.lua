@@ -823,6 +823,33 @@ function Common.Mod.Cost(me, amount)
     end
 end
 
+function Common.Mod.ModNextCost(playerI, amount, predicate)
+    local rememberedIdx = STATE.Players[playerI].CardsPlayedThisTurn.Count
+    UntilEndOfTurn(function (layer)
+        if layer ~= CardWars.ModificationLayers.CARD_COST then
+            return
+        end
+
+        local newPlayed = STATE.Players[playerI].CardsPlayedThisTurn
+        if newPlayed.Count > rememberedIdx then
+            for i = rememberedIdx, newPlayed.Count - 1 do
+                local card = newPlayed[i]
+                if predicate(card) then
+                    return
+                end
+            end
+        end
+
+        local cards = STATE.Players[playerI].Hand
+        for i = 0, cards.Count - 1 do
+            local card = cards[i]
+            if predicate(card) then
+                Common.Mod.Cost(card, amount)
+            end
+        end
+    end)
+end
+
 Common.Triggers = {}
 
 function Common.Triggers.AtTheStartOfYourTurn(card, effect)

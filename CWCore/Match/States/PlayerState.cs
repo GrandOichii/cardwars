@@ -7,6 +7,7 @@ public class PlayerState : IStateModifier {
     public List<LandscapeState> Landscapes { get; } = new();
     public List<CardState> DiscardPile { get; } = new();
     public List<CardState> Hand { get; } = new();
+    public List<CardState> CardsPlayedThisTurn { get; } = new();
     
     public PlayerState(Player player) {
         Original = player;
@@ -24,6 +25,11 @@ public class PlayerState : IStateModifier {
         // discard
         foreach (var card in player.DiscardPile) {
             DiscardPile.Add(new(card));
+        }
+
+        // cards played this turn
+        foreach (var card in player.CardsPlayedThisTurn) {
+            CardsPlayedThisTurn.Add(new(card));
         }
     }
     

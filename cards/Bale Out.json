@@ -3,5 +3,5 @@
     "Landscape": "Cornfield",
     "Type": "Spell",
     "Cost": 1,
-    "Text": "When target Creature attacks this turn, if it would leave play  during the Fight Phase, remove all Damage from it instead."
+    "Text": "When target Creature attacks this turn, if it would leave play during the Fight Phase, remove all Damage from it instead."
 }

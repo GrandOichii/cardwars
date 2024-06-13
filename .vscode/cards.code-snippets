@@ -229,6 +229,7 @@
 		"description": "add short floop ability",
 		"body": [
 			"Common.ActivatedEffects.Floop(result,",
+			"\t'$1',",
 			"\tfunction (me, playerI, laneI)",
 			"\t\t$0",
 			"\tend",

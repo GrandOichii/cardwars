@@ -80,6 +80,34 @@ Cards in Card Wars can have the following effects:
     - (1) Triggers that let you return the card to it's owners hand AS COST
     - (1) Cost modification of the next card being played
 
+= Complicated effects =
+Some of the more complicated effects to implement:
+    - (1) additional costs to play card
+    - (1) teammates
+    - (1) disabling flipping landscapes by opponent's effects
+    - (1) playing cards for free
+    - (1) forcing to play cards
+    - (1) "Text": "When target Creature attacks this turn, if it would leave play during the Fight Phase, remove all Damage from it instead."
+    - (1) deck card revealing
+    - (1) damage modification
+    - (1) removing cards from game
+    - (1) moving damage
+    - (1) allowing to play multiple buildings on a landscape
+    - (1) putting cards underneath of other cards
+    - (2) disabling targeting by opponents' spells (does choosing count?)
+    - (1) creature type changing
+    - (2) conditional next card played cost modification
+    - (1) disabling targeting by opponents' creature abilities (does choosing count?)
+    - (1) reorganizing top cards of a player's deck
+    - (1) searching for the first specific card in a deck, putting it into play
+    - (1) Friendly Creatures have +1 ATK until the start of the Fight Phase. Then each Creature deals Damage equal to its ATK to the opposing Creature in its Lane. 
+    Djini Ghost
+    - (1)
+    - (1)
+    - (1)
+    - (1)
+    - (1)
+
 -= General game system design =-
 The game state will be managed by state based effects. To calculate state, the match will have to check all creatures/buildings/eot effects.
 Each creature has a enteredThisTurn field
