@@ -48,6 +48,8 @@
         "TargetBuilding",
         "DestroyBuilding",
         "DestroyCreature",
-        "DynamicActivatedEffect"
+        "DynamicActivatedEffect",
+        "RemoveCardFromHand",
+        "PlayCardIfPossible"
     ]
 }

@@ -16,14 +16,13 @@ public class InPlayCard {
     public int MovementCount { get; set; }
 
     public bool Exhausted { get; set; }
-    public int ControllerI { get; set; }
-    public int OwnerI { get; }
+    public int ControllerI { get; }
     public List<ActivatedEffect> ActivatedEffects { get; }
     public List<TriggeredEffect> TriggeredEffects { get; }
 
-    public InPlayCard(MatchCard card, int ownerI) {
+    public InPlayCard(MatchCard card, int controllerI) {
         Card = card;
-        OwnerI = ownerI;
+        ControllerI = controllerI;
 
         ActivatedEffects = new();
         var effects = LuaUtility.TableGet<LuaTable>(card.Data, "ActivatedEffects");

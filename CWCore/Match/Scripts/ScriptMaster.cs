@@ -431,4 +431,19 @@ public class ScriptMaster {
     public ActivatedEffect DynamicActivatedEffect(LuaTable table) {
         return new ActivatedEffect(table);
     }
+
+    [LuaCommand]
+    public MatchCard RemoveCardFromHand(int playerI, int cardI) {
+        var player = _match.GetPlayer(playerI);
+        var card = player.Hand[cardI];
+        player.Hand.RemoveAt(cardI);
+        return card;
+    }
+
+    [LuaCommand]
+    public void PlayCardIfPossible(int playerI, MatchCard card, bool forFree, bool owned) {
+        var cardState = new CardState(card);
+        _match.PlayCard(playerI, cardState, forFree)
+            .Wait();
+    }
 }

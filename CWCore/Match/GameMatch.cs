@@ -246,7 +246,7 @@ public class GameMatch {
 
     public async Task DestroyCreature(string id) {
         var creature = GetInPlayCreature(id);
-        var player = GetPlayerState(creature.Original.OwnerI);
+        var player = GetPlayerState(creature.Original.ControllerI);
         var landscape = player.Landscapes[creature.LaneI];
         await DestroyCreature(player, landscape);
     }
@@ -268,7 +268,7 @@ public class GameMatch {
 
     public async Task DestroyBuilding(string id) {
         var building = GetInPlayBuilding(id);
-        var player = GetPlayerState(building.Original.OwnerI);
+        var player = GetPlayerState(building.Original.ControllerI);
         var landscape = player.Landscapes[building.LaneI];
         await DestroyBuilding(player, landscape);
     }
@@ -470,13 +470,13 @@ public class GameMatch {
         var creature1 = GetInPlayCreature(id1);
         var creature2 = GetInPlayCreature(id2);
 
-        var landscape1 = Players[creature1.Original.OwnerI].Landscapes[creature1.LaneI];
-        var landscape2 = Players[creature2.Original.OwnerI].Landscapes[creature2.LaneI];
+        var landscape1 = Players[creature1.Original.ControllerI].Landscapes[creature1.LaneI];
+        var landscape2 = Players[creature2.Original.ControllerI].Landscapes[creature2.LaneI];
 
         (landscape1.Creature, landscape2.Creature) = (landscape2.Creature, landscape1.Creature);
 
-        landscape1.Creature!.ProcessMove(creature1.Original.OwnerI, landscape2.Idx, landscape1.Idx);
-        landscape2.Creature!.ProcessMove(creature2.Original.OwnerI, landscape1.Idx, landscape2.Idx);
+        landscape1.Creature!.ProcessMove(creature1.Original.ControllerI, landscape2.Idx, landscape1.Idx);
+        landscape2.Creature!.ProcessMove(creature2.Original.ControllerI, landscape1.Idx, landscape2.Idx);
     }
 
     public async Task MoveBuilding(string buildingId, int toI) {
@@ -527,31 +527,30 @@ public class GameMatch {
         // TODO trigger
     }
 
-    public async Task PlayCard(int playerI, string cardId, bool forFree) {
+    public async Task PlayCard(int playerI, CardState card, bool forFree) {
         var playerState = GetPlayerState(playerI);
         var player = playerState.Original;
-        var card = playerState.Hand.FirstOrDefault(card => card.Original.ID == cardId);
-        var ap = player.ActionPoints;
-        if (card is null) {
-            var errMsg = $"Player {player.LogFriendlyName} tried to play a card with id {cardId}, which they don't have in their hand";
-            ActionError(errMsg);
-            return;
-        }
+        var owned = playerI == card.Original.OwnerI;
 
-        if (!card.CanPlay(playerState)) {
+        if (!card.CanPlay(playerState, forFree)) {
             var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, which they cant";
             ActionError(errMsg);
             return;
         }
 
-        player.PayToPlay(card);
-        player.RemoveFromHand(card.Original);
+        if (!forFree)
+            player.PayToPlay(card);
+
+        if (owned)
+            player.RemoveFromHand(card.Original);
+
         CardsPlayed.Add(card.Original.LogFriendlyName);
 
         if (card.Original.IsSpell) {
             await player.PlaySpellEffect(card.Original);
 
-            player.AddToDiscard(card.Original);
+            GetPlayer(card.Original.OwnerI).AddToDiscard(card.Original);
+
             return;
         }
 
@@ -583,6 +582,17 @@ public class GameMatch {
 
         throw new CWCoreException($"Unrecognized card type: {card.Original.Template.Type}");
 
+    }
+
+    public async Task PlayCard(int playerI, string cardId, bool forFree) {
+        var playerState = GetPlayerState(playerI);
+        var card = playerState.Hand.FirstOrDefault(card => card.Original.ID == cardId);
+        if (card is null) {
+            var errMsg = $"Player {playerState.Original.LogFriendlyName} tried to play a card with id {cardId}, which they don't have in their hand";
+            ActionError(errMsg);
+            return;
+        }
+        await PlayCard(playerI, card, forFree);
     }
 
 }

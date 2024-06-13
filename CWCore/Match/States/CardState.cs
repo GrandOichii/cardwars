@@ -17,9 +17,9 @@ public class CardState : IStateModifier {
         Cost = Original.Template.Cost;
     }
 
-    public bool CanPlay(PlayerState player, bool forFree=false) {
+    public bool CanPlay(PlayerState player, bool forFree = false) {
         // check if have sufficient landscapes
-        if (!IsLandscape("Rainbow") && player.Original.Match.Config.CheckLandscapesForPlayingCards) {
+        if (!forFree && !IsLandscape("Rainbow") && player.Original.Match.Config.CheckLandscapesForPlayingCards) {
             var counts = player.GetLandscapeCounts();
             var landscape = Original.Template.Landscape;
 
@@ -44,7 +44,7 @@ public class CardState : IStateModifier {
         if (!LuaUtility.GetReturnAsBool(result))
             return false;
 
-        return player.Original.ActionPoints >= Cost;
+        return forFree || player.Original.ActionPoints >= Cost;
     }
 
     public bool IsLandscape(string landscape) {

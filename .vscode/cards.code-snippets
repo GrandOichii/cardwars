@@ -101,7 +101,7 @@
 		"prefix": "turnstart",
 		"description": "turn start trigger",
 		"body": [
-			"Common.Triggers.AtTheStartOfYourTurn(result, function (me, ownerI, laneI, args)",
+			"Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)",
 			"\t$0",
 			"end)"
 		]
