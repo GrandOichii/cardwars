@@ -104,6 +104,7 @@ CardWars.ModificationLayers = {
     LANDSCAPE_TYPE = 3,
     CARD_COST = 4,
     ABILITY_GRANTING_REMOVAL = 5,
+    LANDSCAPE_FLIP_DOWN_AVAILABILITY = 6,
 }
 
 -- Card Types
@@ -528,6 +529,31 @@ function Common.FaceDownLandscapes(playerI)
     return result
 end
 
+function Common.FaceUpLandscapes(playerI)
+    local result = {}
+    local landscapes = STATE.Players[playerI].Landscapes
+
+    for i = 1, landscapes.Count do
+        local landscape = landscapes[i - 1]
+        if not landscape.Original.FaceDown then
+            result[#result+1] = landscape
+        end
+    end
+    return result
+end
+
+function Common.AvailableToFlipDownLandscapes(landscapeOwnerI, byI)
+    local landscapes = Common.FaceUpLandscapes(landscapeOwnerI)
+    -- TODO
+    return landscapes
+end
+
+function Common.AvailableToFlipDownLandscapesTyped(landscapeOwnerI, byI, type)
+    local landscapes = Common.LandscapesTyped(landscapeOwnerI, type)
+    -- TODO
+    return landscapes
+end
+
 function Common.Lanes(landscapes)
     local result = {}
     for _, landscape in ipairs(landscapes) do
@@ -614,7 +640,7 @@ function Common.CreaturesWithBuildings(playerI)
     return result
 end
 
-function Common.LandscapesOfTypeInLane(type, laneI)
+function Common.LandscapesInLaneTyped(type, laneI)
     local result = {}
     for i = 1, 2 do
         local landscapes = STATE.Players[i - 1].Landscapes
@@ -624,6 +650,27 @@ function Common.LandscapesOfTypeInLane(type, laneI)
             result[i] = {landscapes[laneI]}
         end
     end
+    return result
+end
+
+function Common.AvailableToFlipDownLandscapesInLaneTyped(playerI, type, laneI)
+    local tuple = Common.LandscapesInLaneTyped(type, laneI)
+
+    local result = {}
+    for i, lanes in ipairs(tuple) do
+        local t = {}
+        for _, landscape in ipairs(lanes) do
+            if Common.Flip.CanFlipDown(landscape, playerI) then
+                t[#t+1] = landscape
+            end
+        end
+        if playerI == 0 then
+            result[i] = t
+        else
+            result[3 - i] = t
+        end
+    end
+
     return result
 end
 
@@ -981,4 +1028,15 @@ function Common.AbilityGrantingRemoval.RemovaAll(card)
     data.OnLeavePlay = function(...) end
     data.OnMove = function(...) end
     data.ModifyState = function(...) end
+end
+
+Common.Flip = {}
+
+function Common.Flip.CanFlipDown(landscape, playerI)
+    return landscape.CanFlipDown:Contains(playerI)
+end
+
+function Common.Flip.DisallowFlipDownFor(landscape, playerI)
+    local allowed = landscape.CanFlipDown
+    allowed:Remove(playerI)
 end

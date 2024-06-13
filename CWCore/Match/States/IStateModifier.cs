@@ -8,6 +8,7 @@ public enum ModificationLayer {
     LANDSCAPE_TYPE,
     CARD_COST,
     ABILITY_GRANTING_REMOVAL,
+    LANDSCAPE_FLIP_DOWN_AVAILABILITY,
 }
 
 public interface IStateModifier {

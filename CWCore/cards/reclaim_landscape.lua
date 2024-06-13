@@ -1,4 +1,5 @@
 -- Status: not tested
+-- TODO add support for "cannot be flipped"
 
 function _Create(props)
     local result = CardWars:Spell(props)
@@ -9,7 +10,7 @@ function _Create(props)
 
             -- flipping
 
-            local lanes = Common.Lanes(Common.FaceDownLandscapes(playerI))
+            local lanes = Common.AvailableToFlipDownLandscapes(playerI)
 
             if #lanes ~= 0 then
                 local lane = ChooseLandscape(playerI, lanes, {}, 'Choose a Cornfield Landscape to flip face-up')

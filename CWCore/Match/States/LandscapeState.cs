@@ -8,6 +8,7 @@ public class LandscapeState : IStateModifier {
     public Landscape Original { get; }
     public CreatureState? Creature { get; set; }
     public InPlayCardState? Building { get; set; }
+    public List<int> CanFlipDown { get; set; }
 
     public LandscapeState(Landscape landscape, int laneI) {
         Original = landscape;
@@ -25,6 +26,10 @@ public class LandscapeState : IStateModifier {
         
         CanPlayBuilding = !isFrozen;
         CanPlayCreature = !isFrozen;
+
+        CanFlipDown = new() {
+            0, 1
+        };
     }
 
     public void Modify(ModificationLayer layer)

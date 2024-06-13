@@ -11,7 +11,7 @@ function _Create(props)
             return
         end
         local lanes = Common.Lanes(empty)
-        local choice = ChooseLandscape(ownerI, lanes, {}, 'Choose a Cornfield lane to flip face down')
+        local choice = ChooseLandscape(ownerI, lanes, {}, 'Choose a landscape to move '..me.Original.Card.LogFriendlyName..' to')
         if choice[0] ~= ownerI then
             error('tried to choose opponent\'s card (Drained Cleric)')
         end

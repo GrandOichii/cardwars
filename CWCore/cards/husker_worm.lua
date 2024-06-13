@@ -1,4 +1,4 @@
--- Status: not implemented
+-- Status: not tested
 
 function _Create(props)
     local result = CardWars:Creature(props)
@@ -6,7 +6,7 @@ function _Create(props)
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
         -- When Husker Worm enters play, flip a Cornfield Landscape you control face down.
 
-        local options = Common.Lanes(Common.LandscapesTyped(playerI, CardWars.Landscapes.Cornfield))
+        local options = Common.Lanes(Common.AvailableToFlipDownLandscapesTyped(playerI, playerI, CardWars.Landscapes.Cornfield))
         if #options == 0 then
             return
         end

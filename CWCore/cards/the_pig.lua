@@ -1,4 +1,5 @@
 -- Status: not tested
+-- TODO add support for "cannot be flipped"
 
 function _Create(props)
     local result = CardWars:Creature(props)
@@ -11,7 +12,7 @@ function _Create(props)
             if not Common.CanFloop(me) then
                 return false
             end
-            local options = Common.LandscapesOfTypeInLane(CardWars.Landscapes.Cornfield, laneI)
+            local options = Common.AvailableToFlipDownLandscapesInLaneTyped(playerI, CardWars.Landscapes.Cornfield, laneI)
             return #options[1] + #options[2] > 0
         end,
         costF = function (me, playerI, laneI)
@@ -19,7 +20,7 @@ function _Create(props)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local os = Common.LandscapesOfTypeInLane(CardWars.Landscapes.Cornfield, laneI)
+            local os = Common.AvailableToFlipDownLandscapesInLaneTyped(playerI, CardWars.Landscapes.Cornfield, laneI)
             local options = Common.Lanes(os[1])
             local opponentOptions = Common.Lanes(os[2])
 
