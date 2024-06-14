@@ -9,7 +9,7 @@ public class Creature : InPlayCard {
     public int Defense { get; set; }
     public int Damage { get; set; }
 
-    public Creature(MatchCard card, int ownerI) : base(card, ownerI) {
+    public Creature(MatchCard card, int controllerI) : base(card, controllerI) {
         Attack = card.Template.Attack;
         Defense = card.Template.Defense;
         Damage = 0;

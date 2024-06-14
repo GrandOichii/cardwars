@@ -159,8 +159,8 @@
 		"prefix": "targetcreature",
 		"description": "target creature",
 		"body": [
-			"local ids = Common.IDs(Common.Targetable(${1:playerI}, ${2:Common.AllPlayers.Creatures()}))",
-            "local target = ${3:TargetCreature}(playerI, ids, '$4')",
+			"local ids = Common.IDs(${1:Common.AllPlayers.Creatures()})",
+            "local target = ${2:targetCreature}(playerI, ids, '$3')",
 			"$0"
 		]
 	},

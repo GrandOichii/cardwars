@@ -264,14 +264,18 @@ function CardWars:InPlay(props)
 
     result.OnMoveP = Core.Pipeline:New()
     result.OnMoveP:AddLayer(
-        function(playerI, fromI, toI)
-            LogInfo('Creature '..result.name .. ' moves from ' ..fromI..' to '..toI)
+        function(playerI, fromI, toI, stolen)
+            local s = 'false'
+            if stolen then
+                s = 'true'
+            end
+            LogInfo('Creature '..result.name .. ' moves from ' ..fromI..' to '..toI..' (stolen: '..s..')')
             return nil, true
         end
     )
 
-    function result:OnMove(playerI, fromI, toI)
-        self.OnMoveP:Exec(playerI, fromI, toI)
+    function result:OnMove(playerI, fromI, toI, stolen)
+        self.OnMoveP:Exec(playerI, fromI, toI, stolen)
     end
 
     return result
@@ -351,7 +355,6 @@ function Common.FilterLandscapes(predicate)
 
     return result
 end
-
 
 function Common.CreaturesNamed(playerI, name)
     return Common.FilterCreatures( function (creature)
@@ -860,11 +863,6 @@ function Common.AllPlayers.FloopedCreatures()
     return Common.FilterCreatures(function (creature)
         return creature.Original:IsFlooped()
     end)
-end
-
-function Common.Targetable(playerI, tableArr)
-    -- TODO
-    return tableArr
 end
 
 Common.Mod = {}

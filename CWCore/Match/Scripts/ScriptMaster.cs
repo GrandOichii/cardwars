@@ -232,7 +232,7 @@ public class ScriptMaster {
 
     [LuaCommand]
     public string TargetCreature(int playerI, LuaTable optionsTable, string hint) {
-        // TODO? should be different
+        // TODO should be different, filter options by being available to be targeted by playerI
         return ChooseCreature(playerI, optionsTable, hint);
     }
 
@@ -471,6 +471,7 @@ public class ScriptMaster {
 
     [LuaCommand]
     public int ChooseCard(int playerI, LuaTable optionsTable, string hint) {
+
         List<string> options = new();
         foreach (var v in optionsTable.Values)
             options.Add((string)v);

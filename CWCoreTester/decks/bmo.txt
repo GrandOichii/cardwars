@@ -22,5 +22,4 @@
 + 1 Dr. Death
 + 1 Spirit Tower
 + 1 Palace of Bone
-
-2 Ogre Gas - deck card revealing
++ 2 Ogre Gas

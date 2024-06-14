@@ -340,6 +340,23 @@ public class ConsolePlayerController : IPlayerController
             int.Parse(result)
         );
     }
+
+    public Task<int> PickCard(GameMatch match, int playerI, List<string> options, string hint) {
+        System.Console.WriteLine("Options:");
+        for (int i = 0; i < options.Count; i++)
+            System.Console.WriteLine($"{i}: {options[i]}");
+        System.Console.WriteLine($"\"{hint}\"");
+        System.Console.WriteLine("(select card)");
+
+        var result = Console.ReadLine()
+            ?? throw new Exception("failed to read card option")
+        ;
+
+        return Task.FromResult(
+            int.Parse(result)
+        );
+    }
+
 }
 
 public class CursesPlayerController : IPlayerController
@@ -429,6 +446,11 @@ public class CursesPlayerController : IPlayerController
         Wait();
         return _playerController.PromptLandscapePlacement(playerI, landscapeIndex);
     }
+
+    public Task<int> PickCard(GameMatch match, int playerI, List<string> options, string hint) {
+        Wait();
+        return _playerController.PickCard(match, playerI, options, hint);
+    }
 }
 
 public class CursesLogger : ILogger
@@ -455,8 +477,8 @@ public class CursesLogger : ILogger
 }
 
 public class Program {
-    public static async Task TestRandom(int start, int end) {
-         var config = new MatchConfig() {
+    public static async Task TestRandom(int start, int end, bool enableLogging = false) {
+        var config = new MatchConfig() {
             StartingLifeTotal = 25,
             ActionPointsPerTurn = 2,
             LaneCount = 4,
@@ -483,12 +505,11 @@ public class Program {
             var controller1 = new RandomPlayerController(i);
             var controller2 = new RandomPlayerController(i);
 
-            var match = new GameMatch(config, i, cm, File.ReadAllText("../CWCore/core.lua"))
-            {
-                // Logger = LoggerFactory
-                //     .Create(builder => builder.AddConsole())
-                //     .CreateLogger("Program")
-            };
+            var match = new GameMatch(config, i, cm, File.ReadAllText("../CWCore/core.lua"));
+            if (enableLogging)
+                match.Logger = LoggerFactory
+                    .Create(builder => builder.AddConsole())
+                    .CreateLogger("Program");
 
             await match.AddPlayer("player1", deck1, controller1);
             await match.AddPlayer("player2", deck2, controller2);
@@ -554,25 +575,25 @@ public class Program {
 
     public static async Task Main(string[] args) {
 
-        await SimpleConsole();
-        return;
+        // await SimpleConsole();
+        // return;
 
-        await TestRandom(0, 100);
+        var seed = 0;
+        await TestRandom(seed, 100, false);
         return;
 
         var view = new CursesView();
-        var seed = 1;
         try {
             var config = new MatchConfig() {
                 StartingLifeTotal = 25,
                 ActionPointsPerTurn = 2,
                 LaneCount = 4,
-                StrictMode = false,
+                StrictMode = true,
                 CardDrawCost = 1,
                 StartHandSize = 5,
                 CheckLandscapesForPlayingCards = false,
-                CanFloopOnFirstTurn = false,
-                CanAttackOnFirstTurn = false,
+                CanFloopOnFirstTurn = true,
+                CanAttackOnFirstTurn = true,
             };
 
             var cm = new FileCardMaster();
@@ -584,7 +605,7 @@ public class Program {
             var deck2 = deck1;
 
             var controller1 = new CursesPlayerController(seed, view);
-            var controller2 = controller1;
+            var controller2 = new CursesPlayerController(seed, view);
 
             var match = new GameMatch(config, seed, cm, File.ReadAllText("../CWCore/core.lua"))
             {

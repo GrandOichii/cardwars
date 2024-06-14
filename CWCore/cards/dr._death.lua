@@ -11,17 +11,17 @@ function _Create(props)
         checkF = function (me, playerI, laneI)
             return
                 Common.CanFloop(me) and
-                #Common.Targetable(playerI, Common.OpposingCreaturesInLane(playerI, laneI)) > 0
+                #Common.OpposingCreaturesInLane(playerI, laneI) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
-            local ids = Common.IDs(Common.Targetable(playerI, Common.Creatures(playerI)))
+            local ids = Common.IDs(Common.Creatures(playerI))
             local target = TargetCreature(playerI, ids, 'Choose a creature to sacrifice to Dr. Death')
             DestroyCreature(target)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(Common.Targetable(playerI, Common.OpposingCreaturesInLane(playerI, laneI)))
+            local ids = Common.IDs(Common.OpposingCreaturesInLane(playerI, laneI))
             local target = TargetCreature(playerI, ids, 'Choose a creature to destroy')
             
             DestroyCreature(target)

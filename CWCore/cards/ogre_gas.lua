@@ -10,7 +10,12 @@ function _Create(props)
 
             local amount = 3
             local cards = RevealCardsFromDeck(playerI, amount)
-            local choice = ChooseCard(playerI, cards, 'Choose a card to put on the bottom of your deck')
+            local options = {}
+            for _, card in ipairs(cards) do
+                options[#options+1] = card.Template.Name
+            end
+
+            local choice = ChooseCard(playerI, options, 'Choose a card to put on the bottom of your deck')
             -- amount = 3
             -- choice = 0
             Mill(playerI, choice)

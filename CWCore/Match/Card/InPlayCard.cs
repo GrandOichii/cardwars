@@ -16,7 +16,7 @@ public class InPlayCard {
     public int MovementCount { get; set; }
 
     public bool Exhausted { get; set; }
-    public int ControllerI { get; }
+    public int ControllerI { get; set; }
     public List<ActivatedEffect> ActivatedEffects { get; }
     public List<TriggeredEffect> TriggeredEffects { get; }
     public List<LuaFunction> StateModifiers { get; }

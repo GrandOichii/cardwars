@@ -216,6 +216,7 @@ public class Player {
         // TODO add triggers
     }
 
+    // !FIXME sometimes the method expects to return an index, sometimes it expects a value
     public async Task<int> PickLane(List<int> options, string hint) {
         var result = await Controller.PickLane(Match, Idx, options, hint);
         // TODO validate

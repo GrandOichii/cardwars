@@ -253,8 +253,8 @@ public class GameMatch {
 
     public async Task DestroyCreature(string id) {
         var creature = GetInPlayCreature(id);
-        var player = GetPlayerState(creature.Original.ControllerI);
-        var landscape = player.Landscapes[creature.LaneI];
+        var player = GetPlayerState(creature.Original.Card.OwnerI);
+        var landscape = GetPlayerState(creature.Original.ControllerI).Landscapes[creature.LaneI];
         await DestroyCreature(player, landscape);
     }
 
@@ -275,8 +275,8 @@ public class GameMatch {
 
     public async Task DestroyBuilding(string id) {
         var building = GetInPlayBuilding(id);
-        var player = GetPlayerState(building.Original.ControllerI);
-        var landscape = player.Landscapes[building.LaneI];
+        var player = GetPlayerState(building.Original.Card.OwnerI);
+        var landscape = GetPlayerState(building.Original.ControllerI).Landscapes[building.LaneI];
         await DestroyBuilding(player, landscape);
     }
 
@@ -441,6 +441,7 @@ public class GameMatch {
     }
 
     public async Task MoveCreature(string creatureId, int toI) {
+        // System.Console.WriteLine("START");
         foreach (var player in LastState.Players) {
             foreach (var lane in player.Landscapes) {
                 var creature = lane.Creature;
@@ -448,6 +449,7 @@ public class GameMatch {
 
                 var prevLaneI = lane.Original.Idx;
                 if (prevLaneI == toI) {
+                    // System.Console.WriteLine(creature.Original.Card.LogFriendlyName + "\t" + prevLaneI);
                     ActionError($"Tried to move creature {creature.Original.Card.LogFriendlyName} from lane {prevLaneI} to lane {toI}, which are the same");
                     return;
                 }
@@ -466,6 +468,7 @@ public class GameMatch {
                     creature.Original.ProcessMove(player.Original.Idx, prevLaneI, toI);
                 // TODO? add update
                 // TODO trigger
+                // System.Console.WriteLine("END");
 
                 LogInfo($"Moved creature {creature.Original.Card.LogFriendlyName} from lane {prevLaneI} to lane {toI}");
                 return;
@@ -571,7 +574,7 @@ public class GameMatch {
             }
         }
 
-        CardsPlayed.Add(card.Original.LogFriendlyName);
+        CardsPlayed.Add($"({playerI}) {card.Original.LogFriendlyName}");
 
         if (card.Original.IsSpell) {
             await player.PlaySpellEffect(card.Original);
@@ -635,17 +638,18 @@ public class GameMatch {
             if (creature is null) continue;
             if (creature.Original.Card.ID != creatureId) continue;
 
-            landscape.Creature = null;
-            newLane.Creature = creature;
+            landscape.Original.Creature = null;
+            newLane.Original.Creature = creature.GetOriginal();
+            creature.Original.ControllerI = newOwner.Original.Idx;
 
             await SoftReloadState();
             if (creature.ProcessMove)
                 creature.Original.ProcessMove(newOwner.Original.Idx, landscape.Original.Idx, toLaneI, true);
 
             LogInfo($"Player {newOwner.Original.LogFriendlyName} stole creature {creature.Original.Card.LogFriendlyName} from player {player.Original.LogFriendlyName} from lane {landscape.Original.Idx} to lane {toLaneI}");
+
             return;
         }
-        System.Console.WriteLine("Uh oh");
         throw new CWCoreException($"failed to find creature with id {creatureId} to steaal to lane {toLaneI}");
     }
 

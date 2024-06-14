@@ -19,7 +19,6 @@ function _Create(props)
 
             local creatureId = ChooseCreature(playerI, creatures, 'Choose a creature to move')
             local lane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')
-
             MoveCreature(creatureId, lane)
         end
     )
