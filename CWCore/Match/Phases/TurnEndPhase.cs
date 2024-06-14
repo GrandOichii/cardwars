@@ -22,6 +22,8 @@ public class TurnEndPhase : IPhase {
             player.CardsPlayedThisTurn.Clear();
 
             foreach (var landscape in player.Landscapes) {
+                landscape.CreaturesEnteredThisTurn.Clear();
+                
                 var cards = new List<InPlayCard?>() { landscape.Creature, landscape.Building };
                 foreach (var card in cards) {
                     if (card is null) continue;

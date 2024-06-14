@@ -4,6 +4,6 @@
     "Type": "Creature",
     "Cost": 0,
     "Attack": 1,
-    "Defense": 1,
+    "Defense": 5,
     "Text": ""
 }

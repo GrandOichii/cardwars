@@ -811,6 +811,14 @@ end
 
 Common.AllPlayers = {}
 
+function Common.AllPlayers.CreaturesTyped(landscape)
+    return Common.FilterCreatures(function (creature)
+        return
+            creature:IsType(landscape)
+    end)
+
+end
+
 function Common.AllPlayers.CreaturesInLane(laneI)
     return Common.AllPlayers.CreaturesInLaneExcept(laneI, '__empty_id__')
 end

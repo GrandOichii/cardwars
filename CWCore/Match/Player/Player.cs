@@ -170,6 +170,7 @@ public class Player {
         }
 
         landscape.Original.Creature = creature;
+        landscape.Original.CreaturesEnteredThisTurn.Add(card);
 
         CardsPlayedThisTurn.Add(card);
 

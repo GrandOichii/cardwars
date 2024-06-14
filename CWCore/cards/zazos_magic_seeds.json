@@ -1,0 +1,7 @@
+{
+    "Name": "ZaZo's Magic Seeds",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Target SandyLands Creature has +2 ATK this turn for each Creature that entered play into an adjacent Lane this turn."
+}
