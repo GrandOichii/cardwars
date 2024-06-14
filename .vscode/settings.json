@@ -50,6 +50,7 @@
         "DestroyCreature",
         "DynamicActivatedEffect",
         "RemoveCardFromHand",
-        "PlayCardIfPossible"
+        "PlayCardIfPossible",
+        "StealCreature"
     ]
 }

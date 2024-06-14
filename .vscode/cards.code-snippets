@@ -147,7 +147,7 @@
 		"prefix": "changelane",
 		"description": "change lane effect",
 		"body": [
-			"result.OnMoveP:AddLayer(function(playerI, fromI, toI)",
+			"result.OnMoveP:AddLayer(function(playerI, fromI, toI, wasStolen)",
 			"\t-- When $1 changes Lanes${2: during a turn}, $3",
 			"",
 			"\t$0",
@@ -159,8 +159,8 @@
 		"prefix": "targetcreature",
 		"description": "target creature",
 		"body": [
-			"local ids = Common.IDs(${1:Common.AllPlayers.Creatures()})",
-            "local target = ${2:TargetCreature}(playerI, ids, '$3')",
+			"local ids = Common.IDs(Common.Targetable(${1:playerI}, ${2:Common.AllPlayers.Creatures()}))",
+            "local target = ${3:TargetCreature}(playerI, ids, '$4')",
 			"$0"
 		]
 	},

@@ -449,4 +449,10 @@ public class ScriptMaster {
         _match.PlayCard(playerI, cardState, forFree)
             .Wait();
     }
+
+    [LuaCommand]
+    public void StealCreature(int fromPlayerI, string creatureId, int toLaneI) {
+        _match.StealCreature(fromPlayerI, creatureId, toLaneI)
+            .Wait();
+    }
 }

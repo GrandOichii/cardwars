@@ -7,7 +7,8 @@ namespace CWCore.Match.Actions;
 
 public class ActivateHeroAction : IAction
 {
-    public string ActionWord() => "activatehero";
+    // TODO change to "activatehero"
+    public string ActionWord() => "ah";
 
     public async Task Exec(GameMatch match, int playerI, string[] args)
     {

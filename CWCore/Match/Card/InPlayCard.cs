@@ -48,16 +48,16 @@ public class InPlayCard {
 
     public virtual bool IsFlooped() => Exhausted;
 
-    public void ProcessMove(int playerI, int prevLaneI, int newLaneI) {
+    public void ProcessMove(int playerI, int prevLaneI, int newLaneI, bool wasStolen = false) {
         MovementCount++;
-
 
         Card.ExecFunction(
             ON_MOVE_FNAME, 
             Card.Data,
             playerI, 
             prevLaneI,
-            newLaneI
+            newLaneI,
+            wasStolen
         );
     }
 

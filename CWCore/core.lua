@@ -862,6 +862,11 @@ function Common.AllPlayers.FloopedCreatures()
     end)
 end
 
+function Common.Targetable(playerI, tableArr)
+    -- TODO
+    return tableArr
+end
+
 Common.Mod = {}
 
 function Common.Mod.Cost(me, amount)

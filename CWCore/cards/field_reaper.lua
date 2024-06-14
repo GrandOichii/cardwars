@@ -18,7 +18,26 @@ function _Create(props)
 
 
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
-        -- TODO add stealing
+        local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.CreaturesInLane(laneI)))
+        local adjacent = Common.AdjacentLandscapes(playerI, laneI)
+        local options = {}
+        for _, landscape in ipairs(adjacent) do
+            if landscape.Creature == nil then
+                options[#options+1] = landscape.Original.Idx
+            end
+        end
+        if #options == 0 then
+            return
+        end
+        local target = TargetCreature(playerI, ids, 'Choose a creature to move/steal')
+        local creature = GetCreature(target)
+        local moveTo = ChooseLandscape(playerI, options, {}, 'Choose a landscape to move '..creature.Original.Card.LogFriendlyName..' to')
+
+        if creature.Original.ControllerI == playerI then
+            MoveCreature(creature.Original.Card.ID, moveTo[1])
+            return
+        end
+        StealCreature(1 - playerI, target, moveTo[1])
     end)
 
     return result

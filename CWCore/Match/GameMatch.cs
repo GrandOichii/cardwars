@@ -604,4 +604,27 @@ public class GameMatch {
         await PlayCard(playerI, card, forFree);
     }
 
+    public async Task StealCreature(int fromPlayerI, string creatureId, int toLaneI) {
+        var player = GetPlayer(fromPlayerI);
+        var newOwner = GetPlayer(1 - fromPlayerI);
+        var newLane = newOwner.Landscapes[toLaneI];
+        if (newLane.Creature is not null ){
+            throw new CWCoreException($"tried to steal a creature to lane {toLaneI}, which is not empty");
+        }
+
+        foreach (var landscape in player.Landscapes) {
+            var creature = landscape.Creature;
+            if (creature is null) continue;
+            if (creature.Card.ID != creatureId) continue;
+
+            landscape.Creature = null;
+            newLane.Creature = creature;
+            creature.ProcessMove(newOwner.Idx, landscape.Idx, toLaneI, true);
+
+            LogInfo($"Player {newOwner.LogFriendlyName} stole creature {creature.Card.LogFriendlyName} from player {player.LogFriendlyName} from lane {landscape.Idx} to lane {toLaneI}");
+            return;
+        }
+        System.Console.WriteLine("Uh oh");
+        throw new CWCoreException($"failed to find creature with id {creatureId} to steaal to lane {toLaneI}");
+    }
 }

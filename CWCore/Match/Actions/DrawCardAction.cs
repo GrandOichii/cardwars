@@ -6,7 +6,8 @@ namespace CWCore.Match.Actions;
 
 public class DrawCardAction : IAction
 {
-    public string ActionWord() => "draw";
+    // TODO change to "draw"
+    public string ActionWord() => "d";
 
     public Task Exec(GameMatch match, int playerI, string[] args)
     {

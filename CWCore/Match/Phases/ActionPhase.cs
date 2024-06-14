@@ -15,7 +15,9 @@ public class UnknownActionException : CWCoreException
 }
 
 public class ActionPhase : IPhase {
+    // TODO change to "battle"
 
+    private readonly static string BATTLE_ACTION = "b";
     private static readonly List<IAction> ACTIONS = new() {
         new DrawCardAction(),
         new PlayAction(),
@@ -45,7 +47,7 @@ public class ActionPhase : IPhase {
 
             var actionWord = words[0];
 
-            if (actionWord == "battle") break;
+            if (actionWord == BATTLE_ACTION) break;
             
             if (!ACTION_MAP.ContainsKey(actionWord)) {
                 if (!match.Config.StrictMode) continue;
@@ -66,7 +68,7 @@ public class ActionPhase : IPhase {
             options.AddRange(action.GetAvailable(match, playerI));
         }
         
-        if (options.Count == 0) return "battle";
+        if (options.Count == 0) return BATTLE_ACTION;
         var player = match.GetPlayer(playerI);
         return await player.Controller.PromptAction(match, player.Idx, options);
     } 

@@ -22,5 +22,4 @@
 + 2 Reclaim Landscape
 + 1 Archer Dan
 + 1 Silo of Truth
-
-1 Field Reaper - creature targeting, additional cost to play, creature movement, creature stealing
++ 1 Field Reaper
