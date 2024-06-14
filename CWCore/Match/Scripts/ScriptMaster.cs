@@ -320,17 +320,9 @@ public class ScriptMaster {
 
     [LuaCommand]
     public void ReturnCreatureToOwnersHand(string id) {
-        foreach (var player in _match.LastState.Players) {
-            foreach (var landscape in player.Landscapes) {
-                var creature = landscape.Creature;
-                if (creature is null || creature.Original.Card.ID != id) continue;
-
-                player.Original.ReturnCreatureToHand(landscape.Original.Idx)
-                    .Wait();
-                return;
-            }
-        }
-        throw new CWCoreException($"failed to find creature with id {id} to return to hand");
+        var creature = _match.GetInPlayCreature(id);
+        creature.ReturnToOwnersHand(_match)
+            .Wait();
     }
 
     [LuaCommand]

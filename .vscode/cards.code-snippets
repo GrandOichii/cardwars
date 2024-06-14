@@ -160,7 +160,7 @@
 		"description": "target creature",
 		"body": [
 			"local ids = Common.IDs(${1:Common.AllPlayers.Creatures()})",
-            "local target = ${2:targetCreature}(playerI, ids, '$3')",
+            "local target = ${2:TargetCreature}(playerI, ids, '$3')",
 			"$0"
 		]
 	},

@@ -47,4 +47,14 @@ public class InPlayCardState : IStateModifier {
 
         return Original.IsType(type);
     }
+
+    public async Task ReturnToOwnersHand(GameMatch match) {
+        var controller = match.GetPlayer(Original.ControllerI);;
+        var owner = match.GetPlayer(Original.Card.OwnerI);
+        var landscape = controller.Landscapes[LaneI];
+        landscape.Creature = null;
+        owner.Hand.Add(Original.Card);
+        // TODO? add update
+    }
+
 }
