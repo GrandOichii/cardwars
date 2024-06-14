@@ -15,10 +15,10 @@
 + 2 Gray Eyebat
 + 2 Mace Stump
 + 2 Immortal Maize Walker
-2 Green Mermaid
++ 2 Green Mermaid
++ 2 Hot Eyebat
++ 2 Bone Wand
 1 Green Merman
-2 Hot Eyebat
-2 Bone Wand
 1 Dr. Death
 
 1 Spirit Tower - "at the end of turn" effects
