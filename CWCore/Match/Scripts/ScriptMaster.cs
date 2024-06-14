@@ -257,6 +257,11 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public void AtTheEndOfTurn(LuaFunction trigger) {
+        _match.AEOTEffects.Add(trigger);
+    }
+
+    [LuaCommand]
     public LuaTable GetUniqueLandscapeNames(int playerI) {
         var result = new HashSet<string>();
 

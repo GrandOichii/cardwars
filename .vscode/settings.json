@@ -51,6 +51,7 @@
         "DynamicActivatedEffect",
         "RemoveCardFromHand",
         "PlayCardIfPossible",
-        "StealCreature"
+        "StealCreature",
+        "AtTheEndOfTurn"
     ]
 }

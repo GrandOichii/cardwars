@@ -1,11 +1,21 @@
 using CWCore.Match.Players;
 using CWCore.Match.States;
+using CWCore.Exceptions;
 
 namespace CWCore.Match.Phases;
 
 public class TurnEndPhase : IPhase {
     public async Task Exec(GameMatch match, int playerI) {
         // TODO other stuff
+
+        foreach (var trigger in match.AEOTEffects) {
+            try {
+                trigger.Call();
+            } catch (Exception e) {
+                throw new CWCoreException("error while executing \"at the end of turn\" effect", e);
+            }
+        }
+        match.AEOTEffects.Clear();
 
         match.UEOTEffects.Clear();
         foreach (var player in match.Players) {

@@ -42,6 +42,7 @@ public class GameMatch {
     public int TurnCount { get; private set; } = 0;
 
     public List<LuaFunction> UEOTEffects { get; }
+    public List<LuaFunction> AEOTEffects { get; }
 
     public List<string> CardsPlayed { get; } = new();
 
@@ -57,7 +58,9 @@ public class GameMatch {
 
         _scriptMaster = new(this);
         LastState = new();
+
         UEOTEffects = new();
+        AEOTEffects = new();
     }
 
     public async Task AddPlayer(string name, DeckTemplate template, IPlayerController controller) {

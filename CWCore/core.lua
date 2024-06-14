@@ -973,7 +973,7 @@ function Common.ActivatedEffects.PayActionPoints(card, amount, text, effect)
             return GetPlayer(playerI).Original.ActionPoints >= amount
         end,
         costF = function (me, playerI, laneI)
-            PayActionPoints(playerI, -amount)
+            PayActionPoints(playerI, amount)
             return true
         end,
         effectF = effect

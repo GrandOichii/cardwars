@@ -20,7 +20,7 @@
 + 2 Bone Wand
 + 1 Green Merman
 + 1 Dr. Death
++ 1 Spirit Tower
 
-1 Spirit Tower - "at the end of turn" effects
 1 Palace of Bone - disabling OnEnter and OnLeave effects
 2 Ogre Gas - deck card revealing
