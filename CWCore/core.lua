@@ -463,6 +463,10 @@ function Common.Creatures(playerI)
     end)
 end
 
+function Common.OpposingCreatures(playerI)
+    return Common.Creatures(1 - playerI)
+end
+
 function Common.CreaturesExcept(playerI, id)
     return Common.FilterCreatures(function (creature)
         return
@@ -677,9 +681,9 @@ end
 
 function Common.DiscardCardIdx(playerI, id)
     local discard = STATE.Players[playerI].DiscardPile
-    for i = 1, discard.Count do
-        if discard[i - 1].Original.ID == id then
-            return i - 1
+    for i = 0, discard.Count - 1 do
+        if discard[i].Original.ID == id then
+            return i
         end
     end
     return nil
