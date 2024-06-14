@@ -519,7 +519,7 @@ public class Program {
                 StartHandSize = 5,
                 CheckLandscapesForPlayingCards = false,
                 CanFloopOnFirstTurn = true,
-                CanAttackOnFirstTurn = false,
+                CanAttackOnFirstTurn = true,
             };
 
             var cm = new FileCardMaster();
@@ -553,8 +553,8 @@ public class Program {
 
     public static async Task Main(string[] args) {
 
-        // await SimpleConsole();
-        // return;
+        await SimpleConsole();
+        return;
 
         await TestRandom(0, 100);
         return;

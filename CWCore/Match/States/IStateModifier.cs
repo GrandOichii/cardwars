@@ -9,6 +9,7 @@ public enum ModificationLayer {
     CARD_COST,
     ABILITY_GRANTING_REMOVAL,
     LANDSCAPE_FLIP_DOWN_AVAILABILITY,
+    DAMAGE_MULTIPLICATION,
 }
 
 public interface IStateModifier {

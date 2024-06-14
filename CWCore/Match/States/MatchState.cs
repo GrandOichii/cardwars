@@ -10,6 +10,7 @@ public class MatchState {
         ModificationLayer.IN_PLAY_CARD_TYPE,
         ModificationLayer.ATK_AND_DEF,
         ModificationLayer.LANDSCAPE_FLIP_DOWN_AVAILABILITY,
+        ModificationLayer.DAMAGE_MULTIPLICATION,
     };
 
     public PlayerState[] Players { get; }

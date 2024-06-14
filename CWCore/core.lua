@@ -105,6 +105,7 @@ CardWars.ModificationLayers = {
     CARD_COST = 4,
     ABILITY_GRANTING_REMOVAL = 5,
     LANDSCAPE_FLIP_DOWN_AVAILABILITY = 6,
+    DAMAGE_MULTIPLICATION = 7,
 }
 
 -- Card Types

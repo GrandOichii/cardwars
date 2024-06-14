@@ -1,9 +1,9 @@
--- Status: not implemented - requires implementation of: play checking and additional costs to play
+-- Status: implemented, requires a lot of testing
 
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    -- Additional Cost: Discard a card. When Field Reaper enters play, move target Creature in this Lane to an adjacent empty Lane on your side.
+    -- Additional Cost: Discard a card.
 
     Common.AddRestriction(result,
         function (playerI)
@@ -16,7 +16,7 @@ function _Create(props)
         return nil, true
     end)
 
-
+    -- When Field Reaper enters play, move target Creature in this Lane to an adjacent empty Lane on your side.
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
         local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.CreaturesInLane(laneI)))
         local adjacent = Common.AdjacentLandscapes(playerI, laneI)

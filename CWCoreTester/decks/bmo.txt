@@ -14,13 +14,13 @@
 + 1 Tree of Undeath
 + 2 Gray Eyebat
 + 2 Mace Stump
++ 2 Immortal Maize Walker
 2 Green Mermaid
-1 Green Merman - milling and knowing the cost of the milled card
-2 Hot Eyebat - casting check
-2 Bone Wand - cast checks
-1 Dr. Death - creature destruction in cost, targeted creature destruction
+1 Green Merman
+2 Hot Eyebat
+2 Bone Wand
+1 Dr. Death
 
 1 Spirit Tower - "at the end of turn" effects
-2 Immortal Maize Walker - damage multiplication
-2 Ogre Gas - deck card revealing
 1 Palace of Bone - disabling OnEnter and OnLeave effects
+2 Ogre Gas - deck card revealing

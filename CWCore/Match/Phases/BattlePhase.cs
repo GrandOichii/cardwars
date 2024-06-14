@@ -49,7 +49,7 @@ public class BattlePhase : IPhase
             // damage
             var defenderState = opponentState.Landscapes[laneI].Creature;
             if (defenderState is null) {
-                var attack = attackerState.Attack;
+                var attack = attackerState.Attack * attackerState.DamageMultiplier;
                 await match.DealDamageToPlayer(1 - playerI, attack);
                 // TODO add update
                 continue;
@@ -60,8 +60,8 @@ public class BattlePhase : IPhase
 
             // TODO deal damage to each other
             match.LogInfo($"{attacker.Card.LogFriendlyName} attacks {defender.Card.LogFriendlyName} in lane {laneI}");
-            await match.DealDamageToCreature(defender, attackerState.Attack);
-            await match.DealDamageToCreature(attacker, defenderState.Attack);
+            await match.DealDamageToCreature(defender, attackerState.Attack * attackerState.DamageMultiplier);
+            await match.DealDamageToCreature(attacker, defenderState.Attack * attackerState.DamageMultiplier);
         }
     }
 
