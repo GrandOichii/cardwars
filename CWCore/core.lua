@@ -352,6 +352,7 @@ function Common.FilterLandscapes(predicate)
     return result
 end
 
+
 function Common.CreaturesNamed(playerI, name)
     return Common.FilterCreatures( function (creature)
         return

@@ -259,6 +259,12 @@ public class Player {
         return result;
     }
 
+    public async Task<int> PickCard(List<string> options, string hint) {
+        var result = await Controller.PickCard(Match, Idx, options, hint);
+        // TODO validate
+        return result;        
+    }
+
     public async Task DiscardCardFromHand(int cardI) {
         var card = Hand[cardI];
         RemoveFromHand(card);

@@ -7,9 +7,15 @@ function _Create(props)
     result.EffectP:AddLayer(
         function (playerI)
             -- 
-            
-            -- local cards = Common.RevealCardsFromDeck(playerI, 3)
-            -- local toBottom = Common.ChooseCard(cards, )
+
+            local amount = 3
+            local cards = RevealCardsFromDeck(playerI, amount)
+            local choice = ChooseCard(playerI, cards, 'Choose a card to put on the bottom of your deck')
+            -- amount = 3
+            -- choice = 0
+            Mill(playerI, choice)
+            FromTopToBottom(playerI, 1)
+            Mill(playerI, amount - choice - 1)
         end
     )
 

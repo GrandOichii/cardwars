@@ -52,6 +52,9 @@
         "RemoveCardFromHand",
         "PlayCardIfPossible",
         "StealCreature",
-        "AtTheEndOfTurn"
+        "AtTheEndOfTurn",
+        "RevealCardsFromDeck",
+        "ChooseCard",
+        "FromTopToBottom"
     ]
 }

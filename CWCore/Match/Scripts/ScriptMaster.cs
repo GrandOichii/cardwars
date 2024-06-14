@@ -460,4 +460,37 @@ public class ScriptMaster {
         _match.StealCreature(fromPlayerI, creatureId, toLaneI)
             .Wait();
     }
+
+    [LuaCommand]
+    public LuaTable RevealCardsFromDeck(int playerI, int amount) {
+        var result = _match.RevealCardsFromDeck(playerI, amount)
+            .GetAwaiter().GetResult();
+
+        return LuaUtility.CreateTable(_match.LState, result);
+    }
+
+    [LuaCommand]
+    public int ChooseCard(int playerI, LuaTable optionsTable, string hint) {
+        List<string> options = new();
+        foreach (var v in optionsTable.Values)
+            options.Add((string)v);
+
+        var player = _match.GetPlayer(playerI);
+        var result = player.PickCard(options, hint)
+            .GetAwaiter().GetResult();
+
+        return result;        
+    }
+
+    [LuaCommand]
+    public void FromTopToBottom(int playerI, int amount) {
+        var deck = _match.GetPlayer(playerI).Deck;
+        if (deck.Count == 0) return;
+        while (amount > 0) {
+            var last = deck.Last!.Value;
+            deck.RemoveLast();
+            deck.AddFirst(last);
+            amount--;
+        }
+    }
 }

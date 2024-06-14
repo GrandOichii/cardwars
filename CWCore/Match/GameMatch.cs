@@ -648,4 +648,19 @@ public class GameMatch {
         System.Console.WriteLine("Uh oh");
         throw new CWCoreException($"failed to find creature with id {creatureId} to steaal to lane {toLaneI}");
     }
+
+    public async Task<List<MatchCard>> RevealCardsFromDeck(int playerI, int amount) {
+        var player = GetPlayer(playerI);
+        var deck = player.Deck;
+
+        var result = new List<MatchCard>();
+        for (int i = 0; i < amount; i++) {
+            var deckI = deck.Count - i - 1;
+            var card = deck.ElementAt(deckI);
+            result.Add(card);
+
+            LogInfo($"Player {player.LogFriendlyName} revealed {card.LogFriendlyName} from the top of their deck");
+        }
+        return result;
+    }
 }
