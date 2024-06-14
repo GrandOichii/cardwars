@@ -160,26 +160,29 @@ public class Player {
         await Match.ReloadState();
         if (!Match.Active) return;
 
-        var lane = Landscapes[laneI];
+        var landscape = Match.LastState.Players[Idx].Landscapes[laneI];
         var creature = new Creature(card, Idx);
 
         var replaced = false;
-        if (lane.Creature is not null) {
-            await LeavePlay(lane, lane.Creature);
+        if (landscape.Creature is not null) {
+            await LeavePlay(landscape, landscape.Creature);
             replaced = true;
         }
 
-        lane.Creature = creature;
+        landscape.Original.Creature = creature;
 
         CardsPlayedThisTurn.Add(card);
 
         await Match.ReloadState();
         if (!Match.Active) return;
 
-        creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI, replaced);
+        var state = Match.GetInPlayCreature(card.ID);
+        if (state.ProcessEnter)
+            creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI, replaced);
 
         await Match.Emit("creature_enter", new() {
             {"id", creature.Card.ID},
+            // TODO add 'state' here
             // TODO "Tiny Elephant"-like effects might ruin this
             {"Original", creature},
             {"controllerI", Idx},
@@ -189,19 +192,26 @@ public class Player {
     }
 
     public async Task PlaceBuildingInLane(MatchCard card, int laneI) {
-        var lane = Landscapes[laneI];
+        var landscape = Match.LastState.Players[Idx].Landscapes[laneI];
+
         var building = new InPlayCard(card, Idx);
 
         var replaced = false;
-        if (lane.Building is not null) {
-            await LeavePlay(lane, lane.Building);
+        if (landscape.Building is not null) {
+            await LeavePlay(landscape, landscape.Building);
             replaced = true;
         }
 
-        lane.Building = building;
+        landscape.Original.Building = building;
 
         CardsPlayedThisTurn.Add(card);
         await Match.ReloadState();
+        if (!Match.Active) return;
+
+        var state = Match.GetInPlayBuilding(card.ID);
+        if (state.ProcessEnter)
+            building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, Idx, laneI, replaced);
+
         building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, Idx, laneI, replaced);
         // TODO add triggers
     }
@@ -293,15 +303,17 @@ public class Player {
         // TODO add trigger
     }
 
-    public async Task LeavePlay(Landscape landscape, InPlayCard card) {
-        AddToDiscard(card.Card);
+    public async Task LeavePlay(LandscapeState landscape, InPlayCardState card) {
+        AddToDiscard(card.Original.Card);
 
-        card.Card.ExecFunction(
-            InPlayCard.ON_LEAVE_PLAY_FNAME, 
-            card.Card.Data, 
-            Idx, 
-            landscape.Idx
-        );
+        if (card.ProcessLeave) {
+            card.Original.Card.ExecFunction(
+                InPlayCard.ON_LEAVE_PLAY_FNAME, 
+                card.Original.Card.Data, 
+                Idx, 
+                landscape.Original.Idx
+            );
+        }
     }
 
     public void PlaceFromDiscardOnTopOfDeck(int cardI) {

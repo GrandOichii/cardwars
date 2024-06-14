@@ -21,6 +21,6 @@
 + 1 Green Merman
 + 1 Dr. Death
 + 1 Spirit Tower
++ 1 Palace of Bone
 
-1 Palace of Bone - disabling OnEnter and OnLeave effects
 2 Ogre Gas - deck card revealing

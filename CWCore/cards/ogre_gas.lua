@@ -8,7 +8,8 @@ function _Create(props)
         function (playerI)
             -- 
             
-            
+            -- local cards = Common.RevealCardsFromDeck(playerI, 3)
+            -- local toBottom = Common.ChooseCard(cards, )
         end
     )
 

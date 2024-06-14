@@ -1,0 +1,7 @@
+{
+    "Name": "Assassinate",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Destroy target creature."
+}

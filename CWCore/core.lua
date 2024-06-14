@@ -118,12 +118,6 @@ function CardWars:Hero(props)
         result.StateModifiers[#result.StateModifiers+1] = modF
     end
 
-    function result:ModifyState(me, layer)
-        for _, modF in ipairs(result.StateModifiers) do
-            modF(me, layer)
-        end
-    end
-
     result.ActivatedEffects = {}
     function result:AddActivatedEffect(effect)
         effect.tags = effect.tags or {}
@@ -1033,12 +1027,12 @@ Common.AbilityGrantingRemoval = {}
 function Common.AbilityGrantingRemoval.RemovaAll(card)
     card.ActivatedEffects:Clear()
     card.TriggeredEffects:Clear()
+    card.StateModifiers:Clear()
+    card.ProcessEnter = false
+    card.ProcessLeave = false
+    card.ProcessMove = false
 
-    local data = card.Original.Card.Data
-    data.OnEnter = function(...) end
-    data.OnLeavePlay = function(...) end
-    data.OnMove = function(...) end
-    data.ModifyState = function(...) end
+    -- !FIXME this is bad, removes these effects forever
 end
 
 Common.Flip = {}

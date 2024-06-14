@@ -19,6 +19,7 @@ public class InPlayCard {
     public int ControllerI { get; }
     public List<ActivatedEffect> ActivatedEffects { get; }
     public List<TriggeredEffect> TriggeredEffects { get; }
+    public List<LuaFunction> StateModifiers { get; }
 
     public InPlayCard(MatchCard card, int controllerI) {
         Card = card;
@@ -37,6 +38,12 @@ public class InPlayCard {
             var trigger = new TriggeredEffect((LuaTable)table);
             TriggeredEffects.Add(trigger);
         }
+
+        StateModifiers = new();
+        var modifiers = LuaUtility.TableGet<LuaTable>(card.Data, "StateModifiers");
+        // TODO feels bad
+        foreach (var modifier in modifiers.Values)
+            StateModifiers.Add((LuaFunction)modifier);
         
         EnteredThisTurn = true;
         MovementCount = 0;

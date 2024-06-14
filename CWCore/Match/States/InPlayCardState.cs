@@ -1,5 +1,6 @@
 using CWCore.Match.Players;
 using CWCore.Match.Effects;
+using NLua;
 
 namespace CWCore.Match.States;
 
@@ -8,8 +9,12 @@ public class InPlayCardState : IStateModifier {
 
     public InPlayCard Original { get; }
     public int LaneI { get; }
-    public List<ActivatedEffect> ActivatedEffects { get; set; }
-    public List<TriggeredEffect> TriggeredEffects { get; set; }
+    public List<ActivatedEffect> ActivatedEffects { get; }
+    public List<TriggeredEffect> TriggeredEffects { get; }
+    public List<LuaFunction> StateModifiers { get; }
+    public bool ProcessEnter { get; set; }
+    public bool ProcessLeave { get; set; }
+    public bool ProcessMove { get; set; }
 
     public InPlayCardState(InPlayCard original, int laneI) {
         Original = original;
@@ -22,6 +27,14 @@ public class InPlayCardState : IStateModifier {
         TriggeredEffects = new();
         foreach (var effect in original.TriggeredEffects)
             TriggeredEffects.Add(effect);
+
+        StateModifiers = new();
+        foreach (var modifier in original.StateModifiers)
+            StateModifiers.Add(modifier);
+        
+        ProcessLeave = true;
+        ProcessMove = true;
+        ProcessEnter = true;
     }
 
     public void Modify(ModificationLayer layer)

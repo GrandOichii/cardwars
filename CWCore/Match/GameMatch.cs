@@ -220,14 +220,18 @@ public class GameMatch {
         return dealt;
     }
 
+    public async Task SoftReloadState() {
+        LastState = new(this);
+        LState["STATE"] = LastState;
+        LastState.Modify();
+    }
+
     public async Task ReloadState() {
         // TODO ordering
         await CheckDeadPlayers();
         await CheckDeadCreatures();
 
-        LastState = new(this);
-        LState["STATE"] = LastState;
-        LastState.Modify();
+        await SoftReloadState();
         await PushUpdates();
     }
 
@@ -262,7 +266,7 @@ public class GameMatch {
 
         landscape.Original.Creature = null;
 
-        await player.Original.LeavePlay(landscape.Original, creature.Original);
+        await player.Original.LeavePlay(landscape, creature);
         
         // TODO add trigger
 
@@ -283,7 +287,7 @@ public class GameMatch {
 
         landscape.Original.Building = null;
 
-        await player.Original.LeavePlay(landscape.Original, building.Original);
+        await player.Original.LeavePlay(landscape, building);
         
         // TODO add trigger
 
@@ -456,7 +460,10 @@ public class GameMatch {
                 lane.Original.Creature = null;
                 newLane.Original.Creature = creature.GetOriginal();
 
-                creature.Original.ProcessMove(player.Original.Idx, prevLaneI, toI);
+                await SoftReloadState();
+
+                if (creature.ProcessMove)
+                    creature.Original.ProcessMove(player.Original.Idx, prevLaneI, toI);
                 // TODO? add update
                 // TODO trigger
 
@@ -478,8 +485,13 @@ public class GameMatch {
 
         (landscape1.Creature, landscape2.Creature) = (landscape2.Creature, landscape1.Creature);
 
-        landscape1.Creature!.ProcessMove(creature1.Original.ControllerI, landscape2.Idx, landscape1.Idx);
-        landscape2.Creature!.ProcessMove(creature2.Original.ControllerI, landscape1.Idx, landscape2.Idx);
+        await SoftReloadState();
+
+        // TODO hope i didn't confuse these two
+        if (creature2.ProcessMove)
+            creature2.Original.ProcessMove(creature1.Original.ControllerI, landscape2.Idx, landscape1.Idx);
+        if (creature1.ProcessMove)
+            creature1.Original.ProcessMove(creature2.Original.ControllerI, landscape1.Idx, landscape2.Idx);
     }
 
     public async Task MoveBuilding(string buildingId, int toI) {
@@ -503,7 +515,10 @@ public class GameMatch {
                 lane.Original.Building = null;
                 newLane.Original.Building = building.Original;
 
-                building.Original.ProcessMove(player.Original.Idx, prevLaneI, toI);
+                await SoftReloadState();
+
+                if (building.ProcessMove)
+                    building.Original.ProcessMove(player.Original.Idx, prevLaneI, toI);
 
                 // TODO? add update
                 // TODO trigger
@@ -608,8 +623,8 @@ public class GameMatch {
     }
 
     public async Task StealCreature(int fromPlayerI, string creatureId, int toLaneI) {
-        var player = GetPlayer(fromPlayerI);
-        var newOwner = GetPlayer(1 - fromPlayerI);
+        var player = GetPlayerState(fromPlayerI);
+        var newOwner = GetPlayerState(1 - fromPlayerI);
         var newLane = newOwner.Landscapes[toLaneI];
         if (newLane.Creature is not null ){
             throw new CWCoreException($"tried to steal a creature to lane {toLaneI}, which is not empty");
@@ -618,13 +633,16 @@ public class GameMatch {
         foreach (var landscape in player.Landscapes) {
             var creature = landscape.Creature;
             if (creature is null) continue;
-            if (creature.Card.ID != creatureId) continue;
+            if (creature.Original.Card.ID != creatureId) continue;
 
             landscape.Creature = null;
             newLane.Creature = creature;
-            creature.ProcessMove(newOwner.Idx, landscape.Idx, toLaneI, true);
 
-            LogInfo($"Player {newOwner.LogFriendlyName} stole creature {creature.Card.LogFriendlyName} from player {player.LogFriendlyName} from lane {landscape.Idx} to lane {toLaneI}");
+            await SoftReloadState();
+            if (creature.ProcessMove)
+                creature.Original.ProcessMove(newOwner.Original.Idx, landscape.Original.Idx, toLaneI, true);
+
+            LogInfo($"Player {newOwner.Original.LogFriendlyName} stole creature {creature.Original.Card.LogFriendlyName} from player {player.Original.LogFriendlyName} from lane {landscape.Original.Idx} to lane {toLaneI}");
             return;
         }
         System.Console.WriteLine("Uh oh");

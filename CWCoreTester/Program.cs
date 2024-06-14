@@ -524,6 +524,7 @@ public class Program {
 
             var cm = new FileCardMaster();
             cm.Load("../CWCore/cards");
+            cm.Load("../CWCore/dev-cards");
 
             var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/deck1.json"))
                 ?? throw new Exception("failed to read deck file")

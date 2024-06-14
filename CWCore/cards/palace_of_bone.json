@@ -1,0 +1,7 @@
+{
+    "Name": "Palace of Bone",
+    "Landscape": "Useless Swamp",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Opposing Creatures in this Lane don't trigger entering or leaving play effects."
+}
