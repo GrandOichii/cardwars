@@ -13,6 +13,7 @@ public enum ModificationLayer {
     ATTACK_RIGHTS,
     TARGETING_PERMISSIONS,
     DAMAGE_ABSORBTION,
+    ADDITIONAL_LANDSCAPES,
 }
 
 public interface IStateModifier {

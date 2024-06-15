@@ -1,0 +1,9 @@
+{
+    "Name": "Sun Emperor",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Sun King counts as an additional 2 Cornfield Landscapes you control.",
+    "Attack": 0,
+    "Defense": 4
+}

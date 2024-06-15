@@ -5,8 +5,8 @@ function _Create(props)
 
     -- +1 DEF for each Cornfield Landscape in play (counting all players).
     Common.State.ModATKDEF(result, function (me)
-        local cornfields = Common.AllPlayers.LandscapesTyped(CardWars.Landscapes.Cornfield)
-        me.Defense = me.Defense + #cornfields
+        local count = Common.AllPlayers.CountLandscapesTyped(CardWars.Landscapes.Cornfield)
+        me.Defense = me.Defense + count
     end)
 
     return result

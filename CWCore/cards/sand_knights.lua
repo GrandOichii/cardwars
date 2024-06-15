@@ -7,8 +7,8 @@ function _Create(props)
     Common.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
 
-        local landscapes = Common.LandscapesTyped(controllerI, CardWars.Landscapes.BluePlains)
-        if #landscapes > 0 then
+        local count = Common.CountLandscapesTyped(controllerI, CardWars.Landscapes.BluePlains)
+        if count > 0 then
             me.Attack = me.Attack + 2
         end
     end)

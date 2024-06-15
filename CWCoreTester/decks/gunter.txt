@@ -7,21 +7,20 @@
 1 Cute Overload - creature destruction
 1 Magenapping - play checks
 2 Woadic Ring Leader - creature destruction
-
-1 Fancy Spa - fight phase start trigger
+1 Frosted Snowwoman
+1 Glacier Racer
+2 Icy Commando
+2 Icy Intruder
+2 Snow Baller
+1 The Cooler
+2 Icy Infiltrator
+2 Snowblower
+2 Snowvalanche
+1 Floating Ice Palace
+1 Snow Training Camp
 2 Tired Wombat - moving into enemy landscapes
-2 Fatigued Librarian - "comes into play exhausted, doesnt ready at the start of turn"
-2 Weakened Warrior - "comes into play exhausted, doesnt ready at the start of turn"
 
-2 Frosted Deanimator - frost tokens
-1 Frosted Snowwoman - frost tokens
-1 Glacier Racer - frost tokens
-2 Icy Commando - frost tokens
-2 Icy Intruder - frost tokens
-2 Snow Baller - frost tokens
-1 The Cooler - frost tokens
-2 Icy Infiltrator - frost tokens
-2 Snowblower - frost tokens
-2 Snowvalanche - frost tokens
-1 Floating Ice Palace - frost tokens
-1 Snow Training Camp - frost tokens
+2 Frosted Deanimator - "may enter play onto a Landscape that has a Frozen token on it" - just add a "CanEnterOntoFrozenLandscape" flag?
+1 Fancy Spa - fight phase start trigger
+2 Fatigued Librarian - "comes into play exhausted, doesn't ready at the start of turn"
+2 Weakened Warrior - "comes into play exhausted, doesn't ready at the start of turn"

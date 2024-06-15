@@ -4,22 +4,23 @@
 + 2 Cold Soldier
 + 2 Snow Dog
 + 2 Frost Dragon
+1 Boarder Collie
+2 Emperor Penguin
+2 Frozen Fish
+2 Icemeister
+2 Reign Deer
+2 Slay Rider
+1 Snow Angel
+2 Snow Bunny
+1 Sprucy Lucy
+2 Nice Ice Baby
+2 Freeze Ray
+2 Freezing Point
+2 Frosty Frolic
+1 Snow Way
+2 Frozen Heart
+1 Snow Business
 
-1 Boarder Collie - frost tokens
-2 Emperor Penguin - frost tokens
-2 Frozen Fish - frost tokens
-2 Icemeister - frost tokens
-2 Reign Deer - frost tokens
-2 Slay Rider - frost tokens
-1 Snow Angel - frost tokens
-2 Snow Bunny - frost tokens
-1 Sprucy Lucy - frost tokens
-2 Nice Ice Baby - frost tokens
-2 Freeze Ray - frost tokens
-2 Freezing Point - frost tokens
-2 Frosty Frolic - frost tokens
-1 Snow Way - frost tokens
-2 Frozen Heart - frost tokens
-1 Crystal Palace - frost tokens
-1 Ice-olation Cell - frost tokens
-1 Snow Business - frost tokens
+1 Ice-olation Cell
+
+1 Crystal Palace - freeze trigger

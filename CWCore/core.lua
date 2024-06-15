@@ -108,7 +108,8 @@ CardWars.ModificationLayers = {
     DAMAGE_MULTIPLICATION = 7,
     ATTACK_RIGHTS = 8,
     TARGETING_PERMISSIONS = 9,
-    DAMAGE_ABSORBTION = 9,
+    DAMAGE_ABSORBTION = 10,
+    ADDITIONAL_LANDSCAPES = 11,
 }
 
 -- Card Types
@@ -561,6 +562,55 @@ function Common.LandscapesTyped(playerI, type)
     return result
 end
 
+function Common.CountCreaturesThatCountAsLandscape(playerI, type)
+    local creatures = Common.FilterCreatures(function (creature)
+        return
+            creature.Original.ControllerI == playerI and
+            creature.CountsAsLandscapes:Contains(type)
+    end)
+    local result = 0
+
+    for _, c in ipairs(creatures) do
+        for i = 0, c.CountsAsLandscapes.Count - 1 do
+            local l = c.CountsAsLandscapes[i]
+            if l == type then
+                result = result + 1
+            end
+        end
+    end
+
+    return result
+end
+
+function Common.CountBuildingsThatCountAsLandscape(playerI, type)
+    local buildings = Common.FilterBuildings(function (building)
+        return
+            building.Original.ControllerI == playerI and
+            building.CountsAsLandscapes:Contains(type)
+    end)
+    local result = 0
+
+    for _, c in ipairs(buildings) do
+        for i = 0, c.CountsAsLandscapes.Count - 1 do
+            local l = c.CountsAsLandscapes[i]
+            if l == type then
+                result = result + 1
+            end
+        end
+    end
+
+    return result
+end
+
+function Common.CountLandscapesTyped(playerI, type)
+    local result = #Common.LandscapesTyped(playerI, type)
+
+    result = result + Common.CountCreaturesThatCountAsLandscape(playerI, type)
+    result = result + Common.CountBuildingsThatCountAsLandscape(playerI, type)
+
+    return result
+end
+
 function Common.FaceDownLandscapes(playerI)
     local result = {}
     local landscapes = STATE.Players[playerI].Landscapes
@@ -588,15 +638,27 @@ function Common.FaceUpLandscapes(playerI)
 end
 
 function Common.AvailableToFlipDownLandscapes(landscapeOwnerI, byI)
+    -- TODO not tested
     local landscapes = Common.FaceUpLandscapes(landscapeOwnerI)
-    -- TODO
-    return landscapes
+    local result = {}
+    for _, landscape in ipairs(landscapes) do
+        if Common.Flip.CanFlipDown(landscape, byI) then
+            result[#result+1] = landscape
+        end
+    end
+    return result
 end
 
 function Common.AvailableToFlipDownLandscapesTyped(landscapeOwnerI, byI, type)
-    local landscapes = Common.LandscapesTyped(landscapeOwnerI, type)
-    -- TODO
-    return landscapes
+    -- TODO not tested
+    local landscapes = Common.AvailableToFlipDownLandscapes(landscapeOwnerI, byI)
+    local result = {}
+    for _, landscape in ipairs(landscapes) do
+        if landscape:Is(type) then
+            result[#result+1] = landscape
+        end
+    end
+    return result
 end
 
 function Common.Lanes(landscapes)
@@ -903,6 +965,18 @@ function Common.AllPlayers.LandscapesTyped(type)
     return Common.FilterLandscapes(function (landscape)
         return landscape:Is(type)
     end)
+end
+
+function Common.AllPlayers.CountLandscapesTyped(type)
+    local result = #Common.AllPlayers.LandscapesTyped(type)
+
+    -- TODO check creatures and buildings
+    for i = 0, 1 do
+        result = result + Common.CountCreaturesThatCountAsLandscape(i, type)
+        result = result + Common.CountBuildingsThatCountAsLandscape(i, type)
+    end
+
+    return result
 end
 
 function Common.AllPlayers.Creatures()
