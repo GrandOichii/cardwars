@@ -244,6 +244,7 @@ function CardWars:InPlay(props)
 
     result.Triggers = {}
     function result:AddTrigger(trigger)
+        trigger.tags = trigger.tags or {}
         trigger.text = trigger.text or 'MISSING ACTIVATED ABILITY TEXT'
         result.Triggers[#result.Triggers+1] = trigger
     end

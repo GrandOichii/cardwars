@@ -459,7 +459,6 @@ public class GameMatch {
     }
 
     public async Task MoveCreature(string creatureId, int toI) {
-        // System.Console.WriteLine("START");
         foreach (var player in LastState.Players) {
             foreach (var lane in player.Landscapes) {
                 var creature = lane.Creature;
@@ -467,7 +466,6 @@ public class GameMatch {
 
                 var prevLaneI = lane.Original.Idx;
                 if (prevLaneI == toI) {
-                    // System.Console.WriteLine(creature.Original.Card.LogFriendlyName + "\t" + prevLaneI);
                     ActionError($"Tried to move creature {creature.Original.Card.LogFriendlyName} from lane {prevLaneI} to lane {toI}, which are the same");
                     return;
                 }
@@ -486,7 +484,6 @@ public class GameMatch {
                     creature.Original.ProcessMove(player.Original.Idx, prevLaneI, toI);
                 // TODO? add update
                 // TODO trigger
-                // System.Console.WriteLine("END");
 
                 LogInfo($"Moved creature {creature.Original.Card.LogFriendlyName} from lane {prevLaneI} to lane {toI}");
                 return;
