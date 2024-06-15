@@ -288,11 +288,27 @@ function CardWars:Creature(props)
     local result = CardWars:InPlay(props)
 
     result.OnEnterP:AddLayer(
-        function(playerI, laneI, replaced)
+        function(playerI, laneI, amount, creatureId)
             LogInfo('Creature '..result.name .. ' with id ' .. STATE.Players[playerI].Landscapes[laneI].Creature.Original.Card.ID .. ' entered play on lane ' ..laneI)
             return nil, true
         end
     )
+
+    result.OnDealDamageP = Core.Pipeline:New()
+    result.OnDealDamageP:AddLayer(
+        function (playerI, laneI, amount, creatureId)
+            local e = ' to opponent'
+            if creatureId then
+                e = ' to creature with id '..creatureId
+            end
+            LogInfo('Creature '..result.name .. ' with id ' .. STATE.Players[playerI].Landscapes[laneI].Creature.Original.Card.ID .. ' dealt '..amount..' damage ' ..e)
+            return nil, true
+        end
+    )
+
+    function result:OnDealDamage(playerI, laneI, amount, creatureId)
+        self.OnDealDamageP:Exec(playerI, laneI, amount, creatureId)
+    end
 
     return result
 end
@@ -1070,6 +1086,7 @@ function Common.AbilityGrantingRemoval.RemovaAll(card)
     card.ProcessEnter = false
     card.ProcessLeave = false
     card.ProcessMove = false
+    card.ProcessDealDamage = false
 end
 
 Common.Flip = {}

@@ -222,6 +222,13 @@ public class GameMatch {
         return dealt;
     }
 
+    public async Task<int> DealDamageToPlayer(CreatureState dealer, int playerI, int amount) {
+        var dealt = await DealDamageToPlayer(playerI, amount);
+        dealer.ProcessOnDealtDamage(dealt, null);
+
+        return dealt;
+    }
+
     public async Task SoftReloadState() {
         LastState = new(this);
         LState["STATE"] = LastState;
@@ -254,6 +261,12 @@ public class GameMatch {
         // TODO add update
         // TODO add trigger
         LogInfo($"{creature.Original.Card.LogFriendlyName} is dealt {amount} damage");
+    }
+
+    public async Task DealDamageToCreatureBy(CreatureState creature, CreatureState attacker) {
+        var damage = attacker.Attack * attacker.DamageMultiplier;
+        await DealDamageToCreature(creature, damage, true);
+        attacker.ProcessOnDealtDamage(damage, creature.Original.Card.ID);
     }
 
     public async Task DestroyCreature(string id) {
