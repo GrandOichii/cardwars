@@ -14,7 +14,7 @@ function _Create(props)
             local card = milled[1]
             local creatures = Common.OpposingCreatures(playerI)
             for _, creature in ipairs(creatures) do
-                DealDamageToCreature(creature.Original.Card.ID, card.Cost)
+                DealDamageToCreature(creature.Original.Card.ID, card.Template.Cost)
             end
         end
     )

@@ -486,6 +486,17 @@ function Common.LandscapesWithoutCreatures(playerI)
     end)
 end
 
+function Common.LandscapesWithoutCreaturesTyped(playerI, lType)
+    return Common.FilterLandscapes(function (landscape)
+        return
+            landscape:Is(lType) and
+            landscape.Original.OwnerI == playerI and
+            landscape.Creature == nil
+    end)
+end
+
+
+
 function Common.Creatures(playerI)
     return Common.FilterCreatures(function (creature)
         return creature.Original.ControllerI == playerI
@@ -896,6 +907,10 @@ end
 
 function Common.AllPlayers.Creatures()
     return Common.FilterCreatures(function (_) return true end)
+end
+
+function Common.AllPlayers.Buildings()
+    return Common.FilterBuildings(function (_) return true end)
 end
 
 function Common.AllPlayers.FloopedCreatures()

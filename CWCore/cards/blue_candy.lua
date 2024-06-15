@@ -25,6 +25,9 @@ function _Create(props)
             for i = 1, healMax do
                 options[#options+1] = ''..i
             end
+            if #options == 0 then
+                return
+            end
 
             local choice = PickString(playerI, options, 'Heal how much damage from '..c.Original.Card.Template.Name..'?')
             local heal = tonumber(choice)

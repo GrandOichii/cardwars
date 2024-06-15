@@ -1,7 +1,7 @@
 -- Status: not tested
 
 function _Create(props)
-    local result = CardWars:InPlay(props)
+    local result = CardWars:Creature(props)
 
     Common.ActivatedEffects.Floop(result,
         'FLOOP >>> Return a random Creature from your discard pile to your hand.',

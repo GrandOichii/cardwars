@@ -1,7 +1,7 @@
 -- Status: not tested
 
 function _Create(props)
-    local result = CardWars:InPlay(props)
+    local result = CardWars:Creature(props)
 
     result:AddActivatedEffect({
         text = 'FLOOP >>> Return a Building from your discard pile to your hand.',

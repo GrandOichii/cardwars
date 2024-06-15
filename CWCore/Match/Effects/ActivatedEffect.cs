@@ -39,7 +39,7 @@ public class ActivatedEffect {
                     : f.Call(state, player.Original.Idx, laneI)
             );
         } catch (Exception e) {
-            throw new CWCoreException($"failed to execute check function of activated effect of card {state.Original.Card.LogFriendlyName}", e);
+            throw new CWCoreException($"failed to execute effect check function of card {state.Original.Card.LogFriendlyName}", e);
         }
     }
 
@@ -55,7 +55,7 @@ public class ActivatedEffect {
             }
             EffectF.Call(state, player.Original.Idx, laneI);
         } catch (Exception e) {
-            throw new CWCoreException($"failed to execute effect function of activated effect of card {state.Original.Card.LogFriendlyName}", e);
+            throw new CWCoreException($"failed to execute effect function of card {state.Original.Card.LogFriendlyName}", e);
         }
     }
 
