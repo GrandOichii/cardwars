@@ -286,6 +286,20 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public string PickString(int playerI, LuaTable optionsTable, string hint) {
+        var player = _match.GetPlayer(playerI);
+
+        List<string> options = new();
+        foreach (var v in optionsTable.Values)
+            options.Add((string)v);
+
+        var result = player.Pick(options, hint)
+            .GetAwaiter().GetResult();
+
+        return result;
+    }
+
+    [LuaCommand]
     public void ReadyCard(string id) {
         var card = _match.GetInPlayCard(id);
         _match.ReadyCard(card.Original)

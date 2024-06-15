@@ -20,6 +20,6 @@
 + 2 Ring of Fluffy
 + 1 Cave of Solitude
 + 1 Falling Star
++ 2 Blue Candy
 
-2 Blue Candy - "heal up to 3 damage"
 2 Snakemint - on deal damage effects
