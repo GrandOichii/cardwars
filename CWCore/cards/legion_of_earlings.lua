@@ -6,7 +6,10 @@ function _Create(props)
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
         -- When Legion of Earlings enters play, you may return target Creature in this Lane to its owner's hand.
 
-        local options = Common.IDs(Common.AllPlayers.CreaturesInLane(laneI))
+        local options = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.CreaturesInLane(laneI)))
+        if #options == 0 then
+            return
+        end
 
         local target = TargetCreature(playerI, options, 'Choose a creature to return to hand')
         local creature = GetCreature(target)

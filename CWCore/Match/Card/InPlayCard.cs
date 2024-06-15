@@ -55,6 +55,11 @@ public class InPlayCard {
 
     public virtual bool IsFlooped() => Exhausted;
 
+    public bool CanFloop() {
+        return !Exhausted;
+    }
+
+
     public void ProcessMove(int playerI, int prevLaneI, int newLaneI, bool wasStolen = false) {
         MovementCount++;
 

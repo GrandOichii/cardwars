@@ -8,20 +8,26 @@ function _Create(props)
         tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
-            return Common.CanFloop(me)
+            return
+                Common.CanFloop(me) and
+                #Common.Targetable(playerI, Common.AllPlayers.Creatures()) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            -- !FIXME rework, doesn't count the creatures that were replaced
-            local creatures = Common.FilterCreatures( function (creature) return creature.Original.EnteredThisTurn end)
-            local amount = #creatures
-            local ids = Common.IDs(Common.FilterCreatures( function (creature) return true end))
+            local amount = 0
+            for i = 0, 1 do
+                local p = STATE.Players[i]
+                for ii = 0, p.Landscapes.Count - 1 do
+                    local l = p.Landscapes[ii]
+                    amount = amount + l.Original.CreaturesEnteredThisTurn.Count
+                end
+            end
 
+            local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
             local target = TargetCreature(playerI, ids, 'Choose a creature to deal damage to')
-
             DealDamageToCreature(target, amount)
         end
     })

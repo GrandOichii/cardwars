@@ -486,4 +486,10 @@ public class ScriptMaster {
             amount--;
         }
     }
+
+    [LuaCommand]
+    public void UntilNextTurn(int playerI, LuaFunction effect) {
+        var player = _match.GetPlayer(playerI);
+        player.UntilNextTurnEffects.Add(effect);
+    }
 }

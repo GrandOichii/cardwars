@@ -1,3 +1,4 @@
+using CWCore.Exceptions;
 using CWCore.Match.Players;
 
 namespace CWCore.Match.States;
@@ -43,6 +44,14 @@ public class PlayerState : IStateModifier {
         
         foreach (var lane in Landscapes) {
             lane.Modify(layer);
+        }
+
+        foreach (var effect in Original.UntilNextTurnEffects) {
+            try {
+                effect.Call((int)layer);
+            } catch (Exception e) {
+                throw new CWCoreException($"failed to execute \"until next turn\" effect of player {Original.LogFriendlyName}", e);
+            }
         }
     }
 

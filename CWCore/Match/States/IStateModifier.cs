@@ -10,6 +10,8 @@ public enum ModificationLayer {
     ABILITY_GRANTING_REMOVAL,
     LANDSCAPE_FLIP_DOWN_AVAILABILITY,
     DAMAGE_MULTIPLICATION,
+    ATTACK_RIGHTS,
+    TARGETING_PERMISSIONS,
 }
 
 public interface IStateModifier {

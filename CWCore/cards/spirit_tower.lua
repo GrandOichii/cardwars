@@ -11,7 +11,7 @@ function _Create(props)
             return
                 Common.CanFloop(me) and
                 GetPlayer(playerI).Original.ActionPoints >= 1 and
-                #Common.AllPlayers.Creatures() >= 1
+                #Common.Targetable(playerI, Common.AllPlayers.Creatures()) >= 1
         end,
         costF = function (me, playerI, laneI)
             PayActionPoints(playerI, 1)
@@ -23,7 +23,7 @@ function _Create(props)
             if #present > 0 then
                 return
             end
-            local ids = Common.IDs(Common.AllPlayers.Creatures())
+            local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
             local target = TargetCreature(playerI, ids, 'Choose a creature to move/steal to lane '..laneI)
             local creature = GetCreature(target)
             local controllerI = creature.Original.ControllerI

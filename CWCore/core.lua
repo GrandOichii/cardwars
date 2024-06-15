@@ -106,6 +106,8 @@ CardWars.ModificationLayers = {
     ABILITY_GRANTING_REMOVAL = 5,
     LANDSCAPE_FLIP_DOWN_AVAILABILITY = 6,
     DAMAGE_MULTIPLICATION = 7,
+    ATTACK_RIGHTS = 8,
+    TARGETING_PERMISSIONS = 9,
 }
 
 -- Card Types
@@ -356,6 +358,18 @@ function Common.FilterLandscapes(predicate)
     return result
 end
 
+function Common.Targetable(byI, tableArr)
+    local result = {}
+
+    for _, card in ipairs(tableArr) do
+        if card.CanBeTargetedBy:Contains(byI) then
+            result[#result+1] = card
+        end
+    end
+
+    return result
+end
+
 function Common.CreaturesNamed(playerI, name)
     return Common.FilterCreatures( function (creature)
         return
@@ -376,7 +390,7 @@ function Common.CanFloop(card)
     if not GetConfig().CanFloopOnFirstTurn and STATE.TurnCount == 1 then
         return false
     end
-    return not card.Original:IsFlooped()
+    return card.Original:CanFloop()
 end
 
 function Common.FreezeLandscape(playerI, laneI)
@@ -1022,11 +1036,28 @@ end
 
 function Common.State.ModAttackRight(card, effect)
     card:AddStateModifier(function (me, layer, zone)
-        -- TODO change layer
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
+        if layer == CardWars.ModificationLayers.ATTACK_RIGHTS and zone == CardWars.Zones.IN_PLAY then
             effect(me)
         end
     end)
+end
+
+function Common.State.CantBeAttacked(creature)
+    local opponent = 1 - creature.Original.ControllerI
+    local lane = STATE.Players[opponent].Landscapes[creature.LaneI]
+    local c = lane.Creature
+    if c == nil then
+        return
+    end
+    c.CanAttack = false
+end
+
+function Common.State.CantBeTargeted(creature, by)
+    if by then
+        creature.CanBeTargetedBy:Remove(by)
+        return
+    end
+    creature.CanBeTargetedBy:Clear()
 end
 
 Common.AbilityGrantingRemoval = {}
@@ -1038,8 +1069,6 @@ function Common.AbilityGrantingRemoval.RemovaAll(card)
     card.ProcessEnter = false
     card.ProcessLeave = false
     card.ProcessMove = false
-
-    -- !FIXME this is bad, removes these effects forever
 end
 
 Common.Flip = {}

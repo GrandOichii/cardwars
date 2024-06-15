@@ -8,10 +8,8 @@ function _Create(props)
         tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
-            if not Common.CanFloop(me) then
-                return false
-            end
             return
+                Common.CanFloop(me) and
                 #Common.LandscapesWithoutBuildings(playerI) > 0 and
                 #Common.Buildings(playerI) > 0
         end,

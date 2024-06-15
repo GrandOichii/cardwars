@@ -15,6 +15,7 @@ public class InPlayCardState : IStateModifier {
     public bool ProcessEnter { get; set; }
     public bool ProcessLeave { get; set; }
     public bool ProcessMove { get; set; }
+    public List<int> CanBeTargetedBy { get; }
 
     public InPlayCardState(InPlayCard original, int laneI) {
         Original = original;
@@ -35,6 +36,7 @@ public class InPlayCardState : IStateModifier {
         ProcessLeave = true;
         ProcessMove = true;
         ProcessEnter = true;
+        CanBeTargetedBy = new() { 0, 1 };
     }
 
     public void Modify(ModificationLayer layer)

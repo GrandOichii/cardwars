@@ -31,4 +31,5 @@ public class Creature : InPlayCard {
         return Exhausted && !Attacking;
     }
 
+
 }

@@ -5,7 +5,7 @@ function _Create(props)
     
     -- When Sandsnake enters play, deal 4 Damage to target opposing Creature in this Lane.
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
-        local ids = Common.IDs(Common.OpposingCreaturesInLane(playerI, laneI))
+        local ids = Common.IDs(Common.Targetable(playerI, Common.OpposingCreaturesInLane(playerI, laneI)))
         if #ids == 0 then
             return
         end

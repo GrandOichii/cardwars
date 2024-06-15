@@ -2,6 +2,7 @@ using CWCore.Decks;
 using CWCore.Exceptions;
 using CWCore.Match.States;
 using CWCore.Utility;
+using NLua;
 
 namespace CWCore.Match.Players;
 
@@ -25,6 +26,7 @@ public class Player {
     public List<MatchCard> CardsPlayedThisTurn { get; }
     // TODO utilize
     public List<MatchCard> EnteredDiscardThisTurn { get; }
+    public List<LuaFunction> UntilNextTurnEffects { get; }
 
     public Player(GameMatch match, string name, int idx, Dictionary<string, int> landscapeIndex, LinkedList<MatchCard> deck, Hero? hero, IPlayerController controller) {
         Match = match;
@@ -39,6 +41,7 @@ public class Player {
         DiscardPile = new();
         CardsPlayedThisTurn = new();
         EnteredDiscardThisTurn = new();
+        UntilNextTurnEffects = new();
     }
 
     public string LogFriendlyName => $"{Name} [{Idx}]";

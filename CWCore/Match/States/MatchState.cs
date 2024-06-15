@@ -11,6 +11,8 @@ public class MatchState {
         ModificationLayer.ATK_AND_DEF,
         ModificationLayer.LANDSCAPE_FLIP_DOWN_AVAILABILITY,
         ModificationLayer.DAMAGE_MULTIPLICATION,
+        ModificationLayer.ATTACK_RIGHTS,
+        ModificationLayer.TARGETING_PERMISSIONS,
     };
 
     public PlayerState[] Players { get; }

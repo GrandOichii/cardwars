@@ -55,6 +55,7 @@
         "AtTheEndOfTurn",
         "RevealCardsFromDeck",
         "ChooseCard",
-        "FromTopToBottom"
+        "FromTopToBottom",
+        "UntilNextTurn"
     ]
 }

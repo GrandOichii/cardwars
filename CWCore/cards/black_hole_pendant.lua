@@ -5,7 +5,7 @@ function _Create(props)
     
     Common.AddRestriction(result,
     function (playerI)
-        return nil, #Common.AllPlayers.Creatures() > 0
+        return nil, #Common.Targetable(playerI, Common.AllPlayers.Creatures()) > 0
         end
     )
     
@@ -13,7 +13,7 @@ function _Create(props)
     result.EffectP:AddLayer(
         function (playerI)
             -- 
-            local ids = Common.IDs(Common.AllPlayers.Creatures())
+            local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
             local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
             -- TODO not clear - at the time of playing or dynamic
             local amount = #GetUniqueLandscapeNames(1 - playerI)
