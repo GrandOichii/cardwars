@@ -19,7 +19,7 @@
 + 2 Niceasaurus Rex
 + 2 Ring of Fluffy
 + 1 Cave of Solitude
++ 1 Falling Star
 
 2 Blue Candy - "heal up to 3 damage"
-2 Snakemint - on deal damage effects (set damage multiplier to 0)
-1 Falling Star - damage prevention
+2 Snakemint - on deal damage effects

@@ -197,9 +197,11 @@ public class GameMatch {
         // TODO? add to update
     }
 
-    public async Task ExhaustToAttack(Creature card) {
-        card.Exhausted = true;
-        card.Attacking = true;
+    public async Task ExhaustToAttack(CreatureState card) {
+        // TODO should be done in card
+        var c = card.GetOriginal();
+        c.Exhausted = true;
+        c.Attacking = true;
         // TODO? add to update
     }
 
@@ -244,11 +246,14 @@ public class GameMatch {
         }
     }
 
-    public async Task DealDamageToCreature(Creature creature, int amount) {
-        creature.Damage += amount;
+    public async Task DealDamageToCreature(CreatureState creature, int amount, bool fromCreature) {
+        if (fromCreature && creature.AbsorbCreatureDamage) {
+            return;
+        }
+        creature.GetOriginal().Damage += amount;
         // TODO add update
         // TODO add trigger
-        LogInfo($"{creature.Card.LogFriendlyName} is dealt {amount} damage");
+        LogInfo($"{creature.Original.Card.LogFriendlyName} is dealt {amount} damage");
     }
 
     public async Task DestroyCreature(string id) {

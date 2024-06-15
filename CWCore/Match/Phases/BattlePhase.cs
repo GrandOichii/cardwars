@@ -43,7 +43,7 @@ public class BattlePhase : IPhase
                 continue;
             }
 
-            var attacker = attackerState.GetOriginal();
+            var attacker = attackerState;
             await match.ExhaustToAttack(attacker);
             
             // damage
@@ -56,12 +56,12 @@ public class BattlePhase : IPhase
             }
 
             // TODO bad?
-            var defender = (Creature)defenderState.Original;
+            var defender = defenderState;
 
             // TODO deal damage to each other
-            match.LogInfo($"{attacker.Card.LogFriendlyName} attacks {defender.Card.LogFriendlyName} in lane {laneI}");
-            await match.DealDamageToCreature(defender, attackerState.Attack * attackerState.DamageMultiplier);
-            await match.DealDamageToCreature(attacker, defenderState.Attack * attackerState.DamageMultiplier);
+            match.LogInfo($"{attacker.Original.Card.LogFriendlyName} attacks {defender.Original.Card.LogFriendlyName} in lane {laneI}");
+            await match.DealDamageToCreature(defender, attackerState.Attack * attackerState.DamageMultiplier, true);
+            await match.DealDamageToCreature(attacker, defenderState.Attack * attackerState.DamageMultiplier, true);
         }
     }
 

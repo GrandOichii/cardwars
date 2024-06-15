@@ -108,6 +108,7 @@ CardWars.ModificationLayers = {
     DAMAGE_MULTIPLICATION = 7,
     ATTACK_RIGHTS = 8,
     TARGETING_PERMISSIONS = 9,
+    DAMAGE_ABSORBTION = 9,
 }
 
 -- Card Types

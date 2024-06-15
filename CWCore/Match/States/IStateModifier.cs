@@ -12,6 +12,7 @@ public enum ModificationLayer {
     DAMAGE_MULTIPLICATION,
     ATTACK_RIGHTS,
     TARGETING_PERMISSIONS,
+    DAMAGE_ABSORBTION,
 }
 
 public interface IStateModifier {

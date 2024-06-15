@@ -96,7 +96,7 @@ public class ScriptMaster {
     [LuaCommand]
     public void DealDamageToCreature(string creatureId, int amount) {
         var creature = _match.GetInPlayCreature(creatureId);
-        _match.DealDamageToCreature(creature.GetOriginal(), amount)
+        _match.DealDamageToCreature(creature, amount, false)
             .Wait();
     }
 
