@@ -9,9 +9,8 @@
 + 2 Dogboy
 + 2 Future Scholar
 + 1 Blood Fortress
-2 Fatapillar
-2 Steakchop
-2 Brief Power
++ 2 Fatapillar
++ 2 Brief Power
 1 Toilet of Doom
 1 Mausoleum
 1 Night Tower
@@ -20,8 +19,9 @@
 2 Subliminal Strength
 2 Squatting Bald Man
 2 Infinite Figure
-1 Skeletal Hand - milling and knowing the cards that were milled
-2 Grape Djini - choosing cards in discard, returning cards from discard to top of deck
+1 Skeletal Hand
+2 Grape Djini
+1 Volcano
 
-1 Volcano - bulding destruction
+2 Steakchop - "discard after your free draw"?
 1 Pyramidia - "gain 1 Action. Use it only to play a Creature into this Lane"

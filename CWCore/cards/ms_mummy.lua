@@ -20,7 +20,7 @@ function _Create(props)
         end,
         effectF = function (me, controllerI, laneI)
             -- TODO? should this be in check
-            local creatures = Common.IDs(Common.Targetable(playerI, Common.CreaturesTyped(controllerI, CardWars.Landscapes.SandyLands)))
+            local creatures = Common.IDs(Common.Targetable(controllerI, Common.CreaturesTyped(controllerI, CardWars.Landscapes.SandyLands)))
             if #creatures == 0 then
                 return
             end
