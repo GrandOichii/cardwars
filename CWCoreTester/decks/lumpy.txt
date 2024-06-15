@@ -16,12 +16,12 @@
 + 1 Night Tower
 + 2 Grape Djini
 + 2 Subliminal Strength
-2 Squatting Bald Man
-2 Infinite Figure
-1 Skeletal Hand
++ 1 Strength Crystal
++ 2 Steakchop
++ 2 Squatting Bald Man
++ 2 Infinite Figure
++ 1 Skeletal Hand
 1 Volcano
 1 Pants of Awesome
 
-1 Strength Crystal - player targeting
-2 Steakchop - "discard after your free draw"?
 1 Pyramidia - "gain 1 Action. Use it only to play a Creature into this Lane"

@@ -11,8 +11,7 @@ function _Create(props)
                 return
             end
             UpdateState()
-            local cardId = milled[1]
-            local card = STATE.Players[playerI].DiscardPile[Common.DiscardCardIdx(playerI, cardId)]
+            local card = milled[1]
             local creatures = Common.OpposingCreatures(playerI)
             for _, creature in ipairs(creatures) do
                 DealDamageToCreature(creature.Original.Card.ID, card.Cost)

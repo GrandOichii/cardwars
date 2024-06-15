@@ -340,15 +340,15 @@ public class Player {
         Deck.AddLast(card);
     }
 
-    public List<string> Mill(int amount) {
-        var result = new List<string>();
+    public List<MatchCard> Mill(int amount) {
+        var result = new List<MatchCard>();
 
         while (amount > 0) {
             if (Deck.Count == 0) break;
             var card = Deck.Last!.Value;
             Deck.RemoveLast();
             AddToDiscard(card);
-            result.Add(card.ID);
+            result.Add(card);
             amount--;
         }
 
