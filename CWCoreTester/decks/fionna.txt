@@ -8,10 +8,13 @@
 + 2 Glorious Gramophone
 + 1 River of Swords
 + 2 Oil Refinery
++ 2 Tiny Elephant
++ 1 Charming City
 2 The Dog - "opposing buildings in this lane are blank"
 1 Learning Center - "gains the game text of Buildings you control in adjacent lanes"
+2 Woadic Enchantress - "cannot use floop abilities"
+1 Vampire Lord - on deal damage to opponent trigger
 
-1 Charming City - changing card landscape type
 1 Puppy Parade - changing card landscape type, state modification layering
 
 2 Sword Bouquet - checking the amount of cards drawn in a turn
@@ -19,8 +22,5 @@
 2 Emboldened Retriever - attack trigger
 1 Business Dog - checking how many creatures entered a specific lane this turn
 2 Impossible Possum - "when is placed into discard from anywhere"
-2 Woadic Enchantress - "cannot use floop abilities"
 2 Friendship Bracelet - "swap any amount of damage between two creatures you control"
-1 Vampire Lord - on deal damage to opponent trigger
-2 Tiny Elephant - additional creature types
 2 Woadic Weirdo - deck card revealing, changing card landscape type

@@ -595,8 +595,8 @@ public class Program {
 
     public static async Task Main(string[] args) {
 
-        // await SimpleConsole();
-        // return;
+        await SimpleConsole();
+        return;
 
         var seed = 0;
         await TestRandom(seed, 100, false);
