@@ -186,8 +186,6 @@ public class Player {
 
         await Match.Emit("creature_enter", new() {
             {"id", creature.Card.ID},
-            // TODO add 'state' here
-            // TODO "Tiny Elephant"-like effects might ruin this
             {"Original", creature},
             {"controllerI", Idx},
             {"laneI", laneI},

@@ -10,15 +10,13 @@ function _Create(props)
             return
         end
 
-        local choices = Common.DiscardPileCardIndicies(playerI, function (card)
-            return card.Original.Template.Type == 'Creature'
-        end)
+        local choices = Common.DiscardPileCardIndicies(playerI, function (card) return true end)
 
         if #choices == 0 then
             return
         end
 
-        local choice = ChooseCardInDiscard(playerI, choices, {}, 'Choose a Creature card to place on top of your deck')
+        local choice = ChooseCardInDiscard(playerI, choices, {}, 'Choose a card to place on top of your deck')
         local pI = choice[0]
         if pI ~= playerI then
             -- * shouldn't ever happen

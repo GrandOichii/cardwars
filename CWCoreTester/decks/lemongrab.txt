@@ -17,8 +17,8 @@
 1 Ham Fist
 1 Lunchpad
 1 Parrotmilitary Outpost
-
 1 Sinkhole - "until the start of your next turn"
+
 1 Silo of Freedom - landscape changing, "until the start of your next turn"
 2 Rock Out! - "flip Landscape until the start of your next turn"
 1 Husky Parrotrooper - "cannot be replaced", placing into enemy landscapes

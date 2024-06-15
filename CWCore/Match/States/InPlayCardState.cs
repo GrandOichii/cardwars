@@ -8,6 +8,7 @@ public class InPlayCardState : IStateModifier {
     public readonly static string MODIFY_STATE_FNAME = "ModifyState";
 
     public InPlayCard Original { get; }
+    public List<string> LandscapeTypes { get; }
     public int LaneI { get; }
     public List<ActivatedEffect> ActivatedEffects { get; }
     public List<TriggeredEffect> TriggeredEffects { get; }
@@ -39,6 +40,7 @@ public class InPlayCardState : IStateModifier {
         ProcessEnter = true;
         CanBeTargetedBy = new() { 0, 1 };
         CountsAsLandscapes = new();
+        LandscapeTypes = new() { Original.Card.Template.Landscape };
     }
 
     public void Modify(ModificationLayer layer)
@@ -48,8 +50,10 @@ public class InPlayCardState : IStateModifier {
 
     public bool IsType(string type) {
         // TODO some cards effect this
-
-        return Original.IsType(type);
+        foreach (var t in LandscapeTypes)
+            if (t == type)
+                return true;
+        return false;
     }
 
     public async Task ReturnToOwnersHand(GameMatch match) {
