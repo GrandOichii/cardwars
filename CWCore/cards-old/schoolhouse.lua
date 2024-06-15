@@ -34,7 +34,6 @@ function _Create(props)
                         return
                     end
 
-                    -- TODO removes all text, should remove only ActivatedEffects
                     Common.AbilityGrantingRemoval.RemovaAll(c)
                     if a == nil then
                         return

@@ -2,7 +2,7 @@ namespace CWCore.Match;
 
 public class MatchConfig {
     public required int StartingLifeTotal { get; set; }
-    public required int ActionPointsPerTurn { get; set; }   
+    public required int ActionPointsPerTurn { get; set; }
     public required int LaneCount { get; set; }
     public required bool StrictMode { get; set; }
     public required int CardDrawCost { get; set; }
@@ -10,4 +10,5 @@ public class MatchConfig {
     public required bool CheckLandscapesForPlayingCards { get; set; }
     public required bool CanAttackOnFirstTurn { get; set; }
     public required bool CanFloopOnFirstTurn { get; set; }
+    public required int MaxBuildingsPerLane { get; set; }
 }

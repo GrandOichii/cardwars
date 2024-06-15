@@ -1,0 +1,7 @@
+{
+    "Name": "Schoolhouse",
+    "Landscape": "Blue Plains",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "FLOOP >>> Your Creature in this Lane loses all abilities and gains the FLOOP ability of a random Creature (with a FLOOP ability) in your discard pile until end of turn."
+}

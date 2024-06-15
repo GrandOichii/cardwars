@@ -1,0 +1,7 @@
+{
+    "Name": "Silo of Truth",
+    "Landscape": "Cornfield",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Pay 2 Actions >>> Steal a random card from your opponent and play it at no cost."
+}
