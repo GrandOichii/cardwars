@@ -1,0 +1,7 @@
+{
+    "Name": "Subliminal Strength",
+    "Landscape": "Blue Plains",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Target Creature you control has +2 ATK this turn for each Spell you played this turn (including this one)."
+}

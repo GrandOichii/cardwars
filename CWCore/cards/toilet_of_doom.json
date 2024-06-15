@@ -1,0 +1,7 @@
+{
+    "Name": "Toilet of Doom",
+    "Landscape": "Useless Swamp",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Target Creature you control has +1 ATK this turn for every 5 cards in your discard pile."
+}

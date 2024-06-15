@@ -3,9 +3,8 @@
 function _Create(props)
     local result = CardWars:Creature(props)
 
-    -- When Grape Djini enters play, if it replaced a Creature, you may put a card from your discard pile on top of your deck.
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
-        -- When  enters play, 
+        -- When Grape Djini enters play, if it replaced a Creature, you may put a card from your discard pile on top of your deck.
 
         if not replaced then
             return

@@ -11,17 +11,17 @@
 + 1 Blood Fortress
 + 2 Fatapillar
 + 2 Brief Power
-1 Toilet of Doom
-1 Mausoleum
-1 Night Tower
-1 Strength Crystal
-1 Pants of Awesome
-2 Subliminal Strength
++ 1 Toilet of Doom
++ 1 Mausoleum
++ 1 Night Tower
++ 2 Grape Djini
++ 2 Subliminal Strength
 2 Squatting Bald Man
 2 Infinite Figure
 1 Skeletal Hand
-2 Grape Djini
 1 Volcano
+1 Pants of Awesome
 
+1 Strength Crystal - player targeting
 2 Steakchop - "discard after your free draw"?
 1 Pyramidia - "gain 1 Action. Use it only to play a Creature into this Lane"
