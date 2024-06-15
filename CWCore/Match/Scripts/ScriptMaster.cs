@@ -506,4 +506,19 @@ public class ScriptMaster {
         var player = _match.GetPlayer(playerI);
         player.UntilNextTurnEffects.Add(effect);
     }
+
+    [LuaCommand]
+    public int TargetPlayer(int playerI, LuaTable optionsTable, string hint) {
+        var player = _match.GetPlayerState(playerI);
+
+        var options = new List<int>();
+        foreach (var v in optionsTable.Values)
+            options.Add(Convert.ToInt32(v));
+
+        var result = player.Original.PickPlayer(options, hint)
+            .GetAwaiter().GetResult();
+
+        return result;
+       
+    }
 }

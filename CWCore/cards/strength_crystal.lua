@@ -1,4 +1,3 @@
--- Target player draws five cards.
 -- Status: not tested
 
 function _Create(props)
@@ -6,10 +5,10 @@ function _Create(props)
 
     result.EffectP:AddLayer(
         function (playerI)
-            -- 
-            
-            -- local player = Common.TargetablePlayer()
-            -- !FIXME repquires player targeting
+            -- Target player draws five cards.
+
+            local target = TargetPlayer(playerI, {0, 1}, 'Choose a player who will draw 5 cards')
+            Draw(target, 5)
         end
     )
 

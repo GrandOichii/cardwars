@@ -14,4 +14,5 @@ public interface IPlayerController {
     public Task<string> PickOption(GameMatch match, int playerI, List<string> options, string hint);
     public Task<int> PickCardInHand(GameMatch match, int playerI, List<int> options, string hint);
     public Task<int> PickCard(GameMatch match, int playerI, List<string> options, string hint);
+    public Task<int> PickPlayer(GameMatch match, int playerI, List<int> options, string hint);
 }

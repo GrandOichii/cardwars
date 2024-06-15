@@ -57,6 +57,7 @@
         "ChooseCard",
         "FromTopToBottom",
         "UntilNextTurn",
-        "PickString"
+        "PickString",
+        "TargetPlayer"
     ]
 }

@@ -94,6 +94,11 @@ public class RandomPlayerController : IPlayerController
         return Task.FromResult(_rnd.Next() % options.Count);
     }
 
+    public Task<int> PickPlayer(GameMatch match, int playerI, List<int> options, string hint) {
+        var player = match.GetPlayer(playerI);
+        return Task.FromResult(_rnd.Next() % options.Count);
+    }
+
     public Task<List<string>> PromptLandscapePlacement(int playerI, Dictionary<string, int> landscapeIndex)
     {
         // TODO

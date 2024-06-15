@@ -349,7 +349,22 @@ public class ConsolePlayerController : IPlayerController
         System.Console.WriteLine("(select card)");
 
         var result = Console.ReadLine()
-            ?? throw new Exception("failed to read card option")
+            ?? throw new Exception("failed to read card choice")
+        ;
+
+        return Task.FromResult(
+            int.Parse(result)
+        );
+    }
+    public Task<int> PickPlayer(GameMatch match, int playerI, List<int> options, string hint) {
+        System.Console.WriteLine("Options:");
+        for (int i = 0; i < options.Count; i++)
+            System.Console.WriteLine(options[i]);
+        System.Console.WriteLine($"\"{hint}\"");
+        System.Console.WriteLine("(select player idx)");
+
+        var result = Console.ReadLine()
+            ?? throw new Exception("failed to read player choice")
         ;
 
         return Task.FromResult(
@@ -450,6 +465,11 @@ public class CursesPlayerController : IPlayerController
     public Task<int> PickCard(GameMatch match, int playerI, List<string> options, string hint) {
         Wait();
         return _playerController.PickCard(match, playerI, options, hint);
+    }
+
+    public Task<int> PickPlayer(GameMatch match, int playerI, List<int> options, string hint) {
+        Wait();
+        return _playerController.PickPlayer(match, playerI, options, hint);
     }
 }
 
