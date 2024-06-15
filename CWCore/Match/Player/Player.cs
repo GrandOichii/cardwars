@@ -267,7 +267,7 @@ public class Player {
     public async Task<int> PickCard(List<string> options, string hint) {
         var result = await Controller.PickCard(Match, Idx, options, hint);
         // TODO validate
-        return result;        
+        return result;
     }
 
     public async Task<int> PickPlayer(List<int> options, string hint) {

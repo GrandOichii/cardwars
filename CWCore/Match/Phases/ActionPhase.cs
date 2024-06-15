@@ -23,6 +23,7 @@ public class ActionPhase : IPhase {
         new PlayAction(),
         new ActivateAction(),
         new ActivateHeroAction(),
+        new RemoveFrozenTokenAction(),
     };
 
     private static readonly Dictionary<string, IAction> ACTION_MAP = new(){};

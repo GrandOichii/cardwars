@@ -7,8 +7,8 @@ public class TurnStartPhase : IPhase {
     public async Task Exec(GameMatch match, int playerI) {
         var player = match.GetPlayer(playerI);
         player.UntilNextTurnEffects.Clear();
-
-        player.ActionPoints = match.Config.ActionPointsPerTurn;
+        
+        await player.ResetActionPoints();
 
         foreach (var lane in player.Landscapes) {
             var creature = lane.Creature;
@@ -22,7 +22,6 @@ public class TurnStartPhase : IPhase {
             }
         }
         
-        await player.ResetActionPoints();
         await player.ReadyInPlayCards();
 
         player.Draw(1);

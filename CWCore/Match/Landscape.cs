@@ -23,4 +23,12 @@ public class Landscape {
         Tokens = new();
         CreaturesEnteredThisTurn = new();
     }
+
+    public bool RemoveToken(string token) {
+        return Tokens.Remove(token);
+    }
+
+    public bool HasToken(string token) {
+        return Tokens.Contains(token);
+    }
 }
