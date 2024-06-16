@@ -454,10 +454,11 @@ public class ScriptMaster {
     [LuaCommand]
     public void PlayCardIfPossible(int playerI, MatchCard card, bool forFree) {
         var cardState = new CardState(card);
-        var canPlay = cardState.CanPlay(GetPlayer(playerI), forFree);
+        var player = _match.GetPlayerState(playerI);
+        var canPlay = cardState.CanPlay(player, forFree);
         if (!canPlay) return;
         
-        _match.PlayCard(playerI, cardState, forFree)
+        player.PlayCard(cardState, forFree)
             .Wait();
     }
 
@@ -486,7 +487,7 @@ public class ScriptMaster {
         var result = player.PickCard(options, hint)
             .GetAwaiter().GetResult();
 
-        return result;        
+        return result;
     }
 
     [LuaCommand]
@@ -519,6 +520,5 @@ public class ScriptMaster {
             .GetAwaiter().GetResult();
 
         return result;
-       
     }
 }

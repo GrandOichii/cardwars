@@ -124,4 +124,81 @@ public class PlayerState : IStateModifier {
         return result;
     }
 
+    public async Task PlayCard(string cardId, bool forFree) {
+        var card = Hand.FirstOrDefault(card => card.Original.ID == cardId);
+        if (card is null) {
+            var errMsg = $"Player {Original.LogFriendlyName} tried to play a card with id {cardId}, which they don't have in their hand";
+            Original.Match.ActionError(errMsg);
+            return;
+        }
+        await PlayCard(card, forFree);
+    }
+
+    public async Task PlayCard(CardState card, bool forFree) {
+        var player = Original;
+        var match = player.Match;
+        var owned = player.Idx == card.Original.OwnerI;
+        if (!card.CanPlay(this, forFree)) {
+            var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, which they cant";
+            match.ActionError(errMsg);
+            return;
+        }
+
+        if (owned)
+            player.RemoveFromHand(card.Original);
+        await player.Match.ReloadState();
+
+        if (!forFree) {
+
+            var payed = card.PayCosts(this);
+            if (!payed) {
+                // TODO? is this required? could break
+                if (owned)
+                    player.Hand.Add(card.Original);
+                match.ActionError($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
+                return;
+            }
+        }
+
+        match.CardsPlayed.Add($"({player.Idx}) {card.Original.LogFriendlyName}");
+
+        if (card.Original.IsSpell) {
+            await player.PlaySpellEffect(card.Original);
+
+            match.GetPlayer(card.Original.OwnerI).AddToDiscard(card.Original);
+
+            return;
+        }
+
+        if (card.Original.IsCreature) {
+            var laneI = await PickLaneForCreature();
+
+            if (laneI >= match.Config.LaneCount || laneI < 0) {
+                var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
+                throw new CWCoreException(errMsg);
+            }
+
+            await player.PlaceCreatureInLane(card.Original, laneI);
+
+            return;
+        }
+
+        if (card.Original.IsBuilding) {
+            var laneI = await PickLaneForBuilding();
+
+            if (laneI >= match.Config.LaneCount || laneI < 0) {
+                var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
+                throw new CWCoreException(errMsg);
+            }
+
+            await player.PlaceBuildingInLane(card.Original, laneI);
+
+            return;
+        }
+
+        throw new CWCoreException($"Unrecognized card type: {card.Original.Template.Type}");
+
+    }
+
+
 }

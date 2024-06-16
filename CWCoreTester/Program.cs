@@ -508,6 +508,7 @@ public class Program {
             CheckLandscapesForPlayingCards = false,
             CanFloopOnFirstTurn = true,
             CanAttackOnFirstTurn = true,
+            MaxBuildingsPerLane = 1,
         };
 
         var cm = new FileCardMaster();
@@ -561,6 +562,7 @@ public class Program {
                 CheckLandscapesForPlayingCards = false,
                 CanFloopOnFirstTurn = true,
                 CanAttackOnFirstTurn = true,
+                MaxBuildingsPerLane = 1,
             };
 
             var cm = new FileCardMaster();
@@ -614,6 +616,7 @@ public class Program {
                 CheckLandscapesForPlayingCards = false,
                 CanFloopOnFirstTurn = true,
                 CanAttackOnFirstTurn = true,
+                MaxBuildingsPerLane = 1,
             };
 
             var cm = new FileCardMaster();

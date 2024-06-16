@@ -312,14 +312,14 @@ public class Player {
         Life -= amount;
         if (Life < 0) {
             Life = 0;
-            // TODO tell match
+            return;
         }
 
         // TODO add trigger
     }
 
     public async Task LeavePlay(LandscapeState landscape, InPlayCardState card) {
-        AddToDiscard(card.Original.Card);
+        Match.GetPlayer(card.Original.Card.OwnerI).AddToDiscard(card.Original.Card);
 
         if (card.ProcessLeave) {
             card.Original.Card.ExecFunction(

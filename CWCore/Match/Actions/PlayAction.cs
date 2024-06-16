@@ -12,7 +12,8 @@ public class PlayAction : IAction
     public async Task Exec(GameMatch match, int playerI, string[] args)
     {
         var cardId = args[1];
-        await match.PlayCard(playerI, cardId, false);
+        var player = match.GetPlayerState(playerI);
+        await player.PlayCard(cardId, false);
     }
 
     public IEnumerable<string> GetAvailable(GameMatch match, int playerI)
