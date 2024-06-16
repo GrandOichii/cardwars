@@ -16,12 +16,6 @@ public class MatchCard {
     public LuaTable Data { get; }
     public int OwnerI { get; set; }
 
-    // * for testing purposes
-    public MatchCard(string id, CardTemplate template) {
-        ID = id;
-        Template = template;
-    }
-
     public MatchCard(CardTemplate card, int ownerI, Lua state, IIDGenerator generator) {
         Template = card;
         OwnerI = ownerI;
@@ -34,7 +28,6 @@ public class MatchCard {
         var creationF = LuaUtility.GetGlobalF(state,  CARD_CREATION_FNAME);
         var returned = creationF.Call();
         Data = LuaUtility.GetReturnAs<LuaTable>(returned);
-        Data["id"] = ID;
     }
 
     public string LogFriendlyName => $"{Template.Name} [{ID}]";

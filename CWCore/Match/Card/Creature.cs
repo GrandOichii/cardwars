@@ -25,13 +25,10 @@ public class Creature : InPlayCard {
     }
 
     public bool CanAttack() {
-        // TODO add state-based effects
         return !Exhausted && !Attacking;
     }
 
     public override bool IsFlooped() {
         return Exhausted && !Attacking;
     }
-
-
 }

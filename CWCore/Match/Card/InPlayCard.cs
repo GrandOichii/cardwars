@@ -41,7 +41,6 @@ public class InPlayCard {
 
         StateModifiers = new();
         var modifiers = LuaUtility.TableGet<LuaTable>(card.Data, "StateModifiers");
-        // TODO feels bad
         foreach (var modifier in modifiers.Values)
             StateModifiers.Add((LuaFunction)modifier);
         
@@ -58,7 +57,6 @@ public class InPlayCard {
     public bool CanFloop() {
         return !Exhausted;
     }
-
 
     public void ProcessMove(int playerI, int prevLaneI, int newLaneI, bool wasStolen = false) {
         MovementCount++;

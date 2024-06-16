@@ -58,6 +58,6 @@ public class Hero : IStateModifier {
 
     public void Modify(ModificationLayer layer)
     {
-        ExecFunction(MODIFY_STATE_IN_HAND_FNAME, Data, (int)layer, OwnerI, "hand");
+        ExecFunction(MODIFY_STATE_IN_HAND_FNAME, Data, (int)layer, OwnerI);
     }
 }
