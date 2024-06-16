@@ -14,6 +14,7 @@ public enum ModificationLayer {
     TARGETING_PERMISSIONS,
     DAMAGE_ABSORBTION,
     ADDITIONAL_LANDSCAPES,
+    IN_HAND_CARD_TYPE,
 }
 
 public interface IStateModifier {

@@ -100,7 +100,7 @@ public class CursesView : IMatchView
     }
 
     public void DrawLandscape(int y, int x, LandscapeState landscape) {
-        var pairI = LANDSCAPE_COLOR_PAIR_MAP[landscape.Original.Name];
+        var pairI = LANDSCAPE_COLOR_PAIR_MAP[landscape.GetName];
         var pair = NCurses.ColorPair(pairI);
         NCurses.AttributeOn(pair);
         NCurses.MoveAddChar(y, x, CursesLineAcs.ULCORNER);
@@ -118,7 +118,7 @@ public class CursesView : IMatchView
         }
         // TODO add more borders
         // draw text
-        NCurses.MoveAddString(y+1, x+2, landscape.Original.Name);
+        NCurses.MoveAddString(y+1, x+2, landscape.GetName());
 
         NCurses.AttributeOff(pair);
 

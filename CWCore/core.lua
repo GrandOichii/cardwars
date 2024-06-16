@@ -110,6 +110,7 @@ CardWars.ModificationLayers = {
     TARGETING_PERMISSIONS = 9,
     DAMAGE_ABSORBTION = 10,
     ADDITIONAL_LANDSCAPES = 11,
+    IN_HAND_CARD_TYPE = 12,
 }
 
 -- Card Types

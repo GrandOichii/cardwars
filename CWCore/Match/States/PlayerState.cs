@@ -13,59 +13,44 @@ public class PlayerState : IStateModifier {
     public PlayerState(Player player) {
         Original = player;
         
-        // landscapes
-        for (int i = 0; i < player.Landscapes.Count; i++) {
-            Landscapes.Add(new(player.Landscapes[i], i));
-        }
+        Landscapes = player.Landscapes.Select(
+            (landscape, i) => new LandscapeState(landscape, i)
+        ).ToList();
 
-        // hand
-        foreach (var card in player.Hand) {
-            Hand.Add(new(card));
-        }
+        Hand = player.Hand.Select(
+            c => new CardState(c)
+        ).ToList();
 
-        // discard
-        foreach (var card in player.DiscardPile) {
-            DiscardPile.Add(new(card));
-        }
+        DiscardPile = player.DiscardPile.Select(
+            c => new CardState(c)
+        ).ToList();
 
-        // cards played this turn
-        foreach (var card in player.CardsPlayedThisTurn) {
-            CardsPlayedThisTurn.Add(new(card));
-        }
+        CardsPlayedThisTurn = player.CardsPlayedThisTurn.Select(
+            c => new CardState(c)
+        ).ToList();
     }
     
     public void Modify(ModificationLayer layer)
     {
         Original.Hero?.Modify(layer);
 
-        foreach (var card in Hand) {
-            card.Modify(layer);
-        }
+        Hand.ForEach(card => card.Modify("hand", layer));
         
-        foreach (var lane in Landscapes) {
-            lane.Modify(layer);
-        }
+        Landscapes.ForEach(landscape => landscape.Modify(layer));
 
         foreach (var effect in Original.UntilNextTurnEffects) {
             try {
                 effect.Call((int)layer);
             } catch (Exception e) {
-                throw new CWCoreException($"failed to execute \"until next turn\" effect of player {Original.LogFriendlyName}", e);
+                throw new GameMatchException($"failed to execute \"until next turn\" effect of player {Original.LogFriendlyName}", e);
             }
         }
     }
 
     public List<InPlayCardState> GetCardsWithTriggeredAbilities() {
-        var result = new List<InPlayCardState>();
-        foreach (var lane in Landscapes) {
-            if (lane.Creature is not null && lane.Creature.TriggeredAbilities.Count > 0) {
-                result.Add(lane.Creature);
-            }
-            if (lane.Building is not null && lane.Building.TriggeredAbilities.Count > 0) {
-                result.Add(lane.Building);
-            }
-        }
-        return result;
+        return GetInPlayCards()
+                .Where(c => c.TriggeredAbilities.Count > 0)
+                .ToList();
     }
 
     public Dictionary<string, int> GetLandscapeCounts() {
@@ -73,7 +58,7 @@ public class PlayerState : IStateModifier {
 
         foreach (var landscape in Landscapes) {
             // TODO? replace with landscape.Name
-            var name = landscape.Original.Name;
+            var name = landscape.GetName();
             if (!result.ContainsKey(name))
                 result.Add(name, 0);
             result[name]++;
@@ -82,44 +67,44 @@ public class PlayerState : IStateModifier {
         return result;
     }
 
-    public List<int> LandscapesAvailableForCreatures() {
+    public List<int> LandscapesAvailableForCreature(CardState creature) {
         var result = new List<int>();
         for (int i = 0; i < Landscapes.Count; i++) {
             var landscape = Landscapes[i];
-            if (!landscape.CanPlayCreature) continue;
-            var creature = landscape.Creature;
-            if (creature is not null) {
-                if (creature.Original.Exhausted) continue;
+            if (!landscape.CanPlayCreature(creature)) continue;
+
+            var existing = landscape.Creature;
+            if (existing is not null) {
+                if (existing.Original.Exhausted) continue;
             }
             result.Add(i);
         }
         return result;
     }
 
-    public List<int> LandscapesAvailableForBuildings() {
+    public List<int> LandscapesAvailableForBuilding(CardState building) {
         var result = new List<int>();
         for (int i = 0; i < Landscapes.Count; i++) {
             var landscape = Landscapes[i];
-            if (!landscape.CanPlayBuilding) continue;
-            var building = landscape.Building;
-            if (building is not null) {
-                if (building.Original.IsFlooped()) continue;
+            if (!landscape.CanPlayBuilding(building)) continue;
+
+            var existing = landscape.Building;
+            if (existing is not null) {
+                if (existing.Original.IsFlooped()) continue;
             }
             result.Add(i);
         }
         return result;
     }
 
-    public async Task<int> PickLaneForCreature() {
-        var options = LandscapesAvailableForCreatures();
+    public async Task<int> PickLaneForCreature(CardState creature) {
+        var options = LandscapesAvailableForCreature(creature);
         var result = await Original.Controller.PickLaneForCreature(Original.Match, Original.Idx, options);
         return result;
     }
 
-    public async Task<int> PickLaneForBuilding() {
-        // TODO not specified in the rules, check
-
-        var options = LandscapesAvailableForBuildings();
+    public async Task<int> PickLaneForBuilding(CardState building) {
+        var options = LandscapesAvailableForBuilding(building);
         var result = await Original.Controller.PickLaneForBuilding(Original.Match, Original.Idx, options);
         return result;
     }
@@ -171,11 +156,11 @@ public class PlayerState : IStateModifier {
         }
 
         if (card.Original.IsCreature) {
-            var laneI = await PickLaneForCreature();
+            var laneI = await PickLaneForCreature(card);
 
             if (laneI >= match.Config.LaneCount || laneI < 0) {
                 var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
-                throw new CWCoreException(errMsg);
+                throw new GameMatchException(errMsg);
             }
 
             await player.PlaceCreatureInLane(card.Original, laneI);
@@ -184,11 +169,11 @@ public class PlayerState : IStateModifier {
         }
 
         if (card.Original.IsBuilding) {
-            var laneI = await PickLaneForBuilding();
+            var laneI = await PickLaneForBuilding(card);
 
             if (laneI >= match.Config.LaneCount || laneI < 0) {
                 var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
-                throw new CWCoreException(errMsg);
+                throw new GameMatchException(errMsg);
             }
 
             await player.PlaceBuildingInLane(card.Original, laneI);
@@ -196,7 +181,7 @@ public class PlayerState : IStateModifier {
             return;
         }
 
-        throw new CWCoreException($"Unrecognized card type: {card.Original.Template.Type}");
+        throw new GameMatchException($"Unrecognized card type: {card.Original.Template.Type}");
 
     }
     

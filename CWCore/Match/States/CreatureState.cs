@@ -2,8 +2,6 @@ using CWCore.Match.Players;
 
 namespace CWCore.Match.States;
 
-// TODO add card in hand modification - Husker Knights need to display their ATK and DEF in hand
-
 public class CreatureState : InPlayCardState {
     public int Attack { get; set; }
     public int Defense { get; set; }
@@ -23,7 +21,6 @@ public class CreatureState : InPlayCardState {
         ProcessDealDamage = true;
     }
 
-    // TODO? bad
     public int GetDamage() => GetOriginal().Damage;
 
     public Creature GetOriginal() => (Creature)Original;

@@ -280,7 +280,7 @@ public class GameMatch {
 
     public async Task DestroyCreature(PlayerState player, LandscapeState landscape) {
         var creature = landscape.Creature
-            ?? throw new GameMatchException($"tried to destroy creature in landscape {landscape.Original.Name}, where it is not present")
+            ?? throw new GameMatchException($"tried to destroy creature in landscape {landscape.GetName()}, where it is not present")
         ;
 
         landscape.Original.Creature = null;
@@ -301,7 +301,7 @@ public class GameMatch {
 
     public async Task DestroyBuilding(PlayerState player, LandscapeState landscape) {
         var building = landscape.Building
-            ?? throw new GameMatchException($"tried to destroy building in landscape {landscape.Original.Name}, where it is not present")
+            ?? throw new GameMatchException($"tried to destroy building in landscape {landscape.GetName()}, where it is not present")
         ;
 
         landscape.Original.Building = null;

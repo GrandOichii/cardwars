@@ -263,7 +263,7 @@ public class ScriptMaster {
         foreach (var landscape in player.Landscapes) {
             if (landscape.Original.FaceDown) continue;
 
-            result.Add(landscape.Original.Name);
+            result.Add(landscape.GetName());
         }
 
         return LuaUtility.CreateTable(_match.LState, result.ToList());

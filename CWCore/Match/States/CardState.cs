@@ -2,7 +2,7 @@ using CWCore.Utility;
 
 namespace CWCore.Match.States;
 
-public class CardState : IStateModifier {
+public class CardState {
     // TODO for now these are the same, might require to change
     private readonly static string MODIFY_STATE_IN_HAND_FNAME = "ModifyState";
     private readonly static string PLAY_CHECK_FNAME = "CanPlay";
@@ -10,12 +10,12 @@ public class CardState : IStateModifier {
     
     public MatchCard Original { get; }
     public int Cost { get; set; }
-
-    public CardState() {}
+    public string LandscapeType { get; set; }
 
     public CardState(MatchCard card) {
         Original = card;
         Cost = Original.Template.Cost;
+        LandscapeType = Original.Template.Landscape;
     }
 
     public bool PayCosts(PlayerState player) {
@@ -41,13 +41,13 @@ public class CardState : IStateModifier {
 
         // check if there is free space for creatures
         if (Original.Template.Type == "Creature") {
-            var landscapes = player.LandscapesAvailableForCreatures();
+            var landscapes = player.LandscapesAvailableForCreature(this);
             if (landscapes.Count == 0) return false;
         }
 
         // check if there is free space for buildings
         if (Original.Template.Type == "Building") {
-            var landscapes = player.LandscapesAvailableForBuildings();
+            var landscapes = player.LandscapesAvailableForBuilding(this);
             if (landscapes.Count == 0) return false;
         }
 
@@ -59,13 +59,11 @@ public class CardState : IStateModifier {
     }
 
     public bool IsLandscape(string landscape) {
-        // TODO some effects can change this
-        return Original.Template.Landscape == landscape;
+        return LandscapeType == landscape;
     }
 
-    public void Modify(ModificationLayer layer)
+    public void Modify(string zone, ModificationLayer layer)
     {
-        // TODO might change
-        Original.ExecFunction(MODIFY_STATE_IN_HAND_FNAME, Original.Data, this, (int)layer, "hand");
+        Original.ExecFunction(MODIFY_STATE_IN_HAND_FNAME, Original.Data, this, (int)layer, zone);
     }
 }

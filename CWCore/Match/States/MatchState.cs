@@ -7,15 +7,18 @@ public class MatchState {
     private readonly static ModificationLayer[] STATE_MODIFICATION_LAYERS = new ModificationLayer[] {
         ModificationLayer.ABILITY_GRANTING_REMOVAL,
         ModificationLayer.ADDITIONAL_LANDSCAPES,
-        ModificationLayer.CARD_COST,
         ModificationLayer.IN_PLAY_CARD_TYPE,
-        ModificationLayer.LANDSCAPE_TYPE,
-        ModificationLayer.ATK_AND_DEF,
+        ModificationLayer.LANDSCAPE_TYPE, // not used in any of the cards
         ModificationLayer.LANDSCAPE_FLIP_DOWN_AVAILABILITY,
+
+        ModificationLayer.IN_HAND_CARD_TYPE,
+        ModificationLayer.CARD_COST,
+
+        ModificationLayer.ATK_AND_DEF,
         ModificationLayer.DAMAGE_MULTIPLICATION,
-        ModificationLayer.ATTACK_RIGHTS,
         ModificationLayer.TARGETING_PERMISSIONS,
         ModificationLayer.DAMAGE_ABSORBTION,
+        ModificationLayer.ATTACK_RIGHTS,
     };
 
     public PlayerState[] Players { get; }
@@ -48,7 +51,7 @@ public class MatchState {
                 try {
                     effect.Call((int)layer);
                 } catch (Exception e) {
-                    throw new CWCoreException($"failed to execute end of turn effect in layer {layer}", e);
+                    throw new GameMatchException($"failed to execute end of turn effect in layer {layer}", e);
                 }
             }
         }

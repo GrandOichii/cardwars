@@ -2,8 +2,6 @@ using CWCore.Match.Players;
 
 namespace CWCore.Match.States;
 
-// Things that can modify state: in play creatures, in play buildings
-
 public class LandscapeState : IStateModifier {
     public Landscape Original { get; }
     public CreatureState? Creature { get; set; }
@@ -22,11 +20,7 @@ public class LandscapeState : IStateModifier {
         }
 
         // TODO seems like a bad way to manage special abilities of tokens
-        bool isFrozen = Original.Tokens.Contains("Frozen");
         
-        CanPlayBuilding = !isFrozen;
-        CanPlayCreature = !isFrozen;
-
         CanFlipDown = new() {
             0, 1
         };
@@ -39,10 +33,22 @@ public class LandscapeState : IStateModifier {
     }
 
     public bool Is(string name) {
-        return !Original.FaceDown && Original.Name == name;
+        return !Original.FaceDown && GetName() == name;
     }
 
+    public bool IsFrozen() => Original.Tokens.Contains("Frozen");
 
-    public bool CanPlayBuilding { get; set; }
-    public bool CanPlayCreature { get; set; }
+    public bool CanPlayBuilding(CardState building) {
+        // TODO
+        return !IsFrozen();
+    }
+
+    public bool CanPlayCreature(CardState creature) {
+        // TODO
+        return !IsFrozen();
+    }
+
+    public string GetName() {
+        return Original.Name;
+    }
 }

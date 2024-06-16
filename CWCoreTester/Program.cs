@@ -68,7 +68,7 @@ public class ConsolePlayerController : IPlayerController
         var landscapes = match.LastState.Players[player.Original.Idx].Landscapes;
         
         foreach (var lane in landscapes)
-            System.Console.Write("|" + (lane.Original.Name + " " + (lane.Original.FaceDown ? "(FACEDOWN)" : "")).PadRight(40) + "|");
+            System.Console.Write("|" + (lane.GetName() + " " + (lane.Original.FaceDown ? "(FACEDOWN)" : "")).PadRight(40) + "|");
         System.Console.WriteLine();
         
         foreach (var lane in landscapes)
