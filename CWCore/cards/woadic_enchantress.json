@@ -1,0 +1,9 @@
+{
+    "Name": "Woadic Enchantress",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Creatures in this Lane cannot use Floop abilities.",
+    "Attack": 2,
+    "Defense": 10
+}

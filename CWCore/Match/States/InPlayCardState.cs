@@ -24,12 +24,16 @@ public class InPlayCardState : IStateModifier {
         LaneI = laneI;
 
         ActivatedEffects = new();
-        foreach (var effect in original.ActivatedEffects)
+        foreach (var effect in original.ActivatedEffects) {
             ActivatedEffects.Add(effect);
+            effect.Enabled = true;
+        }
 
         TriggeredEffects = new();
-        foreach (var effect in original.TriggeredEffects)
+        foreach (var effect in original.TriggeredEffects) {
             TriggeredEffects.Add(effect);
+            effect.Enabled = true;
+        }
 
         StateModifiers = new();
         foreach (var modifier in original.StateModifiers)

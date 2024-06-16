@@ -8,12 +8,13 @@ namespace CWCore.Match.Effects;
 
 public class ActivatedEffect {
     public string Text { get; }
-    // public List<string> Tags { get; }
+    public List<string> Tags { get; }
     public LuaFunction CheckF { get; }
     public LuaFunction CostF { get; }
     public LuaFunction EffectF { get; }
     public int MaxActivationsPerTurn { get; }
     public int ActivatedThisTurn { get; set; }
+    public bool Enabled { get; set; }
 
     public ActivatedEffect(LuaTable table) {
         // TODO add back
@@ -23,12 +24,13 @@ public class ActivatedEffect {
         EffectF = LuaUtility.TableGet<LuaFunction>(table, "effectF");
         MaxActivationsPerTurn = Convert.ToInt32(table["maxActivationsPerTurn"]);
 
-        // Tags = new();
-        // var tagsTable = LuaUtility.TableGet<LuaFunction>(table, "tags");
-        // foreach (var value in tagsTable.Values)
-        //     Tags.Add(value.ToString());
+        Tags = new();
+        var tagsTable = LuaUtility.TableGet<LuaTable>(table, "tags");
+        foreach (var value in tagsTable.Values)
+            Tags.Add((string)value);
 
         ActivatedThisTurn = 0;
+        Enabled = true;
     }
 
     private static bool CheckFunction(LuaFunction f, PlayerState player, InPlayCardState state, int laneI, LuaTable? args) {
@@ -60,9 +62,15 @@ public class ActivatedEffect {
     }
 
     public bool CanActivate(PlayerState player, InPlayCardState card, int laneI, LuaTable? args = null) {
+        if (!Enabled) return false;
+        
         if (MaxActivationsPerTurn != -1 && ActivatedThisTurn >= MaxActivationsPerTurn) {
             return false;
         }
         return ExecCheck(player, card, laneI, args);
+    }
+
+    public bool HasTag(string tag) {
+        return Tags.Contains(tag);
     }
 }
