@@ -91,14 +91,14 @@ public class GameMatch {
 
     public Player GetPlayer(int playerI) {
         if (playerI >= Players.Count) {
-            throw new CWCoreException($"playerI {playerI} is invalid");
+            throw new GameMatchException($"playerI {playerI} is invalid");
         }
         return Players[playerI];
     }
 
     public PlayerState GetPlayerState(int playerI) {
         if (playerI >= Players.Count) {
-            throw new CWCoreException($"playerI {playerI} is invalid");
+            throw new GameMatchException($"playerI {playerI} is invalid");
         }
         return LastState.Players[playerI];
     }
@@ -114,7 +114,7 @@ public class GameMatch {
     public void LogError(string msg) {
         Logger?.LogError(msg);
         
-        throw new CWCoreException(msg);
+        throw new GameMatchException(msg);
     }
 
     public async Task Run() {
@@ -211,7 +211,7 @@ public class GameMatch {
             LogWarning(err);
             return;
         }
-        throw new CWCoreException(err);
+        throw new GameMatchException(err);
     }
 
     public async Task<int> DealDamageToPlayer(int playerI, int amount) {
@@ -280,7 +280,7 @@ public class GameMatch {
 
     public async Task DestroyCreature(PlayerState player, LandscapeState landscape) {
         var creature = landscape.Creature
-            ?? throw new CWCoreException($"tried to destroy creature in landscape {landscape.Original.Name}, where it is not present")
+            ?? throw new GameMatchException($"tried to destroy creature in landscape {landscape.Original.Name}, where it is not present")
         ;
 
         landscape.Original.Creature = null;
@@ -301,7 +301,7 @@ public class GameMatch {
 
     public async Task DestroyBuilding(PlayerState player, LandscapeState landscape) {
         var building = landscape.Building
-            ?? throw new CWCoreException($"tried to destroy building in landscape {landscape.Original.Name}, where it is not present")
+            ?? throw new GameMatchException($"tried to destroy building in landscape {landscape.Original.Name}, where it is not present")
         ;
 
         landscape.Original.Building = null;
@@ -328,14 +328,14 @@ public class GameMatch {
 
     public CreatureState GetInPlayCreature(string id) {
         var result = GetInPlayCreatureOrDefault(id)
-            ?? throw new CWCoreException($"Failed to find in-play creature with id {id}")
+            ?? throw new GameMatchException($"Failed to find in-play creature with id {id}")
         ;
         return result;
     }
 
     public InPlayCardState GetInPlayBuilding(string id) {
         var result = GetInPlayBuildingOrDefault(id)
-            ?? throw new CWCoreException($"Failed to find in-play building with id {id}")
+            ?? throw new GameMatchException($"Failed to find in-play building with id {id}")
         ;
         return result;
     }
@@ -365,7 +365,7 @@ public class GameMatch {
                     return lane.Building;
             }
         }
-        throw new CWCoreException($"Failed to find in-play card with id {id}");
+        throw new GameMatchException($"Failed to find in-play card with id {id}");
     }
 
     public async Task FloopCard(InPlayCardState card) {
@@ -474,7 +474,7 @@ public class GameMatch {
                 var newLane = player.Landscapes[toI];
 
                 if (newLane.Original.Creature is not null)
-                    throw new CWCoreException($"tried to move a creature to lane {toI}, which is not empty");
+                    throw new GameMatchException($"tried to move a creature to lane {toI}, which is not empty");
                     
                 lane.Original.Creature = null;
                 newLane.Original.Creature = creature.GetOriginal();
@@ -490,7 +490,7 @@ public class GameMatch {
                 return;
             }
         }
-        throw new CWCoreException($"failed to find creature with id {creatureId} to move to lane {toI}");
+        throw new GameMatchException($"failed to find creature with id {creatureId} to move to lane {toI}");
     }
 
     public async Task SwapCreatures(string id1, string id2) {
@@ -529,7 +529,7 @@ public class GameMatch {
                 var newLane = player.Landscapes[toI];
 
                 if (newLane.Original.Building is not null)
-                    throw new CWCoreException($"tried to move a building to lane {toI}, which is not empty");
+                    throw new GameMatchException($"tried to move a building to lane {toI}, which is not empty");
                     
                 lane.Original.Building = null;
                 newLane.Original.Building = building.Original;
@@ -546,7 +546,7 @@ public class GameMatch {
                 return;
             }
         }
-        throw new CWCoreException($"failed to find building with id {buildingId} to move to lane {toI}");
+        throw new GameMatchException($"failed to find building with id {buildingId} to move to lane {toI}");
     }
 
     public async Task HealDamage(CreatureState creature, int amount) {
@@ -569,7 +569,7 @@ public class GameMatch {
         var newOwner = GetPlayerState(1 - fromPlayerI);
         var newLane = newOwner.Landscapes[toLaneI];
         if (newLane.Creature is not null ){
-            throw new CWCoreException($"tried to steal a creature to lane {toLaneI}, which is not empty");
+            throw new GameMatchException($"tried to steal a creature to lane {toLaneI}, which is not empty");
         }
 
         foreach (var landscape in player.Landscapes) {
@@ -589,7 +589,7 @@ public class GameMatch {
 
             return;
         }
-        throw new CWCoreException($"failed to find creature with id {creatureId} to steaal to lane {toLaneI}");
+        throw new GameMatchException($"failed to find creature with id {creatureId} to steaal to lane {toLaneI}");
     }
 
     public async Task<List<MatchCard>> RevealCardsFromDeck(int playerI, int amount) {

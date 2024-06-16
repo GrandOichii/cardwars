@@ -7,6 +7,7 @@ using NLua;
 namespace CWCore.Match.Players;
 
 public class Player {
+    public GameMatch Match { get; }
     public string Name { get; }
     public IPlayerController Controller { get; }
     public int Idx { get; }
@@ -14,9 +15,9 @@ public class Player {
 
     public int Life { get; set; }
     public int ActionPoints { get; set; }
+    public List<RestrictedActionPoint> RestrictedActionPoints { get; }
     public List<Landscape> Landscapes { get; set; } = new();
 
-    public GameMatch Match { get; }
     public LinkedList<MatchCard> Deck { get; private set; }
     public Hero? Hero { get; set; }
 
@@ -24,7 +25,6 @@ public class Player {
     public List<MatchCard> DiscardPile { get; set; }
 
     public List<MatchCard> CardsPlayedThisTurn { get; }
-    // TODO utilize
     public List<MatchCard> EnteredDiscardThisTurn { get; }
     public List<LuaFunction> UntilNextTurnEffects { get; }
 
@@ -37,6 +37,7 @@ public class Player {
         _landscapeIndex = landscapeIndex;
         Hero = hero;
 
+        RestrictedActionPoints = new();
         Hand = new();
         DiscardPile = new();
         CardsPlayedThisTurn = new();
@@ -48,6 +49,7 @@ public class Player {
 
     public async Task ResetActionPoints() {
         ActionPoints = Match.Config.ActionPointsPerTurn;
+        RestrictedActionPoints.Clear();
         // TODO? add update
     }
 
@@ -84,7 +86,8 @@ public class Player {
     }
 
     public void PayActionPoints(int amount) {
-        ActionPoints -= amount;        
+        // TODO restricted action points
+        ActionPoints -= amount;
         if (ActionPoints < 0) {
             Match.LogError($"Player payed {amount} ap, which resulted in their ap being equal to {ActionPoints}");
         }
@@ -92,8 +95,6 @@ public class Player {
     }
 
     public void PayToPlay(CardState card) {
-        // TODO pay additional costs
-        
         PayActionPoints(card.Cost);
     }
 
@@ -101,10 +102,11 @@ public class Player {
         // TODO? add to update
 
         var removed = Hand.Remove(card);
-        if (!removed) throw new CWCoreException($"tried to remove card with id {card.ID} from hand of player {LogFriendlyName}, which they don't have in hand");
+        if (!removed) throw new GameMatchException($"tried to remove card with id {card.ID} from hand of player {LogFriendlyName}, which they don't have in hand");
     }
 
     public void AddToDiscard(MatchCard card) {
+        EnteredDiscardThisTurn.Add(card);
         DiscardPile.Add(card);
     }
 
@@ -141,25 +143,26 @@ public class Player {
         }
     }
 
-    public Task PlaySpellEffect(MatchCard card) {
+    public Task ExecuteSpellEffect(MatchCard card) {
         CardsPlayedThisTurn.Add(card);
 
         try {
             card.ExecFunction(MatchCard.SPELL_EFFECT_FNAME, card.Data, Idx);
 
         } catch (Exception e) {
-            throw new CWCoreException($"error in spell effect of card {card.LogFriendlyName}", e);
+            throw new GameMatchException($"error in spell effect of card {card.LogFriendlyName}", e);
         }
         return Task.CompletedTask;
     }
 
     public async Task<int> PickAttackLane(List<int> options) {
         var result = await Controller.PickAttackLane(Match, Idx, options);
+        // TODO? validate
         return result;
     }
 
     public async Task PlaceCreatureInLane(MatchCard card, int laneI) {
-        // TODO feels like a bandaid for when a replaced creature should die
+        // * for updating replaced creatures
         await Match.ReloadState();
         if (!Match.Active) return;
 
@@ -214,63 +217,101 @@ public class Player {
         if (state.ProcessEnter)
             building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, Idx, laneI, replaced);
 
-        building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, Idx, laneI, replaced);
-        // TODO add triggers
+        await Match.Emit("building_enter", new() {
+            {"id", building.Card.ID},
+            {"Original", building},
+            {"controllerI", Idx},
+            {"laneI", laneI},
+            {"replaced", replaced}
+        });
     }
 
-    // !FIXME sometimes the method expects to return an index, sometimes it expects a value
     public async Task<int> PickLane(List<int> options, string hint) {
         var result = await Controller.PickLane(Match, Idx, options, hint);
-        // TODO validate
+        if (
+            !options.Contains(result) &&
+            Match.Config.StrictMode
+        ) throw new GameMatchException($"invalid choice for picking lane - {result} (player: {LogFriendlyName})");
         return result;
     }
 
     public async Task<int[]> PickLandscape(List<int> options, List<int> opponentOptions, string hint) {
         var result = await Controller.PickLandscape(Match, Idx, options, opponentOptions, hint);
-        // TODO validate
+
+        if (
+            !options.Contains(result[1]) && 
+            !opponentOptions.Contains(result[1]) &&
+            Match.Config.StrictMode
+        ) throw new GameMatchException($"invalid choice for picking landscape - {result} (player: {LogFriendlyName})");
+
         return result;
     }
 
     public async Task<int[]> PickCardInDiscard(List<int> options, List<int> opponentOptions, string hint) {
         var result = await Controller.PickCardInDiscard(Match, Idx, options, opponentOptions, hint);
-        // TODO validate
+
+        if (
+            !options.Contains(result[1]) && 
+            !opponentOptions.Contains(result[1]) &&
+            Match.Config.StrictMode
+        ) throw new GameMatchException($"invalid choice for picking card in discard - {result} (player: {LogFriendlyName})");
+
         return result;
     }
 
     public async Task<string> PickCreature(List<string> options, string hint) {
         var result = await Controller.PickCreature(Match, Idx, options, hint);
-        // TODO validate
+        if (
+            !options.Contains(result) &&
+            Match.Config.StrictMode
+        ) throw new GameMatchException($"invalid choice for picking creature - {result} (player: {LogFriendlyName})");
 
         return result;
     }
 
     public async Task<string> PickBuilding(List<string> options, string hint) {
         var result = await Controller.PickBuilding(Match, Idx, options, hint);
-        // TODO validate
+        if (
+            !options.Contains(result) &&
+            Match.Config.StrictMode
+        ) throw new GameMatchException($"invalid choice for picking building - {result} (player: {LogFriendlyName})");
         return result;
     }
 
     public async Task<string> Pick(List<string> options, string hint) {
         var result = await Controller.PickOption(Match, Idx, options, hint);
-        // TODO validate
+        if (
+            !options.Contains(result) &&
+            Match.Config.StrictMode
+        ) throw new GameMatchException($"invalid choice for picking option - {result} (player: {LogFriendlyName})");
         return result;
     }
 
     public async Task<int> PickCardInHand(List<int> options, string hint) {
         var result = await Controller.PickCardInHand(Match, Idx, options, hint);
-        // TODO validate
+        if (
+            !options.Contains(result) &&
+            Match.Config.StrictMode
+        ) throw new GameMatchException($"invalid choice for picking card in hand - {result} (player: {LogFriendlyName})");
         return result;
     }
 
     public async Task<int> PickCard(List<string> options, string hint) {
         var result = await Controller.PickCard(Match, Idx, options, hint);
-        // TODO validate
+        if (
+            (result < 0 || 
+            result >= options.Count) &&
+            Match.Config.StrictMode
+        ) throw new GameMatchException($"invalid choice for picking lane - {result} (player: {LogFriendlyName})");
         return result;
     }
 
     public async Task<int> PickPlayer(List<int> options, string hint) {
         var result = await Controller.PickPlayer(Match, Idx, options, hint);
-        // TODO validate
+        if (
+            !options.Contains(result) &&
+            Match.Config.StrictMode
+        ) throw new GameMatchException($"invalid choice for picking player - {result} (player: {LogFriendlyName})");
         return result;
     }
 
@@ -280,14 +321,16 @@ public class Player {
         AddToDiscard(card);
 
         Match.LogInfo($"Player {LogFriendlyName} discarded card {card.ID} (idx: {cardI})");
-        // TODO add to "cards discarded this turn" counter
-        // TODO add trigger
+
+        await Match.Emit("discard_from_hand", new() {
+            {"Card", card},
+        });    
     }
 
     public async Task ReturnCreatureToHand(int laneI) {
         var lane = Landscapes[laneI];
         var creature = lane.Creature 
-            ?? throw new CWCoreException($"tried to return creature from lane {laneI} to hand, where there is no creature")
+            ?? throw new GameMatchException($"tried to return creature from lane {laneI} to hand, where there is no creature")
         ;
 
         lane.Creature = null;
@@ -297,7 +340,15 @@ public class Player {
     }
 
     public async Task ReturnBuildingToHand(int laneI) {
-        // TODO
+        var lane = Landscapes[laneI];
+        var building = lane.Building 
+            ?? throw new GameMatchException($"tried to return building from lane {laneI} to hand, where there is no building")
+        ;
+
+        lane.Building = null;
+        Hand.Add(building.Card);
+        
+        // TODO add triggers
     }
 
     public async Task HealHitPoints(int amount) {
@@ -321,14 +372,7 @@ public class Player {
     public async Task LeavePlay(LandscapeState landscape, InPlayCardState card) {
         Match.GetPlayer(card.Original.Card.OwnerI).AddToDiscard(card.Original.Card);
 
-        if (card.ProcessLeave) {
-            card.Original.Card.ExecFunction(
-                InPlayCard.ON_LEAVE_PLAY_FNAME, 
-                card.Original.Card.Data, 
-                Idx, 
-                landscape.Original.Idx
-            );
-        }
+        card.OnLeavePlay(landscape);
     }
 
     public void PlaceFromDiscardOnTopOfDeck(int cardI) {
@@ -377,6 +421,7 @@ public class Player {
 
     public async Task TurnEnd() {
         CardsPlayedThisTurn.Clear();
+        EnteredDiscardThisTurn.Clear();
 
         foreach (var landscape in Landscapes) {
             landscape.CreaturesEnteredThisTurn.Clear();

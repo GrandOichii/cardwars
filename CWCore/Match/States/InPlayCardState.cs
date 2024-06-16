@@ -68,4 +68,15 @@ public class InPlayCardState : IStateModifier {
         // TODO? add update
     }
 
+    public void OnLeavePlay(LandscapeState from) {
+        if (ProcessLeave) {
+            Original.Card.ExecFunction(
+                InPlayCard.ON_LEAVE_PLAY_FNAME, 
+                Original.Card.Data, 
+                Original.ControllerI, 
+                from.Original.Idx
+            );
+        }
+    }
+
 }

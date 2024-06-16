@@ -163,7 +163,7 @@ public class PlayerState : IStateModifier {
         match.CardsPlayed.Add($"({player.Idx}) {card.Original.LogFriendlyName}");
 
         if (card.Original.IsSpell) {
-            await player.PlaySpellEffect(card.Original);
+            await player.ExecuteSpellEffect(card.Original);
 
             match.GetPlayer(card.Original.OwnerI).AddToDiscard(card.Original);
 
