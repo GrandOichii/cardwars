@@ -55,7 +55,9 @@ public class CardState {
         if (!LuaUtility.GetReturnAsBool(result))
             return false;
 
-        return forFree || player.Original.ActionPoints >= Cost;
+        if (forFree) return true;
+
+        return player.CanPayFor(this);
     }
 
     public bool IsLandscape(string landscape) {

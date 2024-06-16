@@ -86,11 +86,13 @@ public class Player {
     }
 
     public void PayActionPoints(int amount) {
-        // TODO restricted action points
+        // !!! add restricted action points
+        
         ActionPoints -= amount;
-        if (ActionPoints < 0) {
-            Match.LogError($"Player payed {amount} ap, which resulted in their ap being equal to {ActionPoints}");
-        }
+        // TODO add back
+        // if (ActionPoints < 0) {
+        //     Match.LogError($"Player payed {amount} ap, which resulted in their ap being equal to {ActionPoints}");
+        // }
         // TODO? add update
     }
 

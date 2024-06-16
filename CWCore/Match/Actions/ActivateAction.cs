@@ -74,6 +74,7 @@ public class ActivateAction : IAction
     private static List<InPlayCardState> CardsWithAbilities(GameMatch match, int playerI) {
         var player = match.GetPlayerState(playerI);
         var cards = player.GetInPlayCards();
-        return cards.Where(c => c.ActivatedAbilities.Count > 0).ToList();
+        var result = cards.Where(c => c.ActivatedAbilities.Select(ab => ab.Enabled).ToList().Count > 0).ToList();
+        return result;
     }
 }

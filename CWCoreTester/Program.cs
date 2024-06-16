@@ -96,8 +96,11 @@ public class ConsolePlayerController : IPlayerController
 
     public Task<int> PickLaneForCreature(GameMatch match, int playerI, List<int> options)
     {
+
         var player = match.GetPlayerState(playerI);
         PrintInfo(match, player);
+        System.Console.WriteLine();
+        System.Console.WriteLine(options.Count);
         System.Console.Write("Options: ");
         foreach (var option in options)
             System.Console.Write($"{option} ");
@@ -556,7 +559,7 @@ public class Program {
             var config = new MatchConfig() {
                 FreeDraw = 1,
                 StartingLifeTotal = 25,
-                ActionPointsPerTurn = 20,
+                ActionPointsPerTurn = 1,
                 LaneCount = 4,
                 StrictMode = false,
                 CardDrawCost = 1,
@@ -599,8 +602,8 @@ public class Program {
 
     public static async Task Main(string[] args) {
 
-        // await SimpleConsole();
-        // return;
+        await SimpleConsole();
+        return;
 
         var seed = 0;
         await TestRandom(seed, 100, false);

@@ -57,6 +57,7 @@
         "FromTopToBottom",
         "UntilNextTurn",
         "PickString",
-        "TargetPlayer"
+        "TargetPlayer",
+        "AddRestrictedActionPoint"
     ]
 }

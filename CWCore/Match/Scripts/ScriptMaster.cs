@@ -521,4 +521,9 @@ public class ScriptMaster {
 
         return result;
     }
+
+    [LuaCommand]
+    public void AddRestrictedActionPoint(int playerI, LuaFunction checkFunc) {
+        _match.GetPlayer(playerI).RestrictedActionPoints.Add(new(checkFunc));
+    }
 }

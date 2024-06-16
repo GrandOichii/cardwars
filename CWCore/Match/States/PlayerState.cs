@@ -77,6 +77,9 @@ public class PlayerState : IStateModifier {
             if (existing is not null) {
                 if (existing.Original.Exhausted) continue;
             }
+
+            if (!CanPayFor(creature, i)) continue;
+
             result.Add(i);
         }
         return result;
@@ -133,21 +136,13 @@ public class PlayerState : IStateModifier {
             player.RemoveFromHand(card.Original);
         await player.Match.ReloadState();
 
-        if (!forFree) {
-
-            var payed = card.PayCosts(this);
-            if (!payed) {
-                // TODO? is this required? could break
-                if (owned)
-                    player.Hand.Add(card.Original);
-                match.ActionError($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
-                return;
-            }
-        }
-
         match.CardsPlayed.Add($"({player.Idx}) {card.Original.LogFriendlyName}");
 
         if (card.Original.IsSpell) {
+            if (!forFree && !card.PayCosts(this)) {
+                throw new GameMatchException($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
+            }
+
             await player.ExecuteSpellEffect(card.Original);
 
             match.GetPlayer(card.Original.OwnerI).AddToDiscard(card.Original);
@@ -162,6 +157,9 @@ public class PlayerState : IStateModifier {
                 var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
                 throw new GameMatchException(errMsg);
             }
+            if (!forFree && !card.PayCosts(this)) {
+                throw new GameMatchException($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
+            }
 
             await player.PlaceCreatureInLane(card.Original, laneI);
 
@@ -175,14 +173,15 @@ public class PlayerState : IStateModifier {
                 var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
                 throw new GameMatchException(errMsg);
             }
+            if (!forFree && !card.PayCosts(this)) {
+                throw new GameMatchException($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
+            }
 
             await player.PlaceBuildingInLane(card.Original, laneI);
-
             return;
         }
 
         throw new GameMatchException($"Unrecognized card type: {card.Original.Template.Type}");
-
     }
     
     public InPlayCardState GetInPlayCard(string id) {
@@ -199,12 +198,38 @@ public class PlayerState : IStateModifier {
         foreach (var landscape in Landscapes) {
             var creature = landscape.Creature;
             if (creature is not null) result.Add(creature);
-            var building = landscape.Creature;
+            var building = landscape.Building;
             if (building is not null) result.Add(building);
         }
 
         return result;
     }
 
+    public bool CanPayFor(CardState card) {
+        // in-play card
+        if (!card.Original.IsSpell) {
+            return Landscapes.Any(
+                landscape => CanPayFor(card, landscape.Original.Idx)
+            );
+        }
 
+        // spell
+        int amount = 0;
+        foreach (var ap in Original.RestrictedActionPoints) {
+            if (!ap.CanBeSpentOn(this, card)) continue;
+
+            ++amount;
+        }
+        return Original.ActionPoints + amount >= card.Cost;
+    }
+
+    public bool CanPayFor(CardState card, int laneI) {
+        int amount = 0;
+        foreach (var ap in Original.RestrictedActionPoints) {
+            if (!ap.CanBeSpentOn(this, card, laneI)) continue;
+
+            ++amount;
+        }
+        return Original.ActionPoints + amount >= card.Cost;
+    }
 }

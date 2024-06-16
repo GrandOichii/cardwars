@@ -1,0 +1,7 @@
+{
+    "Name": "Pyramidia",
+    "Landscape": "Blue Plains",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "FLOOP >>> If you control a Creature in this Lane, gain 1 Action. Use it only to play a Creature into this Lane."
+}
