@@ -241,7 +241,7 @@ public class ScriptMaster {
         var player = _match.GetPlayer(playerI);
         player.ActionPoints -= amount;
         if (player.ActionPoints < 0)
-            throw new CWCoreException($"action point payement resulted in a player's action point total being equal to {player.ActionPoints}");
+            throw new GameMatchException($"action point payement resulted in a player's action point total being equal to {player.ActionPoints}");
         // TODO? add update
     }
 

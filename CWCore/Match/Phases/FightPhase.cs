@@ -4,7 +4,7 @@ using CWCore.Match.States;
 
 namespace CWCore.Match.Phases;
 
-public class BattlePhase : IPhase
+public class FightPhase : IPhase
 {
     public async Task PostEmit(GameMatch match, int playerI)
     {

@@ -15,7 +15,7 @@ public class GameMatch {
     private static readonly List<IPhase> _phases = new(){
         new TurnStartPhase(),
         new ActionPhase(),
-        new BattlePhase(),
+        new FightPhase(),
         new TurnEndPhase()
     };
 
@@ -28,12 +28,12 @@ public class GameMatch {
     private readonly ICardMaster _cardMaster;
     public List<Player> Players { get; } = new();
     public Lua LState { get; } = new();
-    private readonly ScriptMaster _scriptMaster;
     public MatchState LastState { get; set; }
 
     public Update QueuedUpdate { get; private set; } = new();
 
     private int _winnerI = -1;
+    public string PhaseName { get; private set; }
 
     public bool Active => _winnerI < 0;
 
@@ -55,7 +55,7 @@ public class GameMatch {
         LogInfo("Running setup script");
         LState.DoString(setupScript);
 
-        _scriptMaster = new(this);
+        _ = new ScriptMaster(this);
         LastState = new();
 
         UEOTEffects = new();
@@ -68,6 +68,7 @@ public class GameMatch {
         }
         
         var deck = await template.ToDeck(Players.Count, _cardMaster, LState, CardIDGenerator);
+
         Hero? hero = null;
         if (!string.IsNullOrEmpty(template.Hero)) {
             hero = new Hero(
@@ -90,14 +91,14 @@ public class GameMatch {
     }
 
     public Player GetPlayer(int playerI) {
-        if (playerI >= Players.Count) {
+        if (playerI < 0 || playerI >= Players.Count) {
             throw new GameMatchException($"playerI {playerI} is invalid");
         }
         return Players[playerI];
     }
 
     public PlayerState GetPlayerState(int playerI) {
-        if (playerI >= Players.Count) {
+        if (playerI < 0 || playerI >= Players.Count) {
             throw new GameMatchException($"playerI {playerI} is invalid");
         }
         return LastState.Players[playerI];
@@ -142,7 +143,6 @@ public class GameMatch {
     }
 
     public Player CurrentPlayer => Players[CurPlayerI];
-    public Player Opponent => Players[1 - CurPlayerI];
 
     private async Task Turns() {
         LogInfo("Started main match loop");
@@ -160,8 +160,9 @@ public class GameMatch {
             // Logger.ParseAndLog(cPlayer.Name + " started their turn.");
 
             foreach (var phase in _phases) {
+                PhaseName = phase.GetName();
                 await phase.PreEmit(this, CurPlayerI);
-                await Emit(phase.GetName(), new(){ {"playerI", CurPlayerI} });
+                await Emit(PhaseName, new(){ {"playerI", CurPlayerI} });
                 await phase.PostEmit(this, CurPlayerI);
                 
                 await ReloadState();
@@ -237,11 +238,11 @@ public class GameMatch {
     }
 
     public async Task ReloadState() {
-        // TODO ordering
+        await SoftReloadState();
+
         await CheckDeadPlayers();
         await CheckDeadCreatures();
 
-        await SoftReloadState();
         await PushUpdates();
     }
 
@@ -276,7 +277,6 @@ public class GameMatch {
         var landscape = GetPlayerState(creature.Original.ControllerI).Landscapes[creature.LaneI];
         await DestroyCreature(player, landscape);
     }
-
 
     public async Task DestroyCreature(PlayerState player, LandscapeState landscape) {
         var creature = landscape.Creature
@@ -327,17 +327,15 @@ public class GameMatch {
     }
 
     public CreatureState GetInPlayCreature(string id) {
-        var result = GetInPlayCreatureOrDefault(id)
+        return GetInPlayCreatureOrDefault(id)
             ?? throw new GameMatchException($"Failed to find in-play creature with id {id}")
         ;
-        return result;
     }
 
     public InPlayCardState GetInPlayBuilding(string id) {
-        var result = GetInPlayBuildingOrDefault(id)
+        return GetInPlayBuildingOrDefault(id)
             ?? throw new GameMatchException($"Failed to find in-play building with id {id}")
         ;
-        return result;
     }
     
     public CreatureState? GetInPlayCreatureOrDefault(string id) {
@@ -446,6 +444,7 @@ public class GameMatch {
         }
         
         landscape.Original.FaceDown = true;
+        // TODO update
         // TODO trigger
     }
 
@@ -456,16 +455,17 @@ public class GameMatch {
         }
         
         landscape.Original.FaceDown = false;
+        // TODO update
         // TODO trigger
     }
 
     public async Task MoveCreature(string creatureId, int toI) {
         foreach (var player in LastState.Players) {
-            foreach (var lane in player.Landscapes) {
-                var creature = lane.Creature;
+            foreach (var landscape in player.Landscapes) {
+                var creature = landscape.Creature;
                 if (creature is null || creature.Original.Card.ID != creatureId) continue;
 
-                var prevLaneI = lane.Original.Idx;
+                var prevLaneI = landscape.Original.Idx;
                 if (prevLaneI == toI) {
                     ActionError($"Tried to move creature {creature.Original.Card.LogFriendlyName} from lane {prevLaneI} to lane {toI}, which are the same");
                     return;
@@ -476,13 +476,14 @@ public class GameMatch {
                 if (newLane.Original.Creature is not null)
                     throw new GameMatchException($"tried to move a creature to lane {toI}, which is not empty");
                     
-                lane.Original.Creature = null;
+                landscape.Original.Creature = null;
                 newLane.Original.Creature = creature.GetOriginal();
 
                 await SoftReloadState();
 
                 if (creature.ProcessMove)
                     creature.Original.ProcessMove(player.Original.Idx, prevLaneI, toI);
+
                 // TODO? add update
                 // TODO trigger
 
@@ -514,7 +515,7 @@ public class GameMatch {
     }
 
     public async Task MoveBuilding(string buildingId, int toI) {
-        // TODO mostly repeated code from MoveCreature
+        // * mostly repeated code from MoveCreature
         foreach (var player in LastState.Players) {
             foreach (var lane in player.Landscapes) {
                 var building = lane.Building;
@@ -555,6 +556,7 @@ public class GameMatch {
         if (original.Damage < 0) original.Damage = 0;
 
         // TODO trigger
+        // TODO update
     }
 
     public async Task PlaceTokenOnLandscape(int playerI, int laneI, string token) {
@@ -562,6 +564,7 @@ public class GameMatch {
         player.Landscapes[laneI].Tokens.Add(token);
 
         // TODO trigger
+        // TODO update
     }
 
     public async Task StealCreature(int fromPlayerI, string creatureId, int toLaneI) {
