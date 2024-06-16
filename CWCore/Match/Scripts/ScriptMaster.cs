@@ -52,7 +52,7 @@ public class ScriptMaster {
         return player.Hand.Count;
     }
 
-    [LuaCommand]    
+    [LuaCommand]
     public int DealDamageToPlayer(int playerI, int amount) {
         var dealt = _match.DealDamageToPlayer(playerI, amount)
             .GetAwaiter().GetResult();
@@ -63,8 +63,7 @@ public class ScriptMaster {
     public LuaTable GetCreatures(int playerI) {
         var player = _match.GetPlayerState(playerI);
 
-        var result = new List<object>();
-
+        var result = new List<CreatureState>();
         foreach (var lane in player.Landscapes) {
             if (lane.Creature is null) continue;
 
@@ -93,15 +92,16 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public InPlayCardState? GetBuildingOrDefault(string id) {
+        var result = _match.GetInPlayBuildingOrDefault(id);
+        return result;
+    }
+
+    [LuaCommand]
     public void DealDamageToCreature(string creatureId, int amount) {
         var creature = _match.GetInPlayCreature(creatureId);
         _match.DealDamageToCreature(creature, amount, false)
             .Wait();
-    }
-
-    [LuaCommand]
-    public List<LandscapeState> GetLanes(int playerI) {
-        return _match.LastState.Players[playerI].Landscapes;
     }
 
     [LuaCommand]
@@ -120,12 +120,7 @@ public class ScriptMaster {
 
     [LuaCommand]
     public LuaTable GetPlayers() {
-        var result = new List<PlayerState>();
-
-        foreach (var player in _match.LastState.Players)
-            result.Add(player);
-
-        return LuaUtility.CreateTable(_match.LState, result);
+        return LuaUtility.CreateTable(_match.LState, _match.LastState.Players.ToList());
     }
 
     [LuaCommand]
@@ -231,6 +226,7 @@ public class ScriptMaster {
 
     [LuaCommand]
     public string TargetCreature(int playerI, LuaTable optionsTable, string hint) {
+        // TODO? should be different
         return ChooseCreature(playerI, optionsTable, hint);
     }
 
@@ -307,6 +303,12 @@ public class ScriptMaster {
     [LuaCommand]
     public void UpdateState() {
         _match.ReloadState()
+            .Wait();
+    }
+
+    [LuaCommand]
+    public void SoftUpdateState() {
+        _match.SoftReloadState()
             .Wait();
     }
 

@@ -11,7 +11,6 @@
         "GetPlayer",
         "GetHandCount",
         "TurnLandscapeFaceDown",
-        "GetLanes",
         "ChooseLane",
         "TurnLandscapeFaceUp",
         "ChooseCreature",
