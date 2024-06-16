@@ -3,12 +3,12 @@ using CWCore.Match.States;
 using CWCore.Utility;
 using NLua;
 
-namespace CWCore.Match.Effects;
+namespace CWCore.Match.Abilities;
 
-public class TriggeredEffect : ActivatedEffect
+public class HeroTriggeredAbility : HeroActivatedAbility
 {
     public string Trigger { get; }
-    public TriggeredEffect(LuaTable table) : base(table)
+    public HeroTriggeredAbility(LuaTable table) : base(table)
     {
         Trigger = LuaUtility.TableGet<string>(table, "trigger");
     }

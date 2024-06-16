@@ -4,16 +4,16 @@ using CWCore.Match.States;
 using CWCore.Utility;
 using NLua;
 
-namespace CWCore.Match.Effects;
+namespace CWCore.Match.Abilities;
 
-public class HeroActivatedEffect {
+public class HeroActivatedAbility {
     public LuaFunction CheckF { get; }
     public LuaFunction CostF { get; }
     public LuaFunction EffectF { get; }
     public int MaxActivationsPerTurn { get; }
     public int ActivatedThisTurn { get; set; }
 
-    public HeroActivatedEffect(LuaTable table) {
+    public HeroActivatedAbility(LuaTable table) {
         CheckF = LuaUtility.TableGet<LuaFunction>(table, "checkF");
         CostF = LuaUtility.TableGet<LuaFunction>(table, "costF");
         EffectF = LuaUtility.TableGet<LuaFunction>(table, "effectF");
@@ -30,7 +30,7 @@ public class HeroActivatedEffect {
                     : f.Call(player.Original.Idx)
             );
         } catch (Exception e) {
-            throw new CWCoreException($"failed to execute check function of activated effect of hero card of player {player.Original.LogFriendlyName}", e);
+            throw new GameMatchException($"failed to execute check function of activated effect of hero card of player {player.Original.LogFriendlyName}", e);
         }
     }
 
@@ -46,7 +46,7 @@ public class HeroActivatedEffect {
             }
             EffectF.Call(player.Original.Idx);
         } catch (Exception e) {
-            throw new CWCoreException($"failed to execute effect function of activated effect of hero card of player {player.Original.LogFriendlyName}", e);
+            throw new GameMatchException($"failed to execute effect function of activated effect of hero card of player {player.Original.LogFriendlyName}", e);
         }
     }
 

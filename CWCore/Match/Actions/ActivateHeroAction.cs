@@ -24,21 +24,21 @@ public class ActivateHeroAction : IAction
             return;
         }
 
-        var effects = hero.ActivatedEffects;
-        if (abilityI < 0 || abilityI >= effects.Count) {
-            match.ActionError($"Player tried to activate ability {abilityI} of hero card {hero.LogFriendlyName}, which doesn't exist (card has {effects.Count} activated abilities)");
+        var abilities = hero.ActivatedAbilities;
+        if (abilityI < 0 || abilityI >= abilities.Count) {
+            match.ActionError($"Player tried to activate ability {abilityI} of hero card {hero.LogFriendlyName}, which doesn't exist (card has {abilities.Count} activated abilities)");
             return;
         }
 
-        var effect = effects[abilityI];
+        var ability = abilities[abilityI];
 
-        var canActivate = effect.CanActivate(pState);
+        var canActivate = ability.CanActivate(pState);
         if (!canActivate) {
             match.ActionError($"Player {player.LogFriendlyName} tried to activate ability {abilityI} of card {hero.LogFriendlyName}, but failed check");
             return;
         }
 
-        var payedCosts = effect.ExecCosts(pState);
+        var payedCosts = ability.ExecCosts(pState);
 
         if (!payedCosts) {
             match.ActionError($"Player {player.LogFriendlyName} tried to activate ability {abilityI} of card {hero.LogFriendlyName}, but didn't pay activation costs");
@@ -46,8 +46,8 @@ public class ActivateHeroAction : IAction
         }
 
         match.LogInfo($"Player {player.LogFriendlyName} activated ability {abilityI} of card {hero.LogFriendlyName}");
-        effect.ExecEffect(pState);
-        effect.ActivatedThisTurn++;
+        ability.ExecEffect(pState);
+        ability.ActivatedThisTurn++;
     }
 
     public IEnumerable<string> GetAvailable(GameMatch match, int playerI)
@@ -57,15 +57,15 @@ public class ActivateHeroAction : IAction
         var hero = pState.Original.Hero;
         if (hero is null) return Enumerable.Empty<string>();
 
-        for (int i = 0; i < hero.ActivatedEffects.Count; i++) {
-            var effect = hero.ActivatedEffects[i];
+        for (int i = 0; i < hero.ActivatedAbilities.Count; i++) {
+            var ability = hero.ActivatedAbilities[i];
             try {
-                var canActivate = effect.CanActivate(pState);
+                var canActivate = ability.CanActivate(pState);
                 if (!canActivate) continue;
 
                 result.Add($"{ActionWord()} {i}");
             } catch (Exception e) {
-                throw new CWCoreException($"failed to activate check of ability {i} of hero card of player {match.Players[playerI].LogFriendlyName}", e);
+                throw new GameMatchException($"failed to activate check of ability {i} of hero card of player {match.Players[playerI].LogFriendlyName}", e);
             }
         }
 

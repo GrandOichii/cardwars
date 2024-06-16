@@ -42,7 +42,7 @@
 		"prefix": "floopfull",
 		"description": "add floop ability",
 		"body": [
-			"result:AddActivatedEffect({",
+			"result:AddActivatedAbility({",
 			"\ttext = '$1',",
 			"\ttags = {'floop'},",
 			"\tcheckF = function (me, playerI, laneI)",
@@ -65,7 +65,7 @@
 		"prefix": "aa",
 		"description": "add activated ability",
 		"body": [
-			"result:AddActivatedEffect({",
+			"result:AddActivatedAbility({",
 			"\t-- $1 >>> $2",
 			"",
 			"\tmaxActivationsPerTurn = ${3:-1},",
@@ -228,7 +228,7 @@
 		"prefix": "floop",
 		"description": "add short floop ability",
 		"body": [
-			"Common.ActivatedEffects.Floop(result,",
+			"Common.ActivatedAbilities.Floop(result,",
 			"\t'$1',",
 			"\tfunction (me, playerI, laneI)",
 			"\t\t$0",

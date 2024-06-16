@@ -1,6 +1,5 @@
 using CWCore.Match.States;
 using CWCore.Utility;
-using CWCore.Match.Effects;
 using NLua;
 
 namespace CWCore.Match;
@@ -17,26 +16,26 @@ public class InPlayCard {
 
     public bool Exhausted { get; set; }
     public int ControllerI { get; set; }
-    public List<ActivatedEffect> ActivatedEffects { get; }
-    public List<TriggeredEffect> TriggeredEffects { get; }
+    public List<ActivatedAbility> ActivatedAbilities { get; }
+    public List<TriggeredAbility> TriggeredAbilities { get; }
     public List<LuaFunction> StateModifiers { get; }
 
     public InPlayCard(MatchCard card, int controllerI) {
         Card = card;
         ControllerI = controllerI;
 
-        ActivatedEffects = new();
-        var effects = LuaUtility.TableGet<LuaTable>(card.Data, "ActivatedEffects");
-        foreach (var table in effects.Values) {
-            var effect = new ActivatedEffect((LuaTable)table);
-            ActivatedEffects.Add(effect);
+        ActivatedAbilities = new();
+        var abilities = LuaUtility.TableGet<LuaTable>(card.Data, "ActivatedAbilities");
+        foreach (var table in abilities.Values) {
+            var ability = new ActivatedAbility((LuaTable)table);
+            ActivatedAbilities.Add(ability);
         }
 
-        TriggeredEffects = new();
+        TriggeredAbilities = new();
         var triggers = LuaUtility.TableGet<LuaTable>(card.Data, "Triggers");
         foreach (var table in triggers.Values) {
-            var trigger = new TriggeredEffect((LuaTable)table);
-            TriggeredEffects.Add(trigger);
+            var trigger = new TriggeredAbility((LuaTable)table);
+            TriggeredAbilities.Add(trigger);
         }
 
         StateModifiers = new();

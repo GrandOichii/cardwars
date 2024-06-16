@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    Common.ActivatedEffects.DiscardCard(
+    Common.ActivatedAbilities.DiscardCard(
         result,
         'Discard a card >>> Your Creature in this Lane can\'t be targeted or attacked until the start of your next turn.',
         function (me, playerI, laneI)

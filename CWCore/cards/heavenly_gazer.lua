@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Put a Spell from your discard pile on top of your deck.',
         tags = {'floop'},
 

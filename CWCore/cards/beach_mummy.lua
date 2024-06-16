@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Return a Creature in an adjacent Lane to its owner\'s hand.',
         tags = {'floop'},
         checkF = function (me, playerI, laneI)

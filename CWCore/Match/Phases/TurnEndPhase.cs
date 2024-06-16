@@ -27,7 +27,7 @@ public class TurnEndPhase : IPhase {
                 var cards = new List<InPlayCard?>() { landscape.Creature, landscape.Building };
                 foreach (var card in cards) {
                     if (card is null) continue;
-                    foreach (var a in card.ActivatedEffects)
+                    foreach (var a in card.ActivatedAbilities)
                         a.ActivatedThisTurn = 0;
                 }
             }

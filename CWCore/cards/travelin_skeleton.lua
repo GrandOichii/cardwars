@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Travelin\' Skeleton and another Creature you control change Lanes with each other.',
         tags = {'floop'},
 

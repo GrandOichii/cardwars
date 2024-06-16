@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:InPlay()
 
     -- FLOOP >>> Heal or deal 1 Damage to your Creature in this Lane.
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Heal or deal 1 Damage to your Creature in this Lane.',
         tags = {'floop'},
 

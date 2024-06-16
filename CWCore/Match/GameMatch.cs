@@ -1,7 +1,6 @@
 using CWCore.Cards;
 using CWCore.Decks;
 using CWCore.Exceptions;
-using CWCore.Match.Effects;
 using CWCore.Match.Phases;
 using CWCore.Match.Players;
 using CWCore.Match.Scripts;
@@ -384,8 +383,8 @@ public class GameMatch {
         foreach (var player in LastState.Players) {
             // heroes
             var hero = player.Original.Hero;
-            if (hero is not null && hero.TriggeredEffects.Count > 0) {
-                foreach (var trigger in hero.TriggeredEffects) {
+            if (hero is not null && hero.TriggeredAbilities.Count > 0) {
+                foreach (var trigger in hero.TriggeredAbilities) {
                     var on = trigger.Trigger;
                     if (on != signal) continue;
 
@@ -407,14 +406,14 @@ public class GameMatch {
             // landscapes
             foreach (var lane in player.Landscapes) {
                 var cards = new List<InPlayCardState>();
-                if (lane.Creature is not null && lane.Creature.TriggeredEffects.Count > 0) {
+                if (lane.Creature is not null && lane.Creature.TriggeredAbilities.Count > 0) {
                     cards.Add(lane.Creature);
                 }
-                if (lane.Building is not null && lane.Building.TriggeredEffects.Count > 0) {
+                if (lane.Building is not null && lane.Building.TriggeredAbilities.Count > 0) {
                     cards.Add(lane.Building);
                 }
                 foreach (var card in cards) {
-                    foreach (var trigger in card.TriggeredEffects) {
+                    foreach (var trigger in card.TriggeredAbilities) {
                         var on = trigger.Trigger;
                         if (on != signal) continue;
 

@@ -3,7 +3,6 @@ using System.Reflection;
 using CWCore.Exceptions;
 using CWCore.Match.Players;
 using CWCore.Match.States;
-using CWCore.Match.Effects;
 using CWCore.Utility;
 
 using NLua;
@@ -438,8 +437,8 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public ActivatedEffect DynamicActivatedEffect(LuaTable table) {
-        return new ActivatedEffect(table);
+    public ActivatedAbility DynamicActivatedAbility(LuaTable table) {
+        return new ActivatedAbility(table);
     }
 
     [LuaCommand]

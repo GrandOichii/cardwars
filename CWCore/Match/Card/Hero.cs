@@ -4,7 +4,6 @@ using NLua;
 using CWCore.Utility;
 using CWCore.Match.States;
 using CWCore.Exceptions;
-using CWCore.Match.Effects;
 
 namespace CWCore.Match;
 
@@ -16,8 +15,8 @@ public class Hero : IStateModifier {
     public LuaTable Data { get; }
     public int OwnerI { get; set; }
 
-    public List<HeroActivatedEffect> ActivatedEffects { get; }
-    public List<HeroTriggeredEffect> TriggeredEffects { get; }
+    public List<HeroActivatedAbility> ActivatedAbilities { get; }
+    public List<HeroTriggeredAbility> TriggeredAbilities { get; }
 
 
     public Hero(HeroTemplate card, int ownerI, Lua state) {
@@ -30,18 +29,18 @@ public class Hero : IStateModifier {
         Data = LuaUtility.GetReturnAs<LuaTable>(returned);
 
 
-        ActivatedEffects = new();
-        var effects = LuaUtility.TableGet<LuaTable>(Data, "ActivatedEffects");
-        foreach (var table in effects.Values) {
-            var effect = new HeroActivatedEffect((LuaTable)table);
-            ActivatedEffects.Add(effect);
+        ActivatedAbilities = new();
+        var abilities = LuaUtility.TableGet<LuaTable>(Data, "ActivatedAbilities");
+        foreach (var table in abilities.Values) {
+            var ability = new HeroActivatedAbility((LuaTable)table);
+            ActivatedAbilities.Add(ability);
         }
 
-        TriggeredEffects = new();
+        TriggeredAbilities = new();
         var triggers = LuaUtility.TableGet<LuaTable>(Data, "Triggers");
         foreach (var table in triggers.Values) {
-            var trigger = new HeroTriggeredEffect((LuaTable)table);
-            TriggeredEffects.Add(trigger);
+            var trigger = new HeroTriggeredAbility((LuaTable)table);
+            TriggeredAbilities.Add(trigger);
         }
     }
 
@@ -52,7 +51,7 @@ public class Hero : IStateModifier {
             var f = LuaUtility.TableGet<LuaFunction>(Data, fName);
             return f.Call(args);
         } catch (Exception e) {
-            throw new CWCoreException($"exception in function {fName} of hero card {LogFriendlyName}", e);
+            throw new GameMatchException($"exception in function {fName} of hero card {LogFriendlyName}", e);
         }
     }
 

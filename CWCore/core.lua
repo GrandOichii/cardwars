@@ -122,12 +122,12 @@ function CardWars:Hero()
         result.StateModifiers[#result.StateModifiers+1] = modF
     end
 
-    result.ActivatedEffects = {}
-    function result:AddActivatedEffect(effect)
-        effect.tags = effect.tags or {}
-        effect.text = effect.text or 'MISSING HERO CARD ACTIVATED ABILITY TEXT'
-        function effect:HasTag(tag)
-            for _, t in ipairs(effect.tags) do
+    result.ActivatedAbilities = {}
+    function result:AddActivatedAbility(ability)
+        ability.tags = ability.tags or {}
+        ability.text = ability.text or 'MISSING HERO CARD ACTIVATED ABILITY TEXT'
+        function ability:HasTag(tag)
+            for _, t in ipairs(ability.tags) do
                 if t == tag then
                     return true
                 end
@@ -135,8 +135,8 @@ function CardWars:Hero()
             return false
         end
 
-        effect.maxActivationsPerTurn = effect.maxActivationsPerTurn or -1
-        result.ActivatedEffects[#result.ActivatedEffects+1] = effect
+        ability.maxActivationsPerTurn = ability.maxActivationsPerTurn or -1
+        result.ActivatedAbilities[#result.ActivatedAbilities+1] = ability
     end
 
     result.Triggers = {}
@@ -205,12 +205,12 @@ end
 function CardWars:InPlay()
     local result = CardWars:Card()
 
-    result.ActivatedEffects = {}
-    function result:AddActivatedEffect(effect)
-        effect.tags = effect.tags or {}
-        effect.text = effect.text or 'MISSING CARD ACTIVATED ABILITY TEXT'
-        function effect:HasTag(tag)
-            for _, t in ipairs(effect.tags) do
+    result.ActivatedAbilities = {}
+    function result:AddActivatedAbility(ability)
+        ability.tags = ability.tags or {}
+        ability.text = ability.text or 'MISSING CARD ACTIVATED ABILITY TEXT'
+        function ability:HasTag(tag)
+            for _, t in ipairs(ability.tags) do
                 if t == tag then
                     return true
                 end
@@ -218,14 +218,14 @@ function CardWars:InPlay()
             return false
         end
         
-        effect.maxActivationsPerTurn = effect.maxActivationsPerTurn or -1
-        result.ActivatedEffects[#result.ActivatedEffects+1] = effect
+        ability.maxActivationsPerTurn = ability.maxActivationsPerTurn or -1
+        result.ActivatedAbilities[#result.ActivatedAbilities+1] = ability
     end
 
     result.Triggers = {}
     function result:AddTrigger(trigger)
         trigger.tags = trigger.tags or {}
-        trigger.text = trigger.text or 'MISSING ACTIVATED ABILITY TEXT'
+        trigger.text = trigger.text or 'MISSING TRIGGERED ABILITY TEXT'
         result.Triggers[#result.Triggers+1] = trigger
     end
 
@@ -874,7 +874,7 @@ function Common.FloopAbilitiesOfCreaturesInDiscard(playerI)
         local card = player.DiscardPile[i].Original
         if card.Template.Type == 'Creature' then
             local data = player.DiscardPile[i].Original.Data
-            for _, aa in ipairs(data.ActivatedEffects) do
+            for _, aa in ipairs(data.ActivatedAbilities) do
                 if aa:HasTag('floop') then
                     result[#result+1] = aa
                 end
@@ -1028,10 +1028,10 @@ function Common.Triggers.OnAnotherCreatureEnterPlayUnderYourControl(card, effect
     })
 end
 
-Common.ActivatedEffects = {}
+Common.ActivatedAbilities = {}
 
-function Common.ActivatedEffects.DestroyMe(card, text, effect)
-    card:AddActivatedEffect({
+function Common.ActivatedAbilities.DestroyMe(card, text, effect)
+    card:AddActivatedAbility({
         text = text,
         checkF = function (me, playerI, laneI)
             return true
@@ -1043,8 +1043,8 @@ function Common.ActivatedEffects.DestroyMe(card, text, effect)
     })
 end
 
-function Common.ActivatedEffects.Floop(card, text, effect)
-    card:AddActivatedEffect({
+function Common.ActivatedAbilities.Floop(card, text, effect)
+    card:AddActivatedAbility({
         text = text,
         tags = {'floop'},
         checkF = function (me, playerI, laneI)
@@ -1058,8 +1058,8 @@ function Common.ActivatedEffects.Floop(card, text, effect)
     })
 end
 
-function Common.ActivatedEffects.PayActionPoints(card, amount, text, effect)
-    card:AddActivatedEffect({
+function Common.ActivatedAbilities.PayActionPoints(card, amount, text, effect)
+    card:AddActivatedAbility({
         text = text,
         checkF = function (me, playerI, laneI)
             return GetPlayer(playerI).Original.ActionPoints >= amount
@@ -1072,9 +1072,9 @@ function Common.ActivatedEffects.PayActionPoints(card, amount, text, effect)
     })
 end
 
-function Common.ActivatedEffects.DiscardCard(card, text, effect, maxActivationsPerTurn)
+function Common.ActivatedAbilities.DiscardCard(card, text, effect, maxActivationsPerTurn)
     maxActivationsPerTurn = maxActivationsPerTurn or -1
-    card:AddActivatedEffect({
+    card:AddActivatedAbility({
         text = text,
         maxActivationsPerTurn = maxActivationsPerTurn,
         checkF = function (me, playerI, laneI)
@@ -1140,8 +1140,8 @@ end
 Common.AbilityGrantingRemoval = {}
 
 function Common.AbilityGrantingRemoval.RemovaAll(card)
-    card.ActivatedEffects:Clear()
-    card.TriggeredEffects:Clear()
+    card.ActivatedAbilities:Clear()
+    card.TriggeredAbilities:Clear()
     card.StateModifiers:Clear()
     card.ProcessEnter = false
     card.ProcessLeave = false
@@ -1149,8 +1149,8 @@ function Common.AbilityGrantingRemoval.RemovaAll(card)
     card.ProcessDealDamage = false
 end
 
-function Common.AbilityGrantingRemoval.RemoveAllActivatedEffects(card)
-    card.ActivatedEffects:Clear()
+function Common.AbilityGrantingRemoval.RemoveAllActivatedAbilities(card)
+    card.ActivatedAbilities:Clear()
 end
 
 Common.Flip = {}

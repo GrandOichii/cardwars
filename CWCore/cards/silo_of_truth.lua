@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    Common.ActivatedEffects.Floop(result,
+    Common.ActivatedAbilities.Floop(result,
         'Pay 2 Actions >>> Steal a random card from your opponent and play it at no cost.',
         function (me, playerI, laneI)
             local opponent = 1 - playerI

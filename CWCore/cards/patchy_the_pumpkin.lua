@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
     
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Deal 1 Damage to target Creature. Do this once for each Cornfield Landscape you control. (May only target each Creature once.)',
         tags = {'floop'},
 

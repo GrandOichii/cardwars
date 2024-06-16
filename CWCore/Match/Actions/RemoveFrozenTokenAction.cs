@@ -37,7 +37,7 @@ public class RemoveFrozenTokenAction : IAction
 
         var removed = landscape.RemoveToken("Frozen");
         if (!removed) {
-            throw new CWCoreException($"tried to remove Frozen token from lane {laneI} of player {player.LogFriendlyName}, but failed");
+            throw new GameMatchException($"tried to remove Frozen token from lane {laneI} of player {player.LogFriendlyName}, but failed");
         }
     }
 

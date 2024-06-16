@@ -5,7 +5,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = '',
         tags = {'floop'},
         checkF = function (me, playerI, laneI)

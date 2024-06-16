@@ -9,7 +9,7 @@ function _Create()
         if layer == CardWars.ModificationLayers.ABILITY_GRANTING_REMOVAL and zone == CardWars.Zones.IN_PLAY then
             local creatures = Common.AllPlayers.CreaturesInLane(me.LaneI)
             for _, creature in ipairs(creatures) do
-                local abilities = creature.ActivatedEffects
+                local abilities = creature.ActivatedAbilities
                 for i = 0, abilities.Count - 1 do
                     local a = abilities[i]
                     if a:HasTag('floop') then

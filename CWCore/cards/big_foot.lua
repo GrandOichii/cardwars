@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Flip target face-down Landscape you control face up. ',
         tags = {'floop'},
 

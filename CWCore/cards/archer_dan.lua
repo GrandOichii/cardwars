@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Destroy target Building in Archer Dan\'s Lane.',
         tags = {'floop'},
         checkF = function (me, playerI, laneI)

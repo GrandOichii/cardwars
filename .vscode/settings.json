@@ -48,7 +48,7 @@
         "TargetBuilding",
         "DestroyBuilding",
         "DestroyCreature",
-        "DynamicActivatedEffect",
+        "DynamicActivatedAbility",
         "RemoveCardFromHand",
         "PlayCardIfPossible",
         "StealCreature",

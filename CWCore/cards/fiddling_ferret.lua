@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
     
-    Common.ActivatedEffects.Floop(result,
+    Common.ActivatedAbilities.Floop(result,
         'FLOOP >>> Draw a card, and then discard a card. If you discard a Rainbow card this way, gain 1 Action.',
         function (me, playerI, laneI)
             Draw(playerI, 1)

@@ -4,9 +4,9 @@ using CWCore.Match.States;
 using CWCore.Utility;
 using NLua;
 
-namespace CWCore.Match.Effects;
+namespace CWCore.Match.Abilities;
 
-public class ActivatedEffect {
+public class ActivatedAbility {
     public string Text { get; }
     public List<string> Tags { get; }
     public LuaFunction CheckF { get; }
@@ -16,9 +16,9 @@ public class ActivatedEffect {
     public int ActivatedThisTurn { get; set; }
     public bool Enabled { get; set; }
 
-    public ActivatedEffect(LuaTable table) {
+    public ActivatedAbility(LuaTable table) {
         // TODO add back
-        // Text = LuaUtility.TableGet<string>(table, "text");
+        Text = LuaUtility.TableGet<string>(table, "text");
         CheckF = LuaUtility.TableGet<LuaFunction>(table, "checkF");
         CostF = LuaUtility.TableGet<LuaFunction>(table, "costF");
         EffectF = LuaUtility.TableGet<LuaFunction>(table, "effectF");
@@ -41,7 +41,7 @@ public class ActivatedEffect {
                     : f.Call(state, player.Original.Idx, laneI)
             );
         } catch (Exception e) {
-            throw new CWCoreException($"failed to execute effect check function of card {state.Original.Card.LogFriendlyName}", e);
+            throw new GameMatchException($"failed to execute ability check function of card {state.Original.Card.LogFriendlyName}", e);
         }
     }
 
@@ -57,7 +57,7 @@ public class ActivatedEffect {
             }
             EffectF.Call(state, player.Original.Idx, laneI);
         } catch (Exception e) {
-            throw new CWCoreException($"failed to execute effect function of card {state.Original.Card.LogFriendlyName}", e);
+            throw new GameMatchException($"failed to execute ability effect function of card {state.Original.Card.LogFriendlyName}", e);
         }
     }
 

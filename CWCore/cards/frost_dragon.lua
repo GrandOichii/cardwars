@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedEffects.PayActionPoints(result, 1,
+    Common.ActivatedAbilities.PayActionPoints(result, 1,
         'Pay 1 Action >>> Freeze a Landscape in this Lane.',
         function (me, playerI, laneI)
             local lane = ChooseLandscape(playerI, {laneI}, {laneI}, 'Choose a Landscape to freeze')

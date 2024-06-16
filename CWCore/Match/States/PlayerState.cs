@@ -55,13 +55,13 @@ public class PlayerState : IStateModifier {
         }
     }
 
-    public List<InPlayCardState> GetCardsWithTriggeredEffects() {
+    public List<InPlayCardState> GetCardsWithTriggeredAbilities() {
         var result = new List<InPlayCardState>();
         foreach (var lane in Landscapes) {
-            if (lane.Creature is not null && lane.Creature.TriggeredEffects.Count > 0) {
+            if (lane.Creature is not null && lane.Creature.TriggeredAbilities.Count > 0) {
                 result.Add(lane.Creature);
             }
-            if (lane.Building is not null && lane.Building.TriggeredEffects.Count > 0) {
+            if (lane.Building is not null && lane.Building.TriggeredAbilities.Count > 0) {
                 result.Add(lane.Building);
             }
         }

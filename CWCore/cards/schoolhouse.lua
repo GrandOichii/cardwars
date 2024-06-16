@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Your Creature in this Lane loses all abilities and gains the FLOOP ability of a random Creature (with a FLOOP ability) in your discard pile until end of turn.',
         tags = {'floop'},
 
@@ -25,7 +25,7 @@ function _Create()
             if #abilities > 0 then
                 local idx = Random(1, #abilities + 1)
                 local ability = abilities[idx]
-                a = DynamicActivatedEffect(ability)
+                a = DynamicActivatedAbility(ability)
             end
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ABILITY_GRANTING_REMOVAL then
@@ -35,11 +35,11 @@ function _Create()
                     end
 
                     -- TODO? isn't clear from the card itself, removes the activated effects or all effects entirely?
-                    Common.AbilityGrantingRemoval.RemoveAllActivatedEffects(c)
+                    Common.AbilityGrantingRemoval.RemoveAllActivatedAbilities(c)
                     if a == nil then
                         return
                     end
-                    c.ActivatedEffects:Add(a)
+                    c.ActivatedAbilities:Add(a)
                 end
             end)
         end
