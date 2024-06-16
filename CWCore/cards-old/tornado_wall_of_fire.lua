@@ -7,6 +7,8 @@ function _Create(props)
         'FLOOP >>> Tornado Wall of Fire has +3 ATK while Flooped.',
         function (me, playerI, laneI)
             local id = me.Original.Card.ID
+
+            -- !FIXME this shouldn't be until end of turn
             UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     local creature = GetCreatureOrDefault(id)
