@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     result:AddActivatedEffect({
         text = 'FLOOP >>> Return a Creature in an adjacent Lane to its owner\'s hand.',

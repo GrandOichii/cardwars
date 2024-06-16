@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     Common.ActivatedEffects.PayActionPoints(result, 1,
         'Pay 1 Action >>> Heal all Damage from Angel of Chocolate.',

@@ -232,7 +232,6 @@ public class ScriptMaster {
 
     [LuaCommand]
     public string TargetCreature(int playerI, LuaTable optionsTable, string hint) {
-        // TODO should be different, filter options by being available to be targeted by playerI
         return ChooseCreature(playerI, optionsTable, hint);
     }
 

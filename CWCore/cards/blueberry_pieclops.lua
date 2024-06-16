@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Blueberry Pieclops costs 1 less to play for each Spell you have played this turn.
     Common.State.ModCostInHand(result, function (me)

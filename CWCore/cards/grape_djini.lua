@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
         -- When Grape Djini enters play, if it replaced a Creature, you may put a card from your discard pile on top of your deck.

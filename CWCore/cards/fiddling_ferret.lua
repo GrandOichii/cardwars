@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
     
     Common.ActivatedEffects.Floop(result,
         'FLOOP >>> Draw a card, and then discard a card. If you discard a Rainbow card this way, gain 1 Action.',

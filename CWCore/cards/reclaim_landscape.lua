@@ -1,8 +1,8 @@
 -- Status: not tested
 -- TODO add support for "cannot be flipped"
 
-function _Create(props)
-    local result = CardWars:Spell(props)
+function _Create()
+    local result = CardWars:Spell()
 
     result.EffectP:AddLayer(
         function (playerI)

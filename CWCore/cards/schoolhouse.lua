@@ -1,7 +1,7 @@
 -- Status: implemented, requires A LOT of testing
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
     result:AddActivatedEffect({
         text = 'FLOOP >>> Your Creature in this Lane loses all abilities and gains the FLOOP ability of a random Creature (with a FLOOP ability) in your discard pile until end of turn.',

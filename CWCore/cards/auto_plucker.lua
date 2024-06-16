@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
     -- FLOOP >>> Heal or deal 1 Damage to your Creature in this Lane.
     result:AddActivatedEffect({

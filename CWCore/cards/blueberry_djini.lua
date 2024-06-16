@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
         -- When Blueberry Djini enters play, if it replaced a Creature, draw two cards.

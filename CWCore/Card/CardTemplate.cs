@@ -10,14 +10,4 @@ public class CardTemplate :  HeroTemplate {
     public int Attack { get; set; } = -1;
     public int Defense { get; set; } = -1;
 
-    public override LuaTable GetProps(Lua state) {
-        var result = base.GetProps(state);
-        
-        result["cost"] = Cost;
-        result["type"] = Type;
-        result["attack"] = Attack;
-        result["defense"] = Defense;
-
-        return result;
-    }
 }

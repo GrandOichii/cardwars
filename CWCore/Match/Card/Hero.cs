@@ -26,8 +26,7 @@ public class Hero : IStateModifier {
 
         state.DoString(card.Script);
         var creationF = LuaUtility.GetGlobalF(state, CARD_CREATION_FNAME);
-        var props = card.GetProps(state);
-        var returned = creationF.Call(props);
+        var returned = creationF.Call();
         Data = LuaUtility.GetReturnAs<LuaTable>(returned);
 
 

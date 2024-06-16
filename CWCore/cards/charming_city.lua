@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
     
     result:AddStateModifier(function (me, layer, zone)
         -- All Creatures in this Lane lose their Landscape type and become Rainbow Creatures.

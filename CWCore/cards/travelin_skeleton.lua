@@ -1,7 +1,7 @@
 -- Status: implemented, requires some more testing
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     result:AddActivatedEffect({
         text = 'FLOOP >>> Travelin\' Skeleton and another Creature you control change Lanes with each other.',

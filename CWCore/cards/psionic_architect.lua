@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
         -- When Psionic Architect enters play, you may ready a Flooped Creature you control.

@@ -114,7 +114,7 @@ CardWars.ModificationLayers = {
 
 -- Card Types
 
-function CardWars:Hero(props)
+function CardWars:Hero()
     local result = {}
 
     result.StateModifiers = {}
@@ -147,21 +147,11 @@ function CardWars:Hero(props)
     return result
 end
 
-function CardWars:Card(props)
-    local required = {'name', 'cost', 'type', 'attack', 'defen', 'text'}
+function CardWars:Card()
     local result = {}
+    -- pipelines
 
-    for _, value in ipairs(required) do
-        result[value] = props[value]
-    end
-    -- result.basePower = result.power
-    -- result.baseLife = result.life
-
-    -- result.triggers = {}
-
-    -- -- pipelines
-
-    -- -- CanPlay pipeline
+    -- CanPlay pipeline
     result.CanPlayP = Core.Pipeline.New()
     result.CanPlayP:AddLayer(
         function (playerI)
@@ -185,10 +175,6 @@ function CardWars:Card(props)
         return res
     end
 
-    -- function result:IsUnit()
-    --     return string.find(result.type, 'Unit') ~= nil
-    -- end
-
     result.StateModifiers = {}
 
     function result:AddStateModifier(modF)
@@ -204,16 +190,10 @@ function CardWars:Card(props)
     return result
 end
 
-function CardWars:Spell(props)
-    local result = CardWars:Card(props)
+function CardWars:Spell()
+    local result = CardWars:Card()
     
     result.EffectP = Core.Pipeline:New()
-    result.EffectP:AddLayer(
-        function(playerI)
-            LogInfo('Player ' .. PlayerLogFriendlyName(playerI) .. ' played spell ' .. result.name)
-            return nil, true
-        end
-    )
 
     function result:Effect(playerI)
         self.EffectP:Exec(playerI)
@@ -222,8 +202,8 @@ function CardWars:Spell(props)
     return result
 end
 
-function CardWars:InPlay(props)
-    local result = CardWars:Card(props)
+function CardWars:InPlay()
+    local result = CardWars:Card()
 
     result.ActivatedEffects = {}
     function result:AddActivatedEffect(effect)
@@ -250,6 +230,11 @@ function CardWars:InPlay(props)
     end
 
     result.OnEnterP = Core.Pipeline:New()
+    result.OnEnterP:AddLayer(
+        function(playerI, laneI, replaced)
+            return nil, true
+        end
+    )
 
     function result:OnEnter(playerI, laneI, replaced)
         self.OnEnterP:Exec(playerI, laneI, replaced)
@@ -258,7 +243,6 @@ function CardWars:InPlay(props)
     result.OnLeavePlayP = Core.Pipeline:New()
     result.OnLeavePlayP:AddLayer(
         function(playerI, laneI)
-            LogInfo('Creature '..result.name .. ' leaves play from lane ' ..laneI)
             return nil, true
         end
     )
@@ -270,11 +254,6 @@ function CardWars:InPlay(props)
     result.OnMoveP = Core.Pipeline:New()
     result.OnMoveP:AddLayer(
         function(playerI, fromI, toI, stolen)
-            local s = 'false'
-            if stolen then
-                s = 'true'
-            end
-            LogInfo('Creature '..result.name .. ' moves from ' ..fromI..' to '..toI..' (stolen: '..s..')')
             return nil, true
         end
     )
@@ -286,15 +265,8 @@ function CardWars:InPlay(props)
     return result
 end
 
-function CardWars:Creature(props)
-    local result = CardWars:InPlay(props)
-
-    result.OnEnterP:AddLayer(
-        function(playerI, laneI, amount, creatureId)
-            LogInfo('Creature '..result.name .. ' with id ' .. STATE.Players[playerI].Landscapes[laneI].Creature.Original.Card.ID .. ' entered play on lane ' ..laneI)
-            return nil, true
-        end
-    )
+function CardWars:Creature()
+    local result = CardWars:InPlay()
 
     result.OnDealDamageP = Core.Pipeline:New()
     result.OnDealDamageP:AddLayer(
@@ -303,7 +275,8 @@ function CardWars:Creature(props)
             if creatureId then
                 e = ' to creature with id '..creatureId
             end
-            LogInfo('Creature '..result.name .. ' with id ' .. STATE.Players[playerI].Landscapes[laneI].Creature.Original.Card.ID .. ' dealt '..amount..' damage ' ..e)
+            local c = STATE.Players[playerI].Landscapes[laneI].Creature
+            LogInfo('Creature '..c.Original.Card.LogFriendlyName .. ' with id ' .. STATE.Players[playerI].Landscapes[laneI].Creature.Original.Card.ID .. ' dealt '..amount..' damage ' ..e)
             return nil, true
         end
     )

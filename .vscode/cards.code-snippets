@@ -6,8 +6,8 @@
 		"body": [
 			"-- Status: not tested",
 			"",
-			"function _Create(props)",
-			"\tlocal result = CardWars:Creature(props)",
+			"function _Create()",
+			"\tlocal result = CardWars:Creature()",
 			"",
 			"\t$0",
 			"",
@@ -22,8 +22,8 @@
 		"body": [
 			"-- Status: not tested",
 			"",
-			"function _Create(props)",
-			"\tlocal result = CardWars:Spell(props)",
+			"function _Create()",
+			"\tlocal result = CardWars:Spell()",
 			"",
 			"\tresult.EffectP:AddLayer(",
 			"\t\tfunction (playerI)",
@@ -171,8 +171,8 @@
 		"body": [
 			"-- Status: not tested",
 			"",
-			"function _Create(props)",
-			"\tlocal result = CardWars:InPlay(props)",
+			"function _Create()",
+			"\tlocal result = CardWars:InPlay()",
 			"",
 			"\t$0",
 			"",
@@ -214,8 +214,8 @@
 		"body": [
 			"-- Status: not tested",
 			"",
-			"function _Create(props)",
-			"\tlocal result = CardWars:Hero(props)",
+			"function _Create()",
+			"\tlocal result = CardWars:Hero()",
 			"",
 			"\t$0",
 			"",

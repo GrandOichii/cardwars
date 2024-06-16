@@ -1,7 +1,7 @@
 -- Status: implemented, requires a lot of testing
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Additional Cost: Discard a card.
 

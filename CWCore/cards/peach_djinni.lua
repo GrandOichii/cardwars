@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- When a SandyLands Creature enters play under your control, Peach Djinni has +1 ATK this turn.
     result:AddTrigger({

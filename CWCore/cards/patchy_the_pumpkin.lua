@@ -1,7 +1,7 @@
 -- Status: implemented, could use some more testing
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
     
     result:AddActivatedEffect({
         text = 'FLOOP >>> Deal 1 Damage to target Creature. Do this once for each Cornfield Landscape you control. (May only target each Creature once.)',

@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
     
     Common.ActivatedEffects.Floop(result,
         'FLOOP >>> Put the top card of your deck into your discard pile, Deal Damage to each opposing Creature equal to the discarded card\'s Action Cost.',
