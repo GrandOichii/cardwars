@@ -34,8 +34,8 @@ function _Create()
                         return
                     end
 
-                    -- TODO removes all text, should remove only ActivatedEffects
-                    Common.AbilityGrantingRemoval.RemovaAll(c)
+                    -- TODO? isn't clear from the card itself, removes the activated effects or all effects entirely?
+                    Common.AbilityGrantingRemoval.RemoveAllActivatedEffects(c)
                     if a == nil then
                         return
                     end

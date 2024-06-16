@@ -612,7 +612,6 @@ function Common.FaceUpLandscapes(playerI)
 end
 
 function Common.AvailableToFlipDownLandscapes(landscapeOwnerI, byI)
-    -- TODO not tested
     local landscapes = Common.FaceUpLandscapes(landscapeOwnerI)
     local result = {}
     for _, landscape in ipairs(landscapes) do
@@ -624,7 +623,6 @@ function Common.AvailableToFlipDownLandscapes(landscapeOwnerI, byI)
 end
 
 function Common.AvailableToFlipDownLandscapesTyped(landscapeOwnerI, byI, type)
-    -- TODO not tested
     local landscapes = Common.AvailableToFlipDownLandscapes(landscapeOwnerI, byI)
     local result = {}
     for _, landscape in ipairs(landscapes) do
@@ -798,7 +796,7 @@ function Common.ControlBuildingInLane(playerI, laneI)
 end
 
 function Common.TargetOpponent(playerI)
-    -- TODO? i don't think teams will be implemented, but just in case, i will leave this here to be edited soon
+    -- TODO? i don't think teams will be implemented, but just in case
     return 1 - playerI
 end
 
@@ -944,7 +942,6 @@ end
 function Common.AllPlayers.CountLandscapesTyped(type)
     local result = #Common.AllPlayers.LandscapesTyped(type)
 
-    -- TODO check creatures and buildings
     for i = 0, 1 do
         result = result + Common.CountCreaturesThatCountAsLandscape(i, type)
         result = result + Common.CountBuildingsThatCountAsLandscape(i, type)
@@ -1150,6 +1147,10 @@ function Common.AbilityGrantingRemoval.RemovaAll(card)
     card.ProcessLeave = false
     card.ProcessMove = false
     card.ProcessDealDamage = false
+end
+
+function Common.AbilityGrantingRemoval.RemoveAllActivatedEffects(card)
+    card.ActivatedEffects:Clear()
 end
 
 Common.Flip = {}

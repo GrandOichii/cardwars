@@ -17,89 +17,63 @@ public class ActivateAction : IAction
         var abilityI = int.Parse(args[2]);
 
         var pState = match.GetPlayerState(playerI);
-        var player = match.GetPlayer(playerI);
+        var player = pState.Original;
 
-        var map = CardsWithAbilities(match, playerI);
-        foreach (var pair in map) {
-            var laneI = pair.Key;
-            foreach (var card in pair.Value) {
-                if (card.Original.Card.ID != cardId) continue;
-
-                var effects = card.ActivatedEffects;
-                if (abilityI < 0 || abilityI >= effects.Count) {
-                    match.ActionError($"Player tried to activate ability {abilityI} of card {card.Original.Card.LogFriendlyName}, which doesn't exist (card has {effects.Count} activated abilities)");
-                    return;
-                }
-
-                var effect = effects[abilityI];
-
-                var canActivate = effect.CanActivate(pState, card, laneI);
-                if (!canActivate) {
-                    match.ActionError($"Player {player.LogFriendlyName} tried to activate ability {abilityI} of card {card.Original.Card.LogFriendlyName}, but failed check");
-                    return;
-                }
-
-                var payedCosts = effect.ExecCosts(pState, card, laneI);
-
-                if (!payedCosts) {
-                    match.ActionError($"Player {player.LogFriendlyName} tried to activate ability {abilityI} of card {card.Original.Card.LogFriendlyName}, but didn't pay activation costs");
-                    return;
-                }
-
-                match.LogInfo($"Player {player.LogFriendlyName} activated ability {abilityI} of card {card.Original.Card.LogFriendlyName}");
-                effect.ExecEffect(pState, card, laneI);
-                effect.ActivatedThisTurn++;
-
-                return;
-
-            }
+        var card = pState.GetInPlayCard(cardId);
+        var laneI = card.LaneI;
+        var effects = card.ActivatedEffects;
+    
+        if (abilityI < 0 || abilityI >= effects.Count) {
+            match.ActionError($"Player tried to activate ability {abilityI} of card {card.Original.Card.LogFriendlyName}, which doesn't exist (card has {effects.Count} activated abilities)");
+            return;
         }
 
-        match.ActionError($"Player tried to activate in-play card with id {cardId}, which doesn't exist");
+        var effect = effects[abilityI];
+
+        var canActivate = effect.CanActivate(pState, card, laneI);
+        if (!canActivate) {
+            match.ActionError($"Player {player.LogFriendlyName} tried to activate ability {abilityI} of card {card.Original.Card.LogFriendlyName}, but failed check");
+            return;
+        }
+
+        var payedCosts = effect.ExecCosts(pState, card, laneI);
+
+        if (!payedCosts) {
+            match.ActionError($"Player {player.LogFriendlyName} tried to activate ability {abilityI} of card {card.Original.Card.LogFriendlyName}, but didn't pay activation costs");
+            return;
+        }
+
+        match.LogInfo($"Player {player.LogFriendlyName} activated ability {abilityI} of card {card.Original.Card.LogFriendlyName}");
+        effect.ExecEffect(pState, card, laneI);
+        effect.ActivatedThisTurn++;
+
+        return;
     }
 
     public IEnumerable<string> GetAvailable(GameMatch match, int playerI)
     {
         var result = new List<string>();
         var pState = match.GetPlayerState(playerI);
-        var map = CardsWithAbilities(match, playerI);
-        foreach (var pair in map) {
-            var laneI = pair.Key;
-            foreach (var card in pair.Value) {
-                for (int i = 0; i < card.ActivatedEffects.Count; i++) {
-                    var effect = card.ActivatedEffects[i];
-                    try {
-                        var canActivate = effect.CanActivate(pState, card, laneI);
-                        if (!canActivate) continue;
+        var cards = CardsWithAbilities(match, playerI);
+        foreach (var card in cards) {
+            for (int i = 0; i < card.ActivatedEffects.Count; i++) {
+                var effect = card.ActivatedEffects[i];
+                try {
+                    var canActivate = effect.CanActivate(pState, card, card.LaneI);
+                    if (!canActivate) continue;
 
-                        result.Add($"{ActionWord()} {card.Original.Card.ID} {i}");
-                    } catch (Exception e) {
-                        throw new CWCoreException($"failed to activate check of ability {i} of card {card.Original.Card.Template.Name}", e);
-                    }
+                    result.Add($"{ActionWord()} {card.Original.Card.ID} {i}");
+                } catch (Exception e) {
+                    throw new CWCoreException($"failed to activate check of ability {i} of card {card.Original.Card.Template.Name}", e);
                 }
             }
         }
-
         return result;
     }
 
-    private static Dictionary<int, List<InPlayCardState>> CardsWithAbilities(GameMatch match, int playerI) {
-        var result = new Dictionary<int, List<InPlayCardState>>();
-
-        var pState = match.GetPlayerState(playerI);
-        foreach (var lane in pState.Landscapes) {
-            var cards = new List<InPlayCardState>();
-            if (lane.Creature is not null && lane.Creature.ActivatedEffects.Count > 0) {
-                cards.Add(lane.Creature);
-            }
-            if (lane.Building is not null && lane.Building.ActivatedEffects.Count > 0) {
-                cards.Add(lane.Building);
-            }
-            result.Add(lane.Original.Idx, cards);
-        }
-
-        return result;
+    private static List<InPlayCardState> CardsWithAbilities(GameMatch match, int playerI) {
+        var player = match.GetPlayerState(playerI);
+        var cards = player.GetInPlayCards();
+        return cards.Where(c => c.ActivatedEffects.Count > 0).ToList();
     }
-
-    
 }

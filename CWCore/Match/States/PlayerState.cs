@@ -199,6 +199,27 @@ public class PlayerState : IStateModifier {
         throw new CWCoreException($"Unrecognized card type: {card.Original.Template.Type}");
 
     }
+    
+    public InPlayCardState GetInPlayCard(string id) {
+        return GetInPlayCardOrDefault(id) ?? throw new GameMatchException($"player {Original.LogFriendlyName} doesn't have an in-play card with id {id}");
+    }
+
+    public InPlayCardState? GetInPlayCardOrDefault(string id) {
+        return GetInPlayCards().FirstOrDefault(c => c.Original.Card.ID == id);
+    }
+
+    public List<InPlayCardState> GetInPlayCards() {
+        var result = new List<InPlayCardState>();
+
+        foreach (var landscape in Landscapes) {
+            var creature = landscape.Creature;
+            if (creature is not null) result.Add(creature);
+            var building = landscape.Creature;
+            if (building is not null) result.Add(building);
+        }
+
+        return result;
+    }
 
 
 }

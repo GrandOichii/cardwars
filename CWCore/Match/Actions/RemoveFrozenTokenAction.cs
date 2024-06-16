@@ -11,12 +11,21 @@ public class RemoveFrozenTokenAction : IAction
 
     public async Task Exec(GameMatch match, int playerI, string[] args)
     {
-        // TODO validate
-        var laneI = int.Parse(args[1]);
+        var laneIRaw = args[1];
+        var parced = int.TryParse(laneIRaw, out int laneI);
+        if (!parced) {
+            match.ActionError($"incorrect arguments for action {ActionWord()} - expected args[1] to be int, but found {laneIRaw}");
+            return;
+        }
+
         var player = match.GetPlayer(playerI);
         var landscape = player.Landscapes[laneI];
 
         var hasToken = landscape.HasToken("Frozen");
+        if (!hasToken) {
+            match.ActionError($"player {player.LogFriendlyName} tried to remove Frozen counter from lane {laneI}, where there is none");
+            return;
+        }
 
         var options = new List<int>();
         for (int i = 0; i < player.Hand.Count; i++) {

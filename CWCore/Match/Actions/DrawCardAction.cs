@@ -32,10 +32,8 @@ public class DrawCardAction : IAction
     {
         var player = match.GetPlayer(playerI);
         if (player.ActionPoints < match.Config.CardDrawCost) {
-            return Enumerable.Empty<string>();
+            yield break;
         }
-        return new List<string>() { 
-            ActionWord() 
-        };
+        yield return ActionWord();
     }
 }
