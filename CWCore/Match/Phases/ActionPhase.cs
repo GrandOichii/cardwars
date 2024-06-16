@@ -8,7 +8,7 @@ namespace CWCore.Match.Phases;
 
 
 [Serializable]
-public class UnknownActionException : CWCoreException
+public class UnknownActionException : GameMatchException
 {
     public UnknownActionException() : base() { }
     public UnknownActionException(string message) : base(message) { }
@@ -16,8 +16,8 @@ public class UnknownActionException : CWCoreException
 
 public class ActionPhase : IPhase {
     // TODO change to "battle"
-
     private readonly static string BATTLE_ACTION = "b";
+
     private static readonly List<IAction> ACTIONS = new() {
         new DrawCardAction(),
         new PlayAction(),
@@ -34,7 +34,7 @@ public class ActionPhase : IPhase {
         }
     }
 
-    public async Task Exec(GameMatch match, int playerI) {
+    public async Task PostEmit(GameMatch match, int playerI) {
         string action;
         var player = match.GetPlayer(playerI);
 
@@ -72,5 +72,11 @@ public class ActionPhase : IPhase {
         if (options.Count == 0) return BATTLE_ACTION;
         var player = match.GetPlayer(playerI);
         return await player.Controller.PromptAction(match, player.Idx, options);
-    } 
+    }
+
+    public string GetName() => "turn_action";
+    public Task PreEmit(GameMatch match, int playerI)
+    {
+        return Task.CompletedTask;
+    }
 }

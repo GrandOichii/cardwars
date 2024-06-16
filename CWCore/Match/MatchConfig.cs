@@ -1,6 +1,7 @@
 namespace CWCore.Match;
 
 public class MatchConfig {
+    public required int FreeDraw { get; set; }
     public required int StartingLifeTotal { get; set; }
     public required int ActionPointsPerTurn { get; set; }
     public required int LaneCount { get; set; }

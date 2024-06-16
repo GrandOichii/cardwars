@@ -6,7 +6,7 @@ namespace CWCore.Match.Phases;
 
 public class BattlePhase : IPhase
 {
-    public async Task Exec(GameMatch match, int playerI)
+    public async Task PostEmit(GameMatch match, int playerI)
     {
         var player = match.GetPlayer(playerI);
         match.LogInfo($"Player {player.LogFriendlyName} proceeds to battle");
@@ -46,7 +46,7 @@ public class BattlePhase : IPhase
             var attacker = attackerState;
             await match.ExhaustToAttack(attacker);
             
-            // damage
+            // damage to opponent
             var defenderState = opponentState.Landscapes[laneI].Creature;
             if (defenderState is null) {
                 var attack = attackerState.Attack * attackerState.DamageMultiplier;
@@ -55,10 +55,9 @@ public class BattlePhase : IPhase
                 continue;
             }
 
-            // TODO bad?
+            // damage to creatures
             var defender = defenderState;
 
-            // TODO deal damage to each other
             match.LogInfo($"{attacker.Original.Card.LogFriendlyName} attacks {defender.Original.Card.LogFriendlyName} in lane {laneI}");
             await match.DealDamageToCreatureBy(defender, attackerState);
             await match.DealDamageToCreatureBy(attacker, defenderState);
@@ -88,5 +87,12 @@ public class BattlePhase : IPhase
         }
 
         return false;
+    }
+
+    public string GetName() => "turn_fight";
+
+    public Task PreEmit(GameMatch match, int playerI)
+    {
+        return Task.CompletedTask;
     }
 }

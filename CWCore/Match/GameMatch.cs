@@ -160,7 +160,9 @@ public class GameMatch {
             // Logger.ParseAndLog(cPlayer.Name + " started their turn.");
 
             foreach (var phase in _phases) {
-                await phase.Exec(this, CurPlayerI);
+                await phase.PreEmit(this, CurPlayerI);
+                await Emit(phase.GetName(), new(){ {"playerI", CurPlayerI} });
+                await phase.PostEmit(this, CurPlayerI);
                 
                 await ReloadState();
                 if (!Active) return;

@@ -353,5 +353,42 @@ public class Player {
         return result;
     }
 
+    public async Task TurnStart() {
+        UntilNextTurnEffects.Clear();
+        
+        await ResetActionPoints();
+
+        foreach (var lane in Landscapes) {
+            var creature = lane.Creature;
+            if (creature is not null) {
+                creature.MovementCount = 0;
+                creature.EnteredThisTurn = false;
+            } 
+            var building = lane.Building;
+            if (building is not null) {
+                building.EnteredThisTurn = false;
+            }
+        }
+        
+        await ReadyInPlayCards();
+
+        Draw(Match.Config.FreeDraw);
+    }
+
+    public async Task TurnEnd() {
+        CardsPlayedThisTurn.Clear();
+
+        foreach (var landscape in Landscapes) {
+            landscape.CreaturesEnteredThisTurn.Clear();
+            
+            // clear ability activations
+            var cards = new List<InPlayCard?>() { landscape.Creature, landscape.Building };
+            foreach (var card in cards) {
+                if (card is null) continue;
+                foreach (var a in card.ActivatedAbilities)
+                    a.ActivatedThisTurn = 0;
+            }
+        }
+    }
 }
 

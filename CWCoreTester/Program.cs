@@ -499,6 +499,7 @@ public class CursesLogger : ILogger
 public class Program {
     public static async Task TestRandom(int start, int end, bool enableLogging = false) {
         var config = new MatchConfig() {
+            FreeDraw = 1,
             StartingLifeTotal = 25,
             ActionPointsPerTurn = 2,
             LaneCount = 4,
@@ -553,6 +554,7 @@ public class Program {
         try {
             var seed = 0;
             var config = new MatchConfig() {
+                FreeDraw = 1,
                 StartingLifeTotal = 25,
                 ActionPointsPerTurn = 20,
                 LaneCount = 4,
@@ -607,6 +609,7 @@ public class Program {
         var view = new CursesView();
         try {
             var config = new MatchConfig() {
+                FreeDraw = 1,
                 StartingLifeTotal = 25,
                 ActionPointsPerTurn = 2,
                 LaneCount = 4,
