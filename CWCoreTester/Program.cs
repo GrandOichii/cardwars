@@ -120,7 +120,10 @@ public class ConsolePlayerController : IPlayerController
         System.Console.WriteLine("Hand:");
         foreach (var card in player.Hand)
             System.Console.WriteLine($"- {card.Original.LogFriendlyName} <{card.Cost}>");
-        Console.WriteLine($"AP: {player.Original.ActionPoints}");
+        Console.Write($"AP: {player.Original.ActionPoints}");
+        if (player.Original.RestrictedActionPoints.Count > 0)
+            System.Console.Write($" + {player.Original.RestrictedActionPoints.Count}");
+        System.Console.WriteLine();
         Console.WriteLine($"Available actions for {player.Original.LogFriendlyName}:");
         foreach (var action in options)
             Console.WriteLine($"\t- {action}");
@@ -602,8 +605,8 @@ public class Program {
 
     public static async Task Main(string[] args) {
 
-        await SimpleConsole();
-        return;
+        // await SimpleConsole();
+        // return;
 
         var seed = 0;
         await TestRandom(seed, 100, false);

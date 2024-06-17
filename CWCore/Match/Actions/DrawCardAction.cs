@@ -11,19 +11,19 @@ public class DrawCardAction : IAction
 
     public Task Exec(GameMatch match, int playerI, string[] args)
     {
-        var player = match.GetPlayer(playerI);
-        var ap = player.ActionPoints;
+        var player = match.GetPlayerState(playerI);
+        var ap = player.Original.ActionPoints;
 
         if (ap < match.Config.CardDrawCost) {
-            var errMsg = $"Player {player.LogFriendlyName} tried to draw a card as an action, but failed (ap: {ap}, cost: {match.Config.CardDrawCost})";
+            var errMsg = $"Player {player.Original.LogFriendlyName} tried to draw a card as an action, but failed (ap: {ap}, cost: {match.Config.CardDrawCost})";
             match.ActionError(errMsg);
             return Task.CompletedTask;
         }
 
         player.PayActionPoints(match.Config.CardDrawCost);
-        player.Draw(1);
+        player.Original.Draw(1);
 
-        match.LogInfo($"Player {player.LogFriendlyName} payed {match.Config.CardDrawCost} ap to draw a card. ({ap} -> {player.ActionPoints})");
+        match.LogInfo($"Player {player.Original.LogFriendlyName} payed {match.Config.CardDrawCost} ap to draw a card. ({ap} -> {player.Original.ActionPoints})");
 
         return Task.CompletedTask;
     }

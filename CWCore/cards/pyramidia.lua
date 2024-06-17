@@ -1,4 +1,4 @@
--- Status: not tested
+-- Status: implemented, requires A LOT of testing
 
 function _Create()
     local result = CardWars:InPlay()
@@ -6,11 +6,10 @@ function _Create()
     Common.ActivatedAbilities.Floop(result,
         'FLOOP >>> If you control a Creature in this Lane, gain 1 Action. Use it only to play a Creature into this Lane.',
         function (me, playerI, laneI)
-            -- TODO add back
-            -- local existing = Common.CreaturesInLane(playerI, laneI)
-            -- if #existing == 0 then
-            --     return
-            -- end
+            local existing = Common.CreaturesInLane(playerI, laneI)
+            if #existing == 0 then
+                return
+            end
 
             AddRestrictedActionPoint(playerI, function (card, lane)
                 if lane == nil then
@@ -19,7 +18,6 @@ function _Create()
                 if card.IsBuilding then
                     return false
                 end
-                print('CHECK', lane, laneI)
                 return lane == laneI
             end)
         end

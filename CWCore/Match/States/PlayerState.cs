@@ -1,3 +1,4 @@
+using System.Drawing;
 using CWCore.Exceptions;
 using CWCore.Match.Players;
 
@@ -157,7 +158,7 @@ public class PlayerState : IStateModifier {
                 var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
                 throw new GameMatchException(errMsg);
             }
-            if (!forFree && !card.PayCosts(this)) {
+            if (!forFree && !card.PayCosts(this, laneI)) {
                 throw new GameMatchException($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
             }
 
@@ -173,7 +174,7 @@ public class PlayerState : IStateModifier {
                 var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
                 throw new GameMatchException(errMsg);
             }
-            if (!forFree && !card.PayCosts(this)) {
+            if (!forFree && !card.PayCosts(this, laneI)) {
                 throw new GameMatchException($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
             }
 
@@ -231,5 +232,30 @@ public class PlayerState : IStateModifier {
             ++amount;
         }
         return Original.ActionPoints + amount >= card.Cost;
+    }
+
+
+    public void PayActionPoints(int amount) {
+        Original.ActionPoints -= amount;
+        // TODO add back
+        // if (ActionPoints < 0) {
+        //     Match.LogError($"Player payed {amount} ap, which resulted in their ap being equal to {ActionPoints}");
+        // }
+        // TODO? add update
+    }
+
+    public void PayActionPoints(CardState card, int? laneI) {
+        var amount = card.Cost;
+        while (amount > 0) {
+            var ap = Original.RestrictedActionPoints.FirstOrDefault(ap => ap.CanBeSpentOn(this, card, laneI));
+            if (ap is null) break;
+            amount--;
+            Original.RestrictedActionPoints.Remove(ap);
+        }
+        PayActionPoints(amount);
+    }
+
+    public void PayToPlay(CardState card, int? laneI) {
+        PayActionPoints(card, laneI);
     }
 }

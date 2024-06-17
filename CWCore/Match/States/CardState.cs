@@ -18,13 +18,13 @@ public class CardState {
         LandscapeType = Original.Template.Landscape;
     }
 
-    public bool PayCosts(PlayerState player) {
+    public bool PayCosts(PlayerState player, int? laneI=null) {
         var returned = Original.ExecFunction(PAY_COSTS_FNAME, Original.Data, player.Original.Idx);
         var additionalPayed = LuaUtility.GetReturnAsBool(returned);
 
         if (!additionalPayed) return false;
 
-        player.Original.PayToPlay(this);
+        player.PayToPlay(this, laneI);
         return true;
     }
 

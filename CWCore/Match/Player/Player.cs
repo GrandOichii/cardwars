@@ -85,21 +85,6 @@ public class Player {
         return drawn;
     }
 
-    public void PayActionPoints(int amount) {
-        // !!! add restricted action points
-        
-        ActionPoints -= amount;
-        // TODO add back
-        // if (ActionPoints < 0) {
-        //     Match.LogError($"Player payed {amount} ap, which resulted in their ap being equal to {ActionPoints}");
-        // }
-        // TODO? add update
-    }
-
-    public void PayToPlay(CardState card) {
-        PayActionPoints(card.Cost);
-    }
-
     public void RemoveFromHand(MatchCard card) {
         // TODO? add to update
 
