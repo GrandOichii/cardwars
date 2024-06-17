@@ -12,6 +12,7 @@
 + 2 Bums Away!
 + 2 Blood Bath
 + 1 The Big Hen House
++ 2 Bog Bum
 
 1 Funeral Home - discard trigger
 1 Blood Transfusion - removing cards from game
@@ -19,7 +20,6 @@
 2 Man-Witch - discard trigger
 2 Fly Swatter - hand revealing
 1 Bog Frog Bomb - "leaves play while ready"
-2 Bog Bum - "leaves play while ready"
 
 2 Ban-She Princess - landscape token removal
 1 Ban-She Queen - landscape token removal

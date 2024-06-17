@@ -59,6 +59,7 @@
         "PickString",
         "TargetPlayer",
         "AddRestrictedActionPoint",
-        "RevealCardFromHand"
+        "RevealCardFromHand",
+        "DrawFromBottom"
     ]
 }

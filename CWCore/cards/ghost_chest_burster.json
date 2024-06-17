@@ -1,0 +1,9 @@
+{
+    "Name": "Ghost Chest Burster",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "When Ghost Chest Burster leaves play, draw the bottom card of your deck.",
+    "Attack": 1,
+    "Defense": 9
+}

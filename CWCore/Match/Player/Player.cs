@@ -84,6 +84,27 @@ public class Player {
         return drawn;
     }
 
+    public int DrawFromBottom(int amount) {
+        int drawn = 0;
+        for (int i = 0; i < amount; i++) {
+            if (Deck.Count == 0) {
+                Match.LogInfo($"Player {LogFriendlyName} tried to draw out of an empty deck");
+                break;
+            }
+
+            var card = Deck.First!.Value;
+            Deck.RemoveFirst();
+            Hand.Add(card);
+            // TODO? add to update
+
+            drawn++;
+        }
+
+        Match.LogInfo($"Player {LogFriendlyName} drew {drawn} cards from the bottom of their deck");
+
+        return drawn;
+    }
+
     public void RemoveFromHand(MatchCard card) {
         // TODO? add to update
 

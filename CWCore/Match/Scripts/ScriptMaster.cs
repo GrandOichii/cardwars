@@ -47,6 +47,13 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public int DrawFromBottom(int playerI, int amount) {
+        var player = _match.GetPlayer(playerI);
+        var result = player.DrawFromBottom(amount);
+        return result;
+    }
+
+    [LuaCommand]
     public int GetHandCount(int playerI) {
         var player = _match.GetPlayer(playerI);
         return player.Hand.Count;

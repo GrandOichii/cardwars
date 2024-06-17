@@ -72,6 +72,7 @@ disallowing playing cards of a specific cost
 burly lumberjack
 silo of freedom
 leaves play while ready
+drawing the bottom card of the deck
 
 cloud tower - disable targeting by spells, disable targeting by creature abilities (of specific player)
 mint chocouflage - disable damage by spells, disable damage by creature abilities (of specific player)
@@ -84,26 +85,26 @@ putting buildings from discard into play
 putting buildings from hand into play
 forcing cards to be blank
 attack trigger
-haybarn
 putting creatures from discard into play
 deals damage directly to your opponent instead of the opposing creature
 redistribute the damage on creatures you control
-cuddle puddle
 disable ability activations
-bale out
 looking at cards in deck
-carmel camel
 playing creatures from hand for free
-learning center
 damage creature -> creature
 when defeats opposing creature
 deck searching
 state modification while defending
 state modification while attacking
-weakened warrior
-pied piper
-clone
 fight phase start trigger
 flipping landscapes down until the start of next turn
 discarding buildings from play
-drawing the bottom card of the deck
+
+cuddle puddle
+bale out
+carmel camel
+learning center
+haybarn
+weakened warrior
+pied piper
+clone
