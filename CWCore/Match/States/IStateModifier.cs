@@ -15,7 +15,7 @@ public enum ModificationLayer {
     DAMAGE_ABSORBTION,
     ADDITIONAL_LANDSCAPES,
     IN_HAND_CARD_TYPE,
-    LANE_PLAY_RESTRICTIONS,
+    PLAY_RESTRICTIONS,
 }
 
 public interface IStateModifier {

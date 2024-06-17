@@ -13,7 +13,7 @@ public class MatchState {
 
         ModificationLayer.IN_HAND_CARD_TYPE,
         ModificationLayer.CARD_COST,
-        ModificationLayer.LANE_PLAY_RESTRICTIONS,
+        ModificationLayer.PLAY_RESTRICTIONS,
 
         ModificationLayer.ATK_AND_DEF,
         ModificationLayer.DAMAGE_MULTIPLICATION,

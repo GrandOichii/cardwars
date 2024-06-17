@@ -12,13 +12,15 @@ public class CardState {
     public MatchCard Original { get; }
     public int Cost { get; set; }
     public string LandscapeType { get; set; }
+    public List<string> PlayRestrictions { get; }
     public Dictionary<int, List<string>> LanePlayRestrictions { get; }
 
     public CardState(PlayerState owner, MatchCard card) {
         Original = card;
-        Cost = Original.Template.Cost;
+        Cost = RealCost();
         LandscapeType = Original.Template.Landscape;
 
+        PlayRestrictions = new();
         LanePlayRestrictions = new();
 
         for (int i = 0; i < owner.Landscapes.Count; i++) {
@@ -37,6 +39,7 @@ public class CardState {
     }
 
     public bool CanPlay(PlayerState player, bool forFree = false) {
+        if (PlayRestrictions.Count > 0) return false;
         // check if have sufficient landscapes
         if (!forFree && !IsLandscape("Rainbow") && player.Original.Match.Config.CheckLandscapesForPlayingCards) {
             var counts = player.GetLandscapeCounts();
@@ -76,4 +79,6 @@ public class CardState {
     {
         Original.ExecFunction(MODIFY_STATE_IN_HAND_FNAME, Original.Data, this, (int)layer, zone);
     }
+
+    public int RealCost() => Original.Template.Cost;
 }

@@ -112,7 +112,7 @@ CardWars.ModificationLayers = {
     DAMAGE_ABSORBTION = 10,
     ADDITIONAL_LANDSCAPES = 11,
     IN_HAND_CARD_TYPE = 12,
-    LANE_PLAY_RESTRICTIONS = 13
+    PLAY_RESTRICTIONS = 13
 }
 
 -- Card Types
@@ -810,7 +810,7 @@ function Common.CardsInHandWithCostGreaterOrEqual(playerI, cost)
     local cards = STATE.Players[playerI].Hand
     for i = 1, cards.Count do
         local card = cards[i - 1]
-        if card.Cost >= cost then
+        if card.RealCost() >= cost then
             result[#result+1] = i - 1
         end
     end
