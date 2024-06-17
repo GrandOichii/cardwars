@@ -8,7 +8,7 @@ public class MatchState {
         ModificationLayer.ABILITY_GRANTING_REMOVAL,
         ModificationLayer.ADDITIONAL_LANDSCAPES,
         ModificationLayer.IN_PLAY_CARD_TYPE,
-        ModificationLayer.LANDSCAPE_TYPE, // not used in any of the cards
+        ModificationLayer.LANDSCAPE_TYPE,
         ModificationLayer.LANDSCAPE_FLIP_DOWN_AVAILABILITY,
 
         ModificationLayer.IN_HAND_CARD_TYPE,

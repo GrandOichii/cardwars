@@ -66,7 +66,6 @@ public class PlayerState : IStateModifier {
         var result = new Dictionary<string, int>();
 
         foreach (var landscape in Landscapes) {
-            // TODO? replace with landscape.Name
             var name = landscape.GetName();
             if (!result.ContainsKey(name))
                 result.Add(name, 0);

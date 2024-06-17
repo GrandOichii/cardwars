@@ -139,7 +139,7 @@ public class ConsolePlayerController : IPlayerController
             "Cornfield",
             "Cornfield",
             "Cornfield",
-            "Blue Plains"
+            "Cornfield"
         });
     }
 
@@ -567,7 +567,7 @@ public class Program {
                 StrictMode = false,
                 CardDrawCost = 1,
                 StartHandSize = 5,
-                CheckLandscapesForPlayingCards = false,
+                CheckLandscapesForPlayingCards = true,
                 CanFloopOnFirstTurn = true,
                 CanAttackOnFirstTurn = true,
                 MaxBuildingsPerLane = 1,
@@ -605,8 +605,8 @@ public class Program {
 
     public static async Task Main(string[] args) {
 
-        // await SimpleConsole();
-        // return;
+        await SimpleConsole();
+        return;
 
         var seed = 0;
         await TestRandom(seed, 100, false);

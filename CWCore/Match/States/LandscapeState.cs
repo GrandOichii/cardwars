@@ -8,9 +8,11 @@ public class LandscapeState : IStateModifier {
     public List<InPlayCardState> Buildings { get; set; }
     public List<int> CanFlipDown { get; set; }
     public int BuildingPlayLimit { get; set; }
+    public string Name;
 
     public LandscapeState(PlayerState owner, Landscape landscape, int laneI) {
         Original = landscape;
+        Name = Original.Name;
         BuildingPlayLimit = owner.Original.Match.Config.MaxBuildingsPerLane;
         
         if (landscape.Creature is not null) {
@@ -44,13 +46,11 @@ public class LandscapeState : IStateModifier {
     }
 
     public bool CanPlayCreature(CardState creature) {
-        // TODO
-        // return !IsFrozen();
         return true;
     }
 
     public string GetName() {
-        return Original.Name;
+        return Name;
     }
 
     public void PreModify()
