@@ -30,6 +30,8 @@ public class LandscapeState : IStateModifier {
     {
         Creature?.Modify(layer);
         Building?.Modify(layer);
+
+        
     }
 
     public bool Is(string name) {
@@ -40,15 +42,21 @@ public class LandscapeState : IStateModifier {
 
     public bool CanPlayBuilding(CardState building) {
         // TODO
-        return !IsFrozen();
+        // return !IsFrozen();
+        return true;
     }
 
     public bool CanPlayCreature(CardState creature) {
         // TODO
-        return !IsFrozen();
+        // return !IsFrozen();
+        return true;
     }
 
     public string GetName() {
         return Original.Name;
+    }
+
+    public void PreModify()
+    {
     }
 }

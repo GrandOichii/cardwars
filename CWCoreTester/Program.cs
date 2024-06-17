@@ -562,7 +562,7 @@ public class Program {
             var config = new MatchConfig() {
                 FreeDraw = 1,
                 StartingLifeTotal = 25,
-                ActionPointsPerTurn = 1,
+                ActionPointsPerTurn = 10,
                 LaneCount = 4,
                 StrictMode = false,
                 CardDrawCost = 1,
@@ -605,8 +605,8 @@ public class Program {
 
     public static async Task Main(string[] args) {
 
-        // await SimpleConsole();
-        // return;
+        await SimpleConsole();
+        return;
 
         var seed = 0;
         await TestRandom(seed, 100, false);

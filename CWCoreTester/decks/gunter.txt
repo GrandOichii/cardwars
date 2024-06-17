@@ -20,7 +20,7 @@
 1 Snow Training Camp
 2 Tired Wombat - moving into enemy landscapes
 
-2 Frosted Deanimator - "may enter play onto a Landscape that has a Frozen token on it" - just add a "CanEnterOntoFrozenLandscape" flag?
++ 2 Frosted Deanimator
 1 Fancy Spa - fight phase start trigger
 2 Fatigued Librarian - "comes into play exhausted, doesn't ready at the start of turn"
 2 Weakened Warrior - "comes into play exhausted, doesn't ready at the start of turn"

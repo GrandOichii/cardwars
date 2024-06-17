@@ -59,4 +59,8 @@ public class Hero : IStateModifier {
     {
         ExecFunction(MODIFY_STATE_IN_HAND_FNAME, Data, (int)layer, OwnerI);
     }
+
+    public void PreModify()
+    {
+    }
 }

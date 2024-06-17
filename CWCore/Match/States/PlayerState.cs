@@ -19,24 +19,32 @@ public class PlayerState : IStateModifier {
         ).ToList();
 
         Hand = player.Hand.Select(
-            c => new CardState(c)
+            c => new CardState(this, c)
         ).ToList();
 
         DiscardPile = player.DiscardPile.Select(
-            c => new CardState(c)
+            c => new CardState(this, c)
         ).ToList();
 
         CardsPlayedThisTurn = player.CardsPlayedThisTurn.Select(
-            c => new CardState(c)
+            c => new CardState(this, c)
         ).ToList();
+    }
+
+    public void PreModify() {
+        foreach (var landscape in Landscapes) {
+            if (landscape.IsFrozen()) {
+                Hand.ForEach(c => c.LanePlayRestrictions[landscape.Original.Idx].Clear());
+                Hand.ForEach(c => c.LanePlayRestrictions[landscape.Original.Idx].Add("IsFrozen"));
+            }
+        }
     }
     
     public void Modify(ModificationLayer layer)
     {
         Original.Hero?.Modify(layer);
-
         Hand.ForEach(card => card.Modify("hand", layer));
-        
+
         Landscapes.ForEach(landscape => landscape.Modify(layer));
 
         foreach (var effect in Original.UntilNextTurnEffects) {
@@ -72,6 +80,7 @@ public class PlayerState : IStateModifier {
         var result = new List<int>();
         for (int i = 0; i < Landscapes.Count; i++) {
             var landscape = Landscapes[i];
+            if (creature.LanePlayRestrictions[i].Count > 0) continue;
             if (!landscape.CanPlayCreature(creature)) continue;
 
             var existing = landscape.Creature;
@@ -90,6 +99,7 @@ public class PlayerState : IStateModifier {
         var result = new List<int>();
         for (int i = 0; i < Landscapes.Count; i++) {
             var landscape = Landscapes[i];
+            if (building.LanePlayRestrictions[i].Count > 0) continue;
             if (!landscape.CanPlayBuilding(building)) continue;
 
             var existing = landscape.Building;

@@ -13,6 +13,7 @@ public class MatchState {
 
         ModificationLayer.IN_HAND_CARD_TYPE,
         ModificationLayer.CARD_COST,
+        ModificationLayer.LANE_PLAY_RESTRICTIONS,
 
         ModificationLayer.ATK_AND_DEF,
         ModificationLayer.DAMAGE_MULTIPLICATION,
@@ -42,6 +43,9 @@ public class MatchState {
     }
 
     public void Modify() {
+        foreach (var player in Players) {
+            player.PreModify();
+        }
         foreach (var layer in STATE_MODIFICATION_LAYERS) {
             foreach (var player in Players) {
                 player.Modify(layer);

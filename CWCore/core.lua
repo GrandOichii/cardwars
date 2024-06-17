@@ -111,6 +111,7 @@ CardWars.ModificationLayers = {
     DAMAGE_ABSORBTION = 10,
     ADDITIONAL_LANDSCAPES = 11,
     IN_HAND_CARD_TYPE = 12,
+    LANE_PLAY_RESTRICTIONS = 13
 }
 
 -- Card Types

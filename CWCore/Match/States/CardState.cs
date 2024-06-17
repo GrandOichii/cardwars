@@ -1,3 +1,4 @@
+using CWCore.Match.Players;
 using CWCore.Utility;
 
 namespace CWCore.Match.States;
@@ -11,11 +12,18 @@ public class CardState {
     public MatchCard Original { get; }
     public int Cost { get; set; }
     public string LandscapeType { get; set; }
+    public Dictionary<int, List<string>> LanePlayRestrictions { get; }
 
-    public CardState(MatchCard card) {
+    public CardState(PlayerState owner, MatchCard card) {
         Original = card;
         Cost = Original.Template.Cost;
         LandscapeType = Original.Template.Landscape;
+
+        LanePlayRestrictions = new();
+
+        for (int i = 0; i < owner.Landscapes.Count; i++) {
+            LanePlayRestrictions.Add(i, new());
+        }
     }
 
     public bool PayCosts(PlayerState player, int? laneI=null) {

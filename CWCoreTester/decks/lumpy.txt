@@ -23,5 +23,4 @@
 + 1 Skeletal Hand
 + 1 Pants of Awesome
 + 1 Volcano
-
-1 Pyramidia - "gain 1 Action. Use it only to play a Creature into this Lane" (this is near unimplementable)
++ 1 Pyramidia

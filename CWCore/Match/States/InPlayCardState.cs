@@ -80,4 +80,7 @@ public class InPlayCardState : IStateModifier {
         );
     }
 
+    public void PreModify()
+    {
+    }
 }
