@@ -539,4 +539,10 @@ public class ScriptMaster {
         _match.RevealCardsFromHand(playerI, cardI)
             .Wait();
     }
+
+    [LuaCommand]
+    public void RemoveFromDiscard(int playerI, int cardI) {
+        var player = _match.GetPlayer(playerI);
+        player.RemoveFromDiscard(cardI);
+    }
 }

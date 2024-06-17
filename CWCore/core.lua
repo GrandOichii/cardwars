@@ -377,6 +377,18 @@ function Common.Targetable(byI, tableArr)
     return result
 end
 
+function Common.SpellTargetable(byI, tableArr)
+    local result = {}
+
+    for _, card in ipairs(tableArr) do
+        if card.CanBeTargetedBy:Contains(byI) then
+            result[#result+1] = card
+        end
+    end
+
+    return result
+end
+
 function Common.CreaturesNamed(playerI, name)
     return Common.FilterCreatures( function (creature)
         return

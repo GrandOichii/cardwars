@@ -136,7 +136,7 @@ public class Player {
         Deck = Common.Shuffled(Deck, Match.Rng);
         Draw(Match.Config.StartHandSize);
 
-        // Mill(Deck.Count / 2);
+        Mill(Deck.Count / 2);
     }
 
     private async Task PlaceLandscapes() {
@@ -378,6 +378,8 @@ public class Player {
 
         DiscardPile.Remove(card);
         Deck.AddLast(card);
+        
+        // TODO add update
     }
 
     public List<MatchCard> Mill(int amount) {
@@ -432,6 +434,10 @@ public class Player {
                     a.ActivatedThisTurn = 0;
             }
         }
+    }
+
+    public void RemoveFromDiscard(int cardI) {
+        DiscardPile.RemoveAt(cardI);
     }
 }
 

@@ -1,6 +1,8 @@
 {
     "Hero": "",
     "Cards": {
+        "Blood Transfusion": 10,
+        "Silo of Truth": 10,
         "Emboldened Retriever": 10
     },
     "Landscapes": {
