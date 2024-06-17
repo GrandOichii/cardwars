@@ -136,9 +136,9 @@ public class ConsolePlayerController : IPlayerController
     public Task<List<string>> PromptLandscapePlacement(int playerI, Dictionary<string, int> landscapeIndex)
     {
         return Task.FromResult(new List<string> {
-            "Blue Plains",
-            "Blue Plains",
-            "Blue Plains",
+            "Cornfield",
+            "Cornfield",
+            "Cornfield",
             "Blue Plains"
         });
     }
@@ -567,7 +567,7 @@ public class Program {
                 StrictMode = false,
                 CardDrawCost = 1,
                 StartHandSize = 5,
-                CheckLandscapesForPlayingCards = true,
+                CheckLandscapesForPlayingCards = false,
                 CanFloopOnFirstTurn = true,
                 CanAttackOnFirstTurn = true,
                 MaxBuildingsPerLane = 1,

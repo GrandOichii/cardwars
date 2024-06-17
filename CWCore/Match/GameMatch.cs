@@ -607,6 +607,15 @@ public class GameMatch {
 
             LogInfo($"Player {player.LogFriendlyName} revealed {card.LogFriendlyName} from the top of their deck");
         }
+        // TODO add update
         return result;
+    }
+
+    public async Task RevealCardsFromHand(int playerI, int cardI) {
+        var player = GetPlayerState(playerI);
+
+        var card = player.Hand[cardI];
+
+        LogInfo($"Player {player.Original.LogFriendlyName} revealed {card.Original.LogFriendlyName} from their hand");
     }
 }

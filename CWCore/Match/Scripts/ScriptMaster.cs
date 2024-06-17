@@ -529,6 +529,7 @@ public class ScriptMaster {
 
     [LuaCommand]
     public void RevealCardFromHand(int playerI, int cardI) {
-        // TODO
+        _match.RevealCardsFromHand(playerI, cardI)
+            .Wait();
     }
 }

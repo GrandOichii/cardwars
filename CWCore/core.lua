@@ -82,7 +82,8 @@ CardWars.Zones = {
 
 CardWars.Triggers = {
     TURN_START = 'turn_start',
-    CREATURE_ENTER = 'creature_enter'
+    CREATURE_ENTER = 'creature_enter',
+    DISCARD_FROM_HAND = 'discard_from_hand',
 }
 
 -- Landscapes

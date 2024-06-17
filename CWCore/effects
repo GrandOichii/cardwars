@@ -65,15 +65,15 @@ additional in-play card landscape types
 on move
 restrictive action points
 permission to play creatures on frozen landscapes
+hand card landscape type modification
+revealing cards from hand
+discard trigger
 
 card draw trigger
 token removal
-discard trigger
 whenever this card is placed into your discard from anywhere...
 putting buildings from discard into play
 putting buildings from hand into play
-revealing cards from hand
-hand card landscape type modification
 removing cards from game
 forcing cards to be blank
 attack trigger
@@ -89,7 +89,6 @@ burly lumberjack
 damage trigger (from creatures)
 bale out
 looking at cards in deck
-has +2 ATK while defending
 carmel camel
 playing creatures from hand for free
 learning center
@@ -97,6 +96,7 @@ disallowing playing cards of a specific cost
 damage creature -> creature
 when defeats opposing creature
 deck searching
+state modification while defending
 state modification while attacking
 weakened warrior
 pied piper

@@ -1,0 +1,9 @@
+{
+    "Name": "Man-Witch",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Whenever a foe discards a card, deal 1 Damage to that foe.",
+    "Attack": 1,
+    "Defense": 11
+}
