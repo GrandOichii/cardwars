@@ -123,7 +123,7 @@
 		"prefix": "leaveplay",
 		"description": "leave play effect",
 		"body": [
-			"result.OnLeavePlayP:AddLayer(function(playerI, laneI)",
+			"result.OnLeavePlayP:AddLayer(function(playerI, laneI, wasReady)",
 			"\t-- When $1 leaves play, $2",
 			"",
 			"\t$0",

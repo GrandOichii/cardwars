@@ -76,7 +76,8 @@ public class InPlayCardState : IStateModifier {
             InPlayCard.ON_LEAVE_PLAY_FNAME, 
             Original.Card.Data, 
             Original.ControllerI, 
-            from.Original.Idx
+            from.Original.Idx,
+            !Original.Exhausted
         );
     }
 

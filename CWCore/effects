@@ -71,6 +71,7 @@ discard trigger
 disallowing playing cards of a specific cost
 burly lumberjack
 silo of freedom
+leaves play while ready
 
 cloud tower - disable targeting by spells, disable targeting by creature abilities (of specific player)
 mint chocouflage - disable damage by spells, disable damage by creature abilities (of specific player)
@@ -85,7 +86,6 @@ forcing cards to be blank
 attack trigger
 haybarn
 putting creatures from discard into play
-leaves play while ready
 deals damage directly to your opponent instead of the opposing creature
 redistribute the damage on creatures you control
 cuddle puddle

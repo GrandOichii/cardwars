@@ -246,13 +246,13 @@ function CardWars:InPlay()
 
     result.OnLeavePlayP = Core.Pipeline:New()
     result.OnLeavePlayP:AddLayer(
-        function(playerI, laneI)
+        function(playerI, laneI, wasReady)
             return nil, true
         end
     )
 
-    function result:OnLeavePlay(playerI, laneI)
-        self.OnLeavePlayP:Exec(playerI, laneI)
+    function result:OnLeavePlay(playerI, laneI, wasReady)
+        self.OnLeavePlayP:Exec(playerI, laneI, wasReady)
     end
 
     result.OnMoveP = Core.Pipeline:New()

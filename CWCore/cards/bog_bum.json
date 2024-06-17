@@ -1,0 +1,9 @@
+{
+    "Name": "Bog Bum",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "If Bog Bum leaves play while Ready, each opponent discards a random card.",
+    "Attack": 2,
+    "Defense": 6
+}
