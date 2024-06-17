@@ -526,4 +526,9 @@ public class ScriptMaster {
     public void AddRestrictedActionPoint(int playerI, LuaFunction checkFunc) {
         _match.GetPlayer(playerI).RestrictedActionPoints.Add(new(checkFunc));
     }
+
+    [LuaCommand]
+    public void RevealCardFromHand(int playerI, int cardI) {
+        // TODO
+    }
 }

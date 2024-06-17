@@ -643,12 +643,12 @@ function Common.Lanes(landscapes)
     return result
 end
 
-function Common.CardsPlayedThisTurnTyped(playerI, type)
+function Common.CardsPlayedThisTurnTyped(playerI, landscape)
     local player = STATE.Players[playerI].Original
 
     local count = 0
     for i = 1, player.CardsPlayedThisTurn.Count do
-        if player.CardsPlayedThisTurn[i - 1].Template.Landscape == type then
+        if player.CardsPlayedThisTurn[i - 1]:IsLandscape(landscape) then
             count = count + 1
         end
     end
@@ -777,7 +777,7 @@ function Common.ChooseAndDiscardCard(playerI, hint)
         ids[#ids+1] = i - 1
     end
 
-    local result = ChooseCardInHand(playerI, ids, 'Choose a card to discard')
+    local result = ChooseCardInHand(playerI, ids, hint)
     local cardId = STATE.Players[playerI].Hand[result].Original.ID
 
     DiscardFromHand(playerI, result)
@@ -1137,6 +1137,21 @@ function Common.State.CantBeTargeted(creature, by)
         return
     end
     creature.CanBeTargetedBy:Clear()
+end
+
+function Common.State.ChangeLandscapeType(layer, cardID, to)
+    if layer == CardWars.ModificationLayers.IN_HAND_CARD_TYPE then
+        for playerI = 0, 1 do
+            local hand = STATE.Players[playerI].Hand
+            for i = 0, hand.Count - 1 do
+                if hand[i].Original.ID == cardID then
+                    hand[i].LandscapeType = CardWars.Landscapes.Rainbow
+                    break
+                end
+            end
+        end
+        -- TODO cards in discard, cards in play, ?cards played this turn?, ?cards that entered play on a specific lane?
+    end
 end
 
 Common.AbilityGrantingRemoval = {}

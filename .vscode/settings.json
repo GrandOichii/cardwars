@@ -58,6 +58,7 @@
         "UntilNextTurn",
         "PickString",
         "TargetPlayer",
-        "AddRestrictedActionPoint"
+        "AddRestrictedActionPoint",
+        "RevealCardFromHand"
     ]
 }

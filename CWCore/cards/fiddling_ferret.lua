@@ -17,7 +17,7 @@ function _Create()
 
             local idx = Common.DiscardCardIdx(playerI, discardedId)
             local card = STATE.Players[playerI].DiscardPile[idx]
-            if card.Original.Template.Landscape == CardWars.Landscapes.Rainbow then
+            if card:IsLandscape(CardWars.Landscapes.Rainbow) then
                 AddActionPoints(playerI, 1)
             end
         end
