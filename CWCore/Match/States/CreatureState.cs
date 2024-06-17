@@ -3,6 +3,8 @@ using CWCore.Match.Players;
 namespace CWCore.Match.States;
 
 public class CreatureState : InPlayCardState {
+    private readonly static string ON_ATTACK_FNAME = "OnAttack";
+    
     public int Attack { get; set; }
     public int Defense { get; set; }
     public bool CanAttack { get; set; }
@@ -47,5 +49,15 @@ public class CreatureState : InPlayCardState {
             amount,
             creatureId
         );
+    }
+
+    public void OnAttack() {
+        Original.Card.ExecFunction(
+            ON_ATTACK_FNAME, 
+            Original.Card.Data,
+            Original.ControllerI,
+            LaneI
+        );
+
     }
 }

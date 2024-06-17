@@ -45,6 +45,8 @@ public class FightPhase : IPhase
 
             var attacker = attackerState;
             await match.ExhaustToAttack(attacker);
+
+            attackerState.OnAttack();
             
             // damage to opponent
             var defenderState = opponentState.Landscapes[laneI].Creature;

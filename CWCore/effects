@@ -73,6 +73,7 @@ burly lumberjack
 silo of freedom
 leaves play while ready
 drawing the bottom card of the deck
+attack trigger
 
 cloud tower - disable targeting by spells, disable targeting by creature abilities (of specific player)
 mint chocouflage - disable damage by spells, disable damage by creature abilities (of specific player)
@@ -84,7 +85,6 @@ whenever this card is placed into your discard from anywhere...
 putting buildings from discard into play
 putting buildings from hand into play
 forcing cards to be blank
-attack trigger
 putting creatures from discard into play
 deals damage directly to your opponent instead of the opposing creature
 redistribute the damage on creatures you control

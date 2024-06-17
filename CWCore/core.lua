@@ -289,6 +289,17 @@ function CardWars:Creature()
         self.OnDealDamageP:Exec(playerI, laneI, amount, creatureId)
     end
 
+    result.OnAttackP = Core.Pipeline:New()
+    result.OnAttackP:AddLayer(
+        function (playerI, laneI)
+            return nil, true
+        end
+    )
+
+    function result:OnAttack(playerI, laneI)
+        self.OnAttackP:Exec(playerI, laneI)
+    end
+
     return result
 end
 
