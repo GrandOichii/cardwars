@@ -112,7 +112,8 @@ CardWars.ModificationLayers = {
     DAMAGE_ABSORBTION = 10,
     ADDITIONAL_LANDSCAPES = 11,
     IN_HAND_CARD_TYPE = 12,
-    PLAY_RESTRICTIONS = 13
+    PLAY_RESTRICTIONS = 13,
+    BUILDING_PLAY_LIMIT = 14,
 }
 
 -- Card Types
@@ -326,9 +327,9 @@ function Common.FilterBuildings(predicate)
         local pState = STATE.Players[pi - 1]
         for li = 1, pState.Landscapes.Count do
             local lane = pState.Landscapes[li - 1]
-            if lane.Building ~= nil then
-                if predicate(lane.Building) then
-                    result[#result+1] = lane.Building
+            for bi = 0, lane.Buildings.Count - 1 do
+                if predicate(lane.Buildings[bi]) then
+                    result[#result+1] = lane.Buildings[bi]
                 end
             end
         end
@@ -454,7 +455,7 @@ end
 
 function Common.LandscapesWithoutBuildings(playerI)
     return Common.FilterLandscapes(function (landscape)
-        return landscape.Original.OwnerI == playerI and landscape.Building == nil
+        return landscape.Original.OwnerI == playerI and landscape.Buildings.Count == 0
     end)
 end
 
@@ -472,8 +473,6 @@ function Common.LandscapesWithoutCreaturesTyped(playerI, lType)
             landscape.Creature == nil
     end)
 end
-
-
 
 function Common.Creatures(playerI)
     return Common.FilterCreatures(function (creature)
@@ -523,7 +522,7 @@ function Common.LandscapesWithBuildings(playerI)
     return Common.FilterLandscapes(function (landscape)
         return
             landscape.Original.OwnerI == playerI and
-            landscape.Building ~= nil
+            landscape.Buildings.Count > 0
     end)
 end
 
@@ -712,7 +711,7 @@ end
 
 function Common.CreaturesWithBuildings(playerI)
     local result = {}
-    local landscapes = Common.LandscapesWithBuildings( playerI)
+    local landscapes = Common.LandscapesWithBuildings(playerI)
     for _, landscape in ipairs(landscapes) do
         local creature = landscape.Creature
         if creature ~= nil then
@@ -789,13 +788,13 @@ end
 function Common.DiscardNCards(playerI, amount)
     -- TODO could be better
     for i = 1, amount do
-        Common.ChooseAndDiscardCard(playerI, 1)
+        Common.ChooseAndDiscardCard(playerI)
         UpdateState()
     end
 end
 
 function Common.ControlBuildingInLane(playerI, laneI)
-    return STATE.Players[playerI].Landscapes[laneI].Building ~= nil
+    return STATE.Players[playerI].Landscapes[laneI].Buildings.Count > 0
 end
 
 function Common.TargetOpponent(playerI)
@@ -810,7 +809,7 @@ function Common.CardsInHandWithCostGreaterOrEqual(playerI, cost)
     local cards = STATE.Players[playerI].Hand
     for i = 1, cards.Count do
         local card = cards[i - 1]
-        if card.RealCost() >= cost then
+        if card:RealCost() >= cost then
             result[#result+1] = i - 1
         end
     end
@@ -853,8 +852,8 @@ function Common.BuildingsInLane(playerI, laneI)
     local result = {}
     local player = STATE.Players[playerI]
     local lane = player.Landscapes[laneI]
-    if lane.Creature ~= nil then
-        result[#result+1] = lane.Creature
+    for i = 0, lane.Buildings.Count - 1 do
+        result[#result+1] = lane.Buildings[i]
     end
     return result
 end
@@ -927,9 +926,8 @@ function Common.AllPlayers.BuildingsInLane(laneI)
     for i = 1, 2 do
         local player = players[i]
         local lane = player.Landscapes[laneI]
-        if lane.Building ~= nil then
-            local cid = lane.Building.Original.Card.ID
-            result[#result+1] = lane.Building
+        for bi = 0, lane.Buildings.Count - 1 do
+            result[#result+1] = lane.Buildings[bi]
         end
     end
 
@@ -1084,7 +1082,7 @@ function Common.ActivatedAbilities.DiscardCard(card, text, effect, maxActivation
             return GetHandCount(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            Common.ChooseAndDiscardCard(playerI, laneI)
+            Common.ChooseAndDiscardCard(playerI)
             return true
         end,
         effectF = effect

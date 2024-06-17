@@ -16,6 +16,7 @@ public enum ModificationLayer {
     ADDITIONAL_LANDSCAPES,
     IN_HAND_CARD_TYPE,
     PLAY_RESTRICTIONS,
+    BUILDING_PLAY_LIMIT,
 }
 
 public interface IStateModifier {

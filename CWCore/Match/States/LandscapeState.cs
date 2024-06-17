@@ -5,19 +5,19 @@ namespace CWCore.Match.States;
 public class LandscapeState : IStateModifier {
     public Landscape Original { get; }
     public CreatureState? Creature { get; set; }
-    public InPlayCardState? Building { get; set; }
+    public List<InPlayCardState> Buildings { get; set; }
     public List<int> CanFlipDown { get; set; }
+    public int BuildingPlayLimit { get; set; }
 
-    public LandscapeState(Landscape landscape, int laneI) {
+    public LandscapeState(PlayerState owner, Landscape landscape, int laneI) {
         Original = landscape;
+        BuildingPlayLimit = owner.Original.Match.Config.MaxBuildingsPerLane;
         
         if (landscape.Creature is not null) {
             Creature = new CreatureState(landscape.Creature, laneI);
         }
 
-        if (landscape.Building is not null) {
-            Building = new InPlayCardState(landscape.Building, laneI);
-        }
+        Buildings = landscape.Buildings.Select(b => new InPlayCardState(b, laneI)).ToList();
 
         // TODO seems like a bad way to manage special abilities of tokens
         
@@ -29,9 +29,8 @@ public class LandscapeState : IStateModifier {
     public void Modify(ModificationLayer layer)
     {
         Creature?.Modify(layer);
-        Building?.Modify(layer);
-
-        
+        foreach (var b in Buildings)
+            b.Modify(layer);   
     }
 
     public bool Is(string name) {
@@ -41,9 +40,7 @@ public class LandscapeState : IStateModifier {
     public bool IsFrozen() => Original.Tokens.Contains("Frozen");
 
     public bool CanPlayBuilding(CardState building) {
-        // TODO
-        // return !IsFrozen();
-        return true;
+        return BuildingPlayLimit < 0 || Buildings.Count < BuildingPlayLimit;
     }
 
     public bool CanPlayCreature(CardState creature) {

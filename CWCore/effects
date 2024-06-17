@@ -68,11 +68,11 @@ permission to play creatures on frozen landscapes
 hand card landscape type modification
 revealing cards from hand
 discard trigger
+disallowing playing cards of a specific cost
 
 cloud tower - disable targeting by spells, disable targeting by creature abilities (of specific player)
 mint chocouflage - disable damage by spells, disable damage by creature abilities (of specific player)
 damage trigger (from creatures)
-disallowing playing cards of a specific cost
 
 removing cards from game
 card draw trigger
@@ -86,7 +86,7 @@ haybarn
 putting creatures from discard into play
 leaves play while ready
 deals damage directly to your opponent instead of the opposing creature
-redistribute the damage on craetures you control
+redistribute the damage on creatures you control
 cuddle puddle
 silo of freedom
 disable ability activations

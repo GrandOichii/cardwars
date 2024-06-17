@@ -4,6 +4,8 @@
     ],
     "cards": [
         "cottonpult",
+        "husker_knight",
+        "blood_fortress",
         "dragon_claw",
         "archer_dan",
         "auto_plucker",
@@ -63,6 +65,7 @@
         "frosted_deanimator",
         "woadic_weirdo",
         "man_witch",
-        "pentacutie"
+        "pentacutie",
+        "burly_lumberjack"
     ]
 }

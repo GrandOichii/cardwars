@@ -1,4 +1,3 @@
--- Reduce the cost of the next Creature you play this turn by 2 Actions.
 -- Status: not tested
 
 function _Create()
@@ -6,8 +5,8 @@ function _Create()
 
     result.EffectP:AddLayer(
         function (playerI)
-            -- 
-            
+            -- Reduce the cost of the next Creature you play this turn by 2 Actions.
+
             Common.Mod.ModNextCost(playerI, -2,
                 function (card)
                     return card.Original.Template.Type == 'Creature'

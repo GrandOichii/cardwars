@@ -58,9 +58,8 @@ public class Player {
             if (lane.Creature is not null) {
                 await Match.ReadyCard(lane.Creature);
             }
-            if (lane.Building is not null) {
-                await Match.ReadyCard(lane.Building);
-            }
+            foreach (var b in lane.Buildings)
+                await Match.ReadyCard(b);
         }
     }
 
@@ -189,12 +188,15 @@ public class Player {
         var building = new InPlayCard(card, Idx);
 
         var replaced = false;
-        if (landscape.Building is not null) {
-            await LeavePlay(landscape, landscape.Building);
+        if (landscape.BuildingPlayLimit > 0 && landscape.Buildings.Count >= landscape.BuildingPlayLimit) {
+            // TODO this removes the first building placed, doesn't allow the player to choose
+            var first = landscape.Buildings.First();
+            landscape.Buildings.Remove(first);
+            await LeavePlay(landscape, first);
             replaced = true;
         }
 
-        landscape.Original.Building = building;
+        landscape.Original.Buildings.Add(building);
 
         CardsPlayedThisTurn.Add(card);
         await Match.ReloadState();
@@ -326,18 +328,6 @@ public class Player {
         // TODO add triggers
     }
 
-    public async Task ReturnBuildingToHand(int laneI) {
-        var lane = Landscapes[laneI];
-        var building = lane.Building 
-            ?? throw new GameMatchException($"tried to return building from lane {laneI} to hand, where there is no building")
-        ;
-
-        lane.Building = null;
-        Hand.Add(building.Card);
-        
-        // TODO add triggers
-    }
-
     public async Task HealHitPoints(int amount) {
         Life += amount;
         if (Life > Match.Config.StartingLifeTotal)
@@ -389,14 +379,13 @@ public class Player {
         
         await ResetActionPoints();
 
-        foreach (var lane in Landscapes) {
-            var creature = lane.Creature;
+        foreach (var landscape in Landscapes) {
+            var creature = landscape.Creature;
             if (creature is not null) {
                 creature.MovementCount = 0;
                 creature.EnteredThisTurn = false;
             } 
-            var building = lane.Building;
-            if (building is not null) {
+            foreach (var building in landscape.Buildings) {
                 building.EnteredThisTurn = false;
             }
         }
@@ -414,7 +403,8 @@ public class Player {
             landscape.CreaturesEnteredThisTurn.Clear();
             
             // clear ability activations
-            var cards = new List<InPlayCard?>() { landscape.Creature, landscape.Building };
+            var cards = new List<InPlayCard?>() { landscape.Creature };
+            cards.AddRange(landscape.Buildings);
             foreach (var card in cards) {
                 if (card is null) continue;
                 foreach (var a in card.ActivatedAbilities)

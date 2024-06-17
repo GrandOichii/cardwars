@@ -6,7 +6,7 @@ public class Landscape {
     public bool FaceDown { get; set; }
     public string Name { get; set; }
     public Creature? Creature { get; set; }
-    public InPlayCard? Building { get; set; }
+    public List<InPlayCard> Buildings { get; set; }
     public List<MatchCard> CreaturesEnteredThisTurn { get; }
 
     public List<string> Tokens { get; }
@@ -17,7 +17,7 @@ public class Landscape {
         OwnerI = ownerI;
 
         Creature = null;
-        Building = null;
+        Buildings = new();
         FaceDown = false;
         Tokens = new();
         CreaturesEnteredThisTurn = new();

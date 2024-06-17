@@ -296,15 +296,15 @@ public class GameMatch {
         var building = GetInPlayBuilding(id);
         var player = GetPlayerState(building.Original.Card.OwnerI);
         var landscape = GetPlayerState(building.Original.ControllerI).Landscapes[building.LaneI];
-        await DestroyBuilding(player, landscape);
+        await DestroyBuilding(player, landscape, building);
     }
 
-    public async Task DestroyBuilding(PlayerState player, LandscapeState landscape) {
-        var building = landscape.Building
-            ?? throw new GameMatchException($"tried to destroy building in landscape {landscape.GetName()}, where it is not present")
-        ;
+    public async Task DestroyBuilding(PlayerState player, LandscapeState landscape, InPlayCardState building) {
+        var removed = landscape.Original.Buildings.Remove(building.Original);
 
-        landscape.Original.Building = null;
+        if (!removed) {
+            throw new GameMatchException($"tried to destroy building in landscape {landscape.GetName()}, where it is not present");
+        }
 
         await player.Original.LeavePlay(landscape, building);
         
@@ -349,8 +349,9 @@ public class GameMatch {
     public InPlayCardState? GetInPlayBuildingOrDefault(string id) {
         foreach (var player in LastState.Players)
             foreach (var lane in player.Landscapes)
-                if (lane.Building is not null && lane.Building.Original.Card.ID == id)
-                    return lane.Building;
+                foreach (var building in lane.Buildings)
+                    if (building.Original.Card.ID == id)
+                        return building;
         return null;
     }
 
@@ -359,8 +360,9 @@ public class GameMatch {
             foreach (var lane in player.Landscapes) {
                 if (lane.Creature is not null && lane.Creature.Original.Card.ID == id)
                     return lane.Creature;
-                if (lane.Building is not null && lane.Building.Original.Card.ID == id)
-                    return lane.Building;
+                foreach (var building in lane.Buildings)
+                    if (building.Original.Card.ID == id)
+                        return building;
             }
         }
         throw new GameMatchException($"Failed to find in-play card with id {id}");
@@ -409,9 +411,7 @@ public class GameMatch {
                 if (lane.Creature is not null && lane.Creature.TriggeredAbilities.Count > 0) {
                     cards.Add(lane.Creature);
                 }
-                if (lane.Building is not null && lane.Building.TriggeredAbilities.Count > 0) {
-                    cards.Add(lane.Building);
-                }
+                cards.AddRange(lane.Buildings);
                 foreach (var card in cards) {
                     foreach (var trigger in card.TriggeredAbilities) {
                         var on = trigger.Trigger;
@@ -518,8 +518,8 @@ public class GameMatch {
         // * mostly repeated code from MoveCreature
         foreach (var player in LastState.Players) {
             foreach (var lane in player.Landscapes) {
-                var building = lane.Building;
-                if (building is null || building.Original.Card.ID != buildingId) continue;
+                var building = lane.Buildings.FirstOrDefault(b => b.Original.Card.ID == buildingId);
+                if (building is null) continue;
 
                 var prevLaneI = lane.Original.Idx;
                 if (prevLaneI == toI) {
@@ -529,11 +529,11 @@ public class GameMatch {
 
                 var newLane = player.Landscapes[toI];
 
-                if (newLane.Original.Building is not null)
+                if (newLane.Original.Buildings.Count > 0)
                     throw new GameMatchException($"tried to move a building to lane {toI}, which is not empty");
                     
-                lane.Original.Building = null;
-                newLane.Original.Building = building.Original;
+                lane.Original.Buildings.Remove(building.Original);
+                newLane.Original.Buildings.Add(building.Original);
 
                 await SoftReloadState();
 

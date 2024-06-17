@@ -20,6 +20,7 @@ public class MatchState {
         ModificationLayer.TARGETING_PERMISSIONS,
         ModificationLayer.DAMAGE_ABSORBTION,
         ModificationLayer.ATTACK_RIGHTS,
+        ModificationLayer.BUILDING_PLAY_LIMIT,
     };
 
     public PlayerState[] Players { get; }

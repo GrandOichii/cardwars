@@ -75,7 +75,7 @@ public class ConsolePlayerController : IPlayerController
             System.Console.Write("|" + (lane.Creature is not null ? $"{lane.Creature.Original.Card.Template.Name}[{lane.Creature.Original.Card.ID}]({lane.Creature.CanAttack}) [{lane.Creature.Attack} / {lane.Creature.Defense - lane.Creature.GetDamage()}]" : "").PadRight(40) + "|");
         System.Console.WriteLine();
         foreach (var lane in landscapes)
-            System.Console.Write("|" + (lane.Building is not null ? $"{lane.Building.Original.Card.Template.Name}[{lane.Building.Original.Card.ID}]" : "").PadRight(40) + "|");
+            System.Console.Write("|" + (lane.Buildings.Count > 0 ? $"{lane.Buildings[0].Original.Card.Template.Name}[{lane.Buildings[0].Original.Card.ID}]" : "").PadRight(40) + "|");
         System.Console.WriteLine();
     }
 
@@ -605,8 +605,8 @@ public class Program {
 
     public static async Task Main(string[] args) {
 
-        await SimpleConsole();
-        return;
+        // await SimpleConsole();
+        // return;
 
         var seed = 0;
         await TestRandom(seed, 100, false);

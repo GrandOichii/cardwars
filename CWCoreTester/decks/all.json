@@ -1,6 +1,8 @@
 {
     "Cards": {
         "Cottonpult": 3,
+        "Husker Knight": 3,
+        "Blood Fortress": 3,
         "Dragon Claw": 3,
         "Archer Dan": 3,
         "Auto-Plucker": 3,
@@ -56,7 +58,12 @@
         "Falling Star": 3,
         "Cutie": 3,
         "Blueberry Djini": 3,
-        "Pyramidia": 3
+        "Pyramidia": 3,
+        "Frosted Deanimator": 3,
+        "Woadic Weirdo": 3,
+        "Man-Witch": 3,
+        "Pentacutie": 3,
+        "Burly Lumberjack": 3
     },
     "Landscapes": {}
 }

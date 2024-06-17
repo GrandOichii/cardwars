@@ -15,7 +15,7 @@ public class PlayerState : IStateModifier {
         Original = player;
         
         Landscapes = player.Landscapes.Select(
-            (landscape, i) => new LandscapeState(landscape, i)
+            (landscape, i) => new LandscapeState(this, landscape, i)
         ).ToList();
 
         Hand = player.Hand.Select(
@@ -102,10 +102,7 @@ public class PlayerState : IStateModifier {
             if (building.LanePlayRestrictions[i].Count > 0) continue;
             if (!landscape.CanPlayBuilding(building)) continue;
 
-            var existing = landscape.Building;
-            if (existing is not null) {
-                if (existing.Original.IsFlooped()) continue;
-            }
+            // TODO? players can replace flooped buildings, don't know how the rules interact with Burly Lumberjack
             result.Add(i);
         }
         return result;
@@ -209,8 +206,7 @@ public class PlayerState : IStateModifier {
         foreach (var landscape in Landscapes) {
             var creature = landscape.Creature;
             if (creature is not null) result.Add(creature);
-            var building = landscape.Building;
-            if (building is not null) result.Add(building);
+            result.AddRange(landscape.Buildings);
         }
 
         return result;
