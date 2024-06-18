@@ -7,7 +7,7 @@ manifest = json.loads(open(join('..', 'CWCore', 'cards', 'manifest.json'), 'r').
 for card_key in manifest['cards']:
     card = json.loads(open(join('..', 'CWCore', 'cards', card_key + '.json'), 'r').read())
     card_name = card['Name']
-    cards[card_name] = 3
+    cards[card_name] = 5
 open(join('decks', 'all.json'), 'w').write(json.dumps({
     'Cards': cards,
     'Landscapes': {}

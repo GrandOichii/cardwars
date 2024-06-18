@@ -126,6 +126,16 @@ CardWars.ModificationLayers = {
     BUILDING_PLAY_LIMIT = 14,
 }
 
+-- Damage sources
+
+CardWars.DamageSources = {
+    CREATURE = 1,
+    SPELL = 2,
+    CREATURE_ABILITY = 3,
+    BUILDING_ABILITY = 4,
+    HERO_ABILITY = 5,
+}
+
 -- Card Types
 
 function CardWars:Hero()
@@ -206,11 +216,11 @@ end
 
 function CardWars:Spell()
     local result = CardWars:Card()
-    
+
     result.EffectP = Core.Pipeline:New()
 
-    function result:Effect(playerI)
-        self.EffectP:Exec(playerI)
+    function result:Effect(id, playerI)
+        self.EffectP:Exec(id, playerI)
     end
 
     return result
@@ -308,6 +318,17 @@ function CardWars:Creature()
 
     function result:OnAttack(playerI, laneI)
         self.OnAttackP:Exec(playerI, laneI)
+    end
+
+    result.OnDamagedP = Core.Pipeline:New()
+    result.OnDamagedP:AddLayer(
+        function (me, playerI, laneI, amount, from)
+            return nil, true
+        end
+    )
+
+    function result:OnDamaged(me, playerI, laneI, amount, from)
+        self.OnDamagedP:Exec(me, playerI, laneI, amount, from)
     end
 
     return result
@@ -988,6 +1009,10 @@ function Common.AllPlayers.Creatures()
     return Common.FilterCreatures(function (_) return true end)
 end
 
+function Common.AllPlayers.CreaturesExcept(id)
+    return Common.FilterCreatures(function (creature) return creature.Original.Card.ID ~= id end)
+end
+
 function Common.AllPlayers.Buildings()
     return Common.FilterBuildings(function (_) return true end)
 end
@@ -1266,6 +1291,8 @@ function Common.AbilityGrantingRemoval.RemovaAll(card)
     card.ProcessLeave = false
     card.ProcessMove = false
     card.ProcessDealDamage = false
+    card.ProcessDamaged = false
+    card.ProcessAttack = false
 end
 
 function Common.AbilityGrantingRemoval.RemoveAllActivatedAbilities(card)
@@ -1281,4 +1308,34 @@ end
 function Common.Flip.DisallowFlipDownFor(landscape, playerI)
     local allowed = landscape.CanFlipDown
     allowed:Remove(playerI)
+end
+
+Common.Damage = {}
+
+function Common.Damage.ToCreatureBySpell(spellId, creatureId, amount)
+    DealDamageToCreature(creatureId, amount, {
+        source = CardWars.DamageSources.SPELL,
+        id = spellId
+    })
+end
+
+function Common.Damage.ToCreatureByHero(playerI, creatureId, amount)
+    DealDamageToCreature(creatureId, amount, {
+        source = CardWars.DamageSources.SPELL,
+        playerI = playerI
+    })
+end
+
+function Common.Damage.ToCreatureByBuildingAbility(buildingId, creatureId, amount)
+    DealDamageToCreature(creatureId, amount, {
+        source = CardWars.DamageSources.BUILDING_ABILITY,
+        id = buildingId
+    })
+end
+
+function Common.Damage.ToCreatureByCreatureAbility(creatureId, creatureId, amount)
+    DealDamageToCreature(creatureId, amount, {
+        source = CardWars.DamageSources.BUILDING_ABILITY,
+        id = creatureId
+    })
 end

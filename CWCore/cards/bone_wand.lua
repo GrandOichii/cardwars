@@ -12,7 +12,7 @@ function _Create()
     )
 
     result.EffectP:AddLayer(
-        function (playerI)
+        function (id, playerI)
             -- Target opponent discards a card from his hand.
 
             local opponent = Common.TargetOpponent(playerI)

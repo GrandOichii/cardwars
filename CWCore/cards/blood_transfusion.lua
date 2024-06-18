@@ -1,18 +1,17 @@
--- Remove from game a card in any player's discard pile. Heal X Damage from target Creature, where X is the cost of the card removed this way.
 -- Status: not tested
 
 function _Create()
     local result = CardWars:Spell()
-
+    
     Common.AddRestriction(result,
-        function (playerI)
-            return nil, #Common.SpellTargetable(playerI, Common.AllPlayers.Creatures()) > 0
-        end
-    )
+    function (playerI)
+        return nil, #Common.SpellTargetable(playerI, Common.AllPlayers.Creatures()) > 0
+    end
+)
 
-    result.EffectP:AddLayer(
-        function (playerI)
-            -- 
+result.EffectP:AddLayer(
+    function (id, playerI)
+            -- Remove from game a card in any player's discard pile. Heal X Damage from target Creature, where X is the cost of the card removed this way.
             
             local choices = Common.DiscardPileCardIndicies(playerI, function (_) return true end)
             local opponentChoices = Common.DiscardPileCardIndicies(1 - playerI, function (_) return true end)

@@ -5,7 +5,7 @@ function _Create()
     local result = CardWars:Spell()
 
     result.EffectP:AddLayer(
-        function (playerI)
+        function (id, playerI)
             -- You may flip one of your Landscapes face up, and you may move one of your Buildings to one of your Lanes without one."
 
             -- flipping

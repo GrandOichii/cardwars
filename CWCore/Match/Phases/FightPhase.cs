@@ -45,7 +45,6 @@ public class FightPhase : IPhase
 
             var attacker = attackerState;
             await match.ExhaustToAttack(attacker);
-            System.Console.WriteLine("SOFT RELOAD");
             await match.SoftReloadState();
             attackerState = match.GetPlayerState(playerI).Landscapes[laneI].Creature!;
 
@@ -54,8 +53,7 @@ public class FightPhase : IPhase
             // damage to opponent
             var defenderState = match.GetPlayerState(1 - playerI).Landscapes[laneI].Creature;
             if (defenderState is null) {
-                var attack = attackerState.Attack * attackerState.DamageMultiplier;
-                await match.DealDamageToPlayer(attackerState, 1 - playerI, attack);
+                await match.DealDamageToPlayerBy(attackerState, 1 - playerI);
                 // TODO add update
                 continue;
             }

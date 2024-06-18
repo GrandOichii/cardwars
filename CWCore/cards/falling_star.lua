@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Spell()
 
     result.EffectP:AddLayer(
-        function (playerI)
+        function (id, playerI)
             -- Creatures you control take no Damage from opposing Creatures this turn.
 
             UntilEndOfTurn(function (layer)

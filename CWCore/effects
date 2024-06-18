@@ -78,10 +78,10 @@ removing cards from game
 card draw trigger
 state modification while defending
 state modification while attacking
+damage trigger (from creatures, creature abilities, building abilities, spells, heroes)
 
 cloud tower - disable targeting by spells, disable targeting by creature abilities (of specific player)
 mint chocouflage - disable damage by spells, disable damage by creature abilities (of specific player)
-damage trigger (from creatures)
 token removal
 whenever this card is placed into your discard from anywhere...
 putting buildings from discard into play

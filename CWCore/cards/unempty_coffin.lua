@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Spell()
 
     result.EffectP:AddLayer(
-        function (playerI)
+        function (id, playerI)
             -- Reduce the cost of the next Creature you play this turn by 2 Actions.
 
             Common.Mod.ModNextCost(playerI, -2,

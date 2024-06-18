@@ -1,6 +1,8 @@
 {
     "Hero": "",
     "Cards": {
+        "Repelling Rock Crab": 10,
+        "Corn Scepter": 10,
         "Sea Hag": 10
     },
     "Landscapes": {

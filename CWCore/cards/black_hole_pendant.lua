@@ -2,16 +2,16 @@
 
 function _Create()
     local result = CardWars:Spell()
-    
+
     Common.AddRestriction(result,
-    function (playerI)
-        return nil, #Common.Targetable(playerI, Common.AllPlayers.Creatures()) > 0
+        function (playerI)
+            return nil, #Common.Targetable(playerI, Common.AllPlayers.Creatures()) > 0
         end
     )
-    
+
     -- Target Creature has +X ATK this turn, where X is the number of different Landscape types your opponent controls.
     result.EffectP:AddLayer(
-        function (playerI)
+        function (id, playerI)
             -- 
             local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
             local target = TargetCreature(playerI, ids, 'Choose a creature to buff')

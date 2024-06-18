@@ -166,7 +166,7 @@ public class Player {
         CardsPlayedThisTurn.Add(card);
 
         try {
-            card.ExecFunction(MatchCard.SPELL_EFFECT_FNAME, card.Data, Idx);
+            card.ExecFunction(MatchCard.SPELL_EFFECT_FNAME, card.Data, card.ID, Idx);
 
         } catch (Exception e) {
             throw new GameMatchException($"error in spell effect of card {card.LogFriendlyName}", e);

@@ -10,7 +10,7 @@ function _Create()
     )
 
     result.EffectP:AddLayer(
-        function (playerI)
+        function (id, playerI)
             -- Destroy target creature
             
             local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))

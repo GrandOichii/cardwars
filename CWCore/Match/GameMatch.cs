@@ -225,9 +225,10 @@ public class GameMatch {
         return dealt;
     }
 
-    public async Task<int> DealDamageToPlayer(CreatureState dealer, int playerI, int amount) {
+    public async Task<int> DealDamageToPlayerBy(CreatureState attacker, int playerI) {
+        var amount = attacker.Attack * attacker.DamageMultiplier;
         var dealt = await DealDamageToPlayer(playerI, amount);
-        dealer.ProcessOnDealtDamage(dealt, null);
+        attacker.OnDealtDamage(dealt, null);
 
         return dealt;
     }
@@ -256,20 +257,29 @@ public class GameMatch {
         }
     }
 
-    public async Task DealDamageToCreature(CreatureState creature, int amount, bool fromCreature) {
-        if (fromCreature && creature.AbsorbCreatureDamage) {
-            return;
-        }
+    public Task DealDamageToCreature(CreatureState creature, int amount, LuaTable sourceTable) {
         creature.GetOriginal().Damage += amount;
+        creature.OnDamaged(amount, sourceTable);
+
         // TODO add update
         // TODO add trigger
         LogInfo($"{creature.Original.Card.LogFriendlyName} is dealt {amount} damage");
+
+        return Task.CompletedTask;
+    }
+
+    public async Task DealDamageToCreature(CreatureState creature, int amount, CreatureState from) {
+        var source = LuaUtility.CreateTable(LState);
+        source["source"] = (int)DamageSource.CREATURE;
+        source["id"] = from.Original.Card.ID;
+
+        await DealDamageToCreature(creature, amount, source);
     }
 
     public async Task DealDamageToCreatureBy(CreatureState creature, CreatureState attacker) {
         var damage = attacker.Attack * attacker.DamageMultiplier;
-        await DealDamageToCreature(creature, damage, true);
-        attacker.ProcessOnDealtDamage(damage, creature.Original.Card.ID);
+        await DealDamageToCreature(creature, damage, attacker);
+        attacker.OnDealtDamage(damage, creature.Original.Card.ID);
     }
 
     public async Task DestroyCreature(string id) {

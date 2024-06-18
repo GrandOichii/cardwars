@@ -35,7 +35,7 @@ public class MatchCard {
     public bool IsCreature => Template.Type == "Creature";
     public bool IsBuilding => Template.Type == "Building";
 
-    public object[] ExecFunction(string fName, params object[] args) {
+    public object[] ExecFunction(string fName, params object?[] args) {
         try {
             var f = LuaUtility.TableGet<LuaFunction>(Data, fName);
             return f.Call(args);

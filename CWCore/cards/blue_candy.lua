@@ -10,7 +10,7 @@ function _Create()
     )
 
     result.EffectP:AddLayer(
-        function (playerI)
+        function (id, playerI)
             -- Heal up to 3 Damage from target Creature you control.
 
             local ids = Common.IDs(Common.Targetable(playerI, Common.Creatures(playerI)))

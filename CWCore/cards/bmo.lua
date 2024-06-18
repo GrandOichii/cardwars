@@ -20,7 +20,7 @@ function _Create()
         effectF = function (playerI)
             local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
             local target = TargetCreature(playerI, ids, 'Choose a creature to deal damage to')
-            DealDamageToCreature(target, 1)
+            Common.Damage.ToCreatureByHero(playerI, target, 1)
         end
     })
 

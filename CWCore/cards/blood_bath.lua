@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Spell()
 
     result.EffectP:AddLayer(
-        function (playerI)
+        function (id, playerI)
             -- Target foe may discard a card with cost 2 or greater. If they do not, deal 5 Damage to that foe.
 
             local target = Common.TargetOpponent(playerI)
