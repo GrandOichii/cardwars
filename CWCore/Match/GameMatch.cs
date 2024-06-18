@@ -225,7 +225,7 @@ public class GameMatch {
         return dealt;
     }
 
-    public async Task<int> DealDamageToPlayerBy(CreatureState attacker, int playerI) {
+    public async Task<int> DealDamageToPlayerBy(int playerI, CreatureState attacker) {
         var amount = attacker.Attack * attacker.DamageMultiplier;
         var dealt = await DealDamageToPlayer(playerI, amount);
         attacker.OnDealtDamage(dealt, null);
@@ -279,10 +279,10 @@ public class GameMatch {
         await DealDamageToCreature(creature, amount, source);
     }
 
-    public async Task DealDamageToCreatureBy(CreatureState creature, CreatureState attacker) {
-        var damage = attacker.Attack * attacker.DamageMultiplier;
-        await DealDamageToCreature(creature, damage, attacker);
-        attacker.OnDealtDamage(damage, creature.Original.Card.ID);
+    public async Task DealDamageToCreatureBy(CreatureState to, CreatureState from) {
+        var damage = from.Attack * from.DamageMultiplier;
+        await DealDamageToCreature(to, damage, from);
+        from.OnDealtDamage(damage, to.Original.Card.ID);
     }
 
     public async Task DestroyCreature(string id) {

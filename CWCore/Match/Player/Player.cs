@@ -148,7 +148,7 @@ public class Player {
         Deck = Common.Shuffled(Deck, Match.Rng);
         await Draw(Match.Config.StartHandSize);
 
-        Mill(Deck.Count / 2);
+        // Mill(Deck.Count / 2);
     }
 
     private async Task PlaceLandscapes() {

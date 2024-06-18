@@ -53,7 +53,7 @@ public class FightPhase : IPhase
             // damage to opponent
             var defenderState = match.GetPlayerState(1 - playerI).Landscapes[laneI].Creature;
             if (defenderState is null) {
-                await match.DealDamageToPlayerBy(attackerState, 1 - playerI);
+                await match.DealDamageToPlayerBy(1 - playerI, attackerState);
                 // TODO add update
                 continue;
             }
@@ -62,7 +62,10 @@ public class FightPhase : IPhase
             var defender = defenderState;
 
             match.LogInfo($"{attacker.Original.Card.LogFriendlyName} attacks {defender.Original.Card.LogFriendlyName} in lane {laneI}");
-            await match.DealDamageToCreatureBy(defender, attackerState);
+            if (attackerState.IgnoreBlocker)
+                await match.DealDamageToPlayerBy(1 - playerI, attackerState);
+            else
+                await match.DealDamageToCreatureBy(defender, attackerState);
             await match.DealDamageToCreatureBy(attacker, defenderState);
         }
     }

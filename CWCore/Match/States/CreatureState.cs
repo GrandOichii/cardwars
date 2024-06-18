@@ -15,6 +15,7 @@ public class CreatureState : InPlayCardState {
     public bool ProcessDealDamage { get; set; }
     public bool ProcessDamaged { get; set; }
     public bool ProcessAttack { get; set; }
+    public bool IgnoreBlocker { get; set; }
 
     public List<LuaFunction> DamageModifiers { get; }
 
@@ -27,6 +28,7 @@ public class CreatureState : InPlayCardState {
         ProcessDealDamage = true;
         ProcessDamaged = true;
         DamageModifiers = new();
+        IgnoreBlocker = false;
     }
 
     public int GetDamage() => GetOriginal().Damage;
