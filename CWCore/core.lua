@@ -118,7 +118,7 @@ CardWars.ModificationLayers = {
     DAMAGE_MULTIPLICATION = 7,
     ATTACK_RIGHTS = 8,
     TARGETING_PERMISSIONS = 9,
-    DAMAGE_ABSORBTION = 10,
+    DAMAGE_MODIFICATION = 10,
     ADDITIONAL_LANDSCAPES = 11,
     IN_HAND_CARD_TYPE = 12,
     PLAY_RESTRICTIONS = 13,
@@ -305,7 +305,7 @@ function CardWars:Creature()
         function (playerI, laneI, amount, creatureId)
             local e = ' to opponent'
             if creatureId then
-                e = ' to creature with id '..creatureId
+                e = 'to creature with id '..creatureId
             end
             local c = STATE.Players[playerI].Landscapes[laneI].Creature
             LogInfo('Creature '..c.Original.Card.LogFriendlyName .. ' with id ' .. STATE.Players[playerI].Landscapes[laneI].Creature.Original.Card.ID .. ' dealt '..amount..' damage ' ..e)
@@ -1358,30 +1358,45 @@ end
 
 Common.Damage = {}
 
-function Common.Damage.ToCreatureBySpell(spellId, creatureId, amount)
+function Common.Damage.ToCreatureBySpell(spellId, ownerI, creatureId, amount)
     DealDamageToCreature(creatureId, amount, {
-        source = CardWars.DamageSources.SPELL,
-        id = spellId
+        type = CardWars.DamageSources.SPELL,
+        id = spellId,
+        ownerI = ownerI
     })
 end
 
 function Common.Damage.ToCreatureByHero(playerI, creatureId, amount)
     DealDamageToCreature(creatureId, amount, {
-        source = CardWars.DamageSources.SPELL,
+        type = CardWars.DamageSources.SPELL,
         playerI = playerI
     })
 end
 
-function Common.Damage.ToCreatureByBuildingAbility(buildingId, creatureId, amount)
+function Common.Damage.ToCreatureByBuildingAbility(buildingId, ownerI, creatureId, amount)
     DealDamageToCreature(creatureId, amount, {
-        source = CardWars.DamageSources.BUILDING_ABILITY,
-        id = buildingId
+        type = CardWars.DamageSources.BUILDING_ABILITY,
+        id = buildingId,
+        ownerI = ownerI
     })
 end
 
-function Common.Damage.ToCreatureByCreatureAbility(creatureId, creatureId, amount)
-    DealDamageToCreature(creatureId, amount, {
-        source = CardWars.DamageSources.BUILDING_ABILITY,
-        id = creatureId
+function Common.Damage.ToCreatureByCreatureAbility(fromId, controllerI, toId, amount)
+    DealDamageToCreature(toId, amount, {
+        type = CardWars.DamageSources.BUILDING_ABILITY,
+        ownerI = controllerI,
+        id = fromId
     })
+end
+
+function Common.Damage.PreventCreatureDamage(creature)
+    creature.DamageModifiers:Add(function (me, from, damage)
+        if
+            from.type == CardWars.DamageSources.CREATURE and
+            from.ownerI ~= me.Original.ControllerI
+        then
+            return 0
+        end
+        return damage
+    end)
 end

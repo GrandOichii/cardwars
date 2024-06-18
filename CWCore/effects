@@ -36,7 +36,6 @@ creature destruction
 creature targeting
 creature movement
 on leave
-absorbing creature damage
 in-play cards counting as landscapes
 knowing the discarded card info
 creature stealing
@@ -80,7 +79,7 @@ state modification while defending
 state modification while attacking
 damage trigger (from creatures, creature abilities, building abilities, spells, heroes)
 fight phase start trigger
-cloud tower - disable targeting by spells, disable targeting by creature abilities (of specific player)
+disable targeting by spells, disable targeting by creature abilities (of specific player)
 
 mint chocouflage - disable damage by spells, disable damage by creature abilities (of specific player)
 token removal

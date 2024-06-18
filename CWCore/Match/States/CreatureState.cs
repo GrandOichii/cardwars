@@ -11,11 +11,12 @@ public class CreatureState : InPlayCardState {
     public int Defense { get; set; }
     public bool CanAttack { get; set; }
     public int DamageMultiplier { get; set; }
-    public bool AbsorbCreatureDamage { get; set; }
 
     public bool ProcessDealDamage { get; set; }
     public bool ProcessDamaged { get; set; }
     public bool ProcessAttack { get; set; }
+
+    public List<LuaFunction> DamageModifiers { get; }
 
     public CreatureState(Creature creature, int laneI) : base(creature, laneI) {
         Attack = creature.Attack;
@@ -23,9 +24,9 @@ public class CreatureState : InPlayCardState {
         CanAttack = creature.CanAttack();
 
         DamageMultiplier = 1;
-        AbsorbCreatureDamage = false;
         ProcessDealDamage = true;
         ProcessDamaged = true;
+        DamageModifiers = new();
     }
 
     public int GetDamage() => GetOriginal().Damage;
@@ -67,6 +68,15 @@ public class CreatureState : InPlayCardState {
             Original.ControllerI,
             LaneI
         );
+    }
 
+    public int CalcDamage(int initial, LuaTable from) {
+        var result = initial;
+
+        foreach (var mod in DamageModifiers) {
+            result = Convert.ToInt32(LuaUtility.GetReturnAs<object>(mod.Call(this, from, result)));
+        }
+
+        return result;
     }
 }

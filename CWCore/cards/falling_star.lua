@@ -8,10 +8,10 @@ function _Create()
             -- Creatures you control take no Damage from opposing Creatures this turn.
 
             UntilEndOfTurn(function (layer)
-                if layer == CardWars.ModificationLayers.DAMAGE_ABSORBTION then
+                if layer == CardWars.ModificationLayers.DAMAGE_MODIFICATION then
                     local creatures = Common.Creatures(playerI)
                     for _, creature in ipairs(creatures) do
-                        creature.AbsorbCreatureDamage = true
+                        Common.Damage.PreventCreatureDamage(creature)
                     end
                 end
             end)

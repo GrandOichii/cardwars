@@ -5,7 +5,7 @@ function _Create()
 
     -- Each time Repelling Rock Crab takes Damage from a Creature, it deals that much Damage to that Creature.
     result.OnDamagedP:AddLayer(function (me, playerI, laneI, amount, from)
-        if from.source ~= CardWars.DamageSources.CREATURE then
+        if from.type ~= CardWars.DamageSources.CREATURE then
             return
         end
         local id = from.id
@@ -13,7 +13,7 @@ function _Create()
         if c == nil then
             return
         end
-        Common.Damage.ToCreatureByCreatureAbility(me.Original.Card.ID, id, amount)
+        Common.Damage.ToCreatureByCreatureAbility(me.Original.Card.ID, playerI, id, amount)
     end)
 
     return result

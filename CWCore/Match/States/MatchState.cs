@@ -18,7 +18,7 @@ public class MatchState {
         ModificationLayer.ATK_AND_DEF,
         ModificationLayer.DAMAGE_MULTIPLICATION,
         ModificationLayer.TARGETING_PERMISSIONS,
-        ModificationLayer.DAMAGE_ABSORBTION,
+        ModificationLayer.DAMAGE_MODIFICATION,
         ModificationLayer.ATTACK_RIGHTS,
         ModificationLayer.BUILDING_PLAY_LIMIT,
     };

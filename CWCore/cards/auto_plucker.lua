@@ -26,7 +26,7 @@ function _Create()
                 HealDamage(id, 1)
                 return
             end
-            Common.Damage.ToCreatureByBuildingAbility(me.Original.Card.ID, id, 1)
+            Common.Damage.ToCreatureByBuildingAbility(me.Original.Card.ID, playerI, id, 1)
         end
     })
 

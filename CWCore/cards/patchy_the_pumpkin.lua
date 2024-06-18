@@ -26,7 +26,7 @@ function _Create()
                 end
 
                 local target = TargetCreature(playerI, options, 'Choose a creature to deal damage to')
-                Common.Damage.ToCreatureByCreatureAbility(myID, target, 1)
+                Common.Damage.ToCreatureByCreatureAbility(myID, playerI, target, 1)
 
                 local newOptions = {}
                 for _, option in ipairs(options) do

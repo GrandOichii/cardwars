@@ -1,0 +1,9 @@
+{
+    "Name": "Mint Chocouflage",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "While there is no opposing Creature in this Lane, Mint Chocouflage can't be damaged by your opponent's Spells or Creature abilities.",
+    "Attack": 3,
+    "Defense": 3
+}

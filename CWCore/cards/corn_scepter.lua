@@ -17,7 +17,7 @@ function _Create()
             local creatureIds = Common.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
 
             local creatureId = ChooseCreature(playerI, creatureIds, 'Choose a creature to deal damage to')
-            Common.Damage.ToCreatureBySpell(id, creatureId, amount)
+            Common.Damage.ToCreatureBySpell(id, playerI, creatureId, amount)
         end
     )
 

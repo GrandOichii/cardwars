@@ -27,7 +27,7 @@ function _Create()
             local target = TargetCreature(playerI, ids, 'Choose creature to damage')
 
             local myID = me.Original.Card.ID
-            Common.Damage.ToCreatureByCreatureAbility(myID, target, 1)
+            Common.Damage.ToCreatureByCreatureAbility(myID, playerI, target, 1)
             if me.Original.Damage >= 5 then
                 HealDamage(myID, 1)
                 ReadyCard(myID)

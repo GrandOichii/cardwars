@@ -258,6 +258,8 @@ public class GameMatch {
     }
 
     public Task DealDamageToCreature(CreatureState creature, int amount, LuaTable sourceTable) {
+        amount = creature.CalcDamage(amount, sourceTable);
+        
         creature.GetOriginal().Damage += amount;
         creature.OnDamaged(amount, sourceTable);
 
@@ -270,8 +272,9 @@ public class GameMatch {
 
     public async Task DealDamageToCreature(CreatureState creature, int amount, CreatureState from) {
         var source = LuaUtility.CreateTable(LState);
-        source["source"] = (int)DamageSource.CREATURE;
+        source["type"] = (int)DamageSource.CREATURE;
         source["id"] = from.Original.Card.ID;
+        source["ownerI"] = from.Original.ControllerI;
 
         await DealDamageToCreature(creature, amount, source);
     }
