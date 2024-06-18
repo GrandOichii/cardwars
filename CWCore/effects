@@ -79,6 +79,7 @@ card draw trigger
 state modification while defending
 state modification while attacking
 damage trigger (from creatures, creature abilities, building abilities, spells, heroes)
+fight phase start trigger
 
 cloud tower - disable targeting by spells, disable targeting by creature abilities (of specific player)
 mint chocouflage - disable damage by spells, disable damage by creature abilities (of specific player)
@@ -93,10 +94,8 @@ redistribute the damage on creatures you control
 disable ability activations
 looking at cards in deck
 playing creatures from hand for free
-damage creature -> creature
 when defeats opposing creature
 deck searching
-fight phase start trigger
 flipping landscapes down until the start of next turn
 discarding buildings from play
 

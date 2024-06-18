@@ -90,7 +90,6 @@ CardWars.Zones = {
 -- Triggers
 
 CardWars.Triggers = {
-    TURN_START = 'turn_start',
     CREATURE_ENTER = 'creature_enter',
     DISCARD_FROM_HAND = 'discard_from_hand',
     CARD_DRAW = 'card_draw',
@@ -1061,9 +1060,9 @@ end
 
 Common.Triggers = {}
 
-function Common.Triggers.AtTheStartOfYourTurn(card, effect)
+function Common.Triggers.AtTheStartOfYourPhase(card, phase, effect)
     card:AddTrigger({
-        trigger = CardWars.Triggers.TURN_START,
+        trigger = phase,
         checkF = function (me, controllerI, laneI, args)
             return args.playerI == controllerI
         end,
@@ -1072,6 +1071,14 @@ function Common.Triggers.AtTheStartOfYourTurn(card, effect)
         end,
         effectF = effect
     })
+end
+
+function Common.Triggers.AtTheStartOfYourTurn(card, effect)
+    Common.Triggers.AtTheStartOfYourPhase(card, CardWars.Phases.START, effect)
+end
+
+function Common.Triggers.AtTheStartOfYourFightPhase(card, effect)
+    Common.Triggers.AtTheStartOfYourPhase(card, CardWars.Phases.FIGHT, effect)
 end
 
 function Common.Triggers.OnAnotherCreatureEnterPlayUnderYourControl(card, effect)

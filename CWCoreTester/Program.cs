@@ -604,12 +604,18 @@ public class Program {
     }
 
     public static async Task Main(string[] args) {
-
-        // await SimpleConsole();
-        // return;
-
         var seed = 0;
-        await TestRandom(seed, 100, false);
+        if (args.Length >= 1) {
+            seed = int.Parse(args[0]);
+        }
+        if (args.Length >= 2) {
+            var log = false;
+            if (args.Length == 3) log = bool.Parse(args[2]);
+            await TestRandom(seed, int.Parse(args[1]), log);
+            return;
+        }
+
+        await SimpleConsole();
         return;
 
         var view = new CursesView();
