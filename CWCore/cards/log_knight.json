@@ -1,0 +1,9 @@
+{
+    "Name": "Log Knight",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Put a Building from your hand below this Lane. (If it doesn't already have one.)",
+    "Attack": 2,
+    "Defense": 2
+}

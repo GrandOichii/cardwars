@@ -552,4 +552,13 @@ public class ScriptMaster {
     public string GetPhase() {
         return _match.PhaseName;
     }
+
+    [LuaCommand]
+    public void PlaceBuildingInLane(int playerI, int laneI, MatchCard card) {
+        // TODO? this doesnt check if the card is a building or not
+
+        var player = _match.GetPlayer(playerI);
+        player.PlaceBuildingInLane(card, laneI)
+            .Wait();
+    }
 }

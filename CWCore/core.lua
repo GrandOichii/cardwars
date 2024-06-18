@@ -910,19 +910,31 @@ function Common.TargetOpponent(playerI)
     return 1 - playerI
 end
 
-function Common.CardsInHandWithCostGreaterOrEqual(playerI, cost)
+function Common.FilterCardsInHandIndicies(playerI, predicate)
     local result = {}
 
     -- TODO move to filter function
     local cards = STATE.Players[playerI].Hand
     for i = 1, cards.Count do
         local card = cards[i - 1]
-        if card:RealCost() >= cost then
+        if predicate(card) then
             result[#result+1] = i - 1
         end
     end
 
     return result
+end
+
+function Common.CardsInHandWithCostGreaterOrEqual(playerI, cost)
+    return Common.FilterCardsInHandIndicies(playerI, function (card)
+        return card:RealCost() >= cost
+    end)
+end
+
+function Common.BuildingsInHand(playerI)
+    return Common.FilterCardsInHandIndicies(playerI, function (card)
+        return card.Original.Template.Type == 'Building'
+    end)
 end
 
 function Common.DiscardPileCardIndicies(playerI, predicate)
