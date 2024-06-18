@@ -70,6 +70,15 @@ end
 
 CardWars = {}
 
+-- Phases
+
+CardWars.Phases = {
+    ACTION = 'turn_action',
+    FIGHT = 'turn_fight',
+    START = 'turn_start',
+    END = 'turn_end',
+}
+
 -- Zones
 
 CardWars.Zones = {
@@ -1175,6 +1184,39 @@ function Common.State.ChangeLandscapeType(layer, cardID, to)
         end
         -- TODO cards in discard, cards in play, ?cards played this turn?, ?cards that entered play on a specific lane?
     end
+end
+
+function Common.State.WhileDefendingAgainst(card, againstPredicate, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        if layer ~= CardWars.ModificationLayers.ATK_AND_DEF then
+            return
+        end
+        if zone ~= CardWars.Zones.IN_PLAY then
+            return
+        end
+        if GetPhase() ~= CardWars.Phases.FIGHT then
+            return
+        end
+        local playerI = me.Original.ControllerI
+        if GetCurPlayerI() == playerI then
+            return
+        end
+
+        local against = STATE.Players[1 - playerI].Landscapes[me.LaneI].Creature
+        if against == nil then
+            return
+        end
+
+        if not against.Original.Attacking then
+            return
+        end
+
+        if not againstPredicate(against) then
+            return
+        end
+
+        effect(me)
+    end)
 end
 
 Common.AbilityGrantingRemoval = {}

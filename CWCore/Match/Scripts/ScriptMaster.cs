@@ -547,4 +547,9 @@ public class ScriptMaster {
         var player = _match.GetPlayer(playerI);
         player.RemoveFromDiscard(cardI);
     }
+
+    [LuaCommand]
+    public string GetPhase() {
+        return _match.PhaseName;
+    }
 }

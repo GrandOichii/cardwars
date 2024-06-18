@@ -203,6 +203,7 @@ public class GameMatch {
         // TODO should be done in card
         var c = card.GetOriginal();
         c.Exhausted = true;
+        c.ExhaustedToAttack = true;
         c.Attacking = true;
         // TODO? add to update
     }

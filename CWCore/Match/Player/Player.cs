@@ -176,7 +176,7 @@ public class Player {
 
     public async Task<int> PickAttackLane(List<int> options) {
         var result = await Controller.PickAttackLane(Match, Idx, options);
-        // TODO? validate
+        // TODO validate
         return result;
     }
 
@@ -436,6 +436,9 @@ public class Player {
 
         foreach (var landscape in Landscapes) {
             landscape.CreaturesEnteredThisTurn.Clear();
+
+            if (landscape.Creature is not null)
+                landscape.Creature.Attacking = false;
             
             // clear ability activations
             var cards = new List<InPlayCard?>() { landscape.Creature };

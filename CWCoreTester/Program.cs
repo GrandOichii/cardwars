@@ -136,10 +136,10 @@ public class ConsolePlayerController : IPlayerController
     public Task<List<string>> PromptLandscapePlacement(int playerI, Dictionary<string, int> landscapeIndex)
     {
         return Task.FromResult(new List<string> {
-            "Cornfield",
-            "Cornfield",
-            "Cornfield",
-            "Cornfield"
+            "SandyLands",
+            "SandyLands",
+            "SandyLands",
+            "SandyLands"
         });
     }
 

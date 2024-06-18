@@ -34,8 +34,7 @@ function _Create()
                         return
                     end
 
-                    -- TODO? isn't clear from the card itself, removes the activated effects or all effects entirely?
-                    Common.AbilityGrantingRemoval.RemoveAllActivatedAbilities(c)
+                    Common.AbilityGrantingRemoval.RemovaAll(c)
                     if a == nil then
                         return
                     end

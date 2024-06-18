@@ -5,6 +5,7 @@ namespace CWCore.Match;
 public class Creature : InPlayCard {
     public readonly static string ON_DEAL_DAMAGE_PLAY_FNAME = "OnDealDamage";
 
+    public bool ExhaustedToAttack { get; set; } = false;
     public bool Attacking { get; set; } = false;
 
     public int Attack { get; }
@@ -21,14 +22,14 @@ public class Creature : InPlayCard {
     {
         base.Ready();
         
-        Attacking = false;
+        ExhaustedToAttack = false;
     }
 
     public bool CanAttack() {
-        return !Exhausted && !Attacking;
+        return !Exhausted && !ExhaustedToAttack;
     }
 
     public override bool IsFlooped() {
-        return Exhausted && !Attacking;
+        return Exhausted && !ExhaustedToAttack;
     }
 }

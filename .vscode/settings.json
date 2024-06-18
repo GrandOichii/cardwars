@@ -61,6 +61,7 @@
         "AddRestrictedActionPoint",
         "RevealCardFromHand",
         "DrawFromBottom",
-        "RemoveFromDiscard"
+        "RemoveFromDiscard",
+        "GetPhase"
     ]
 }
