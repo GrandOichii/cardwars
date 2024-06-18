@@ -948,6 +948,12 @@ function Common.DiscardPileCardIndicies(playerI, predicate)
     return result
 end
 
+function Common.CreatureCardsIndiciesInDiscard(playerI)
+    return Common.DiscardPileCardIndicies(playerI, function (card)
+        return card.Original.Template.Type == 'Creature'
+    end)
+end
+
 function Common.RandomCardInDiscard(playerI, predicate)
     local choices = Common.DiscardPileCardIndicies(playerI, predicate)
     if #choices == 0 then

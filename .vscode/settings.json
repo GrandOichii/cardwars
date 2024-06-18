@@ -63,6 +63,7 @@
         "DrawFromBottom",
         "RemoveFromDiscard",
         "GetPhase",
-        "PlaceBuildingInLane"
+        "PlaceBuildingInLane",
+        "ChooseAndPlaceCreature"
     ]
 }

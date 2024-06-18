@@ -129,6 +129,20 @@ public class PlayerState : IStateModifier {
         await PlayCard(card, forFree);
     }
 
+    public async Task PlayCreature(CardState card, bool forFree = false) {
+        var laneI = await PickLaneForCreature(card);
+
+        if (laneI >= Original.Match.Config.LaneCount || laneI < 0) {
+            var errMsg = $"Player {Original.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
+            throw new GameMatchException(errMsg);
+        }
+        if (!forFree && !card.PayCosts(this, laneI)) {
+            throw new GameMatchException($"Player {Original.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
+        }
+
+        await Original.PlaceCreatureInLane(card.Original, laneI);
+    }
+
     public async Task PlayCard(CardState card, bool forFree) {
         var player = Original;
         var match = player.Match;
@@ -146,6 +160,8 @@ public class PlayerState : IStateModifier {
         match.CardsPlayed.Add($"({player.Idx}) {card.Original.LogFriendlyName}");
 
         if (card.Original.IsSpell) {
+            // TODO move to a separate method
+            
             if (!forFree && !card.PayCosts(this)) {
                 throw new GameMatchException($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
             }
@@ -158,22 +174,13 @@ public class PlayerState : IStateModifier {
         }
 
         if (card.Original.IsCreature) {
-            var laneI = await PickLaneForCreature(card);
-
-            if (laneI >= match.Config.LaneCount || laneI < 0) {
-                var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
-                throw new GameMatchException(errMsg);
-            }
-            if (!forFree && !card.PayCosts(this, laneI)) {
-                throw new GameMatchException($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
-            }
-
-            await player.PlaceCreatureInLane(card.Original, laneI);
-
+            await PlayCreature(card);
             return;
         }
 
         if (card.Original.IsBuilding) {
+            // TODO move to a separate method
+
             var laneI = await PickLaneForBuilding(card);
 
             if (laneI >= match.Config.LaneCount || laneI < 0) {

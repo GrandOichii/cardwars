@@ -561,4 +561,11 @@ public class ScriptMaster {
         player.PlaceBuildingInLane(card, laneI)
             .Wait();
     }
+
+    [LuaCommand]
+    public void ChooseAndPlaceCreature(int playerI, CardState card) {
+        var player = _match.GetPlayerState(playerI);
+        player.PlayCreature(card)
+            .Wait();
+    }
 }
