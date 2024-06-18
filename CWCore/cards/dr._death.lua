@@ -11,7 +11,7 @@ function _Create()
         checkF = function (me, playerI, laneI)
             return
                 Common.CanFloop(me) and
-                #Common.Targetable(playerI, Common.OpposingCreaturesInLane(playerI, laneI)) > 0
+                #Common.TargetableByCreature(Common.OpposingCreaturesInLane(playerI, laneI), playerI, me.Original.Card.ID) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
@@ -21,7 +21,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(Common.Targetable(playerI, Common.OpposingCreaturesInLane(playerI, laneI)))
+            local ids = Common.IDs(Common.TargetableByCreature(Common.OpposingCreaturesInLane(playerI, laneI), playerI, me.Original.Card.ID))
             local target = TargetCreature(playerI, ids, 'Choose a creature to destroy')
             
             DestroyCreature(target)

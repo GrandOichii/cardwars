@@ -4,15 +4,15 @@ function _Create()
     local result = CardWars:Spell()
     
     Common.AddRestriction(result,
-    function (playerI)
-        return nil, #Common.SpellTargetable(playerI, Common.AllPlayers.Creatures()) > 0
+    function (id, playerI)
+        return nil, #Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
     end
 )
 
-result.EffectP:AddLayer(
-    function (id, playerI)
+    result.EffectP:AddLayer(
+        function (id, playerI)
             -- Remove from game a card in any player's discard pile. Heal X Damage from target Creature, where X is the cost of the card removed this way.
-            
+
             local choices = Common.DiscardPileCardIndicies(playerI, function (_) return true end)
             local opponentChoices = Common.DiscardPileCardIndicies(1 - playerI, function (_) return true end)
             if (#choices + #opponentChoices) == 0 then
@@ -23,7 +23,7 @@ result.EffectP:AddLayer(
 
             RemoveFromDiscard(choice[0], choice[1])
 
-            local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
+            local ids = Common.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
             local target = TargetCreature(playerI, ids, 'Choose a creature to heal')
             HealDamage(target, card:RealCost())
         end

@@ -4,8 +4,8 @@ function _Create()
     local result = CardWars:Spell()
 
     Common.AddRestriction(result,
-        function (playerI)
-            return nil, #Common.Targetable(playerI, Common.Creatures(playerI)) > 0
+        function (id, playerI)
+            return nil, #Common.TargetableBySpell(Common.Creatures(playerI), playerI, id) > 0
         end
     )
 
@@ -13,7 +13,7 @@ function _Create()
         function (id, playerI)
             -- Heal up to 3 Damage from target Creature you control.
 
-            local ids = Common.IDs(Common.Targetable(playerI, Common.Creatures(playerI)))
+            local ids = Common.IDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
             local target = TargetCreature(playerI, ids, 'Choose a creature to heal')
             local c = GetCreature(target)
 

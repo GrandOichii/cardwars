@@ -20,6 +20,7 @@ public class InPlayCard {
     public List<TriggeredAbility> TriggeredAbilities { get; }
     public List<LuaFunction> StateModifiers { get; }
 
+
     public InPlayCard(MatchCard card, int controllerI) {
         Card = card;
         ControllerI = controllerI;
@@ -73,4 +74,5 @@ public class InPlayCard {
     public bool IsType(string type) {
         return Card.Template.Landscape == type;
     }
+
 }

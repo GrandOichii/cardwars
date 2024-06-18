@@ -1,6 +1,3 @@
-using CWCore.Match.Players;
-using NLua;
-
 namespace CWCore.Match.States;
 
 public class InPlayCardState : IStateModifier {
@@ -15,8 +12,9 @@ public class InPlayCardState : IStateModifier {
     public bool ProcessEnter { get; set; }
     public bool ProcessLeave { get; set; }
     public bool ProcessMove { get; set; }
-    public List<int> CanBeTargetedBy { get; }
     public List<string> CountsAsLandscapes { get; }
+
+    public List<LuaFunction> CanBeTargetedCheckers { get; }
 
     public InPlayCardState(InPlayCard original, int laneI) {
         Original = original;
@@ -41,9 +39,9 @@ public class InPlayCardState : IStateModifier {
         ProcessLeave = true;
         ProcessMove = true;
         ProcessEnter = true;
-        CanBeTargetedBy = new() { 0, 1 };
         CountsAsLandscapes = new();
         LandscapeTypes = new() { Original.Card.Template.Landscape };
+        CanBeTargetedCheckers = new();
     }
 
     public void Modify(ModificationLayer layer)
@@ -84,4 +82,9 @@ public class InPlayCardState : IStateModifier {
     public void PreModify()
     {
     }
+
+    public bool CanBeTargetedBy(LuaTable sourceTable) {
+        return CanBeTargetedCheckers.All(check => LuaUtility.GetReturnAsBool(check.Call(sourceTable)));
+    }
+
 }

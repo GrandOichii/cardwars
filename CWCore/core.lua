@@ -125,6 +125,15 @@ CardWars.ModificationLayers = {
     BUILDING_PLAY_LIMIT = 14,
 }
 
+-- Target sources
+
+CardWars.TargetSources = {
+    SPELL = 1,
+    CREATURE_ABILITY = 2,
+    BUILDING_ABILITY = 3,
+    HERO_ABILITY = 4,
+}
+
 -- Damage sources
 
 CardWars.DamageSources = {
@@ -177,12 +186,12 @@ function CardWars:Card()
     -- CanPlay pipeline
     result.CanPlayP = Core.Pipeline.New()
     result.CanPlayP:AddLayer(
-        function (playerI)
+        function (id, playerI)
             return nil, true
         end
     )
-    function result:CanPlay(playerI)
-        local _, res = self.CanPlayP:Exec(playerI)
+    function result:CanPlay(id, playerI)
+        local _, res = self.CanPlayP:Exec(id, playerI)
         return res
     end
 
@@ -254,13 +263,13 @@ function CardWars:InPlay()
 
     result.OnEnterP = Core.Pipeline:New()
     result.OnEnterP:AddLayer(
-        function(playerI, laneI, replaced)
+        function(me, playerI, laneI, replaced)
             return nil, true
         end
     )
 
-    function result:OnEnter(playerI, laneI, replaced)
-        self.OnEnterP:Exec(playerI, laneI, replaced)
+    function result:OnEnter(me, playerI, laneI, replaced)
+        self.OnEnterP:Exec(me, playerI, laneI, replaced)
     end
 
     result.OnLeavePlayP = Core.Pipeline:New()
@@ -330,6 +339,17 @@ function CardWars:Creature()
         self.OnDamagedP:Exec(me, playerI, laneI, amount, from)
     end
 
+    -- result.CalcDamageP = Core.Pipeline:New()
+    -- result.CalcDamageP:AddLayer(
+    --     function (me, playerI, laneI, amount, to, from)
+    --         return amount, true
+    --     end
+    -- )
+    -- function result:CalcDamage(me, playerI, laneI, amount, to, from)
+    --     local damage = self.OnDamagedP:Exec(me, playerI, laneI, amount, to, from)
+    --     return damage
+    -- end
+
     return result
 end
 
@@ -395,11 +415,11 @@ function Common.FilterLandscapes(predicate)
     return result
 end
 
-function Common.Targetable(byI, tableArr)
+function Common.Targetable(tableArr, by)
     local result = {}
 
     for _, card in ipairs(tableArr) do
-        if card.CanBeTargetedBy:Contains(byI) then
+        if card:CanBeTargetedBy(by) then
             result[#result+1] = card
         end
     end
@@ -407,16 +427,35 @@ function Common.Targetable(byI, tableArr)
     return result
 end
 
-function Common.SpellTargetable(byI, tableArr)
-    local result = {}
+function Common.TargetableBySpell(tableArr, ownerI, spellId)
+    return Common.Targetable(tableArr, {
+        type = CardWars.TargetSources.SPELL,
+        ownerI = ownerI,
+        spellId = spellId
+    })
+end
 
-    for _, card in ipairs(tableArr) do
-        if card.CanBeTargetedBy:Contains(byI) then
-            result[#result+1] = card
-        end
-    end
+function Common.TargetableByCreature(tableArr, ownerI, creatureId)
+    return Common.Targetable(tableArr, {
+        type = CardWars.TargetSources.CREATURE_ABILITY,
+        ownerI = ownerI,
+        spellId = creatureId
+    })
+end
 
-    return result
+function Common.TargetableByBuilding(tableArr, ownerI, buildingId)
+    return Common.Targetable(tableArr, {
+        type = CardWars.TargetSources.BUILDING_ABILITY,
+        ownerI = ownerI,
+        spellId = buildingId
+    })
+end
+
+function Common.TargetableByHero(tableArr, ownerI)
+    return Common.Targetable(tableArr, {
+        type = CardWars.TargetSources.HERO_ABILITY,
+        ownerI = ownerI,
+    })
 end
 
 function Common.CreaturesNamed(playerI, name)
@@ -1195,12 +1234,12 @@ function Common.State.CantBeAttacked(creature)
     c.CanAttack = false
 end
 
-function Common.State.CantBeTargeted(creature, by)
-    if by then
-        creature.CanBeTargetedBy:Remove(by)
-        return
-    end
-    creature.CanBeTargetedBy:Clear()
+function Common.State.CantBeTargeted(inPlayCard, by)
+    -- * by can be nil
+
+    inPlayCard.CanBeTargetedCheckers:Add(function (table)
+        return table.ownerI == by
+    end)
 end
 
 function Common.State.ChangeLandscapeType(layer, cardID, to)

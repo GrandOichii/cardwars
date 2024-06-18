@@ -62,7 +62,7 @@ public class CardState {
             if (landscapes.Count == 0) return false;
         }
 
-        var result = Original.ExecFunction(PLAY_CHECK_FNAME, Original.Data, player.Original.Idx);
+        var result = Original.ExecFunction(PLAY_CHECK_FNAME, Original.Data, Original.ID, player.Original.Idx);
         if (!LuaUtility.GetReturnAsBool(result))
             return false;
 

@@ -5,7 +5,8 @@ function _Create()
 
     -- TODO not specified in the rules, but during testing this leads to an infinite loop
     local targets = function (me, playerI)
-        return Common.Targetable(playerI, Common.AllPlayers.CreaturesExcept(me.Original.Card.ID))
+        local id = me.Original.Card.ID
+        return Common.TargetableByBuilding(Common.AllPlayers.CreaturesExcept(id), playerI, id)
     end
 
     result:AddActivatedAbility({

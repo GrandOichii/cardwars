@@ -6,7 +6,7 @@ function _Create()
     -- Additional Cost: Discard a card.
 
     Common.AddRestriction(result,
-        function (playerI)
+        function (id, playerI)
             return nil, GetHandCount(playerI)
         end
     )
@@ -17,8 +17,8 @@ function _Create()
     end)
 
     -- When Field Reaper enters play, move target Creature in this Lane to an adjacent empty Lane on your side.
-    result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
-        local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.CreaturesInLane(laneI)))
+    result.OnEnterP:AddLayer(function(me, playerI, laneI, replaced)
+        local ids = Common.IDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.Card.ID))
         local adjacent = Common.AdjacentLandscapes(playerI, laneI)
         local options = {}
         for _, landscape in ipairs(adjacent) do

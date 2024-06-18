@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
+    result.OnEnterP:AddLayer(function(me, playerI, laneI, replaced)
         -- When Blueberry Djini enters play, if it replaced a Creature, draw two cards.
 
         if replaced then

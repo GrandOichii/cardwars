@@ -80,8 +80,8 @@ state modification while defending
 state modification while attacking
 damage trigger (from creatures, creature abilities, building abilities, spells, heroes)
 fight phase start trigger
-
 cloud tower - disable targeting by spells, disable targeting by creature abilities (of specific player)
+
 mint chocouflage - disable damage by spells, disable damage by creature abilities (of specific player)
 token removal
 whenever this card is placed into your discard from anywhere...

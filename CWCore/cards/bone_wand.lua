@@ -6,7 +6,7 @@ function _Create()
     local result = CardWars:Spell()
 
     Common.AddRestriction(result,
-        function (playerI)
+        function (id, playerI)
             return nil, #Common.CreaturesTyped(playerI, CardWars.Landscapes.UselessSwamp) > 0
         end
     )

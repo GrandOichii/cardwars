@@ -111,7 +111,7 @@
 		"prefix": "enterplay",
 		"description": "enter play effect",
 		"body": [
-			"result.OnEnterP:AddLayer(function(playerI, laneI, replaced)",
+			"result.OnEnterP:AddLayer(function(me, playerI, laneI, replaced)",
 			"\t-- When $1 enters play, $2",
 			"",
 			"\t$0",
@@ -201,7 +201,7 @@
 		"description": "add card play restriction",
 		"body": [
 			"Common.AddRestriction(result,",
-			"\tfunction (playerI)",
+			"\tfunction (id, playerI)",
 			"\t\treturn nil, $0",
 			"\tend",
 			")"

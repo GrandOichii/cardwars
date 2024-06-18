@@ -1,8 +1,9 @@
 {
     "Hero": "",
     "Cards": {
+        "Corn Scepter": 10,
         "Blue Merlock": 10,
-        "Fancy Spa": 10
+        "Cloud Tower": 10
     },
     "Landscapes": {
         "Useless Swamp": 4

@@ -204,7 +204,7 @@ public class Player {
 
         var state = Match.GetInPlayCreature(card.ID);
         if (state.ProcessEnter)
-            creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, Idx, laneI, replaced);
+            creature.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, creature.Card.Data, state, Idx, laneI, replaced);
 
         await Match.Emit("creature_enter", new() {
             {"id", creature.Card.ID},
@@ -237,7 +237,7 @@ public class Player {
 
         var state = Match.GetInPlayBuilding(card.ID);
         if (state.ProcessEnter)
-            building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, Idx, laneI, replaced);
+            building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, state, Idx, laneI, replaced);
 
         await Match.Emit("building_enter", new() {
             {"id", building.Card.ID},
