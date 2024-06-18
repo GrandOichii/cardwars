@@ -1095,6 +1095,13 @@ function Common.AllPlayers.FloopedCreatures()
     end)
 end
 
+function Common.AllPlayers.AvailableToFlipDownLandscapes(byI)
+    return {
+        Common.AvailableToFlipDownLandscapes(0, byI),
+        Common.AvailableToFlipDownLandscapes(1, byI),
+    }
+end
+
 Common.Mod = {}
 
 function Common.Mod.Cost(me, amount)

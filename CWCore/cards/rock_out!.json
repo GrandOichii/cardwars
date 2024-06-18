@@ -1,0 +1,7 @@
+{
+    "Name": "Rock Out!",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Flip target Landscape face down until the start of your next turn."
+}

@@ -13,7 +13,7 @@ function _Create(props)
                 return false
             end
             local options = Common.AvailableToFlipDownLandscapesInLaneTyped(playerI, CardWars.Landscapes.Cornfield, laneI)
-            return #options[1] + #options[2] > 0
+            return (#options[1] + #options[2]) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
@@ -25,8 +25,8 @@ function _Create(props)
             local opponentOptions = Common.Lanes(os[2])
 
             -- TODO? change to target
-            local lane = ChooseLandscape(playerI, options, opponentOptions, 'Choose a Cornfield Landscape to flip face-down')
-            TurnLandscapeFaceDown(lane[0], lane[1])
+            local landscape = ChooseLandscape(playerI, options, opponentOptions, 'Choose a Cornfield Landscape to flip face-down')
+            TurnLandscapeFaceDown(landscape[0], landscape[1])
         end
     })
 

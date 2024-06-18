@@ -27,6 +27,7 @@ public class Player {
     public List<MatchCard> CardsPlayedThisTurn { get; }
     public List<MatchCard> EnteredDiscardThisTurn { get; }
     public List<LuaFunction> UntilNextTurnEffects { get; }
+    public List<LuaFunction> AtTheStartOfNextTurnEffects { get; }
 
     public Player(GameMatch match, string name, int idx, Dictionary<string, int> landscapeIndex, LinkedList<MatchCard> deck, Hero? hero, IPlayerController controller) {
         Match = match;
@@ -45,6 +46,7 @@ public class Player {
         CardsPlayedThisTurn = new();
         EnteredDiscardThisTurn = new();
         UntilNextTurnEffects = new();
+        AtTheStartOfNextTurnEffects = new();
     }
 
     public string LogFriendlyName => $"{Name} [{Idx}]";
@@ -426,6 +428,17 @@ public class Player {
         }
         
         await ReadyInPlayCards();
+
+        // TODO catch exceptions
+        for (int i = 0; i < AtTheStartOfNextTurnEffects.Count; i++) {
+            var effect = AtTheStartOfNextTurnEffects[i];
+            try {
+                effect.Call();
+            } catch (Exception e) {
+                throw new GameMatchException($"failed to execute \"at the start of next turn effect\" at {i}", e);
+            }
+        }
+        AtTheStartOfNextTurnEffects.Clear();
 
         await Draw(Match.Config.FreeDraw);
     }

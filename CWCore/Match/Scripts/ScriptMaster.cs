@@ -575,4 +575,10 @@ public class ScriptMaster {
         player.PlayBuilding(card, forFree)
             .Wait();        
     }
+
+    [LuaCommand]
+    public void AtTheStartOfNextTurn(int playerI, LuaFunction effect) {
+        var player = _match.GetPlayer(playerI);
+        player.AtTheStartOfNextTurnEffects.Add(effect);       
+    }
 }
