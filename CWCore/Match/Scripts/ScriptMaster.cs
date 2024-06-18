@@ -42,14 +42,16 @@ public class ScriptMaster {
     [LuaCommand]
     public int Draw(int playerI, int amount) {
         var player = _match.GetPlayer(playerI);
-        var result = player.Draw(amount);
+        var result = player.Draw(amount)
+            .GetAwaiter().GetResult();
         return result;
     }
 
     [LuaCommand]
     public int DrawFromBottom(int playerI, int amount) {
         var player = _match.GetPlayer(playerI);
-        var result = player.DrawFromBottom(amount);
+        var result = player.DrawFromBottom(amount)
+            .GetAwaiter().GetResult();
         return result;
     }
 

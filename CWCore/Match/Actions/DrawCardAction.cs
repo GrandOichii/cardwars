@@ -9,7 +9,7 @@ public class DrawCardAction : IAction
     // TODO change to "draw"
     public string ActionWord() => "d";
 
-    public Task Exec(GameMatch match, int playerI, string[] args)
+    public async Task Exec(GameMatch match, int playerI, string[] args)
     {
         var player = match.GetPlayerState(playerI);
         var ap = player.Original.ActionPoints;
@@ -17,15 +17,15 @@ public class DrawCardAction : IAction
         if (ap < match.Config.CardDrawCost) {
             var errMsg = $"Player {player.Original.LogFriendlyName} tried to draw a card as an action, but failed (ap: {ap}, cost: {match.Config.CardDrawCost})";
             match.ActionError(errMsg);
-            return Task.CompletedTask;
+            return;
         }
 
         player.PayActionPoints(match.Config.CardDrawCost);
-        player.Original.Draw(1);
+        await player.Original.Draw(1);
 
         match.LogInfo($"Player {player.Original.LogFriendlyName} payed {match.Config.CardDrawCost} ap to draw a card. ({ap} -> {player.Original.ActionPoints})");
 
-        return Task.CompletedTask;
+        return;
     }
 
     public IEnumerable<string> GetAvailable(GameMatch match, int playerI)

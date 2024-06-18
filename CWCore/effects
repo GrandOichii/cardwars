@@ -75,11 +75,11 @@ leaves play while ready
 drawing the bottom card of the deck
 attack trigger
 removing cards from game
+card draw trigger
 
 cloud tower - disable targeting by spells, disable targeting by creature abilities (of specific player)
 mint chocouflage - disable damage by spells, disable damage by creature abilities (of specific player)
 damage trigger (from creatures)
-card draw trigger
 token removal
 whenever this card is placed into your discard from anywhere...
 putting buildings from discard into play

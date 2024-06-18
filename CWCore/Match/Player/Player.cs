@@ -37,6 +37,8 @@ public class Player {
         _landscapeIndex = landscapeIndex;
         Hero = hero;
 
+        Life = Match.Config.StartingLifeTotal;
+
         RestrictedActionPoints = new();
         Hand = new();
         DiscardPile = new();
@@ -63,7 +65,7 @@ public class Player {
         }
     }
 
-    public int Draw(int amount) {
+    public async Task<int> Draw(int amount) {
         int drawn = 0;
         for (int i = 0; i < amount; i++) {
             if (Deck.Count == 0) {
@@ -80,11 +82,16 @@ public class Player {
         }
 
         Match.LogInfo($"Player {LogFriendlyName} drew {drawn} cards");
+        await Match.Emit("card_draw", new() {
+            { "playerI", Idx },
+            { "amount", drawn },
+            { "fromBottom", false },
+        });
 
         return drawn;
     }
 
-    public int DrawFromBottom(int amount) {
+    public async Task<int> DrawFromBottom(int amount) {
         int drawn = 0;
         for (int i = 0; i < amount; i++) {
             if (Deck.Count == 0) {
@@ -101,6 +108,12 @@ public class Player {
         }
 
         Match.LogInfo($"Player {LogFriendlyName} drew {drawn} cards from the bottom of their deck");
+        await Match.Emit("card_draw", new() {
+            { "playerI", Idx },
+            { "amount", drawn },
+            { "fromBottom", false },
+        });
+
 
         return drawn;
     }
@@ -130,11 +143,10 @@ public class Player {
     }
 
     public async Task Setup() {
-        Life = Match.Config.StartingLifeTotal;
         await PlaceLandscapes();
 
         Deck = Common.Shuffled(Deck, Match.Rng);
-        Draw(Match.Config.StartHandSize);
+        await Draw(Match.Config.StartHandSize);
 
         Mill(Deck.Count / 2);
     }
@@ -415,7 +427,7 @@ public class Player {
         
         await ReadyInPlayCards();
 
-        Draw(Match.Config.FreeDraw);
+        await Draw(Match.Config.FreeDraw);
     }
 
     public async Task TurnEnd() {
