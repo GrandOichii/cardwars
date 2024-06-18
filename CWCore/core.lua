@@ -104,7 +104,7 @@ CardWars.Landscapes = {
     SandyLands = 'SandyLands',
     Cornfield = 'Cornfield',
     NiceLands = 'NiceLands',
-    UselessSwamp = 'UselessSwamp',
+    UselessSwamp = 'Useless Swamp',
 }
 
 -- Modifiction layers
@@ -1212,6 +1212,43 @@ function Common.State.WhileDefendingAgainst(card, againstPredicate, effect)
         end
 
         if not againstPredicate(against) then
+            return
+        end
+
+        effect(me)
+    end)
+end
+
+function Common.State.WhileAttackingCreature(card, defenderPredicate, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        if layer ~= CardWars.ModificationLayers.ATK_AND_DEF then
+            return
+        end
+
+        if zone ~= CardWars.Zones.IN_PLAY then
+            return
+        end
+
+        if GetPhase() ~= CardWars.Phases.FIGHT then
+            return
+        end
+
+        local playerI = me.Original.ControllerI
+        if GetCurPlayerI() ~= playerI then
+            return
+        end
+
+        if not GetCreature(me.Original.Card.ID).Original.Attacking then
+            return
+        end
+
+        local defender = STATE.Players[1 - playerI].Landscapes[me.LaneI].Creature
+        if defender == nil then
+            return
+        end
+
+
+        if not defenderPredicate(defender) then
             return
         end
 

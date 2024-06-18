@@ -77,6 +77,7 @@ attack trigger
 removing cards from game
 card draw trigger
 state modification while defending
+state modification while attacking
 
 cloud tower - disable targeting by spells, disable targeting by creature abilities (of specific player)
 mint chocouflage - disable damage by spells, disable damage by creature abilities (of specific player)
@@ -95,7 +96,6 @@ playing creatures from hand for free
 damage creature -> creature
 when defeats opposing creature
 deck searching
-state modification while attacking
 fight phase start trigger
 flipping landscapes down until the start of next turn
 discarding buildings from play
