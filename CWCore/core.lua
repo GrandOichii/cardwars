@@ -572,6 +572,12 @@ function Common.Creatures(playerI)
     end)
 end
 
+function Common.OwnedCreatures(playerI)
+    return Common.FilterCreatures(function (creature)
+        return creature.Original.Card.OwnerI == playerI
+    end)
+end
+
 function Common.OpposingCreatures(playerI)
     return Common.Creatures(1 - playerI)
 end
@@ -851,6 +857,16 @@ function Common.DiscardCardIdx(playerI, id)
     local discard = STATE.Players[playerI].DiscardPile
     for i = 0, discard.Count - 1 do
         if discard[i].Original.ID == id then
+            return i
+        end
+    end
+    return nil
+end
+
+function Common.HandCardIdx(playerI, id)
+    local hand = STATE.Players[playerI].Hand
+    for i = 0, hand.Count - 1 do
+        if hand[i].Original.ID == id then
             return i
         end
     end

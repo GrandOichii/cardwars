@@ -26,7 +26,7 @@
 			"\tlocal result = CardWars:Spell()",
 			"",
 			"\tresult.EffectP:AddLayer(",
-			"\t\tfunction (playerI)",
+			"\t\tfunction (id, playerI)",
 			"\t\t\t-- $1",
 			"\t\t\t",
 			"\t\t\t$0",
@@ -159,8 +159,8 @@
 		"prefix": "targetcreature",
 		"description": "target creature",
 		"body": [
-			"local ids = Common.IDs(Common.Targetable(${1:playerI}, ${2:Common.AllPlayers.Creatures()}))",
-            "local target = ${3:TargetCreature}(playerI, ids, '$4')",
+			"local ids = Common.IDs(Common.Targetable${1:BySpell}(${2:Common.AllPlayers.Creatures()}, $3))",
+            "local target = ${4:TargetCreature}(playerI, ids, '$5')",
 			"$0"
 		]
 	},
