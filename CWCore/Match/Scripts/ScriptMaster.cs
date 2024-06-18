@@ -563,9 +563,16 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public void ChooseAndPlaceCreature(int playerI, CardState card) {
+    public void PlaceCreature(int playerI, CardState card, bool forFree) {
         var player = _match.GetPlayerState(playerI);
-        player.PlayCreature(card)
+        player.PlayCreature(card, forFree)
             .Wait();
+    }
+
+    [LuaCommand]
+    public void PlaceBuilding(int playerI, CardState card, bool forFree) {
+        var player = _match.GetPlayerState(playerI);
+        player.PlayBuilding(card, forFree)
+            .Wait();        
     }
 }

@@ -64,6 +64,7 @@
         "RemoveFromDiscard",
         "GetPhase",
         "PlaceBuildingInLane",
-        "ChooseAndPlaceCreature"
+        "PlaceCreature",
+        "PlaceBuilding"
     ]
 }

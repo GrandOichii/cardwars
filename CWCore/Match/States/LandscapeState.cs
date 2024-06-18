@@ -42,7 +42,8 @@ public class LandscapeState : IStateModifier {
     public bool IsFrozen() => Original.Tokens.Contains("Frozen");
 
     public bool CanPlayBuilding(CardState building) {
-        return BuildingPlayLimit < 0 || Buildings.Count < BuildingPlayLimit;
+        return true;
+        // return BuildingPlayLimit < 0 || Buildings.Count < BuildingPlayLimit;
     }
 
     public bool CanPlayCreature(CardState creature) {

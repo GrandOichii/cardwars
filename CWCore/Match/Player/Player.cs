@@ -224,7 +224,7 @@ public class Player {
         if (landscape.BuildingPlayLimit > 0 && landscape.Buildings.Count >= landscape.BuildingPlayLimit) {
             // TODO this removes the first building placed, doesn't allow the player to choose
             var first = landscape.Buildings.First();
-            landscape.Buildings.Remove(first);
+            landscape.Original.Buildings.Remove(first.Original);
             await LeavePlay(landscape, first);
             replaced = true;
         }
@@ -237,7 +237,7 @@ public class Player {
 
         var state = Match.GetInPlayBuilding(card.ID);
         if (state.ProcessEnter)
-            building.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, state, Idx, laneI, replaced);
+            state.Original.Card.ExecFunction(InPlayCard.ON_ENTER_PLAY_FNAME, building.Card.Data, state, Idx, laneI, replaced);
 
         await Match.Emit("building_enter", new() {
             {"id", building.Card.ID},

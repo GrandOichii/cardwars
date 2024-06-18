@@ -143,6 +143,21 @@ public class PlayerState : IStateModifier {
         await Original.PlaceCreatureInLane(card.Original, laneI);
     }
 
+    public async Task PlayBuilding(CardState card, bool forFree = false) {
+        var laneI = await PickLaneForBuilding(card);
+
+        if (laneI >= Original.Match.Config.LaneCount || laneI < 0) {
+            var errMsg = $"Player {Original.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
+            throw new GameMatchException(errMsg);
+        }
+        if (!forFree && !card.PayCosts(this, laneI)) {
+            throw new GameMatchException($"Player {Original.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
+        }
+
+        await Original.PlaceBuildingInLane(card.Original, laneI);
+
+    }
+
     public async Task PlayCard(CardState card, bool forFree) {
         var player = Original;
         var match = player.Match;
@@ -179,19 +194,7 @@ public class PlayerState : IStateModifier {
         }
 
         if (card.Original.IsBuilding) {
-            // TODO move to a separate method
-
-            var laneI = await PickLaneForBuilding(card);
-
-            if (laneI >= match.Config.LaneCount || laneI < 0) {
-                var errMsg = $"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName} in lane {laneI}";
-                throw new GameMatchException(errMsg);
-            }
-            if (!forFree && !card.PayCosts(this, laneI)) {
-                throw new GameMatchException($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
-            }
-
-            await player.PlaceBuildingInLane(card.Original, laneI);
+            await PlayBuilding(card);
             return;
         }
 
