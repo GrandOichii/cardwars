@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgpq7x7fblgp2"]
+[gd_scene load_steps=3 format=3 uid="uid://bgpq7x7fblgp2"]
 
+[ext_resource type="Script" path="res://v1/Match/MatchScene.cs" id="1_37ccc"]
 [ext_resource type="PackedScene" uid="uid://l2oufr27nayw" path="res://v1/Match/Player/PlayerScene.tscn" id="1_k5rnc"]
 
 [node name="MatchScene" type="Control"]
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_37ccc")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -21,6 +23,7 @@ grow_vertical = 2
 [node name="PlayerScene" parent="VBoxContainer" instance=ExtResource("1_k5rnc")]
 layout_mode = 2
 size_flags_vertical = 3
+is_opponent_initial = true
 
 [node name="PlayerScene2" parent="VBoxContainer" instance=ExtResource("1_k5rnc")]
 layout_mode = 2

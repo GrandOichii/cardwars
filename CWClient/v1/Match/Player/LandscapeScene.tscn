@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://24adaab88txi"]
+[gd_scene load_steps=5 format=3 uid="uid://24adaab88txi"]
 
 [ext_resource type="Texture2D" uid="uid://b287r6cac16am" path="res://assets/cornfield1.png" id="1_5k1ot"]
+[ext_resource type="Script" path="res://v1/Match/Player/LandscapeScene.gd" id="1_ehvs1"]
 [ext_resource type="Texture2D" uid="uid://dnyi2o2fwkso8" path="res://assets/The Pig.jpg" id="2_poyi5"]
 [ext_resource type="Texture2D" uid="uid://b2ln2718hpehw" path="res://assets/Blood Fortress.jpg" id="3_75ol3"]
 
@@ -12,8 +13,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+script = ExtResource("1_ehvs1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="OrderContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,36 +24,36 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LandscapeImage" type="TextureRect" parent="VBoxContainer"]
+[node name="LandscapeImage" type="TextureRect" parent="OrderContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 texture = ExtResource("1_5k1ot")
-expand_mode = 5
+expand_mode = 3
 stretch_mode = 5
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/LandscapeImage"]
-visible = false
+[node name="MarginContainer" type="MarginContainer" parent="OrderContainer/LandscapeImage"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
 
-[node name="CreatureImage" type="TextureRect" parent="VBoxContainer/LandscapeImage/CenterContainer"]
-custom_minimum_size = Vector2(150, 0)
+[node name="CreatureImage" type="TextureRect" parent="OrderContainer/LandscapeImage/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("2_poyi5")
-expand_mode = 5
+expand_mode = 3
+stretch_mode = 5
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+[node name="BuildingImage" type="TextureRect" parent="OrderContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="BuildingImage" type="TextureRect" parent="VBoxContainer/CenterContainer"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
 texture = ExtResource("3_75ol3")
-expand_mode = 5
+expand_mode = 2
 stretch_mode = 5

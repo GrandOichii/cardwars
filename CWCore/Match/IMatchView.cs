@@ -4,7 +4,7 @@ public interface IMatchView {
     /// <summary>
     /// Start the view
     /// </summary>
-    public Task Start();
+    public Task Start(GameMatch match);
 
     /// <summary>
     /// Updates the view with the new match data

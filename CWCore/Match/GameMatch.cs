@@ -134,7 +134,7 @@ public class GameMatch {
         }
 
         LogInfo("Starting view");
-        View?.Start();
+        View?.Start(this);
 
         LogInfo("Pushing initial state");
         await PushUpdates();
