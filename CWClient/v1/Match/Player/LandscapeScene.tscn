@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://24adaab88txi"]
+
+[ext_resource type="Texture2D" uid="uid://b287r6cac16am" path="res://assets/cornfield1.png" id="1_5k1ot"]
+[ext_resource type="Texture2D" uid="uid://dnyi2o2fwkso8" path="res://assets/The Pig.jpg" id="2_poyi5"]
+[ext_resource type="Texture2D" uid="uid://b2ln2718hpehw" path="res://assets/Blood Fortress.jpg" id="3_75ol3"]
+
+[node name="LandscapeScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LandscapeImage" type="TextureRect" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_5k1ot")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/LandscapeImage"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CreatureImage" type="TextureRect" parent="VBoxContainer/LandscapeImage/CenterContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+texture = ExtResource("2_poyi5")
+expand_mode = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BuildingImage" type="TextureRect" parent="VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+texture = ExtResource("3_75ol3")
+expand_mode = 5
+stretch_mode = 5
