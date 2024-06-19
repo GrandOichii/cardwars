@@ -26,7 +26,7 @@ public class CursesView : IMatchView
         return Task.CompletedTask;
     }
 
-    public Task Start()
+    public Task Start(GameMatch match)
     {
         return Task.CompletedTask;
     }

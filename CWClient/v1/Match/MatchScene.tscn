@@ -20,11 +20,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerScene" parent="VBoxContainer" instance=ExtResource("1_k5rnc")]
+[node name="Player1" parent="VBoxContainer" instance=ExtResource("1_k5rnc")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-is_opponent_initial = true
+IsOpponentIntitial = true
 
-[node name="PlayerScene2" parent="VBoxContainer" instance=ExtResource("1_k5rnc")]
+[node name="Player2" parent="VBoxContainer" instance=ExtResource("1_k5rnc")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3

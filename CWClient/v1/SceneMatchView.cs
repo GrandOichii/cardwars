@@ -14,7 +14,6 @@ public class SceneMatchView : IMatchView
 
     public Task Start(GameMatch match)
     {
-        GD.Print(match.Config.LaneCount);
         return Task.CompletedTask;
     }
 
