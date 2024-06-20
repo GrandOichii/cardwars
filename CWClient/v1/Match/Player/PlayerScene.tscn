@@ -14,6 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3wat3")
+LandscapeScenePS = ExtResource("4_2yla7")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -76,7 +77,7 @@ layout_mode = 2
 
 [node name="DiscardImage" type="TextureRect" parent="HBoxContainer/InfoContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 140)
+custom_minimum_size = Vector2(100, 2.08165e-12)
 layout_mode = 2
 texture = ExtResource("2_2f8sk")
 expand_mode = 5
@@ -96,7 +97,7 @@ text = "15
 "
 
 [node name="DeckImage" type="TextureRect" parent="HBoxContainer/InfoContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 140)
+custom_minimum_size = Vector2(100, 2.08165e-12)
 layout_mode = 2
 texture = ExtResource("1_h5vy0")
 expand_mode = 3
@@ -117,7 +118,7 @@ text = "24
 
 [node name="HeroImage" type="TextureRect" parent="HBoxContainer/InfoContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(204, 275)
+custom_minimum_size = Vector2(200, 275)
 layout_mode = 2
 texture = ExtResource("3_mkn4u")
 expand_mode = 5
@@ -130,22 +131,14 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
 alignment = 1
 
-[node name="LandscapeScene" parent="HBoxContainer/LandscapeContainer" instance=ExtResource("4_2yla7")]
-layout_mode = 2
-
-[node name="LandscapeScene2" parent="HBoxContainer/LandscapeContainer" instance=ExtResource("4_2yla7")]
-layout_mode = 2
-
-[node name="LandscapeScene3" parent="HBoxContainer/LandscapeContainer" instance=ExtResource("4_2yla7")]
-layout_mode = 2
-
-[node name="LandscapeScene4" parent="HBoxContainer/LandscapeContainer" instance=ExtResource("4_2yla7")]
-layout_mode = 2
-
 [node name="Requests" type="Node" parent="."]
 
 [node name="TopDiscardCardImageRequest" type="HTTPRequest" parent="Requests"]
 unique_name_in_owner = true
 use_threads = true
 
+[node name="HeroCardImageRequest" type="HTTPRequest" parent="Requests"]
+unique_name_in_owner = true
+
 [connection signal="request_completed" from="Requests/TopDiscardCardImageRequest" to="." method="OnTopDiscardCardImageRequestRequestCompleted"]
+[connection signal="request_completed" from="Requests/HeroCardImageRequest" to="." method="OnHeroCardImageRequestRequestCompleted"]

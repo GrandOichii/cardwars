@@ -5,7 +5,7 @@ namespace CWClient.v1;
 
 class GDLogger : ILogger
 {
-    public IDisposable BeginScope<TState>(TState state) where TState : notnull => default!;
+	public IDisposable BeginScope<TState>(TState state) where TState : notnull => default!;
 
 	// TODO
 	public bool IsEnabled(LogLevel logLevel) => true;
@@ -76,10 +76,11 @@ public partial class TestMatch : Control
 		;
 		var deck2 = deck1;
 
-		var controller1 = new TestPlayerController(
-			new RandomPlayerController(seed),
-			100
-		);
+		// var controller1 = new TestPlayerController(
+		// 	new RandomPlayerController(seed),
+		// 	0
+		// );
+		var controller1 = new RandomPlayerController(0);
 		var controller2 = controller1;
 
 		var match = new GameMatch(config, seed, cm, File.ReadAllText("../CWCore/core.lua"))
