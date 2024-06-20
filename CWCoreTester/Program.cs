@@ -1,14 +1,14 @@
-﻿using System.Security.Claims;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using CWCore.Cards;
 using CWCore.Decks;
 using CWCore.Match;
 using CWCore.Match.States;
-using CWCore.Match.Players;
+using CWCore.Match.Players.Controllers;
 using Microsoft.Extensions.Logging;
 using Mindmagma.Curses;
-using System.ComponentModel.Design;
+using System.Net.Sockets;
+using System.Net;
 
 public class FileCardMasterData {
     [JsonPropertyName("cards")]
@@ -79,6 +79,8 @@ public class ConsolePlayerController : IPlayerController
         System.Console.WriteLine();
     }
 
+    public Task Update(GameMatch match, int playerI) { return Task.CompletedTask; }
+
     public Task<int> PickAttackLane(GameMatch match, int playerI, List<int> options)
     {
         var player = match.GetPlayerState(playerI);
@@ -133,7 +135,7 @@ public class ConsolePlayerController : IPlayerController
         return Task.FromResult(result);
     }
 
-    public Task<List<string>> PromptLandscapePlacement(int playerI, Dictionary<string, int> landscapeIndex)
+    public Task<List<string>> PromptLandscapePlacement(GameMatch match, int playerI, Dictionary<string, int> landscapeIndex)
     {
         return Task.FromResult(new List<string> {
             "Cornfield",
@@ -378,6 +380,10 @@ public class ConsolePlayerController : IPlayerController
         );
     }
 
+    public Task Setup(GameMatch match, int playerI)
+    {
+        return Task.CompletedTask;
+    }
 }
 
 public class CursesPlayerController : IPlayerController
@@ -395,6 +401,8 @@ public class CursesPlayerController : IPlayerController
             throw new Exception("forced match end");
         }
     }
+
+    public Task Update(GameMatch match, int playerI) { return Task.CompletedTask; }
 
     public Task<int> PickAttackLane(GameMatch match, int playerI, List<int> options)
     {
@@ -462,10 +470,10 @@ public class CursesPlayerController : IPlayerController
         return _playerController.PromptAction(match, playerI, options);
     }
 
-    public Task<List<string>> PromptLandscapePlacement(int playerI, Dictionary<string, int> landscapeIndex)
+    public Task<List<string>> PromptLandscapePlacement(GameMatch match, int playerI, Dictionary<string, int> landscapeIndex)
     {
         Wait();
-        return _playerController.PromptLandscapePlacement(playerI, landscapeIndex);
+        return _playerController.PromptLandscapePlacement(match, playerI, landscapeIndex);
     }
 
     public Task<int> PickCard(GameMatch match, int playerI, List<string> options, string hint) {
@@ -476,6 +484,11 @@ public class CursesPlayerController : IPlayerController
     public Task<int> PickPlayer(GameMatch match, int playerI, List<int> options, string hint) {
         Wait();
         return _playerController.PickPlayer(match, playerI, options, hint);
+    }
+
+    public Task Setup(GameMatch match, int playerI)
+    {
+        return Task.CompletedTask;
     }
 }
 
@@ -556,6 +569,50 @@ public class Program {
         System.Console.WriteLine($"Success: {end - start - failed}/{end - start}");
     }
 
+    public static async Task TcpMatch(int seed) {
+        var address = IPAddress.Any;
+        int port = 9090;
+        TcpListener listener = new(new IPEndPoint(address, port));
+        listener.Start();
+        
+        var config = new MatchConfig() {
+            FreeDraw = 1,
+            StartingLifeTotal = 25,
+            ActionPointsPerTurn = 2,
+            LaneCount = 4,
+            StrictMode = true,
+            CardDrawCost = 1,
+            StartHandSize = 5,
+            CheckLandscapesForPlayingCards = false,
+            CanFloopOnFirstTurn = true,
+            CanAttackOnFirstTurn = true,
+            MaxBuildingsPerLane = 1,
+        };
+
+        var cm = new FileCardMaster();
+        cm.Load("../CWCore/cards");
+
+        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/all.json"))
+            ?? throw new Exception("failed to read deck file")
+        ;
+        var deck2 = deck1;
+
+        System.Console.WriteLine("Waiting for connection...");
+        var controller1 = new IOPlayerController(new TcpIOHandler(listener.AcceptTcpClient()));
+        var controller2 = new RandomPlayerController(seed);
+
+        var match = new GameMatch(config, seed, cm, File.ReadAllText("../CWCore/core.lua")){
+            Logger = LoggerFactory
+                .Create(builder => builder.AddConsole())
+                .CreateLogger("Program")
+        };
+
+        await match.AddPlayer("player1", deck1, controller1);
+        await match.AddPlayer("player2", deck2, controller2);
+
+        await match.Run();
+    }
+
     public static async Task SimpleConsole() {
         try {
             var seed = 0;
@@ -615,7 +672,10 @@ public class Program {
             return;
         }
 
-        await SimpleConsole();
+        // await SimpleConsole();
+        // return;
+
+        await TcpMatch(seed);
         return;
 
         var view = new CursesView();

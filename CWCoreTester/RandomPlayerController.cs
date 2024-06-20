@@ -1,5 +1,5 @@
 using CWCore.Match;
-using CWCore.Match.Players;
+using CWCore.Match.Players.Controllers;
 
 public class RandomPlayerController : IPlayerController
 {
@@ -99,7 +99,7 @@ public class RandomPlayerController : IPlayerController
         return Task.FromResult(_rnd.Next() % options.Count);
     }
 
-    public Task<List<string>> PromptLandscapePlacement(int playerI, Dictionary<string, int> landscapeIndex)
+    public Task<List<string>> PromptLandscapePlacement(GameMatch match, int playerI, Dictionary<string, int> landscapeIndex)
     {
         // TODO
         return Task.FromResult(new List<string>() {
@@ -109,4 +109,11 @@ public class RandomPlayerController : IPlayerController
             "Cornfield"
         });
     }
+
+    public Task Setup(GameMatch match, int playerI)
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task Update(GameMatch match, int playerI) { return Task.CompletedTask; }
 }

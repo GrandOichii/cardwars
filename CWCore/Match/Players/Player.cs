@@ -151,12 +151,15 @@ public class Player {
         await Draw(Match.Config.StartHandSize);
 
         // Mill(Deck.Count / 2);
+
+        await Controller.Setup(Match, Idx);
     }
 
     private async Task PlaceLandscapes() {
-        var result = await Controller.PromptLandscapePlacement(Idx, _landscapeIndex);
+        var result = await Controller.PromptLandscapePlacement(Match, Idx, _landscapeIndex);
         
         // TODO validate landscape choice
+        // TODO validate landscape names
         
         for (int i = 0; i < result.Count; i++) {
             var landscape = new Landscape(result[i], Idx, i);
@@ -466,6 +469,10 @@ public class Player {
 
     public void RemoveFromDiscard(int cardI) {
         DiscardPile.RemoveAt(cardI);
+    }
+
+    public async Task UpdateController() {
+        await Controller.Update(Match, Idx);
     }
 }
 

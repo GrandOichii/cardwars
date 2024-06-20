@@ -33,7 +33,7 @@ public class GameMatch {
     public Update QueuedUpdate { get; private set; } = new();
 
     private int _winnerI = -1;
-    public string PhaseName { get; private set; }
+    public string PhaseName { get; private set; } = "";
 
     public bool Active => _winnerI < 0;
 
@@ -192,6 +192,9 @@ public class GameMatch {
         }
         // TODO
         
+        foreach (var player in Players) {
+            await player.UpdateController();
+        }
     }
 
     public async Task ReadyCard(InPlayCard card) {

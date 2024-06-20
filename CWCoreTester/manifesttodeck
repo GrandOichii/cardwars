@@ -10,5 +10,5 @@ for card_key in manifest['cards']:
     cards[card_name] = 5
 open(join('decks', 'all.json'), 'w').write(json.dumps({
     'Cards': cards,
-    'Landscapes': {}
+    'Landscapes': {'Cornfield': 1, 'Blue Plains': 1, 'Useless Swamp': 1, 'SandyLands': 1}
 }, indent=4))

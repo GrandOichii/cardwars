@@ -79,5 +79,5 @@
         "Bail Out": 5,
         "Log Knight": 5
     },
-    "Landscapes": {}
+    "Landscapes": {"Cornfield": 1, "Blue Plains": 1, "Useless Swamp": 1, "SandyLands": 1}
 }
