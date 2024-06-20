@@ -18,9 +18,12 @@ script = ExtResource("1_hoft8")
 [node name="OrderContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -251.0
+offset_right = 251.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -40,20 +43,35 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 100
+theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 100
-theme_override_constants/margin_right = 100
+theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 100
 
 [node name="CreatureImage" type="TextureRect" parent="OrderContainer/LandscapeImage/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("2_poyi5")
 expand_mode = 3
 stretch_mode = 5
 
 [node name="BuildingImage" type="TextureRect" parent="OrderContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("3_75ol3")
 expand_mode = 2
 stretch_mode = 5
+
+[node name="Node" type="Node" parent="."]
+
+[node name="BuildingImageRequest" type="HTTPRequest" parent="Node"]
+unique_name_in_owner = true
+
+[node name="CreatureImageRequest" type="HTTPRequest" parent="Node"]
+unique_name_in_owner = true
+
+[connection signal="mouse_entered" from="OrderContainer/LandscapeImage/MarginContainer/CreatureImage" to="." method="OnCreatureImageMouseEntered"]
+[connection signal="mouse_entered" from="OrderContainer/BuildingImage" to="." method="OnBuildingImageMouseEntered"]
+[connection signal="request_completed" from="Node/BuildingImageRequest" to="." method="OnBuildingImageRequestRequestCompleted"]
+[connection signal="request_completed" from="Node/CreatureImageRequest" to="." method="OnCreatureImageRequestRequestCompleted"]
