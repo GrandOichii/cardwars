@@ -285,7 +285,10 @@ public class GameMatch {
     public async Task DealDamageToCreatureBy(CreatureState to, CreatureState from) {
         var damage = from.Attack * from.DamageMultiplier;
         await DealDamageToCreature(to, damage, from);
+        if (to.ShouldDie())
+            from.OnDefeated(to.GetOriginal());
         from.OnDealtDamage(damage, to.Original.Card.ID);
+
     }
 
     public async Task DestroyCreature(string id) {
@@ -336,7 +339,7 @@ public class GameMatch {
                 var creature = lane.Creature;
                 if (creature is null) continue;
 
-                if (creature.Defense > creature.GetDamage()) continue;
+                if (!creature.ShouldDie()) continue;
 
                 await DestroyCreature(player, lane);
             }

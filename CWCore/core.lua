@@ -317,6 +317,17 @@ function CardWars:Creature()
         self.OnDealDamageP:Exec(playerI, laneI, amount, creatureId)
     end
 
+    result.OnDefeatedP = Core.Pipeline:New()
+    result.OnDefeatedP:AddLayer(
+        function (playerI, laneI, original)
+            return nil, true
+        end
+    )
+
+    function result:OnDefeated(playerI, laneI, original)
+        self.OnDefeatedP:Exec(playerI, laneI, original)
+    end
+
     result.OnAttackP = Core.Pipeline:New()
     result.OnAttackP:AddLayer(
         function (playerI, laneI)
@@ -1377,9 +1388,12 @@ function Common.AbilityGrantingRemoval.RemovaAll(card)
     card.ProcessEnter = false
     card.ProcessLeave = false
     card.ProcessMove = false
+
+    -- creature-specific, might break if applied to building
     card.ProcessDealDamage = false
     card.ProcessDamaged = false
     card.ProcessAttack = false
+    card.ProcessDefeated = false
 end
 
 function Common.AbilityGrantingRemoval.RemoveAllActivatedAbilities(card)
