@@ -13,11 +13,42 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sfwn3")
 
-[node name="Match" parent="." instance=ExtResource("1_6newf")]
-unique_name_in_owner = true
-layout_mode = 1
-
 [node name="Connection" parent="." instance=ExtResource("2_fgw36")]
 unique_name_in_owner = true
 
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Match" parent="VBoxContainer" instance=ExtResource("1_6newf")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HintLabel" type="Label" parent="VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RawActionContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ActionEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/RawActionContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter action"
+
+[node name="SendActionButton" type="Button" parent="VBoxContainer/VBoxContainer/RawActionContainer"]
+layout_mode = 2
+text = " Send "
+
+[connection signal="UpdateReceived" from="." to="VBoxContainer/Match" method="OnTestMatchUpdateReceived"]
 [connection signal="MessageReceived" from="Connection" to="." method="OnConnectionMessageReceived"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/RawActionContainer/SendActionButton" to="." method="OnSendActionButtonPressed"]
