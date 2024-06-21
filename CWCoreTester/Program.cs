@@ -572,7 +572,8 @@ public class Program {
     public static async Task TcpMatch(int seed) {
         var address = IPAddress.Any;
         int port = 9090;
-        TcpListener listener = new(new IPEndPoint(address, port));
+        var endpoint = new IPEndPoint(address, port);
+        TcpListener listener = new(endpoint);
         listener.Start();
         
         var config = new MatchConfig() {
@@ -597,6 +598,7 @@ public class Program {
         ;
         var deck2 = deck1;
 
+        System.Console.WriteLine(endpoint.ToString());
         System.Console.WriteLine("Waiting for connection...");
         var controller1 = new IOPlayerController(new TcpIOHandler(listener.AcceptTcpClient()));
         var controller2 = new RandomPlayerController(seed);
@@ -613,6 +615,15 @@ public class Program {
         await match.Run();
     }
 
+    public static async Task TcpLoop(int seed) {
+        while (true) {
+            try {
+                await TcpMatch(seed);
+            } catch (Exception e) {
+                PrintException(e);
+            }
+        }
+    }
     public static async Task SimpleConsole() {
         try {
             var seed = 0;
@@ -674,6 +685,9 @@ public class Program {
 
         // await SimpleConsole();
         // return;
+
+        await TcpLoop(seed);
+        return;
 
         await TcpMatch(seed);
         return;

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgrfhj1ovlkyv"]
+[gd_scene load_steps=4 format=3 uid="uid://dgrfhj1ovlkyv"]
 
 [ext_resource type="PackedScene" uid="uid://bgpq7x7fblgp2" path="res://v1/Match/MatchScene.tscn" id="1_6newf"]
-[ext_resource type="Script" path="res://v1/TestMatch.cs" id="1_mk6s0"]
+[ext_resource type="Script" path="res://v1/TestMatch.gd" id="1_sfwn3"]
+[ext_resource type="PackedScene" uid="uid://fh8r4qhsop8j" path="res://v1/Connection/Wrappers/TcpConnectionWrapper.tscn" id="2_fgw36"]
 
 [node name="TestMatch" type="Control"]
 layout_mode = 3
@@ -10,8 +11,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_mk6s0")
+script = ExtResource("1_sfwn3")
 
 [node name="Match" parent="." instance=ExtResource("1_6newf")]
 unique_name_in_owner = true
 layout_mode = 1
+
+[node name="Connection" parent="." instance=ExtResource("2_fgw36")]
+unique_name_in_owner = true
+
+[connection signal="MessageReceived" from="Connection" to="." method="OnConnectionMessageReceived"]
