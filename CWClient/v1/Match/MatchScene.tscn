@@ -25,14 +25,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 
-[node name="PlayerScene" parent="HBoxContainer/VBoxContainer" instance=ExtResource("1_k5rnc")]
+[node name="Player1" parent="HBoxContainer/VBoxContainer" instance=ExtResource("1_k5rnc")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PlayerScene2" parent="HBoxContainer/VBoxContainer" instance=ExtResource("1_k5rnc")]
+[node name="Player2" parent="HBoxContainer/VBoxContainer" instance=ExtResource("1_k5rnc")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 

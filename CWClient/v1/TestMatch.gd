@@ -17,10 +17,9 @@ func process_update(update: Variant):
 	if update.Request == 'PromptLandscapePlacement':
 		Connection.Write('Cornfield Cornfield SandyLands Cornfield')
 		return
-	print(update.Request)
 	
 func process_match_info(match_info: Variant):
-	pass
+	print(match_info)
 
 # signal connections
 
