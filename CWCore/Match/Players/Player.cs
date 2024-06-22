@@ -150,6 +150,7 @@ public class Player {
         await Draw(Match.Config.StartHandSize);
 
         // Mill(Deck.Count / 2);
+        // Life -= 10;
 
         await Controller.Setup(Match, Idx);
     }

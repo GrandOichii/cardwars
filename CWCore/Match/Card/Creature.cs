@@ -3,8 +3,6 @@ using CWCore.Match.States;
 namespace CWCore.Match;
 
 public class Creature : InPlayCard {
-    public readonly static string ON_DEAL_DAMAGE_PLAY_FNAME = "OnDealDamage";
-
     public bool ExhaustedToAttack { get; set; } = false;
     public bool Attacking { get; set; } = false;
 
@@ -12,10 +10,17 @@ public class Creature : InPlayCard {
     public int Defense { get; set; }
     public int Damage { get; set; }
 
+    public List<LuaFunction> OnDealDamageEffects { get; }
+
     public Creature(MatchCard card, int controllerI) : base(card, controllerI) {
         Attack = card.Template.Attack;
         Defense = card.Template.Defense;
         Damage = 0;
+
+        OnDealDamageEffects = new();
+        var modifiers = LuaUtility.TableGet<LuaTable>(card.Data, "DealDamageEffects");
+        foreach (var modifier in modifiers.Values)
+            OnDealDamageEffects.Add((LuaFunction)modifier);
     }
 
     public override void Ready()

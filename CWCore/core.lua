@@ -300,21 +300,9 @@ end
 function CardWars:Creature()
     local result = CardWars:InPlay()
 
-    result.OnDealDamageP = Core.Pipeline:New()
-    result.OnDealDamageP:AddLayer(
-        function (playerI, laneI, amount, creatureId)
-            local e = ' to opponent'
-            if creatureId then
-                e = 'to creature with id '..creatureId
-            end
-            local c = STATE.Players[playerI].Landscapes[laneI].Creature
-            LogInfo('Creature '..c.Original.Card.LogFriendlyName .. ' with id ' .. STATE.Players[playerI].Landscapes[laneI].Creature.Original.Card.ID .. ' dealt '..amount..' damage ' ..e)
-            return nil, true
-        end
-    )
-
-    function result:OnDealDamage(playerI, laneI, amount, creatureId)
-        self.OnDealDamageP:Exec(playerI, laneI, amount, creatureId)
+    result.DealDamageEffects = {}
+    function result:OnDealDamage(effect)
+        result.DealDamageEffects[#result.DealDamageEffects+1] = effect
     end
 
     result.OnDefeatedP = Core.Pipeline:New()
@@ -1390,7 +1378,6 @@ function Common.AbilityGrantingRemoval.RemovaAll(card)
     card.ProcessMove = false
 
     -- creature-specific, might break if applied to building
-    card.ProcessDealDamage = false
     card.ProcessDamaged = false
     card.ProcessAttack = false
     card.ProcessDefeated = false
