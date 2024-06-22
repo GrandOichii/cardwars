@@ -19,7 +19,7 @@ public class Landscape {
         Creature = null;
         Buildings = new();
         FaceDown = false;
-        Tokens = new();
+        Tokens = new() { "Frozen"};
         CreaturesEnteredThisTurn = new();
     }
 

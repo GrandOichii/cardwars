@@ -67,6 +67,7 @@
         "PlaceCreature",
         "PlaceBuilding",
         "AtTheStartOfNextTurn",
-        "FloatToTopOfDeck"
+        "FloatToTopOfDeck",
+        "RemoveToken"
     ]
 }
