@@ -473,5 +473,7 @@ public class Player {
     public async Task UpdateController() {
         await Controller.Update(Match, Idx);
     }
+
+    public List<MatchCard> DeckAsList() => Deck.ToList();
 }
 
