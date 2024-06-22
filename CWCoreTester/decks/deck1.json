@@ -1,6 +1,8 @@
 {
     "Hero": "",
     "Cards": {
+        "Blood Bath": 10,
+        "Convey Wisdom": 10,
         "Sand Jackal": 10
     },
     "Landscapes": {

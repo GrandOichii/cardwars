@@ -573,12 +573,27 @@ public class ScriptMaster {
     public void PlaceBuilding(int playerI, CardState card, bool forFree) {
         var player = _match.GetPlayerState(playerI);
         player.PlayBuilding(card, forFree)
-            .Wait();        
+            .Wait();
     }
 
     [LuaCommand]
     public void AtTheStartOfNextTurn(int playerI, LuaFunction effect) {
         var player = _match.GetPlayer(playerI);
-        player.AtTheStartOfNextTurnEffects.Add(effect);       
+        player.AtTheStartOfNextTurnEffects.Add(effect);
+    }
+
+    [LuaCommand]
+    public void FloatToTopOfDeck(int playerI, string cardID) {
+        var deck = _match.GetPlayer(playerI).Deck;
+        var card = deck.First(c => c.ID == cardID);
+        deck.Remove(card);
+        deck.AddLast(card);
+    }
+
+    [LuaCommand]
+    public bool RemoveToken(int playerI, int laneI, string token) {
+        var player = _match.GetPlayerState(playerI);
+        var landscape = player.Landscapes[laneI];
+        return landscape.Original.RemoveToken(token);
     }
 }

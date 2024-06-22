@@ -39,7 +39,6 @@ public class Player {
         Hero = hero;
 
         Life = Match.Config.StartingLifeTotal;
-
         RestrictedActionPoints = new();
         Hand = new();
         DiscardPile = new();
