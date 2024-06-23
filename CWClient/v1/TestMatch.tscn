@@ -75,7 +75,13 @@ text = " Send "
 layout_mode = 2
 text = "Fight!"
 
+[node name="RandomButton" type="Button" parent="Window/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Send random"
+
 [connection signal="UpdateReceived" from="." to="VBoxContainer/Match" method="OnTestMatchUpdateReceived"]
 [connection signal="MessageReceived" from="Connection" to="." method="OnConnectionMessageReceived"]
 [connection signal="pressed" from="Window/MarginContainer/VBoxContainer/RawActionContainer/SendActionButton" to="." method="OnSendActionButtonPressed"]
 [connection signal="pressed" from="Window/MarginContainer/VBoxContainer/FightButton" to="." method="OnFightButtonPressed"]
+[connection signal="pressed" from="Window/MarginContainer/VBoxContainer/RandomButton" to="." method="OnRandomButtonPressed"]

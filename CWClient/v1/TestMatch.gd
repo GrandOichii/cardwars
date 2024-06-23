@@ -3,16 +3,26 @@ extends Control
 signal UpdateReceived(Variant)
 signal MatchInfoReceived(Variant)
 
+@export var seed = 0
+
 @onready var Match = %Match
 @onready var Connection = %Connection
 @onready var HintLabel = %HintLabel
 
 @onready var ActionEdit = %ActionEdit
+@onready var RandomButton = %RandomButton
+
+@onready var _rng = RandomNumberGenerator.new()
+
+var _update: Variant
 
 func _ready():
+	_rng.seed = seed
+	
 	Connection.Connect('127.0.0.1', 9090)
 
 func process_update(update: Variant):
+	# print(update)
 	HintLabel.text = update.Hint
 	if update.Request == 'PromptLandscapePlacement':
 		Connection.Write('Blue Plains|Blue Plains|Blue Plains|Blue Plains')
@@ -31,6 +41,7 @@ func OnConnectionMessageReceived(message: String):
 		return
 	var data = json.data
 	if 'Request' in data:
+		_update = data
 		process_update(data)
 		UpdateReceived.emit(data)
 		return
@@ -43,3 +54,10 @@ func OnSendActionButtonPressed():
 	
 func OnFightButtonPressed():
 	Connection.Write('f')
+
+func OnRandomButtonPressed():
+	if _update.Request == 'PromptAction':
+		var choices = _update.Args.values()
+		var choice = choices[_rng.randi() % len(choices)]
+		Connection.Write(choice)
+		return

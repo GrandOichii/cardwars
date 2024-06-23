@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b123mvlorg2ki"]
+[gd_scene load_steps=8 format=3 uid="uid://b123mvlorg2ki"]
 
 [ext_resource type="Script" path="res://v1/Card/CardScene.gd" id="1_fom1s"]
 [ext_resource type="Texture2D" uid="uid://vmuxp7fw2cij" path="res://assets/images/cards/art/Blue Plains/Building/Pyramidia.png" id="1_xi7ch"]
+[ext_resource type="Resource" uid="uid://c3n6hrla3ipqy" path="res://v1/Card/CardImages1.tres" id="2_5p6c2"]
 [ext_resource type="Texture2D" uid="uid://dhuredu1dugo1" path="res://assets/images/frames/Blue Plains_Creature.png" id="2_aw167"]
 [ext_resource type="FontFile" uid="uid://ca0g1l1k6v1sf" path="res://assets/fonts/Pendlefont Heavy.TTF" id="3_b3sl5"]
 [ext_resource type="FontFile" uid="uid://3fiaey4jsd3x" path="res://assets/fonts/Pendlefont Medium.TTF" id="4_si267"]
@@ -11,6 +12,7 @@ size = Vector2(660, 958)
 
 [node name="CardScene" type="Node2D"]
 script = ExtResource("1_fom1s")
+CardImages = ExtResource("2_5p6c2")
 
 [node name="Area2D" type="Area2D" parent="."]
 
