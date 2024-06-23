@@ -13,6 +13,8 @@ extends Node2D
 # for testing now
 @onready var Card: CardScene = %Card
 
+var _landscape_name = ''
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -27,7 +29,7 @@ func load_creature(landscape: Variant):
 		Card.visible = false
 		return
 	Card.visible = true
-	Card.load_snapshot(landscape.Creature)
+	Card.load_in_play_snapshot(landscape.Creature)
 
 	# TODO add smooth transitions
 	reparent_creature(Card, ReadyCreaturePoint)
@@ -47,13 +49,17 @@ func load_snapshot(landscape: Variant):
 	load_buildings(landscape)
 
 	# load art
+	_set_landscape_name(landscape.Name, landscape.Idx)
+	
+func _set_landscape_name(new_name: String, idx: int):
+	if _landscape_name == new_name:
+		return
+	_landscape_name = new_name
 	var rng = RandomNumberGenerator.new()
-	var landName = landscape.Name
 	for res in landscape_mapping.landscapes:
-		if landName == res.name and len(res.textures) > 0:
-			var i = landscape.Idx
-			if i >= len(res.textures):
-				i = rng.randi() % len(res.textures)
-			Art.texture = res.textures[i]
+		if _landscape_name == res.name and len(res.textures) > 0:
+			if idx >= len(res.textures):
+				idx = rng.randi() % len(res.textures)
+			Art.texture = res.textures[idx]
 			return
-	print('Art not found for ' + landName)
+		print('Art not found for ' + _landscape_name)

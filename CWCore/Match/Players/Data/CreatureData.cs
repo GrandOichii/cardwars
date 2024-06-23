@@ -7,11 +7,15 @@ public class CreatureData : InPlayCardData {
     public int Defense { get; }
     public bool Attacking { get; }
     public bool ExhaustedToAttack { get; }
+    public int Damage { get; }
 
     public CreatureData(CreatureState card) : base(card) {
         Attack = card.Attack;
         Defense = card.Defense;
-        Attacking = card.GetOriginal().Attacking;
-        ExhaustedToAttack = card.GetOriginal().ExhaustedToAttack;
+
+        var original = card.GetOriginal();
+        Attacking = original.Attacking;
+        ExhaustedToAttack = original.ExhaustedToAttack;
+        Damage = original.Damage;
     }
 }

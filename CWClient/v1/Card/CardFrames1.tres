@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="CardFrames" load_steps=24 format=3 uid="uid://dj3q7llo2u3t1"]
+
+[ext_resource type="Texture2D" uid="uid://bjnh5w3solxbp" path="res://assets/images/frames/Cornfield_Creature.png" id="1_2i33h"]
+[ext_resource type="Script" path="res://v1/Card/CardFrames.gd" id="1_8ixrc"]
+[ext_resource type="Script" path="res://v1/Card/CardFrame.gd" id="1_246e4"]
+[ext_resource type="Texture2D" uid="uid://bhse2sifc2gyo" path="res://assets/images/frames/Cornfield.png" id="2_5yhdo"]
+[ext_resource type="Texture2D" uid="uid://cfykql55bajdu" path="res://assets/images/frames/SandyLands_Creature.png" id="4_1vkk0"]
+[ext_resource type="Texture2D" uid="uid://bab20vcgwtky0" path="res://assets/images/frames/Useless Swamp_Creature.png" id="4_4ayp5"]
+[ext_resource type="Texture2D" uid="uid://xi6b83eucfys" path="res://assets/images/frames/Rainbow_Creature.png" id="4_qnbem"]
+[ext_resource type="Texture2D" uid="uid://oivm5ueqixxs" path="res://assets/images/frames/NiceLands_Creature.png" id="4_sjqmw"]
+[ext_resource type="Texture2D" uid="uid://barge6gpbm20j" path="res://assets/images/frames/IcyLands_Creature.png" id="4_y1aj2"]
+[ext_resource type="Texture2D" uid="uid://djrfb02qv1gi3" path="res://assets/images/frames/Rainbow.png" id="5_5aj3y"]
+[ext_resource type="Texture2D" uid="uid://d1v3ygw1fjx0n" path="res://assets/images/frames/SandyLands.png" id="5_ake3r"]
+[ext_resource type="Texture2D" uid="uid://c5ajlo6ogljxh" path="res://assets/images/frames/NiceLands.png" id="5_f0q7c"]
+[ext_resource type="Texture2D" uid="uid://bbed2dglyxniq" path="res://assets/images/frames/IcyLands.png" id="5_qk2je"]
+[ext_resource type="Texture2D" uid="uid://c2cqri5xhoxiu" path="res://assets/images/frames/Useless Swamp.png" id="5_y3qgw"]
+[ext_resource type="Texture2D" uid="uid://dhuredu1dugo1" path="res://assets/images/frames/Blue Plains_Creature.png" id="14_xgfyu"]
+[ext_resource type="Texture2D" uid="uid://dr51f2635hi7e" path="res://assets/images/frames/Blue Plains.png" id="15_7wie3"]
+
+[sub_resource type="Resource" id="Resource_r8880"]
+script = ExtResource("1_246e4")
+landscape = "Cornfield"
+creature_frame = ExtResource("1_2i33h")
+non_creature_frame = ExtResource("2_5yhdo")
+
+[sub_resource type="Resource" id="Resource_t0xbw"]
+script = ExtResource("1_246e4")
+landscape = "IcyLands"
+creature_frame = ExtResource("4_y1aj2")
+non_creature_frame = ExtResource("5_qk2je")
+
+[sub_resource type="Resource" id="Resource_jkqrc"]
+script = ExtResource("1_246e4")
+landscape = "NiceLands"
+creature_frame = ExtResource("4_sjqmw")
+non_creature_frame = ExtResource("5_f0q7c")
+
+[sub_resource type="Resource" id="Resource_ctpld"]
+script = ExtResource("1_246e4")
+landscape = "Rainbow"
+creature_frame = ExtResource("4_qnbem")
+non_creature_frame = ExtResource("5_5aj3y")
+
+[sub_resource type="Resource" id="Resource_ywxcg"]
+script = ExtResource("1_246e4")
+landscape = "SandyLands"
+creature_frame = ExtResource("4_1vkk0")
+non_creature_frame = ExtResource("5_ake3r")
+
+[sub_resource type="Resource" id="Resource_kk27g"]
+script = ExtResource("1_246e4")
+landscape = "Useless Swamp"
+creature_frame = ExtResource("4_4ayp5")
+non_creature_frame = ExtResource("5_y3qgw")
+
+[sub_resource type="Resource" id="Resource_uilue"]
+script = ExtResource("1_246e4")
+landscape = "Blue Plains"
+creature_frame = ExtResource("14_xgfyu")
+non_creature_frame = ExtResource("15_7wie3")
+
+[resource]
+script = ExtResource("1_8ixrc")
+frames = [SubResource("Resource_r8880"), SubResource("Resource_t0xbw"), SubResource("Resource_jkqrc"), SubResource("Resource_ctpld"), SubResource("Resource_ywxcg"), SubResource("Resource_kk27g"), SubResource("Resource_uilue")]
