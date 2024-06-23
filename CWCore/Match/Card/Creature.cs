@@ -12,6 +12,7 @@ public class Creature : InPlayCard {
 
     public List<LuaFunction> OnDealDamageEffects { get; }
     public List<LuaFunction> OnDamagedEffects { get; }
+    public List<LuaFunction> OnAttackEffects { get; }
 
     public Creature(MatchCard card, int controllerI) : base(card, controllerI) {
         Attack = card.Template.Attack;
@@ -27,6 +28,11 @@ public class Creature : InPlayCard {
         var dEffects = LuaUtility.TableGet<LuaTable>(card.Data, "DamagedEffects");
         foreach (var effect in dEffects.Values)
             OnDamagedEffects.Add((LuaFunction)effect);
+
+        OnAttackEffects = new();
+        var aEffects = LuaUtility.TableGet<LuaTable>(card.Data, "AttackEffects");
+        foreach (var effect in aEffects.Values)
+            OnAttackEffects.Add((LuaFunction)effect);
     }
 
     public override void Ready()
