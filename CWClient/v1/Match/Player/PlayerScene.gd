@@ -45,9 +45,5 @@ func load_snapshot(snapshot: Variant):
 	HandSizeLabel.text = str(player.HandCount)
 	DeckCountLabel.text = str(player.DeckCount)
 	
-	print(player.Landscapes)
 	for i in len(player.Landscapes):
-		print(i)
-		print(player.Landscapes[i])
 		Landscapes.get_child(i).load_snapshot(player.Landscapes[i])
-	print()

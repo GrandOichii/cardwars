@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://behnxfkttuwba"
-path="res://.godot/imported/useswamps3.jpg-e4d31be7bb7728151e3f51965041e497.ctex"
+path="res://.godot/imported/uselessswamp3.jpg-3a2ed9a91c4999539eddef9b3e2dde82.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/landscapes/useswamps3.jpg"
-dest_files=["res://.godot/imported/useswamps3.jpg-e4d31be7bb7728151e3f51965041e497.ctex"]
+source_file="res://assets/images/landscapes/uselessswamp3.jpg"
+dest_files=["res://.godot/imported/uselessswamp3.jpg-3a2ed9a91c4999539eddef9b3e2dde82.ctex"]
 
 [params]
 

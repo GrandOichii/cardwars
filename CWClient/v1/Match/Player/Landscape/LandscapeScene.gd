@@ -15,9 +15,13 @@ func _ready():
 	pass # Replace with function body.
 
 func load_snapshot(landscape: Variant):
+	var rng = RandomNumberGenerator.new()
 	var landName = landscape.Name
 	for res in landscape_mapping.landscapes:
 		if landName == res.name and len(res.textures) > 0:
-			Art.texture = res.textures[0]
+			var i = landscape.Idx
+			if i >= len(res.textures):
+				i = rng.randi() % len(res.textures)
+			Art.texture = res.textures[i]
 			return
 	print('Art not found for ' + landName)

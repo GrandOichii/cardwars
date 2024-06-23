@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="LandscapeRes" load_steps=3 format=3 uid="uid://d0yy0u6c820u7"]
+[gd_resource type="Resource" script_class="LandscapeRes" load_steps=6 format=3 uid="uid://d0yy0u6c820u7"]
 
 [ext_resource type="Texture2D" uid="uid://l4wy68nwu68j" path="res://assets/images/landscapes/BluePlains1.png" id="1_vsigd"]
 [ext_resource type="Script" path="res://v1/Match/Player/Landscape/LandscapeRes.gd" id="2_wsr20"]
+[ext_resource type="Texture2D" uid="uid://bipkotofd1jlj" path="res://assets/images/landscapes/BluePlains2.png" id="3_b5tf2"]
+[ext_resource type="Texture2D" uid="uid://5abhv2j5h7ix" path="res://assets/images/landscapes/BluePlains3.png" id="4_x301d"]
+[ext_resource type="Texture2D" uid="uid://cakdw1b30objy" path="res://assets/images/landscapes/BluePlains4.png" id="5_a5bxn"]
 
 [resource]
 script = ExtResource("2_wsr20")
 name = &"Blue Plains"
-textures = [ExtResource("1_vsigd")]
+textures = [ExtResource("1_vsigd"), ExtResource("3_b5tf2"), ExtResource("4_x301d"), ExtResource("5_a5bxn")]

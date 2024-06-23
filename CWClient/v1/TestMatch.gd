@@ -13,10 +13,9 @@ func _ready():
 	Connection.Connect('127.0.0.1', 9090)
 
 func process_update(update: Variant):
-	print(update)
 	HintLabel.text = update.Hint
 	if update.Request == 'PromptLandscapePlacement':
-		Connection.Write('Cornfield|Cornfield|SandyLands|Cornfield')
+		Connection.Write('Blue Plains|Blue Plains|Blue Plains|Blue Plains')
 		return
 	
 func process_match_info(match_info: Variant):
