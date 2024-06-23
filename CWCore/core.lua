@@ -288,15 +288,9 @@ function CardWars:Creature()
         result.DealDamageEffects[#result.DealDamageEffects+1] = effect
     end
 
-    result.OnDefeatedP = Core.Pipeline:New()
-    result.OnDefeatedP:AddLayer(
-        function (playerI, laneI, original)
-            return nil, true
-        end
-    )
-
-    function result:OnDefeated(playerI, laneI, original)
-        self.OnDefeatedP:Exec(playerI, laneI, original)
+    result.DefeatedEffects = {}
+    function result:OnDefeated(effect)
+        result.DefeatedEffects[#result.DefeatedEffects+1] = effect
     end
 
     result.AttackEffects = {}
@@ -1344,8 +1338,7 @@ function Common.AbilityGrantingRemoval.RemovaAllFromCreature(card)
 
     card.OnDamagedEffects:Clear()
     card.OnAttackEffects:Clear()
-
-    card.ProcessDefeated = false
+    card.OnDefeatedEffects:Clear()
 end
 
 function Common.AbilityGrantingRemoval.RemoveAllActivatedAbilities(card)

@@ -13,13 +13,13 @@ public class CreatureState : InPlayCardState {
     public bool CanAttack { get; set; }
     public int DamageMultiplier { get; set; }
 
-    public bool ProcessDefeated { get; set; }
 
     public bool IgnoreBlocker { get; set; }
 
     public List<LuaFunction> OnDealDamageEffects { get; }
     public List<LuaFunction> OnDamagedEffects { get; }
     public List<LuaFunction> OnAttackEffects { get; }
+    public List<LuaFunction> OnDefeatedEffects { get; }
 
     public List<LuaFunction> DamageModifiers { get; }
 
@@ -29,13 +29,13 @@ public class CreatureState : InPlayCardState {
         CanAttack = creature.CanAttack();
 
         DamageMultiplier = 1;
-        ProcessDefeated = true;
         DamageModifiers = new();
         IgnoreBlocker = false;
 
         OnDealDamageEffects = new(creature.OnDealDamageEffects);
         OnDamagedEffects = new(creature.OnDamagedEffects);
         OnAttackEffects = new(creature.OnAttackEffects);
+        OnDefeatedEffects = new(creature.OnDefeatedEffects);
     }
 
     public bool ShouldDie() => Defense <= GetDamage();
@@ -45,15 +45,13 @@ public class CreatureState : InPlayCardState {
     public Creature GetOriginal() => (Creature)Original;
 
     public void OnDefeated(Creature original) {
-        if (!ProcessDefeated) return;
-
-        Original.Card.ExecFunction(
-            ON_DEFEATED_FNAME,
-            Original.Card.Data,
-            Original.ControllerI,
-            LaneI,
-            original
-        );
+        // TODO catch exceptions
+        foreach (var effect in OnDefeatedEffects)
+            effect.Call(
+                Original.ControllerI,
+                LaneI,
+                original
+            );
     }
 
     public void OnDealtDamage(int amount, string? toId) {
