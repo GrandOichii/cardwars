@@ -11,10 +11,11 @@ public class InPlayCardState : IStateModifier {
     public List<LuaFunction> StateModifiers { get; }
     public bool ProcessEnter { get; set; }
     public bool ProcessLeave { get; set; }
-    public bool ProcessMove { get; set; }
     public List<string> CountsAsLandscapes { get; }
 
     public List<LuaFunction> CanBeTargetedCheckers { get; }
+
+    public List<LuaFunction> OnMoveEffects { get; }
 
     public InPlayCardState(InPlayCard original, int laneI) {
         Original = original;
@@ -32,12 +33,11 @@ public class InPlayCardState : IStateModifier {
             effect.Enabled = true;
         }
 
-        StateModifiers = new();
-        foreach (var modifier in original.StateModifiers)
-            StateModifiers.Add(modifier);
+        StateModifiers = new(original.StateModifiers);
+
+        OnMoveEffects = new(original.OnMoveEffects);
         
         ProcessLeave = true;
-        ProcessMove = true;
         ProcessEnter = true;
         CountsAsLandscapes = new();
         LandscapeTypes = new() { Original.Card.Template.Landscape };
@@ -85,6 +85,17 @@ public class InPlayCardState : IStateModifier {
 
     public bool CanBeTargetedBy(LuaTable sourceTable) {
         return CanBeTargetedCheckers.All(check => LuaUtility.GetReturnAsBool(check.Call(sourceTable)));
+    }
+
+    public void OnMove(int playerI, int prevLaneI, int newLaneI, bool wasStolen = false) {
+        Original.MovementCount++;
+        foreach (var effect in OnMoveEffects)
+            effect.Call(
+                playerI, 
+                prevLaneI,
+                newLaneI,
+                wasStolen
+            );
     }
 
 }

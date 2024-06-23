@@ -501,8 +501,7 @@ public class GameMatch {
 
                 await SoftReloadState();
 
-                if (creature.ProcessMove)
-                    creature.Original.ProcessMove(player.Original.Idx, prevLaneI, toI);
+                creature.OnMove(player.Original.Idx, prevLaneI, toI);
 
                 // TODO? add update
                 // TODO trigger
@@ -528,10 +527,8 @@ public class GameMatch {
         await SoftReloadState();
 
         // TODO hope i didn't confuse these two
-        if (creature2.ProcessMove)
-            creature2.Original.ProcessMove(creature1.Original.ControllerI, landscape2.Idx, landscape1.Idx);
-        if (creature1.ProcessMove)
-            creature1.Original.ProcessMove(creature2.Original.ControllerI, landscape1.Idx, landscape2.Idx);
+        creature2.OnMove(creature1.Original.ControllerI, landscape2.Idx, landscape1.Idx);
+        creature1.OnMove(creature2.Original.ControllerI, landscape1.Idx, landscape2.Idx);
     }
 
     public async Task MoveBuilding(string buildingId, int toI) {
@@ -557,8 +554,7 @@ public class GameMatch {
 
                 await SoftReloadState();
 
-                if (building.ProcessMove)
-                    building.Original.ProcessMove(player.Original.Idx, prevLaneI, toI);
+                building.OnMove(player.Original.Idx, prevLaneI, toI);
 
                 // TODO? add update
                 // TODO trigger
@@ -605,8 +601,7 @@ public class GameMatch {
             creature.Original.ControllerI = newOwner.Original.Idx;
 
             await SoftReloadState();
-            if (creature.ProcessMove)
-                creature.Original.ProcessMove(newOwner.Original.Idx, landscape.Original.Idx, toLaneI, true);
+            creature.OnMove(newOwner.Original.Idx, landscape.Original.Idx, toLaneI, true);
 
             LogInfo($"Player {newOwner.Original.LogFriendlyName} stole creature {creature.Original.Card.LogFriendlyName} from player {player.Original.LogFriendlyName} from lane {landscape.Original.Idx} to lane {toLaneI}");
 

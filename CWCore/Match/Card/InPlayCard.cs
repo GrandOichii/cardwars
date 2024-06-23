@@ -19,6 +19,7 @@ public class InPlayCard {
     public List<ActivatedAbility> ActivatedAbilities { get; }
     public List<TriggeredAbility> TriggeredAbilities { get; }
     public List<LuaFunction> StateModifiers { get; }
+    public List<LuaFunction> OnMoveEffects { get; }
 
 
     public InPlayCard(MatchCard card, int controllerI) {
@@ -43,6 +44,11 @@ public class InPlayCard {
         var modifiers = LuaUtility.TableGet<LuaTable>(card.Data, "StateModifiers");
         foreach (var modifier in modifiers.Values)
             StateModifiers.Add((LuaFunction)modifier);
+
+        OnMoveEffects = new();
+        var effects = LuaUtility.TableGet<LuaTable>(card.Data, "MoveEffects");
+        foreach (var modifier in effects.Values)
+            OnMoveEffects.Add((LuaFunction)modifier);
         
         EnteredThisTurn = true;
         MovementCount = 0;
@@ -56,19 +62,6 @@ public class InPlayCard {
 
     public bool CanFloop() {
         return !Exhausted;
-    }
-
-    public void ProcessMove(int playerI, int prevLaneI, int newLaneI, bool wasStolen = false) {
-        MovementCount++;
-
-        Card.ExecFunction(
-            ON_MOVE_FNAME, 
-            Card.Data,
-            playerI, 
-            prevLaneI,
-            newLaneI,
-            wasStolen
-        );
     }
 
     public bool IsType(string type) {

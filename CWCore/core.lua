@@ -283,16 +283,12 @@ function CardWars:InPlay()
         self.OnLeavePlayP:Exec(playerI, laneI, wasReady)
     end
 
-    result.OnMoveP = Core.Pipeline:New()
-    result.OnMoveP:AddLayer(
-        function(playerI, fromI, toI, stolen)
-            return nil, true
-        end
-    )
 
-    function result:OnMove(playerI, fromI, toI, stolen)
-        self.OnMoveP:Exec(playerI, fromI, toI, stolen)
+    result.MoveEffects = {}
+    function result:OnMove(effect)
+        result.MoveEffects[#result.MoveEffects+1] = effect
     end
+
 
     return result
 end
@@ -1369,15 +1365,20 @@ end
 
 Common.AbilityGrantingRemoval = {}
 
-function Common.AbilityGrantingRemoval.RemovaAll(card)
+function Common.AbilityGrantingRemoval.RemovaAllFromBuilding(card)
     card.ActivatedAbilities:Clear()
     card.TriggeredAbilities:Clear()
     card.StateModifiers:Clear()
+    card.OnDealDamageEffects:Clear()
+    card.OnMoveEffects:Clear()
+
     card.ProcessEnter = false
     card.ProcessLeave = false
-    card.ProcessMove = false
+end
 
-    -- creature-specific, might break if applied to building
+function Common.AbilityGrantingRemoval.RemovaAllFromCreature(card)
+    Common.AbilityGrantingRemoval.RemovaAllFromBuilding(card)
+
     card.ProcessDamaged = false
     card.ProcessAttack = false
     card.ProcessDefeated = false
