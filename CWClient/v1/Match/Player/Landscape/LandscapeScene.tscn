@@ -18,6 +18,9 @@ unique_name_in_owner = true
 position = Vector2(0, 1)
 scale = Vector2(0.5, 0.5)
 
+[node name="Creature" parent="ReadyCreaturePoint" instance=ExtResource("4_w3fph")]
+unique_name_in_owner = true
+
 [node name="AttackingCreaturePoint" type="Node2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, -150)
@@ -34,6 +37,9 @@ unique_name_in_owner = true
 position = Vector2(2.08165e-12, 600)
 scale = Vector2(0.5, 0.5)
 
+[node name="Building" parent="BuildingPoint" instance=ExtResource("4_w3fph")]
+unique_name_in_owner = true
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 8
@@ -47,7 +53,3 @@ offset_right = 255.0
 offset_bottom = 374.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Card" parent="." instance=ExtResource("4_w3fph")]
-unique_name_in_owner = true
-visible = false

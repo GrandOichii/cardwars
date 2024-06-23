@@ -11,7 +11,8 @@ extends Node2D
 @onready var BuildingPoint: Node2D = %BuildingPoint
 
 # for testing now
-@onready var Card: CardScene = %Card
+@onready var CreatureCard: CardScene = %Creature
+@onready var BuildingCard: CardScene = %Building
 
 var _landscape_name = ''
 
@@ -26,23 +27,32 @@ func reparent_creature(creature: CardScene, point: Node2D):
 func load_creature(landscape: Variant):
 	var creature = landscape.Creature
 	if creature == null:
-		Card.visible = false
+		CreatureCard.visible = false
 		return
-	Card.visible = true
-	Card.load_in_play_snapshot(landscape.Creature)
+	CreatureCard.visible = true
+	CreatureCard.load_in_play_snapshot(landscape.Creature)
 
 	# TODO add smooth transitions
-	reparent_creature(Card, ReadyCreaturePoint)
+	reparent_creature(CreatureCard, ReadyCreaturePoint)
 	if creature.Flooped:
-		reparent_creature(Card, FloopedCreaturePoint)
+		reparent_creature(CreatureCard, FloopedCreaturePoint)
 		return
 	if creature.ExhaustedToAttack:
-		reparent_creature(Card, AttackingCreaturePoint)
+		reparent_creature(CreatureCard, AttackingCreaturePoint)
 		return
 
 func load_buildings(landscape: Variant):
-	# TODO
-	pass
+	if len(landscape.Buildings) == 0:
+		BuildingCard.visible = false
+		return
+	var building = landscape.Buildings[0]
+	BuildingCard.visible = true
+	BuildingCard.load_in_play_snapshot(building)
+	# TODO add smooth transition
+	if building.Flooped:
+		BuildingCard.rotation = PI / 2
+	else:
+		BuildingCard.rotation = 0
 
 func load_snapshot(landscape: Variant):
 	load_creature(landscape)

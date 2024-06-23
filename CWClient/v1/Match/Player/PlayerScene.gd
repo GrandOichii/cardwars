@@ -25,7 +25,6 @@ func load_config(config: Variant):
 	#for i in config.
 	
 func flip_ordering():
-	# infoLoadSnapshot
 	for _i in InfoContainer.get_child_count():
 		InfoContainer.move_child(InfoContainer.get_child(_i), 0)
 	
