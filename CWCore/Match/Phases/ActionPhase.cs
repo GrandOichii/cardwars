@@ -15,8 +15,8 @@ public class UnknownActionException : GameMatchException
 }
 
 public class ActionPhase : IPhase {
-    // TODO change to "battle"
-    private readonly static string BATTLE_ACTION = "b";
+    // TODO change to "fight"
+    private readonly static string FIGHT_ACTION = "f";
 
     private static readonly List<IAction> ACTIONS = new() {
         new DrawCardAction(),
@@ -48,7 +48,7 @@ public class ActionPhase : IPhase {
 
             var actionWord = words[0];
 
-            if (actionWord == BATTLE_ACTION) break;
+            if (actionWord == FIGHT_ACTION) break;
             
             if (!ACTION_MAP.ContainsKey(actionWord)) {
                 if (!match.Config.StrictMode) continue;
@@ -69,7 +69,7 @@ public class ActionPhase : IPhase {
             options.AddRange(action.GetAvailable(match, playerI));
         }
         
-        if (options.Count == 0) return BATTLE_ACTION;
+        if (options.Count == 0) return FIGHT_ACTION;
         var player = match.GetPlayer(playerI);
         return await player.Controller.PromptAction(match, player.Idx, options);
     }

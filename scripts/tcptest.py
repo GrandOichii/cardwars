@@ -77,7 +77,7 @@ class TcpConnection:
         if request == 'Update':
             return
         if request == 'PromptLandscapePlacement':
-            resp = 'Cornfield Cornfield Cornfield Cornfield'
+            resp = 'Cornfield|Cornfield|Cornfield|Cornfield'
             self.write(resp)
             return
         print(data['Hint'] + ': ',end='')

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LandscapeMap" load_steps=6 format=3 uid="uid://q0vhohu4g2dm"]
+
+[ext_resource type="Script" path="res://v1/Match/Player/Landscape/LandscapeMap.gd" id="1_a7k0b"]
+[ext_resource type="Resource" uid="uid://d0yy0u6c820u7" path="res://v1/Match/Player/Landscape/BluePlains.tres" id="1_pdoen"]
+[ext_resource type="Resource" uid="uid://cc5vq45chysh3" path="res://v1/Match/Player/Landscape/Cornfield.tres" id="2_k1hfi"]
+[ext_resource type="Resource" uid="uid://d0cgwoaorwyr2" path="res://v1/Match/Player/Landscape/SandyLands.tres" id="3_heh4m"]
+[ext_resource type="Resource" uid="uid://ecjomgde3gr1" path="res://v1/Match/Player/Landscape/UselessSwamp.tres" id="4_4vdnn"]
+
+[resource]
+script = ExtResource("1_a7k0b")
+landscapes = [ExtResource("1_pdoen"), ExtResource("2_k1hfi"), ExtResource("3_heh4m"), ExtResource("4_4vdnn")]

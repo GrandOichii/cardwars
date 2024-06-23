@@ -138,10 +138,10 @@ public class ConsolePlayerController : IPlayerController
     public Task<List<string>> PromptLandscapePlacement(GameMatch match, int playerI, Dictionary<string, int> landscapeIndex)
     {
         return Task.FromResult(new List<string> {
-            "NiceLands",
+            "Blue Plains",
             "Cornfield",
-            "NiceLands",
-            "Cornfield"
+            "Cornfield",
+            "Blue Plains"
         });
     }
 
@@ -598,7 +598,6 @@ public class Program {
         ;
         var deck2 = deck1;
 
-        System.Console.WriteLine(endpoint.ToString());
         System.Console.WriteLine("Waiting for connection...");
         var controller1 = new IOPlayerController(new TcpIOHandler(listener.AcceptTcpClient()));
         var controller2 = new RandomPlayerController(seed);
@@ -683,8 +682,8 @@ public class Program {
             return;
         }
 
-        await SimpleConsole();
-        return;
+        // await SimpleConsole();
+        // return;
 
         await TcpLoop(seed);
         return;

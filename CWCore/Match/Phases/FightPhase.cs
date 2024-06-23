@@ -9,7 +9,7 @@ public class FightPhase : IPhase
     public async Task PostEmit(GameMatch match, int playerI)
     {
         var player = match.GetPlayer(playerI);
-        match.LogInfo($"Player {player.LogFriendlyName} proceeds to battle");
+        match.LogInfo($"Player {player.LogFriendlyName} proceeds to fighting");
         
         while (true) {
             await match.ReloadState();

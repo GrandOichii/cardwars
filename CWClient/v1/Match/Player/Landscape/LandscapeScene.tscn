@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://cght8mrqgf8l2"]
+
+[ext_resource type="Texture2D" uid="uid://l4wy68nwu68j" path="res://assets/images/landscapes/BluePlains1.png" id="1_ov3c7"]
+[ext_resource type="Script" path="res://v1/Match/Player/Landscape/LandscapeScene.gd" id="1_qcmkx"]
+[ext_resource type="Resource" uid="uid://q0vhohu4g2dm" path="res://v1/Match/Player/Landscape/LandscapeMap1.tres" id="2_axa2e"]
+
+[node name="LandscapeScene" type="Node2D"]
+script = ExtResource("1_qcmkx")
+landscape_mapping = ExtResource("2_axa2e")
+
+[node name="Art" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("1_ov3c7")
+
+[node name="ReadyCreaturePoint" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 1)
+scale = Vector2(0.5, 0.5)
+
+[node name="AttackingCreaturePoint" type="Node2D" parent="."]
+unique_name_in_owner = true
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+
+[node name="FloopedCreaturePoint" type="Node2D" parent="."]
+unique_name_in_owner = true
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+
+[node name="BuildingPoint" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(2.08165e-12, 600)
+scale = Vector2(0.5, 0.5)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -374.0
+offset_right = 255.0
+offset_bottom = 374.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="LandscapeRes" load_steps=3 format=3 uid="uid://ecjomgde3gr1"]
+
+[ext_resource type="Script" path="res://v1/Match/Player/Landscape/LandscapeRes.gd" id="1_4p1ca"]
+[ext_resource type="Texture2D" uid="uid://d376jatesja2i" path="res://assets/images/landscapes/useswamps1.jpg" id="2_kafmj"]
+
+[resource]
+script = ExtResource("1_4p1ca")
+name = &"Useless Swamp"
+textures = [ExtResource("2_kafmj")]

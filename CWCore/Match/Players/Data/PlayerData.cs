@@ -2,7 +2,7 @@ using CWCore.Match.States;
 
 namespace CWCore.Match.Players.Data;
 
-public struct PlayerData {
+public readonly struct PlayerData {
     public string Name { get; }
     public int Idx { get; }
     public int Life { get; }
@@ -10,6 +10,8 @@ public struct PlayerData {
     public int RestrictedActionPoints { get; }
     public int DeckCount { get; }
     public int HandCount { get; }
+
+    public List<LandscapeData> Landscapes { get; }
     
     // TODO discard pile
     // TODO landscapes
@@ -23,5 +25,7 @@ public struct PlayerData {
         RestrictedActionPoints = player.Original.RestrictedActionPoints.Count;
         DeckCount = player.Original.Deck.Count;
         HandCount = player.Original.Hand.Count;
+
+        Landscapes = player.Landscapes.Select(l => new LandscapeData(l)).ToList();
     }
 }

@@ -220,7 +220,7 @@ public class IOPlayerController : IPlayerController
 
         var result = await _handler.Read();
         // TODO validate
-        return result.Split(" ").ToList();
+        return result.Split("|").ToList();
     }
 
     public async Task Setup(GameMatch match, int playerI)

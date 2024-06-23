@@ -10,7 +10,8 @@ extends Control
 @onready var HandSizeLabel = %HandSizeLabel
 @onready var DiscardCountLabel = %DiscardCountLabel
 @onready var DeckCountLabel = %DeckCountLabel
-@onready var LandscapeContainer = %LandscapeContainer
+
+@onready var Landscapes: Node2D = %Landscapes
 
 var PlayerIdx: int
 
@@ -43,3 +44,10 @@ func load_snapshot(snapshot: Variant):
 		RestrictedActionPointsLabel.text = ' + ' + str(player.RestrictedActionPoints)
 	HandSizeLabel.text = str(player.HandCount)
 	DeckCountLabel.text = str(player.DeckCount)
+	
+	print(player.Landscapes)
+	for i in len(player.Landscapes):
+		print(i)
+		print(player.Landscapes[i])
+		Landscapes.get_child(i).load_snapshot(player.Landscapes[i])
+	print()
