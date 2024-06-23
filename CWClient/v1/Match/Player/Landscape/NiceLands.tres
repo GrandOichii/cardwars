@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LandscapeRes" load_steps=4 format=3 uid="uid://bjqpok684vt7m"]
+
+[ext_resource type="Script" path="res://v1/Match/Player/Landscape/LandscapeRes.gd" id="1_tesq0"]
+[ext_resource type="Texture2D" uid="uid://di3v3v73fvvqd" path="res://assets/images/landscapes/nicelands1.jpg" id="2_rwqsv"]
+[ext_resource type="Texture2D" uid="uid://bpt8pw36d267l" path="res://assets/images/landscapes/nicelands2.jpg" id="3_y7l0c"]
+
+[resource]
+script = ExtResource("1_tesq0")
+name = &"NiceLands"
+textures = [ExtResource("2_rwqsv"), ExtResource("3_y7l0c")]
