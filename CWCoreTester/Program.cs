@@ -139,7 +139,7 @@ public class ConsolePlayerController : IPlayerController
     {
         return Task.FromResult(new List<string> {
             "NiceLands",
-            "NiceLands",
+            "Cornfield",
             "NiceLands",
             "Cornfield"
         });

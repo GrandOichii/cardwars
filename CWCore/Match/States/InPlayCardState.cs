@@ -1,8 +1,6 @@
 namespace CWCore.Match.States;
 
 public class InPlayCardState : IStateModifier {
-    public readonly static string MODIFY_STATE_FNAME = "ModifyState";
-
     public InPlayCard Original { get; }
     public List<string> LandscapeTypes { get; }
     public int LaneI { get; }
@@ -46,8 +44,13 @@ public class InPlayCardState : IStateModifier {
 
     public void Modify(ModificationLayer layer)
     {
-        // !FIXME change to StateModifiers
-        Original.Card.ExecFunction(MODIFY_STATE_FNAME, Original.Card.Data, this, (int)layer, "in_play");
+        // TODO catch exception
+        foreach (var mod in StateModifiers)
+            mod.Call(
+                this,
+                (int)layer,
+                "in_play"
+            );
     }
 
     public bool IsType(string type) {
