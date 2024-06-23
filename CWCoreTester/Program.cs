@@ -600,7 +600,7 @@ public class Program {
 
         System.Console.WriteLine("Waiting for connection...");
         var controller1 = new IOPlayerController(new TcpIOHandler(listener.AcceptTcpClient()));
-        var controller2 = new RandomPlayerController(seed);
+        var controller2 = new RandomPlayerController(seed, 200);
 
         var match = new GameMatch(config, seed, cm, File.ReadAllText("../CWCore/core.lua")){
             Logger = LoggerFactory

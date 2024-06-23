@@ -37,6 +37,8 @@ func load_snapshot(snapshot: Variant):
 		return
 	var player = snapshot.Players[PlayerIdx]
 	NameLabel.text = player.Name
+	if PlayerIdx == snapshot.CurPlayerIdx:
+		NameLabel.text = '> ' + player.Name
 	LifeLabel.text = str(player.Life)
 	ActionPointsLabel.text = str(player.ActionPoints)
 	RestrictedActionPointsLabel.text = ''
