@@ -596,4 +596,11 @@ public class ScriptMaster {
         var landscape = player.Landscapes[laneI];
         return landscape.Original.RemoveToken(token);
     }
+
+    [LuaCommand]
+    public LuaTable LandscapesAvailableForCreature(int playerI, CardState card) {
+        var player = _match.GetPlayerState(playerI);
+        var result = player.LandscapesAvailableForCreature(card);
+        return LuaUtility.CreateTable(_match.LState, result);
+    }
 }

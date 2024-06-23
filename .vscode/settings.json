@@ -68,6 +68,7 @@
         "PlaceBuilding",
         "AtTheStartOfNextTurn",
         "FloatToTopOfDeck",
-        "RemoveToken"
+        "RemoveToken",
+        "LandscapesAvailableForCreature"
     ]
 }

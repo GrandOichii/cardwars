@@ -1,4 +1,4 @@
--- Status: not tested
+-- Status: implemented, requires a lot of testing
 
 function _Create()
     local result = CardWars:Spell()
@@ -33,6 +33,11 @@ function _Create()
             end
             local discardI = choice[1]
             local card = STATE.Players[playerI].DiscardPile[discardI]
+
+            -- TODO? does nothing if can't place creature anywhere, fix?
+            if #LandscapesAvailableForCreature(playerI, card) == 0 then
+                return
+            end
             RemoveFromDiscard(playerI, discardI)
 
             PlaceCreature(playerI, card, true)

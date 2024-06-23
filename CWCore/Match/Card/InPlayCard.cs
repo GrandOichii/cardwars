@@ -5,8 +5,6 @@ using NLua;
 namespace CWCore.Match;
 
 public class InPlayCard {
-    public readonly static string ON_LEAVE_PLAY_FNAME = "OnLeavePlay";
-
     public MatchCard Card { get; }
 
     public bool EnteredThisTurn { get; set; }
@@ -19,6 +17,7 @@ public class InPlayCard {
     public List<LuaFunction> StateModifiers { get; }
     public List<LuaFunction> OnMoveEffects { get; }
     public List<LuaFunction> OnEnterEffects { get; }
+    public List<LuaFunction> OnLeaveEffects { get; }
 
 
     public InPlayCard(MatchCard card, int controllerI) {
@@ -53,6 +52,11 @@ public class InPlayCard {
         var enterEffects = LuaUtility.TableGet<LuaTable>(card.Data, "EnterEffects");
         foreach (var modifier in enterEffects.Values)
             OnEnterEffects.Add((LuaFunction)modifier);
+
+        OnLeaveEffects = new();
+        var leaveEffects = LuaUtility.TableGet<LuaTable>(card.Data, "LeaveEffects");
+        foreach (var modifier in leaveEffects.Values)
+            OnLeaveEffects.Add((LuaFunction)modifier);
         
         EnteredThisTurn = true;
         MovementCount = 0;

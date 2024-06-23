@@ -9,8 +9,8 @@ function _Create()
         if layer == CardWars.ModificationLayers.ABILITY_GRANTING_REMOVAL and zone == CardWars.Zones.IN_PLAY then
             local creatures = Common.OpposingCreaturesInLane(me.Original.ControllerI, me.LaneI)
             for _, creature in ipairs(creatures) do
-                creature.ProcessEnter = false
-                creature.ProcessLeave = false
+                creature.OnEnterEffects:Clear()
+                creature.OnLeaveEffects:Clear()
             end
         end
 

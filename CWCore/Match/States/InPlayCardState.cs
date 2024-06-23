@@ -9,13 +9,13 @@ public class InPlayCardState : IStateModifier {
     public List<ActivatedAbility> ActivatedAbilities { get; }
     public List<TriggeredAbility> TriggeredAbilities { get; }
     public List<LuaFunction> StateModifiers { get; }
-    public bool ProcessLeave { get; set; }
     public List<string> CountsAsLandscapes { get; }
 
     public List<LuaFunction> CanBeTargetedCheckers { get; }
 
     public List<LuaFunction> OnMoveEffects { get; }
     public List<LuaFunction> OnEnterEffects { get; }
+    public List<LuaFunction> OnLeaveEffects { get; }
 
     public InPlayCardState(InPlayCard original, int laneI) {
         Original = original;
@@ -37,8 +37,8 @@ public class InPlayCardState : IStateModifier {
 
         OnMoveEffects = new(original.OnMoveEffects);
         OnEnterEffects = new(original.OnEnterEffects);
+        OnLeaveEffects = new(original.OnLeaveEffects);
         
-        ProcessLeave = true;
         CountsAsLandscapes = new();
         LandscapeTypes = new() { Original.Card.Template.Landscape };
         CanBeTargetedCheckers = new();
@@ -46,6 +46,7 @@ public class InPlayCardState : IStateModifier {
 
     public void Modify(ModificationLayer layer)
     {
+        // !FIXME change to StateModifiers
         Original.Card.ExecFunction(MODIFY_STATE_FNAME, Original.Card.Data, this, (int)layer, "in_play");
     }
 
@@ -77,16 +78,12 @@ public class InPlayCardState : IStateModifier {
     }
 
     public void OnLeavePlay(LandscapeState from) {
-        if (!ProcessLeave) 
-            return;
-
-        Original.Card.ExecFunction(
-            InPlayCard.ON_LEAVE_PLAY_FNAME, 
-            Original.Card.Data, 
-            Original.ControllerI, 
-            from.Original.Idx,
-            !Original.Exhausted
-        );
+        foreach (var effect in OnLeaveEffects)
+            effect.Call(
+                Original.ControllerI, 
+                from.Original.Idx, 
+                !Original.Exhausted
+            );
     }
 
     public void PreModify()

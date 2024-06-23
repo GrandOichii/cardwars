@@ -77,7 +77,19 @@
         "Cloud Tower": 5,
         "Mint Chocouflage": 5,
         "Bail Out": 5,
-        "Log Knight": 5
+        "Log Knight": 5,
+        "Raise the Dead": 5,
+        "Harvest Moon": 5,
+        "Giddy Giraffe": 5,
+        "Rock Out!": 5,
+        "Sand Jackal": 5,
+        "Convey Wisdom": 5,
+        "Ban-She Queen": 5
     },
-    "Landscapes": {"Cornfield": 1, "Blue Plains": 1, "Useless Swamp": 1, "SandyLands": 1}
+    "Landscapes": {
+        "Cornfield": 1,
+        "Blue Plains": 1,
+        "Useless Swamp": 1,
+        "SandyLands": 1
+    }
 }
