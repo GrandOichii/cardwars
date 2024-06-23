@@ -70,5 +70,6 @@
         "FloatToTopOfDeck",
         "RemoveToken",
         "LandscapesAvailableForCreature"
-    ]
+    ],
+    "dotnet.defaultSolution": "CWCore/CWCore.sln"
 }
