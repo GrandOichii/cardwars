@@ -261,15 +261,9 @@ function CardWars:InPlay()
         result.Triggers[#result.Triggers+1] = trigger
     end
 
-    result.OnEnterP = Core.Pipeline:New()
-    result.OnEnterP:AddLayer(
-        function(me, playerI, laneI, replaced)
-            return nil, true
-        end
-    )
-
-    function result:OnEnter(me, playerI, laneI, replaced)
-        self.OnEnterP:Exec(me, playerI, laneI, replaced)
+    result.EnterEffects = {}
+    function result:OnEnter(effect)
+        result.EnterEffects[#result.EnterEffects+1] = effect
     end
 
     result.OnLeavePlayP = Core.Pipeline:New()
@@ -1371,8 +1365,8 @@ function Common.AbilityGrantingRemoval.RemovaAllFromBuilding(card)
     card.StateModifiers:Clear()
     card.OnDealDamageEffects:Clear()
     card.OnMoveEffects:Clear()
+    card.OnEnterEffects:Clear()
 
-    card.ProcessEnter = false
     card.ProcessLeave = false
 end
 

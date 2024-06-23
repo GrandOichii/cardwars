@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result.OnEnterP:AddLayer(function(me, playerI, laneI, replaced)
+    result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Ban-She Queen enters play, you may remove a token from an adjacent Landscape.
 
         local landscapes = Common.AdjacentLandscapes(playerI, laneI)

@@ -9,13 +9,13 @@ public class InPlayCardState : IStateModifier {
     public List<ActivatedAbility> ActivatedAbilities { get; }
     public List<TriggeredAbility> TriggeredAbilities { get; }
     public List<LuaFunction> StateModifiers { get; }
-    public bool ProcessEnter { get; set; }
     public bool ProcessLeave { get; set; }
     public List<string> CountsAsLandscapes { get; }
 
     public List<LuaFunction> CanBeTargetedCheckers { get; }
 
     public List<LuaFunction> OnMoveEffects { get; }
+    public List<LuaFunction> OnEnterEffects { get; }
 
     public InPlayCardState(InPlayCard original, int laneI) {
         Original = original;
@@ -36,9 +36,9 @@ public class InPlayCardState : IStateModifier {
         StateModifiers = new(original.StateModifiers);
 
         OnMoveEffects = new(original.OnMoveEffects);
+        OnEnterEffects = new(original.OnEnterEffects);
         
         ProcessLeave = true;
-        ProcessEnter = true;
         CountsAsLandscapes = new();
         LandscapeTypes = new() { Original.Card.Template.Landscape };
         CanBeTargetedCheckers = new();
@@ -64,6 +64,16 @@ public class InPlayCardState : IStateModifier {
         landscape.Creature = null;
         owner.Hand.Add(Original.Card);
         // TODO? add update
+    }
+
+    public void OnEnterPlay(bool replaced) {
+        foreach (var effect in OnEnterEffects)
+            effect.Call(
+                this, 
+                Original.ControllerI, 
+                LaneI, 
+                replaced
+            );
     }
 
     public void OnLeavePlay(LandscapeState from) {

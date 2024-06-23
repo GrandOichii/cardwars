@@ -5,9 +5,7 @@ using NLua;
 namespace CWCore.Match;
 
 public class InPlayCard {
-    public readonly static string ON_ENTER_PLAY_FNAME = "OnEnter";
     public readonly static string ON_LEAVE_PLAY_FNAME = "OnLeavePlay";
-    public readonly static string ON_MOVE_FNAME = "OnMove";
 
     public MatchCard Card { get; }
 
@@ -20,6 +18,7 @@ public class InPlayCard {
     public List<TriggeredAbility> TriggeredAbilities { get; }
     public List<LuaFunction> StateModifiers { get; }
     public List<LuaFunction> OnMoveEffects { get; }
+    public List<LuaFunction> OnEnterEffects { get; }
 
 
     public InPlayCard(MatchCard card, int controllerI) {
@@ -46,9 +45,14 @@ public class InPlayCard {
             StateModifiers.Add((LuaFunction)modifier);
 
         OnMoveEffects = new();
-        var effects = LuaUtility.TableGet<LuaTable>(card.Data, "MoveEffects");
-        foreach (var modifier in effects.Values)
+        var moveEffects = LuaUtility.TableGet<LuaTable>(card.Data, "MoveEffects");
+        foreach (var modifier in moveEffects.Values)
             OnMoveEffects.Add((LuaFunction)modifier);
+
+        OnEnterEffects = new();
+        var enterEffects = LuaUtility.TableGet<LuaTable>(card.Data, "EnterEffects");
+        foreach (var modifier in enterEffects.Values)
+            OnEnterEffects.Add((LuaFunction)modifier);
         
         EnteredThisTurn = true;
         MovementCount = 0;
@@ -67,5 +71,4 @@ public class InPlayCard {
     public bool IsType(string type) {
         return Card.Template.Landscape == type;
     }
-
 }

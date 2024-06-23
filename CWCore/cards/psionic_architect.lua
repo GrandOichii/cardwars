@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result.OnEnterP:AddLayer(function(me, playerI, laneI, replaced)
+    result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Psionic Architect enters play, you may ready a Flooped Creature you control.
 
         local ids = Common.IDs(Common.FloopedCreatures(playerI))

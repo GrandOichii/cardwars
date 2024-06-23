@@ -635,7 +635,7 @@ public class Program {
                 StrictMode = false,
                 CardDrawCost = 1,
                 StartHandSize = 5,
-                CheckLandscapesForPlayingCards = false,
+                CheckLandscapesForPlayingCards = true,
                 CanFloopOnFirstTurn = true,
                 CanAttackOnFirstTurn = true,
                 MaxBuildingsPerLane = 1,
