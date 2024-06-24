@@ -17,7 +17,6 @@ public class ActivatedAbility {
     public bool Enabled { get; set; }
 
     public ActivatedAbility(LuaTable table) {
-        // TODO add back
         Text = LuaUtility.TableGet<string>(table, "text");
         CheckF = LuaUtility.TableGet<LuaFunction>(table, "checkF");
         CostF = LuaUtility.TableGet<LuaFunction>(table, "costF");

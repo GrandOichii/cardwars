@@ -49,7 +49,6 @@ public class GameMatch {
         _cardMaster = cardMaster;
         Config = config;
 
-        // TODO add seeding
         Rng = new(seed);
 
         LogInfo("Running setup script");
@@ -527,8 +526,8 @@ public class GameMatch {
         await SoftReloadState();
 
         // TODO hope i didn't confuse these two
-        creature2.OnMove(creature1.Original.ControllerI, landscape2.Idx, landscape1.Idx);
         creature1.OnMove(creature2.Original.ControllerI, landscape1.Idx, landscape2.Idx);
+        creature2.OnMove(creature1.Original.ControllerI, landscape2.Idx, landscape1.Idx);
     }
 
     public async Task MoveBuilding(string buildingId, int toI) {
