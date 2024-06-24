@@ -130,19 +130,20 @@ size_flags_horizontal = 3
 
 [node name="Landscapes" type="Node2D" parent="HBoxContainer/Control"]
 unique_name_in_owner = true
-position = Vector2(385, 278)
+position = Vector2(900, 400)
 scale = Vector2(0.5, 0.5)
 
 [node name="Landscape1" parent="HBoxContainer/Control/Landscapes" instance=ExtResource("5_gclyx")]
+position = Vector2(-900, -150)
 
 [node name="Landscape2" parent="HBoxContainer/Control/Landscapes" instance=ExtResource("5_gclyx")]
-position = Vector2(600, 2.08165e-12)
+position = Vector2(-300, -150)
 
 [node name="Landscape3" parent="HBoxContainer/Control/Landscapes" instance=ExtResource("5_gclyx")]
-position = Vector2(1200, 2.08165e-12)
+position = Vector2(300, -150)
 
 [node name="Landscape4" parent="HBoxContainer/Control/Landscapes" instance=ExtResource("5_gclyx")]
-position = Vector2(1800, 2.08165e-12)
+position = Vector2(900, -150)
 
 [node name="Requests" type="Node" parent="."]
 

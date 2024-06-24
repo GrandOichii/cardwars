@@ -5,6 +5,16 @@ signal MatchInfoReceived(Variant)
 
 @export var seed = 0
 
+@export_group("Connection")
+@export var host: String = '127.0.0.1'
+@export var port: int = 9090
+
+@export_group("Landscapes")
+@export_enum("Blue Plains", "Cornfield", "IcyLands", "NiceLands", "SandyLands", "Useless Swamp") var landscape1 = "Blue Plains"
+@export_enum("Blue Plains", "Cornfield", "IcyLands", "NiceLands", "SandyLands", "Useless Swamp") var landscape2 = "Blue Plains"
+@export_enum("Blue Plains", "Cornfield", "IcyLands", "NiceLands", "SandyLands", "Useless Swamp") var landscape3 = "Blue Plains"
+@export_enum("Blue Plains", "Cornfield", "IcyLands", "NiceLands", "SandyLands", "Useless Swamp") var landscape4 = "Blue Plains"
+
 @onready var Match = %Match
 @onready var Connection = %Connection
 @onready var HintLabel = %HintLabel
@@ -18,14 +28,16 @@ var _update: Variant
 
 func _ready():
 	_rng.seed = seed
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	
-	Connection.Connect('127.0.0.1', 9090)
+	Connection.Connect(host, port)
 
 func process_update(update: Variant):
 	# print(update)
+
 	HintLabel.text = update.Hint
 	if update.Request == 'PromptLandscapePlacement':
-		Connection.Write('Blue Plains|Blue Plains|Blue Plains|Blue Plains')
+		Connection.Write(landscape1 + '|' + landscape2 + '|' + landscape3 + '|' + landscape4)
 		return
 	
 func process_match_info(match_info: Variant):

@@ -1,4 +1,5 @@
 extends Control
+class_name PlayerScene
 
 @export_file("*.tscn") var landscape_packed_scene: String = ''
 
@@ -18,18 +19,22 @@ var PlayerIdx: int
 func _ready():
 	pass # Replace with function body.
 	
-func load_config(config: Variant):
-	if config.PlayerIdx == 1:
-		flip_ordering()
+func load_match_info(match_info: Variant):
+	set_player_idx(match_info.PlayerIdx)
 		
 	#for i in config.
+	
+func set_player_idx(new_idx: int):
+	PlayerIdx = new_idx
+	if new_idx == 1:
+		flip_ordering()
 	
 func flip_ordering():
 	for _i in InfoContainer.get_child_count():
 		InfoContainer.move_child(InfoContainer.get_child(_i), 0)
 	
 	# landscapes
-	#TODO
+	Landscapes.rotation = PI
 
 func load_snapshot(snapshot: Variant):
 	if len(snapshot.Players) == 0:
