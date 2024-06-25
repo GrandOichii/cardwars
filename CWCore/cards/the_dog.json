@@ -1,0 +1,9 @@
+{
+    "Name": "The Dog",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Opposing Buildings in this Lane are blank while The Dog is Flooped \\\"Woof.",
+    "Attack": 1,
+    "Defense": 7
+}

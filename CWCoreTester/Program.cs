@@ -682,8 +682,8 @@ public class Program {
             return;
         }
 
-        // await SimpleConsole();
-        // return;
+        await SimpleConsole();
+        return;
 
         await TcpLoop(seed);
         return;
