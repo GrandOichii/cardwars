@@ -1157,6 +1157,17 @@ function Common.ActivatedAbilities.Floop(card, text, effect)
     })
 end
 
+function Common.ActivatedAbilities.WhileFlooped(card, text, stateModEffect)
+    Common.ActivatedAbilities.Floop(
+        card,
+        text,
+        function (me, playerI, laneI)
+        end
+    )
+
+    card:AddStateModifier(stateModEffect)
+end
+
 function Common.ActivatedAbilities.PayActionPoints(card, amount, text, effect)
     card:AddActivatedAbility({
         text = text,
