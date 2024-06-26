@@ -1,0 +1,7 @@
+{
+    "Name": "Ice-olation Cell",
+    "Landscape": "IcyLands",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Creatures on Landscapes with a Frozen token on it in this Lane cannot Attack or use abilities."
+}

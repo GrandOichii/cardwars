@@ -785,6 +785,16 @@ function Common.LandscapesInLaneTyped(type, laneI)
     return result
 end
 
+function Common.LandscapesInLane(laneI)
+    local result = {}
+    for i = 1, 2 do
+        local landscapes = STATE.Players[i - 1].Landscapes
+
+        result[i] = {landscapes[laneI]}
+    end
+    return result
+end
+
 function Common.AvailableToFlipDownLandscapesInLaneTyped(playerI, type, laneI)
     local tuple = Common.LandscapesInLaneTyped(type, laneI)
 
