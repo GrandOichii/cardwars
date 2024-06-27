@@ -70,7 +70,8 @@
         "FloatToTopOfDeck",
         "RemoveToken",
         "LandscapesAvailableForCreature",
-        "DiscardFromPlay"
+        "DiscardFromPlay",
+        "SoftUpdateState"
     ],
     "dotnet.defaultSolution": "CWCore/CWCore.sln"
 }

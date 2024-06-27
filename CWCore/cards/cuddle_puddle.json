@@ -1,0 +1,7 @@
+{
+    "Name": "Cuddle Puddle",
+    "Landscape": "NiceLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Friendly Creatures have +1 ATK until the start of the Fight Phase. Then each Creature deals Damage equal to its ATK to the opposing Creature in its Lane."
+}

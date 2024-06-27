@@ -11,6 +11,10 @@ function _Create()
             if creature == nil then
                 return
             end
+            -- checks if the creature is not stolen, if it is, doesn't execute the ability
+            if creature.Original.ControllerI ~= creature.Original.Card.OwnerI then
+                return
+            end
             Common.Bounce.ReturnToHandAndPlayForFree(playerI, creature.Original.Card.ID)
         end
     )

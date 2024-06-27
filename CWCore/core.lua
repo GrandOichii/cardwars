@@ -547,6 +547,11 @@ function Common.Creatures(playerI)
     end)
 end
 
+function Common.FriendlyCreatures(playerI)
+    -- TODO? change if multiplayer will ever be implemented
+    return Common.Creatures(playerI)
+end
+
 function Common.OwnedCreatures(playerI)
     return Common.FilterCreatures(function (creature)
         return creature.Original.Card.OwnerI == playerI
@@ -996,6 +1001,16 @@ function Common.FloopAbilitiesOfCreaturesInDiscard(playerI)
     end
 
     return result
+end
+
+function Common.UntilFightPhase(playerI, modF)
+    -- TODO is this bad?
+    UntilEndOfTurn(function (layer)
+        if GetPhase() == CardWars.Phases.FIGHT then
+            return
+        end
+        modF(layer)
+    end)
 end
 
 Common.AllPlayers = {}
@@ -1454,7 +1469,15 @@ end
 
 function Common.Damage.ToCreatureByCreatureAbility(fromId, controllerI, toId, amount)
     DealDamageToCreature(toId, amount, {
-        type = CardWars.DamageSources.BUILDING_ABILITY,
+        type = CardWars.DamageSources.CREATURE_ABILITY,
+        ownerI = controllerI,
+        id = fromId
+    })
+end
+
+function Common.Damage.ToCreatureByCreature(fromId, controllerI, toId, amount)
+    DealDamageToCreature(toId, amount, {
+        type = CardWars.DamageSources.CREATURE,
         ownerI = controllerI,
         id = fromId
     })
