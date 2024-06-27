@@ -1,0 +1,7 @@
+{
+    "Name": "Clone",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Play your next Creature or Building for free if a Creature or Building with that name is in play."
+}

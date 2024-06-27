@@ -519,6 +519,17 @@ function Common.LandscapesWithoutCreaturesTyped(playerI, lType)
     end)
 end
 
+function Common.InPlay(playerI)
+    local result = Common.Creatures(playerI)
+    local buildings = Common.Buildings(playerI)
+
+    for _, building in ipairs(buildings) do
+        result[#result+1] = building
+    end
+
+    return result
+end
+
 function Common.Creatures(playerI)
     return Common.FilterCreatures(function (creature)
         return creature.Original.ControllerI == playerI
@@ -1075,6 +1086,12 @@ function Common.Mod.Cost(me, amount)
 end
 
 function Common.Mod.ModNextCost(playerI, amount, predicate)
+    Common.Mod.ModNextCostFunc(playerI, predicate, function (card)
+        Common.Mod.Cost(card, amount)
+    end)
+end
+
+function Common.Mod.ModNextCostFunc(playerI, predicate, modF)
     local rememberedIdx = STATE.Players[playerI].CardsPlayedThisTurn.Count
     UntilEndOfTurn(function (layer)
         if layer ~= CardWars.ModificationLayers.CARD_COST then
@@ -1095,7 +1112,7 @@ function Common.Mod.ModNextCost(playerI, amount, predicate)
         for i = 0, cards.Count - 1 do
             local card = cards[i]
             if predicate(card) then
-                Common.Mod.Cost(card, amount)
+                modF(card)
             end
         end
     end)
