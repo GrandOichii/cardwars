@@ -45,8 +45,9 @@ public class InPlayCardState : IStateModifier {
     public void Modify(ModificationLayer layer)
     {
         // TODO catch exception
-        foreach (var mod in StateModifiers)
-            mod.Call(
+        // * foreach loop is not used here due to some cards having the ability to have abilities of other cards, adding new state modifiers will crash the foreach loop
+        for (int i = 0; i < StateModifiers.Count; i++)
+            StateModifiers[i].Call(
                 this,
                 (int)layer,
                 "in_play"
