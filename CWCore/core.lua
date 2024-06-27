@@ -1169,6 +1169,19 @@ function Common.ActivatedAbilities.DestroyMe(card, text, effect)
     })
 end
 
+function Common.ActivatedAbilities.DiscardFromPlay(card, text, effect)
+    card:AddActivatedAbility({
+        text = text,
+        checkF = function (me, playerI, laneI)
+            return true
+        end,
+        costF = function (me, playerI, laneI)
+            return DiscardFromPlay(me.Original.Card.ID)
+        end,
+        effectF = effect
+    })
+end
+
 function Common.ActivatedAbilities.Floop(card, text, effect)
     card:AddActivatedAbility({
         text = text,
@@ -1437,4 +1450,16 @@ function Common.Damage.PreventCreatureDamage(creature)
         end
         return damage
     end)
+end
+
+Common.Bounce = {}
+
+function Common.Bounce.ReturnToHandAndPlayForFree(playerI, id)
+    ReturnCreatureToOwnersHand(id)
+    UpdateState()
+
+    local idx = Common.HandCardIdx(playerI, id)
+    local card = STATE.Players[playerI].Hand[idx]
+
+    PlayCardIfPossible(playerI, card.Original, true)
 end

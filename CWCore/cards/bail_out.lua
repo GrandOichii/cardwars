@@ -15,13 +15,7 @@ function _Create()
             local ids = Common.IDs(Common.TargetableBySpell(Common.OwnedCreatures(playerI), playerI, id))
             local target = TargetCreature(playerI, ids, 'Choose a creature you own to return to your hand and them play for free')
 
-            ReturnCreatureToOwnersHand(target)
-            UpdateState()
-
-            local idx = Common.HandCardIdx(playerI, target)
-            local card = STATE.Players[playerI].Hand[idx]
-
-            PlayCardIfPossible(playerI, card.Original, true)
+            Common.Bounce.ReturnToHandAndPlayForFree(playerI, target)
         end
     )
 

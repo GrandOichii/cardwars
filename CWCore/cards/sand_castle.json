@@ -1,0 +1,7 @@
+{
+    "Name": "Sand Castle",
+    "Landscape": "SandyLands",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Discard Sand Castle from play >>> Put your Creature on this Landscape into your hand and then play it for free."
+}

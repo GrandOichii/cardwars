@@ -603,4 +603,20 @@ public class ScriptMaster {
         var result = player.LandscapesAvailableForCreature(card);
         return LuaUtility.CreateTable(_match.LState, result);
     }
+
+    [LuaCommand]
+    public bool DiscardFromPlay(string cardID) {
+        var building = _match.GetInPlayBuilding(cardID);
+        var player = _match.GetPlayerState(building.Original.Card.OwnerI);
+        var landscape = _match.GetPlayerState(building.Original.ControllerI).Landscapes[building.LaneI];
+        var removed = landscape.Original.Buildings.Remove(building.Original);
+
+        if (!removed) {
+            throw new GameMatchException($"tried to remove building with id {cardID} in landscape {landscape.GetName()} from play, where it is not present");
+        }
+
+        player.Original.LeavePlay(landscape, building)
+            .Wait();
+        return true;
+    }
 }

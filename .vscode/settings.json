@@ -69,7 +69,8 @@
         "AtTheStartOfNextTurn",
         "FloatToTopOfDeck",
         "RemoveToken",
-        "LandscapesAvailableForCreature"
+        "LandscapesAvailableForCreature",
+        "DiscardFromPlay"
     ],
     "dotnet.defaultSolution": "CWCore/CWCore.sln"
 }
