@@ -8,7 +8,9 @@ function _Create()
         'Discard Sand Castle from play >>> Put your Creature on this Landscape into your hand and then play it for free.',
         function (me, playerI, laneI)
             local creature = Common.CreaturesInLane(playerI, laneI)[1]
-            print()
+            if creature == nil then
+                return
+            end
             Common.Bounce.ReturnToHandAndPlayForFree(playerI, creature.Original.Card.ID)
         end
     )
