@@ -1,0 +1,7 @@
+{
+    "Name": "Learning Center",
+    "Landscape": "Blue Plains",
+    "Type": "Building",
+    "Cost": 2,
+    "Text": "Learning Center gains the game text of Buildings you control in adjacent Lanes (but not their names)."
+}

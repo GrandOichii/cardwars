@@ -487,6 +487,17 @@ function Common.AdjacentCreatures(playerI, laneI)
     return result
 end
 
+function Common.AdjacentBuildings(playerI, laneI)
+    local result = {}
+    local adjacent = Common.AdjacentLandscapes(playerI, laneI)
+    for _, landscape in ipairs(adjacent) do
+        for i = 0, landscape.Buildings.Count - 1 do
+            result[#result+1] = landscape.Buildings[i]
+        end
+    end
+    return result
+end
+
 function Common.AdjacentCreaturesTyped(playerI, laneI, type)
     local result = {}
     local adjacent = Common.AdjacentLandscapes(playerI, laneI)
@@ -1394,6 +1405,15 @@ end
 
 function Common.AbilityGrantingRemoval.RemoveAllActivatedAbilities(card)
     card.ActivatedAbilities:Clear()
+end
+
+function Common.AbilityGrantingRemoval.CopyFromBuilding(card, from)
+    card.ActivatedAbilities:AddRange(from.ActivatedAbilities)
+    card.TriggeredAbilities:AddRange(from.TriggeredAbilities)
+    card.StateModifiers:AddRange(from.StateModifiers)
+    card.OnMoveEffects:AddRange(from.OnMoveEffects)
+    card.OnEnterEffects:AddRange(from.OnEnterEffects)
+    card.OnLeaveEffects:AddRange(from.OnLeaveEffects)
 end
 
 Common.Flip = {}
