@@ -1,7 +1,7 @@
 -- Status: implemented
 
 function _Create(props)
-    local result = CardWars:InPlay(props)
+    local result = CardWars:InPlay()
 
     -- Your Creature in this Lane has +1 ATK.
     Common.State.ModATKDEF(result, function (me)

@@ -1,7 +1,7 @@
 -- Status: implemented
 
 function _Create(props)
-    local result = CardWars:Creature(props)
+    local result = CardWars:Creature()
 
     -- Husker Knight has +1 ATK and +2 DEF for each Cornfield Landscape you control. 
     Common.State.ModATKDEF(result, function (me)
