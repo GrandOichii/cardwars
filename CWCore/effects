@@ -95,9 +95,15 @@ discarding buildings from play
 entering play exhausted
 not readying at the start of turn
 deck searching
+haybarn - Pay 1 Action, FLOOP >>> If this Landscape is empty, play a \\\"Feedman\\\" from your discard pile onto this Landscape for free. If Haybarn leaves play, destroy the Feedman on its Landscape. (the last sentence is not a part of the ability)
 
 bale out - When target Creature attacks this turn, if it would leave play during the Fight Phase, remove all Damage from it instead.
+    requires some "leave play replacement" effect, but the "When ... attacks this turn" really throws me off
 carmel camel - When a Creature you own leaves play, you may put it underneath this card instead. + 1 ATK and + 1 DEF for each card under this. When this card leaves play, discard all cards under it.
-haybarn - Pay 1 Action, FLOOP >>> If this Landscape is empty, play a \\\"Feedman\\\" from your discard pile onto this Landscape for free. If Haybarn leaves play, destroy the Feedman on its Landscape.
+    requires a list of cards to be associated with the in-play card
 pied piper - When Pied Piper attacks an opposing Creature, you may have a Flooped Creature you control attack it instead.
+    attack replacement effect
 impossible possum - When this card is placed into your discard pile from anywhere, you may discard a card from your hand to return Impossible Possum to your hand.
+    2 ways of doing this:
+        1. add a "zone" field to all triggers, which will be checked - complicated and will require deck iteration for every signal emitted
+        2. add a simple "OnGoesToDiscard" function list to MatchCard - easy to implement
