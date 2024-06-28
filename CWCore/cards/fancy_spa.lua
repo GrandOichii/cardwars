@@ -11,7 +11,7 @@ function _Create()
         end
 
         for _, creature in ipairs(creatures) do
-            if creature.Original.Exhausted then
+            if creature.Original:IsExhausted() then
                 Draw(controllerI, 1)
                 return
             end

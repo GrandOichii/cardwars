@@ -123,6 +123,8 @@ CardWars.ModificationLayers = {
     IN_HAND_CARD_TYPE = 12,
     PLAY_RESTRICTIONS = 13,
     BUILDING_PLAY_LIMIT = 14,
+    ENTER_PLAY_STATE = 15,
+    READY_PRIVILEGES = 16,
 }
 
 -- Target sources
@@ -588,7 +590,7 @@ function Common.ExhaustedCreatures(playerI)
     return Common.FilterCreatures(function (creature)
         return
             creature.Original.ControllerI == playerI and
-            creature.Original.Exhausted
+            creature.Original:IsExhausted()
     end)
 end
 

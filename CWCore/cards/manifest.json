@@ -13,6 +13,7 @@
         "charming_city",
         "tree_of_undeath",
         "psionic_architect",
+        "teleport",
         "woadic_enchantress",
         "big_foot",
         "immortal_maize_walker",
@@ -93,6 +94,7 @@
         "sand_castle",
         "clone",
         "learning_center",
-        "cuddle_puddle"
+        "cuddle_puddle",
+        "weakened_warrior"
     ]
 }

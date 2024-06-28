@@ -57,12 +57,14 @@ public class Player {
     }
 
     public async Task ReadyInPlayCards() {
-        foreach (var lane in Landscapes) {
-            if (lane.Creature is not null) {
-                await Match.ReadyCard(lane.Creature);
+        var landscapes = Match.LastState.Players[Idx].Landscapes;
+        foreach (var lane in landscapes) {
+            if (lane.Creature is not null && lane.Creature.ReadiesNextTurn) {
+                await Match.ReadyCard(lane.Creature.Original);
             }
             foreach (var b in lane.Buildings)
-                await Match.ReadyCard(b);
+                if (b.ReadiesNextTurn)
+                    await Match.ReadyCard(b.Original);
         }
     }
 
@@ -185,13 +187,15 @@ public class Player {
         return result;
     }
 
-    public async Task PlaceCreatureInLane(MatchCard card, int laneI) {
+    public async Task PlaceCreatureInLane(MatchCard card, int laneI, bool entersPlayExhausted) {
         // * for updating replaced creatures
         await Match.ReloadState();
         if (!Match.Active) return;
 
         var landscape = Match.LastState.Players[Idx].Landscapes[laneI];
         var creature = new Creature(card, Idx);
+        if (entersPlayExhausted)
+            creature.Status = InPlayCardStatus.EXHAUSTED;
 
         var replaced = false;
         if (landscape.Creature is not null) {

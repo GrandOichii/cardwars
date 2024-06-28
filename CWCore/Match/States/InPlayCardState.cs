@@ -15,6 +15,8 @@ public class InPlayCardState : IStateModifier {
     public List<LuaFunction> OnEnterEffects { get; }
     public List<LuaFunction> OnLeaveEffects { get; }
 
+    public bool ReadiesNextTurn { get; set; }
+
     public InPlayCardState(InPlayCard original, int laneI) {
         Original = original;
         LaneI = laneI;
@@ -40,6 +42,7 @@ public class InPlayCardState : IStateModifier {
         CountsAsLandscapes = new();
         LandscapeTypes = new() { Original.Card.Template.Landscape };
         CanBeTargetedCheckers = new();
+        ReadiesNextTurn = true;
     }
 
     public void Modify(ModificationLayer layer)
@@ -86,7 +89,7 @@ public class InPlayCardState : IStateModifier {
             effect.Call(
                 Original.ControllerI, 
                 from.Original.Idx, 
-                !Original.Exhausted
+                Original.Status == InPlayCardStatus.READY
             );
     }
 
@@ -102,6 +105,7 @@ public class InPlayCardState : IStateModifier {
         Original.MovementCount++;
         foreach (var effect in OnMoveEffects)
             effect.Call(
+                this,
                 playerI, 
                 prevLaneI,
                 newLaneI,

@@ -147,7 +147,7 @@
 		"prefix": "changelane",
 		"description": "change lane effect",
 		"body": [
-			"result:OnMove(function(playerI, fromI, toI, wasStolen)",
+			"result:OnMove(function(me, playerI, fromI, toI, wasStolen)",
 			"\t-- When $1 changes Lanes${2: during a turn}, $3",
 			"",
 			"\t$0",

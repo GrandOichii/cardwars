@@ -4,7 +4,7 @@ using CWCore.Utility;
 namespace CWCore.Match.States;
 
 public class CardState {
-    // TODO for now these are the same, might require to change
+    // TODO replace with function lists
     private readonly static string MODIFY_STATE_IN_HAND_FNAME = "ModifyState";
     private readonly static string PLAY_CHECK_FNAME = "CanPlay";
     private readonly static string PAY_COSTS_FNAME = "PayCosts";
@@ -14,6 +14,7 @@ public class CardState {
     public string LandscapeType { get; set; }
     public List<string> PlayRestrictions { get; }
     public Dictionary<int, List<string>> LanePlayRestrictions { get; }
+    public bool EntersPlayExhausted { get; set; }
 
     public CardState(PlayerState owner, MatchCard card) {
         Original = card;
@@ -22,6 +23,7 @@ public class CardState {
 
         PlayRestrictions = new();
         LanePlayRestrictions = new();
+        EntersPlayExhausted = false;
 
         for (int i = 0; i < owner.Landscapes.Count; i++) {
             LanePlayRestrictions.Add(i, new());

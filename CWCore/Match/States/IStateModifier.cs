@@ -17,6 +17,8 @@ public enum ModificationLayer {
     IN_HAND_CARD_TYPE,
     PLAY_RESTRICTIONS,
     BUILDING_PLAY_LIMIT,
+    ENTER_PLAY_STATE,
+    READY_PRIVILEGES,
 }
 
 public interface IStateModifier {

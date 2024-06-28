@@ -4,13 +4,22 @@ using NLua;
 
 namespace CWCore.Match;
 
+
+public enum InPlayCardStatus {
+    READY = 0,
+    EXHAUSTED,
+    FLOOPED,
+    ATTACKING
+}
+
+
 public class InPlayCard {
     public MatchCard Card { get; }
 
     public bool EnteredThisTurn { get; set; }
     public int MovementCount { get; set; }
 
-    public bool Exhausted { get; set; }
+    public InPlayCardStatus Status { get; set; }
     public int ControllerI { get; set; }
     public List<ActivatedAbility> ActivatedAbilities { get; }
     public List<TriggeredAbility> TriggeredAbilities { get; }
@@ -63,14 +72,16 @@ public class InPlayCard {
     }
 
     public virtual void Ready() {
-        Exhausted = false;
+        Status = InPlayCardStatus.READY;
     }
 
-    public virtual bool IsFlooped() => Exhausted;
+    public bool IsFlooped() => Status == InPlayCardStatus.FLOOPED;
 
     public bool CanFloop() {
-        return !Exhausted;
+        return Status == InPlayCardStatus.READY;
     }
+
+    public bool IsExhausted() => Status != InPlayCardStatus.READY;
 
     public bool IsType(string type) {
         return Card.Template.Landscape == type;

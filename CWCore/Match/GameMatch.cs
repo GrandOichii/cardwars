@@ -204,8 +204,7 @@ public class GameMatch {
     public async Task ExhaustToAttack(CreatureState card) {
         // TODO should be done in card
         var c = card.GetOriginal();
-        c.Exhausted = true;
-        c.ExhaustedToAttack = true;
+        c.Status = InPlayCardStatus.ATTACKING;
         c.Attacking = true;
         // TODO? add to update
     }
@@ -388,7 +387,7 @@ public class GameMatch {
     }
 
     public async Task FloopCard(InPlayCardState card) {
-        card.Original.Exhausted = true;
+        card.Original.Status = InPlayCardStatus.FLOOPED;
         // TODO? add update
     }
 

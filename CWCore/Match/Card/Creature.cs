@@ -3,7 +3,6 @@ using CWCore.Match.States;
 namespace CWCore.Match;
 
 public class Creature : InPlayCard {
-    public bool ExhaustedToAttack { get; set; } = false;
     public bool Attacking { get; set; } = false;
 
     public int Attack { get; }
@@ -43,16 +42,10 @@ public class Creature : InPlayCard {
 
     public override void Ready()
     {
-        base.Ready();
-        
-        ExhaustedToAttack = false;
+        base.Ready();        
     }
 
     public bool CanAttack() {
-        return !Exhausted && !ExhaustedToAttack;
-    }
-
-    public override bool IsFlooped() {
-        return Exhausted && !ExhaustedToAttack;
+        return CanFloop();
     }
 }

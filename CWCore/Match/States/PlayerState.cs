@@ -86,7 +86,7 @@ public class PlayerState : IStateModifier {
 
             var existing = landscape.Creature;
             if (existing is not null) {
-                if (existing.Original.Exhausted) continue;
+                if (existing.Original.IsExhausted()) continue;
             }
 
             if (!CanPayFor(creature, i)) continue;
@@ -142,7 +142,7 @@ public class PlayerState : IStateModifier {
             throw new GameMatchException($"Player {Original.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
         }
 
-        await Original.PlaceCreatureInLane(card.Original, laneI);
+        await Original.PlaceCreatureInLane(card.Original, laneI, card.EntersPlayExhausted);
     }
 
     public async Task PlayBuilding(CardState card, bool forFree = false) {

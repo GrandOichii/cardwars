@@ -14,6 +14,7 @@ public class MatchState {
         ModificationLayer.IN_HAND_CARD_TYPE,
         ModificationLayer.CARD_COST,
         ModificationLayer.PLAY_RESTRICTIONS,
+        ModificationLayer.ENTER_PLAY_STATE,
 
         ModificationLayer.ATK_AND_DEF,
         ModificationLayer.DAMAGE_MULTIPLICATION,
@@ -21,6 +22,7 @@ public class MatchState {
         ModificationLayer.DAMAGE_MODIFICATION,
         ModificationLayer.ATTACK_RIGHTS,
         ModificationLayer.BUILDING_PLAY_LIMIT,
+        ModificationLayer.READY_PRIVILEGES,
     };
 
     public PlayerState[] Players { get; }

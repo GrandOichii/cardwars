@@ -1,0 +1,7 @@
+{
+    "Name": "Teleport",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Move one of your Creatures to one of your empty Lanes."
+}
