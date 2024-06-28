@@ -578,6 +578,14 @@ function Common.Buildings(playerI)
     end)
 end
 
+function Common.ReadiedCreatures(playerI)
+    return Common.FilterCreatures(function (creature)
+        return
+            creature.Original.ControllerI == playerI and
+            creature.Original:GetStatus() == 0
+    end)
+end
+
 function Common.FloopedCreatures(playerI)
     return Common.FilterCreatures(function (creature)
         return
@@ -1013,6 +1021,29 @@ function Common.UntilFightPhase(playerI, modF)
         end
         modF(layer)
     end)
+end
+
+function Common.SearchDeckFor(playerI, predicate)
+    local deck = STATE.Players[playerI].Original:DeckAsList()
+    local options = {}
+    for i = 0, deck.Count - 1 do
+        local card = deck[i]
+        if predicate(card) then
+            options[#options+1] = card.Template.Name
+        end
+    end
+    if #options == 0 then
+        return -1
+    end
+    local choice = ChooseCard(playerI, options, 'Choose a Building to put in play')
+    local cardName = options[choice + 1]
+    for i = 0, deck.Count - 1 do
+        local card = deck[i]
+        if card.Template.Name == cardName then
+            return i
+        end
+    end
+    error('Error in SearchDeckFor: tried to find card '..cardName..' in deck of player ['..playerI..'], but failed')
 end
 
 Common.AllPlayers = {}

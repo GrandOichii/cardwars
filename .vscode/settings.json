@@ -71,7 +71,9 @@
         "RemoveToken",
         "LandscapesAvailableForCreature",
         "DiscardFromPlay",
-        "SoftUpdateState"
+        "SoftUpdateState",
+        "RemoveFromDeck",
+        "CreateState"
     ],
     "dotnet.defaultSolution": "CWCore/CWCore.sln"
 }

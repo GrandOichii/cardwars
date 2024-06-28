@@ -563,6 +563,11 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public CardState CreateState(int playerI, MatchCard card) {
+        return new(_match.GetPlayerState(playerI), card);
+    }
+
+    [LuaCommand]
     public void PlaceCreature(int playerI, CardState card, bool forFree) {
         var player = _match.GetPlayerState(playerI);
         player.PlayCreature(card, forFree)
@@ -618,5 +623,11 @@ public class ScriptMaster {
         player.Original.LeavePlay(landscape, building)
             .Wait();
         return true;
+    }
+
+    [LuaCommand]
+    public bool RemoveFromDeck(int playerI, int deckI) {
+        var player = _match.GetPlayer(playerI);
+        return player.Deck.Remove(player.Deck.ElementAt(deckI));
     }
 }

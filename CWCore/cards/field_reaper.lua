@@ -7,7 +7,7 @@ function _Create()
 
     Common.AddRestriction(result,
         function (id, playerI)
-            return nil, GetHandCount(playerI)
+            return nil, GetHandCount(playerI) > 0
         end
     )
 

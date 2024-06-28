@@ -71,6 +71,8 @@ public class InPlayCard {
         MovementCount = 0;
     }
 
+    public int GetStatus() => (int)Status;
+
     public virtual void Ready() {
         Status = InPlayCardStatus.READY;
     }

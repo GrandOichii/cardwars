@@ -1,4 +1,3 @@
--- Discard a card >>> Your Landscape in this Lane loses its type and becomes the type of your choice (except face down) until the start of your next turn.
 -- Status: not tested
 
 function _Create()
@@ -6,7 +5,7 @@ function _Create()
 
     Common.ActivatedAbilities.DiscardCard(
         result,
-        '',
+        'Discard a card >>> Your Landscape in this Lane loses its type and becomes the type of your choice (except face down) until the start of your next turn.',
         function (me, playerI, laneI)
             local landscape = STATE.Players[playerI].Landscapes[laneI]
             if landscape.Original.FaceDown then
@@ -17,7 +16,7 @@ function _Create()
             for _, value in pairs(CardWars.Landscapes) do
                 options[#options+1] = value
             end
-            local choice = ChooseCard(playerI, options, 'Choose a landscape type to turn your lane into')
+            local choice = PickString(playerI, options, 'Choose a landscape type to turn your lane into')
             UntilNextTurn(playerI, function (layer)
                 if layer == CardWars.ModificationLayers.LANDSCAPE_TYPE then
                     STATE.Players[playerI].Landscapes[laneI].Name = options[choice + 1]

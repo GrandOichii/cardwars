@@ -1,8 +1,9 @@
 {
     "Hero": "",
     "Cards": {
-        "Teleport": 10,
-        "Weakened Warrior": 10
+        "Farmhouse": 10,
+        "Deforestation": 10,
+        "Husker Knight": 10
     },
     "Landscapes": {
         "Useless Swamp": 4
