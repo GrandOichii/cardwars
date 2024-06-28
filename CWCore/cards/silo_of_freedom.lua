@@ -19,7 +19,7 @@ function _Create()
             local choice = PickString(playerI, options, 'Choose a landscape type to turn your lane into')
             UntilNextTurn(playerI, function (layer)
                 if layer == CardWars.ModificationLayers.LANDSCAPE_TYPE then
-                    STATE.Players[playerI].Landscapes[laneI].Name = options[choice + 1]
+                    STATE.Players[playerI].Landscapes[laneI].Name = choice
                 end
             end)
         end

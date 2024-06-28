@@ -10,6 +10,7 @@
         "Charming City": 5,
         "Tree of Undeath": 5,
         "Psionic Architect": 5,
+        "Teleport": 5,
         "Woadic Enchantress": 5,
         "Big Foot": 5,
         "Immortal Maize Walker": 5,
@@ -90,7 +91,10 @@
         "Sand Castle": 5,
         "Clone": 5,
         "Learning Center": 5,
-        "Cuddle Puddle": 5
+        "Cuddle Puddle": 5,
+        "Weakened Warrior": 5,
+        "Deforestation": 5,
+        "Patchwork": 5
     },
     "Landscapes": {
         "Cornfield": 1,

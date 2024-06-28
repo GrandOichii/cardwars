@@ -96,10 +96,8 @@ entering play exhausted
 not readying at the start of turn
 deck searching
 
-redistribute the damage on creatures you control
-whenever this card is placed into your discard from anywhere...
-
 bale out - When target Creature attacks this turn, if it would leave play during the Fight Phase, remove all Damage from it instead.
 carmel camel - When a Creature you own leaves play, you may put it underneath this card instead. + 1 ATK and + 1 DEF for each card under this. When this card leaves play, discard all cards under it.
 haybarn - Pay 1 Action, FLOOP >>> If this Landscape is empty, play a \\\"Feedman\\\" from your discard pile onto this Landscape for free. If Haybarn leaves play, destroy the Feedman on its Landscape.
 pied piper - When Pied Piper attacks an opposing Creature, you may have a Flooped Creature you control attack it instead.
+impossible possum - When this card is placed into your discard pile from anywhere, you may discard a card from your hand to return Impossible Possum to your hand.
