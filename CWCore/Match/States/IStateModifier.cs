@@ -19,6 +19,7 @@ public enum ModificationLayer {
     BUILDING_PLAY_LIMIT,
     ENTER_PLAY_STATE,
     READY_PRIVILEGES,
+    REPLACE_PRIVILEGES
 }
 
 public interface IStateModifier {

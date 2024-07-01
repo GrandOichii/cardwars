@@ -23,6 +23,7 @@ public class MatchState {
         ModificationLayer.ATTACK_RIGHTS,
         ModificationLayer.BUILDING_PLAY_LIMIT,
         ModificationLayer.READY_PRIVILEGES,
+        ModificationLayer.REPLACE_PRIVILEGES,
     };
 
     public PlayerState[] Players { get; }

@@ -87,6 +87,7 @@ public class PlayerState : IStateModifier {
             var existing = landscape.Creature;
             if (existing is not null) {
                 if (existing.Original.IsExhausted()) continue;
+                if (!existing.CanBeReplaced) continue;
             }
 
             if (!CanPayFor(creature, i)) continue;

@@ -13,8 +13,8 @@ public class CreatureState : InPlayCardState {
     public bool CanAttack { get; set; }
     public int DamageMultiplier { get; set; }
 
-
     public bool IgnoreBlocker { get; set; }
+    public bool CanBeReplaced { get; set; }
 
     public List<LuaFunction> OnDealDamageEffects { get; }
     public List<LuaFunction> OnDamagedEffects { get; }
@@ -31,6 +31,7 @@ public class CreatureState : InPlayCardState {
         DamageMultiplier = 1;
         DamageModifiers = new();
         IgnoreBlocker = false;
+        CanBeReplaced = true;
 
         OnDealDamageEffects = new(creature.OnDealDamageEffects);
         OnDamagedEffects = new(creature.OnDamagedEffects);

@@ -95,6 +95,7 @@ discarding buildings from play
 entering play exhausted
 not readying at the start of turn
 deck searching
+disabling creature replacement
 haybarn - Pay 1 Action, FLOOP >>> If this Landscape is empty, play a \\\"Feedman\\\" from your discard pile onto this Landscape for free. If Haybarn leaves play, destroy the Feedman on its Landscape. (the last sentence is not a part of the ability)
 
 bale out - When target Creature attacks this turn, if it would leave play during the Fight Phase, remove all Damage from it instead.

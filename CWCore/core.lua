@@ -125,6 +125,7 @@ CardWars.ModificationLayers = {
     BUILDING_PLAY_LIMIT = 14,
     ENTER_PLAY_STATE = 15,
     READY_PRIVILEGES = 16,
+    REPLACE_PRIVILEGES = 17,
 }
 
 -- Target sources
@@ -1047,6 +1048,12 @@ function Common.SearchDeckFor(playerI, predicate)
 end
 
 Common.AllPlayers = {}
+
+function Common.AllPlayers.LandscapesWithoutCreatures()
+    return Common.FilterLandscapes(function (landscape)
+        return landscape.Creature == nil
+    end)
+end
 
 function Common.AllPlayers.CreaturesTyped(landscape)
     return Common.FilterCreatures(function (creature)
