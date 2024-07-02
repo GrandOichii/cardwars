@@ -1,0 +1,9 @@
+{
+    "Name": "Phyllis",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "While her blade distracts you, her purse swings in for the whammy.",
+    "Attack": 2,
+    "Defense": 7
+}

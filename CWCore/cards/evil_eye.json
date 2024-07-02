@@ -1,0 +1,9 @@
+{
+    "Name": "Evil Eye",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Text": "Evil is in the eye of the beholder.",
+    "Attack": 1,
+    "Defense": 5
+}

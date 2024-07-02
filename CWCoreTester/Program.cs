@@ -534,10 +534,12 @@ public class Program {
         var cm = new FileCardMaster();
         cm.Load("../CWCore/cards");
 
-        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/all.json"))
+        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
             ?? throw new Exception("failed to read deck file")
         ;
-        var deck2 = deck1;
+        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
+            ?? throw new Exception("failed to read deck file")
+        ;
 
         int failed = 0;
         for (int i = start; i < end; i++) {
@@ -593,10 +595,12 @@ public class Program {
         var cm = new FileCardMaster();
         cm.Load("../CWCore/cards");
 
-        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/all.json"))
+        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
             ?? throw new Exception("failed to read deck file")
         ;
-        var deck2 = deck1;
+        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
+            ?? throw new Exception("failed to read deck file")
+        ;
 
         System.Console.WriteLine("Waiting for connection...");
         var controller1 = new IOPlayerController(new TcpIOHandler(listener.AcceptTcpClient()));
@@ -644,10 +648,12 @@ public class Program {
             cm.Load("../CWCore/cards");
             cm.Load("../CWCore/dev-cards");
 
-            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/deck1.json"))
+            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
                 ?? throw new Exception("failed to read deck file")
             ;
-            var deck2 = deck1;
+            var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
+                ?? throw new Exception("failed to read deck file")
+            ;
 
             var controller1 = new ConsolePlayerController();
             var controller2 = controller1;
@@ -710,10 +716,12 @@ public class Program {
             var cm = new FileCardMaster();
             cm.Load("../CWCore/cards");
 
-            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/all.json"))
+            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
                 ?? throw new Exception("failed to read deck file")
             ;
-            var deck2 = deck1;
+            var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
+                ?? throw new Exception("failed to read deck file")
+            ;
 
             var controller1 = new CursesPlayerController(seed, view);
             var controller2 = new CursesPlayerController(seed, view);

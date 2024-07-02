@@ -13,7 +13,7 @@ function _Create()
                 if l:IsFrozen() then
                     local creature = l.Creature
                     if creature ~= nil then
-                        creature.CanAttack = false
+                        Common.State.CantAttack(creature)
                         -- TODO what does "use abilities" mean - only activated abilities or ALL abilities (including state modifiers)
                         for i = 0, creature.ActivatedAbilities.Count - 1 do
                             creature.ActivatedAbilities[i].Enabled = false

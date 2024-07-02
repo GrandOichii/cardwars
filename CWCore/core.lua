@@ -1342,7 +1342,12 @@ function Common.State.CantBeAttacked(creature)
     if c == nil then
         return
     end
-    c.CanAttack = false
+    -- TODO? split CanAttack and CanBeAttacked in CreatureState?
+    Common.State.CantAttack(creature)
+end
+
+function Common.State.CantAttack(creature)
+    creature.CanAttack = false
 end
 
 function Common.State.CantBeTargeted(inPlayCard, by)

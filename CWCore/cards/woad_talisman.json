@@ -1,0 +1,7 @@
+{
+    "Name": "Woad Talisman",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Target Blue Plains Creature you control has +2 ATK this turn."
+}
