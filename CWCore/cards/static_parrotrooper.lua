@@ -1,11 +1,11 @@
--- When Static Parrotrooper enters play, move it to any empty Landscape. It cannot be replaced. At the start of your turn, deal 1 damage to your Hero.
--- Status: not tested
+-- Status: implemented, requires testing
 
 function _Create()
     local result = CardWars:Creature()
 
+    -- When Static Parrotrooper enters play, move it to any empty Landscape. It cannot be replaced. At the start of your turn, deal 1 damage to your Hero.
+
     -- When Static Parrotrooper enters play, move it to any empty Landscape.  ...
-    -- TODO
     result:OnEnter(function(me, playerI, laneI, replaced)
         -- When  enters play, 
 
@@ -18,6 +18,9 @@ function _Create()
             else
                 opponentsLanes[#opponentsLanes+1] = landscape
             end
+        end
+        if #myLanes + #opponentsLanes == 0 then
+            return
         end
         local lane = ChooseLandscape(playerI, Common.Lanes(myLanes), Common.Lanes(opponentsLanes), 'Choose a landscape to move '..me.Original.Card.Template.Name..' to')
         local toPlayerI = lane[0]
