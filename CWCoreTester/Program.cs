@@ -648,10 +648,10 @@ public class Program {
             cm.Load("../CWCore/cards");
             cm.Load("../CWCore/dev-cards");
 
-            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
+            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/deck1.json"))
                 ?? throw new Exception("failed to read deck file")
             ;
-            var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
+            var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("decks/deck1.json"))
                 ?? throw new Exception("failed to read deck file")
             ;
 
