@@ -26,6 +26,8 @@ function _Create()
             -- TODO? change to target
             local landscape = ChooseLandscape(playerI, options, opponentOptions, 'Choose a Cornfield Landscape to flip face-down')
             TurnLandscapeFaceDown(landscape[0], landscape[1])
+
+            print(me.LaneI, laneI, landscape[1])
         end
     })
 

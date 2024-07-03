@@ -2,6 +2,7 @@ extends Control
 class_name PlayerScene
 
 @export_file("*.tscn") var landscape_packed_scene: String = ''
+@export var ordering_flipped: bool = false
 
 @onready var InfoContainer = %InfoContainer
 @onready var NameLabel = %NameLabel
@@ -17,7 +18,7 @@ class_name PlayerScene
 var PlayerIdx: int
 
 func _ready():
-	pass # Replace with function body.
+	pass
 	
 func load_match_info(match_info: Variant):
 	set_player_idx(match_info.PlayerIdx)
@@ -26,8 +27,16 @@ func load_match_info(match_info: Variant):
 	
 func set_player_idx(new_idx: int):
 	PlayerIdx = new_idx
-	if new_idx == 1:
+	var idx = 0
+	for landscape: LandscapeScene in Landscapes.get_children():
+		landscape.player_idx = new_idx
+		landscape.lane_idx = idx
+		idx += 1
+	if ordering_flipped:
 		flip_ordering()
+		for landscape: LandscapeScene in Landscapes.get_children():
+			# TODO bad
+			landscape.lane_idx = 3 - landscape.lane_idx
 	
 func flip_ordering():
 	for _i in InfoContainer.get_child_count():
@@ -51,5 +60,5 @@ func load_snapshot(snapshot: Variant):
 	HandSizeLabel.text = str(player.HandCount)
 	DeckCountLabel.text = str(player.DeckCount)
 	
-	for i in len(player.Landscapes):
-		Landscapes.get_child(i).load_snapshot(player.Landscapes[i])
+	for landscape: LandscapeScene in Landscapes.get_children():
+		landscape.load_snapshot(snapshot)

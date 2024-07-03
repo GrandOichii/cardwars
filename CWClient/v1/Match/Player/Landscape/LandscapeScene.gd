@@ -1,4 +1,5 @@
 extends Node2D
+class_name LandscapeScene
 
 # !FIXME supports only 1 visible building
 
@@ -13,6 +14,9 @@ extends Node2D
 # for testing now
 @onready var CreatureCard: CardScene = %Creature
 @onready var BuildingCard: CardScene = %Building
+
+var player_idx: int = -1
+var lane_idx: int = -1
 
 var _landscape_name = ''
 
@@ -34,10 +38,10 @@ func load_creature(landscape: Variant):
 
 	# TODO add smooth transitions
 	reparent_creature(CreatureCard, ReadyCreaturePoint)
-	if creature.Flooped:
+	if creature.Status == 2:
 		reparent_creature(CreatureCard, FloopedCreaturePoint)
 		return
-	if creature.ExhaustedToAttack:
+	if creature.Status == 3:
 		reparent_creature(CreatureCard, AttackingCreaturePoint)
 		return
 
@@ -48,18 +52,23 @@ func load_buildings(landscape: Variant):
 	var building = landscape.Buildings[0]
 	BuildingCard.visible = true
 	BuildingCard.load_in_play_snapshot(building)
+
 	# TODO add smooth transition
-	if building.Flooped:
+	if building.Status == 2:
 		BuildingCard.rotation = PI / 2
 	else:
 		BuildingCard.rotation = 0
 
-func load_snapshot(landscape: Variant):
+func load_snapshot(snapshot: Variant):
+	if player_idx == -1: return
+	var landscape = snapshot.Players[player_idx].Landscapes[lane_idx]
 	load_creature(landscape)
 	load_buildings(landscape)
 
 	# load art
 	_set_landscape_name(landscape.Name, landscape.Idx)
+
+	visible = !landscape.FaceDown
 	
 func _set_landscape_name(new_name: String, idx: int):
 	if _landscape_name == new_name:
@@ -72,4 +81,4 @@ func _set_landscape_name(new_name: String, idx: int):
 				idx = rng.randi() % len(res.textures)
 			Art.texture = res.textures[idx]
 			return
-		print('Art not found for ' + _landscape_name)
+	print('Art not found for ' + _landscape_name)

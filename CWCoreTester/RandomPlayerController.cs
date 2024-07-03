@@ -119,13 +119,12 @@ public class RandomPlayerController : IPlayerController
     public async Task<List<string>> PromptLandscapePlacement(GameMatch match, int playerI, Dictionary<string, int> landscapeIndex)
     {
         await Task.Delay(_delay);
-        // TODO
-        return new List<string>() {
-            "Cornfield",
-            "Useless Swamp",
-            "Blue Plains",
-            "Cornfield"
-        };
+        var result = new List<string>();
+        foreach (var pair in landscapeIndex) {
+            for(int i = 0; i < pair.Value; i++)
+                result.Add(pair.Key);
+        }
+        return result;
     }
 
     public async Task Setup(GameMatch match, int playerI)

@@ -26,5 +26,7 @@
         "Field Reaper": 1,
         "Silo of Truth": 1
     },
-    "Landscapes": {}
+    "Landscapes": {
+        "Cornfield": 4
+    }
 }
