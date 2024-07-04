@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6n3iw6bu4tlg"]
+
+[ext_resource type="Script" path="res://v1/Match/Hand/HandCardScene.gd" id="1_5sois"]
+[ext_resource type="PackedScene" uid="uid://b123mvlorg2ki" path="res://v1/Card/CardScene.tscn" id="2_ogp1g"]
+
+[node name="HandCardScene" type="Control"]
+custom_minimum_size = Vector2(290, 400)
+layout_mode = 3
+anchor_right = 0.113281
+anchor_bottom = 0.253125
+offset_bottom = -5.00002
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5sois")
+metadata/_edit_use_anchors_ = true
+
+[node name="Bg" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Card" parent="." instance=ExtResource("2_ogp1g")]
+unique_name_in_owner = true
+position = Vector2(145, 200)
+scale = Vector2(0.4, 0.4)

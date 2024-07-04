@@ -15,6 +15,9 @@ signal MatchInfoReceived(Variant)
 @export_enum("Blue Plains", "Cornfield", "IcyLands", "NiceLands", "SandyLands", "Useless Swamp") var landscape3 = "Blue Plains"
 @export_enum("Blue Plains", "Cornfield", "IcyLands", "NiceLands", "SandyLands", "Useless Swamp") var landscape4 = "Blue Plains"
 
+@export_group("Packed scenes")
+@export var HandCardPS: PackedScene
+
 @onready var Match = %Match
 @onready var Connection = %Connection
 @onready var HintLabel = %HintLabel
@@ -22,6 +25,8 @@ signal MatchInfoReceived(Variant)
 @onready var ActionEdit = %ActionEdit
 @onready var RandomButton = %RandomButton
 @onready var OptionsLabel = %OptionsLabel
+
+@onready var HandContainer = %HandContainer
 
 @onready var _rng = RandomNumberGenerator.new()
 
@@ -45,6 +50,21 @@ func process_update(update: Variant):
 	if update.Request == 'PromptLandscapePlacement':
 		Connection.Write(landscape1 + '|' + landscape2 + '|' + landscape3 + '|' + landscape4)
 		return
+	
+	update_hand(update)
+	
+func update_hand(update: Variant):
+	var personal = update.Personal
+	var newCount = len(update.Personal.Hand)
+	while (HandContainer.get_child_count() < newCount):
+		var child = HandCardPS.instantiate()
+		HandContainer.add_child(child)
+	while (HandContainer.get_child_count() > newCount):
+		HandContainer.remove_child(HandContainer.get_child(0))
+	for i in newCount:
+		var card = update.Personal.Hand[i]
+		var cardScene = HandContainer.get_child(i) as HandCardScene
+		cardScene.load_snapshot(card)
 	
 func process_match_info(match_info: Variant):
 	print(match_info)

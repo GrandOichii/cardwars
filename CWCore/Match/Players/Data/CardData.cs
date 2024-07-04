@@ -9,6 +9,8 @@ public class CardData {
     public int Cost { get; }
     public string Text { get; }
     public string Landscape { get; protected set;  }
+    public int Attack { get; }
+    public int Defense { get; }
 
     public CardData(MatchCard card) {
         ID = card.ID;
@@ -17,6 +19,8 @@ public class CardData {
         Cost = card.Template.Cost;
         Text = card.Template.Text;
         Landscape = card.Template.Landscape;
+        Attack = card.Template.Attack;
+        Defense = card.Template.Defense;
     }
 
     public CardData(CardState card) : this(card.Original) {
