@@ -17,7 +17,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local options = Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.Card.ID)
+            local options = Common.IDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.Card.ID))
 
             local target = TargetCreature(playerI, options, 'Choose a creature to debuff')
 

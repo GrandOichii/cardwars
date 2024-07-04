@@ -21,6 +21,7 @@ signal MatchInfoReceived(Variant)
 
 @onready var ActionEdit = %ActionEdit
 @onready var RandomButton = %RandomButton
+@onready var OptionsLabel = %OptionsLabel
 
 @onready var _rng = RandomNumberGenerator.new()
 
@@ -36,6 +37,11 @@ func process_update(update: Variant):
 	# print(update)
 
 	HintLabel.text = update.Hint
+	var text = ''
+	for key in update.Args:
+		text += key + ': ' + update.Args[key] + '\n'
+	OptionsLabel.text = text
+	
 	if update.Request == 'PromptLandscapePlacement':
 		Connection.Write(landscape1 + '|' + landscape2 + '|' + landscape3 + '|' + landscape4)
 		return

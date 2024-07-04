@@ -80,7 +80,15 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Send random"
 
+[node name="OptionsLabel" type="RichTextLabel" parent="ActionWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "
+"
+
 [node name="HandWindow" type="Window" parent="."]
+position = Vector2i(0, 36)
 size = Vector2i(1200, 300)
 
 [node name="MarginContainer" type="MarginContainer" parent="HandWindow"]
