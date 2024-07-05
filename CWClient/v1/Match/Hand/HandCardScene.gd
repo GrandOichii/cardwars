@@ -9,7 +9,6 @@ class_name HandCardScene
 @export_color_no_alpha var HoverColor: Color
 
 @onready var Card = %Card
-@onready var Bg: ColorRect = %Bg
 
 var _bg_color: Color
 
@@ -31,7 +30,7 @@ func can_play() -> bool:
 	return Controller.can_play(_last)
 
 func set_bg_color(color: Color):
-	Bg.color = color
+	Card.set_bg_color(color)
 
 # signal connections
 

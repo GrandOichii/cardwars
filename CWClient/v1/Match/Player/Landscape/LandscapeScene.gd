@@ -20,9 +20,8 @@ var lane_idx: int = -1
 
 var _landscape_name = ''
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 	
 func reparent_creature(creature: CardScene, point: Node2D):
 	creature.reparent(point, false)

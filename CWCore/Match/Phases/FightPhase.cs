@@ -11,6 +11,7 @@ public class FightPhase : IPhase
         var player = match.GetPlayer(playerI);
         match.LogInfo($"Player {player.LogFriendlyName} proceeds to fighting");
         
+        // TODO didn't update state for some reason
         while (true) {
             await match.ReloadState();
             if (!match.Active) return;

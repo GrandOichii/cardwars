@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://v1/TestMatch.gd" id="1_sfwn3"]
 [ext_resource type="PackedScene" uid="uid://fh8r4qhsop8j" path="res://v1/Connection/Wrappers/TcpConnectionWrapper.tscn" id="2_fgw36"]
 [ext_resource type="PackedScene" uid="uid://c6n3iw6bu4tlg" path="res://v1/Match/Hand/HandCardScene.tscn" id="2_u44bo"]
-[ext_resource type="PackedScene" uid="uid://m6ws3lvboo8e" path="res://v1/ControllerScene.tscn" id="5_qdo4q"]
+[ext_resource type="PackedScene" path="res://v1/ControllerScene.tscn" id="5_qdo4q"]
 
 [node name="TestMatch" type="Control"]
 layout_mode = 3

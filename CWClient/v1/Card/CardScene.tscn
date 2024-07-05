@@ -16,6 +16,10 @@ script = ExtResource("1_fom1s")
 Images = ExtResource("2_5p6c2")
 Frames = ExtResource("3_ndbo1")
 
+[node name="Bg" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+polygon = PackedVector2Array(-355, -500, 355, -500, 355, 500, -355, 500)
+
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

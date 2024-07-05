@@ -17,6 +17,8 @@ class_name CardScene
 @onready var DefenseLabel: Label = %DefenseLabel
 @onready var IDLabel: Label = %IDLabel
 
+@onready var Bg: Polygon2D = %Bg
+
 var _card_name: String = ''
 var _landscape: String = ''
 
@@ -60,11 +62,14 @@ func load_in_play_snapshot(card: Variant):
 func _load_in_play_creature(card: Variant):
 	# TODO change label color depending if defense is higher or lower than base
 	DefenseLabel.text = str(card.Defense - card.Damage)
+	
+func set_bg_color(color: Color):
+	Bg.color = color
 
 # signal connections
 
 func OnArea2dMouseEntered():
-	print('mouse enter')
+	set_bg_color(Color.AQUA)
 
 func OnArea2dMouseExited():
 	print('mouse leave')
