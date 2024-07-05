@@ -23,8 +23,8 @@ DefaultColor = Color(0, 0, 0, 0)
 script = ExtResource("1_qcmkx")
 landscape_mapping = ExtResource("2_axa2e")
 DefaultColor = Color(0, 0, 0, 0)
-LanePickColor = Color(0, 0.973479, 0, 1)
-LanePickHoverColor = Color(4.16848e-06, 0.631849, 0, 1)
+LanePickColor = Color(0, 0.619608, 0, 1)
+LanePickHoverColor = Color(0, 0.788235, 0, 1)
 
 [node name="Bg" type="Polygon2D" parent="."]
 unique_name_in_owner = true

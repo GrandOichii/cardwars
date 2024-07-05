@@ -31,7 +31,6 @@ func attack(lane_idx: int):
 	send(str(lane_idx))
 	
 func can_pick_lane_for_creature(player_idx: int, lane_idx: int) -> bool:
-	print(last_update.Request)
 	if last_update.Request != 'PickLaneForCreature':
 		return false
 	return player_idx == match_info.PlayerIdx and str(lane_idx) in last_update.Args.values()

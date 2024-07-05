@@ -26,6 +26,7 @@ var lane_idx: int = -1
 
 var _landscape_name = ''
 var _controller: ControllerScene
+@onready var _bg_color = DefaultColor
 
 func _ready():
 	pass
@@ -40,6 +41,7 @@ func set_player_idx(idx: int):
 	
 func set_controller(controller: ControllerScene):
 	_controller = controller
+	_controller.Update.connect(OnUpdate)
 	CreatureCard.Behavior.set_controller(controller)
 	BuildingCard.Behavior.set_controller(controller)
 	
@@ -110,7 +112,16 @@ func interact():
 func can_pick_lane_for_creature():
 	return _controller.can_pick_lane_for_creature(player_idx, lane_idx)
 
+func set_bg_color(color: Color):
+	Bg.color = color
+
 # signal connections
+
+func OnUpdate(update: Variant):
+	_bg_color = DefaultColor
+	if can_pick_lane_for_creature():
+		_bg_color = LanePickColor
+	set_bg_color(_bg_color)
 
 func OnCreatureMouseEnter():
 	CreatureCard.Behavior.mouse_enter()
@@ -121,13 +132,13 @@ func OnCreatureMouseLeave():
 func OnCreatureClick():
 	CreatureCard.Behavior.click()
 
-# TODO add highlight
-# !FIXME allows to pick enemies landscapes
 func OnControlMouseEntered():
-	pass # Replace with function body.
+	if can_pick_lane_for_creature():
+		set_bg_color(LanePickHoverColor)
+		return
 
 func OnControlMouseExited():
-	pass # Replace with function body.
+	set_bg_color(_bg_color)
 
 func OnControlGuiInput(e):
 	if e.is_action_pressed('interact'):
