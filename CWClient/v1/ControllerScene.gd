@@ -6,11 +6,9 @@ class_name ControllerScene
 # PickCard
 # PickCardInDiscard
 # PickCardInHand
-# PickCreature
-# PickLandscape
 # PickOption
 # PickPlayer
-# * PromptAction
+# * PromptAction - activated abilities, remove frozen counters
 # PromptLandscapePlacement
 
 signal Update(update: Variant)
@@ -75,6 +73,26 @@ func can_pick_lane(player_idx: int, lane_idx: int) -> bool:
 func pick_lane(lane_idx: int):
 	send(str(lane_idx))
 
+func can_pick_landscape(player_idx: int, lane_idx) -> bool:
+	if last_update.Request != 'PickLandscape':
+		return false
+	var my_idx = match_info.PlayerIdx
+	var opp_idx = 1 - my_idx
+	if my_idx == 1:
+		player_idx = 1 - player_idx
+	for key in last_update.Args:
+		var value = last_update.Args[key]
+		if value != str(lane_idx):
+			continue
+		if key[0] == 'o' && player_idx != opp_idx:
+			continue
+		return true
+	return false
+
+func pick_landscape(player_idx: int, lane_idx: int):
+	if match_info.PlayerIdx == 1:
+		player_idx = 1 - player_idx
+	send(str(player_idx) + ' ' + str(lane_idx))
 
 func send(msg: String):
 	Response.emit(msg)

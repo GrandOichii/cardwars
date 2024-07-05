@@ -28,7 +28,6 @@ func determine_bg_color():
 		return
 	if can_pick():
 		_bg_color = PickColor
-		print('pick ' + str(PickColor))
 		return
 
 func mouse_enter():
@@ -38,7 +37,6 @@ func mouse_enter():
 		return
 	if can_pick():
 		set_bg_color(PickHoverColor)
-		print(PickHoverColor)
 		return
 	
 func click():
