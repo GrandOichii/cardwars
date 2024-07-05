@@ -83,6 +83,10 @@ text = " Send "
 layout_mode = 2
 text = "Fight!"
 
+[node name="DrawButton" type="Button" parent="Windows/ActionWindow/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Draw (1 ap)"
+
 [node name="RandomButton" type="Button" parent="Windows/ActionWindow/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -131,4 +135,5 @@ size_flags_vertical = 3
 [connection signal="Response" from="Controller" to="." method="OnControllerResponse"]
 [connection signal="pressed" from="Windows/ActionWindow/MarginContainer/VBoxContainer/RawActionContainer/SendActionButton" to="." method="OnSendActionButtonPressed"]
 [connection signal="pressed" from="Windows/ActionWindow/MarginContainer/VBoxContainer/FightButton" to="." method="OnFightButtonPressed"]
+[connection signal="pressed" from="Windows/ActionWindow/MarginContainer/VBoxContainer/DrawButton" to="." method="OnDrawButtonPressed"]
 [connection signal="pressed" from="Windows/ActionWindow/MarginContainer/VBoxContainer/RandomButton" to="." method="OnRandomButtonPressed"]

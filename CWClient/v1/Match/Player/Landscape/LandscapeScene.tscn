@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://v1/Card/Behavior/CreatureBehavior.gd" id="5_ssc60"]
 [ext_resource type="Script" path="res://v1/Card/Behavior/InPlayCardBehavior.gd" id="6_w53fr"]
 
-[sub_resource type="Resource" id="Resource_utjat"]
+[sub_resource type="Resource" id="Resource_fpaxd"]
 resource_local_to_scene = true
 script = ExtResource("5_ssc60")
 CanAttackColor = Color(1, 0.518123, 0.45217, 1)
@@ -16,7 +16,7 @@ DefaultColor = Color(0, 0, 0, 0)
 PickColor = Color(0.419212, 0.229704, 0, 1)
 PickHoverColor = Color(0.877121, 0.44349, 0, 1)
 
-[sub_resource type="Resource" id="Resource_0e42l"]
+[sub_resource type="Resource" id="Resource_oc487"]
 resource_local_to_scene = true
 script = ExtResource("6_w53fr")
 DefaultColor = Color(0, 0, 0, 0)
@@ -45,7 +45,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Creature" parent="ReadyCreaturePoint" instance=ExtResource("4_w3fph")]
 unique_name_in_owner = true
-Behavior = SubResource("Resource_utjat")
+Behavior = SubResource("Resource_fpaxd")
 
 [node name="AttackingCreaturePoint" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -65,7 +65,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Building" parent="BuildingPoint" instance=ExtResource("4_w3fph")]
 unique_name_in_owner = true
-Behavior = SubResource("Resource_0e42l")
+Behavior = SubResource("Resource_oc487")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

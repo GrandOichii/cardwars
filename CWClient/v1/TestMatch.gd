@@ -109,3 +109,6 @@ func OnRandomButtonPressed():
 
 func OnControllerResponse(msg: String):
 	Connection.Write(msg)
+
+func OnDrawButtonPressed():
+	Connection.Write('d')
