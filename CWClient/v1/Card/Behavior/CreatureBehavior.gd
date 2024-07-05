@@ -5,10 +5,13 @@ class_name CreatureBehavior
 @export var CanAttackColor: Color
 @export var AttackHoverColor: Color
 
+var player_idx: int
 var lane_idx: int
 
 func can_attack() -> bool:
-	return Controller.can_attack(lane_idx)
+	if Controller == null:
+		return false
+	return Controller.can_attack(player_idx, lane_idx)
 	
 func determine_bg_color():
 	if can_attack():

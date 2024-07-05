@@ -33,7 +33,7 @@ func set_player_idx(new_idx: int):
 	PlayerIdx = new_idx
 	var idx = 0
 	for landscape: LandscapeScene in Landscapes.get_children():
-		landscape.player_idx = new_idx
+		landscape.set_player_idx(new_idx)
 		landscape.set_lane_idx(idx)
 		idx += 1
 	if ordering_flipped:

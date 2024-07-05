@@ -33,6 +33,10 @@ func _ready():
 func set_lane_idx(idx: int):
 	lane_idx = idx
 	CreatureCard.Behavior.lane_idx = idx
+
+func set_player_idx(idx: int):
+	player_idx = idx
+	CreatureCard.Behavior.player_idx = idx
 	
 func set_controller(controller: ControllerScene):
 	_controller = controller
@@ -118,6 +122,7 @@ func OnCreatureClick():
 	CreatureCard.Behavior.click()
 
 # TODO add highlight
+# !FIXME allows to pick enemies landscapes
 func OnControlMouseEntered():
 	pass # Replace with function body.
 

@@ -73,6 +73,7 @@ func update_hand(update: Variant):
 		cardScene.load_snapshot(card)
 	
 func process_match_info(match_info: Variant):
+	Controller.set_match_info(match_info)
 	print(match_info)
 
 # signal connections

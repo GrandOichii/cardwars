@@ -11,6 +11,9 @@ func set_last_update(update: Variant):
 	last_update = update
 	Update.emit(update)
 
+func set_match_info(info: Variant):
+	match_info = info
+
 func can_play(card: Variant) -> bool:
 	if last_update.Request != 'PromptAction':
 		return false
@@ -19,10 +22,10 @@ func can_play(card: Variant) -> bool:
 func play(card: Variant):
 	send('p ' + card.ID)
 	
-func can_attack(lane_idx: int) -> bool:
+func can_attack(player_idx: int, lane_idx: int) -> bool:
 	if last_update.Request != 'PickAttackLane':
 		return false
-	return str(lane_idx) in last_update.Args.values()
+	return player_idx == match_info.PlayerIdx and str(lane_idx) in last_update.Args.values()
 	
 func attack(lane_idx: int):
 	send(str(lane_idx))
@@ -31,7 +34,7 @@ func can_pick_lane_for_creature(player_idx: int, lane_idx: int) -> bool:
 	print(last_update.Request)
 	if last_update.Request != 'PickLaneForCreature':
 		return false
-	return str(lane_idx) in last_update.Args.values()
+	return player_idx == match_info.PlayerIdx and str(lane_idx) in last_update.Args.values()
 	
 func pick_lane_for_creature(lane_idx: int):
 	send(str(lane_idx))
