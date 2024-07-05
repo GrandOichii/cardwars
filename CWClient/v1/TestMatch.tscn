@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://v1/TestMatch.gd" id="1_sfwn3"]
 [ext_resource type="PackedScene" uid="uid://fh8r4qhsop8j" path="res://v1/Connection/Wrappers/TcpConnectionWrapper.tscn" id="2_fgw36"]
 [ext_resource type="PackedScene" uid="uid://c6n3iw6bu4tlg" path="res://v1/Match/Hand/HandCardScene.tscn" id="2_u44bo"]
-[ext_resource type="PackedScene" path="res://v1/ControllerScene.tscn" id="5_qdo4q"]
+[ext_resource type="PackedScene" uid="uid://m6ws3lvboo8e" path="res://v1/ControllerScene.tscn" id="5_qdo4q"]
 
 [node name="TestMatch" type="Control"]
 layout_mode = 3
@@ -13,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_sfwn3")
 HandCardPS = ExtResource("2_u44bo")
 
@@ -34,13 +35,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="ActionWindow" type="Window" parent="."]
+[node name="Controller" parent="." instance=ExtResource("5_qdo4q")]
+unique_name_in_owner = true
+
+[node name="Windows" type="Node" parent="."]
+
+[node name="ActionWindow" type="Window" parent="Windows"]
 title = "Action window"
 initial_position = 2
 size = Vector2i(500, 400)
-always_on_top = true
 
-[node name="MarginContainer" type="MarginContainer" parent="ActionWindow"]
+[node name="MarginContainer" type="MarginContainer" parent="Windows/ActionWindow"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -51,51 +56,51 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ActionWindow/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Windows/ActionWindow/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HintLabel" type="Label" parent="ActionWindow/MarginContainer/VBoxContainer"]
+[node name="HintLabel" type="Label" parent="Windows/ActionWindow/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 autowrap_mode = 2
 
-[node name="RawActionContainer" type="HBoxContainer" parent="ActionWindow/MarginContainer/VBoxContainer"]
+[node name="RawActionContainer" type="HBoxContainer" parent="Windows/ActionWindow/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ActionEdit" type="LineEdit" parent="ActionWindow/MarginContainer/VBoxContainer/RawActionContainer"]
+[node name="ActionEdit" type="LineEdit" parent="Windows/ActionWindow/MarginContainer/VBoxContainer/RawActionContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Enter action"
 
-[node name="SendActionButton" type="Button" parent="ActionWindow/MarginContainer/VBoxContainer/RawActionContainer"]
+[node name="SendActionButton" type="Button" parent="Windows/ActionWindow/MarginContainer/VBoxContainer/RawActionContainer"]
 layout_mode = 2
 text = " Send "
 
-[node name="FightButton" type="Button" parent="ActionWindow/MarginContainer/VBoxContainer"]
+[node name="FightButton" type="Button" parent="Windows/ActionWindow/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Fight!"
 
-[node name="RandomButton" type="Button" parent="ActionWindow/MarginContainer/VBoxContainer"]
+[node name="RandomButton" type="Button" parent="Windows/ActionWindow/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Send random"
 
-[node name="OptionsLabel" type="RichTextLabel" parent="ActionWindow/MarginContainer/VBoxContainer"]
+[node name="OptionsLabel" type="RichTextLabel" parent="Windows/ActionWindow/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "
 "
 
-[node name="HandWindow" type="Window" parent="."]
+[node name="HandWindow" type="Window" parent="Windows"]
 title = "Your hand"
 position = Vector2i(0, 36)
 size = Vector2i(1200, 420)
 
-[node name="MarginContainer" type="MarginContainer" parent="HandWindow"]
+[node name="MarginContainer" type="MarginContainer" parent="Windows/HandWindow"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -106,27 +111,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HandWindow/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Windows/HandWindow/MarginContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HandWindow/MarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Windows/HandWindow/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 vertical_scroll_mode = 0
 
-[node name="HandContainer" type="HBoxContainer" parent="HandWindow/MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="HandContainer" type="HBoxContainer" parent="Windows/HandWindow/MarginContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Controller" parent="." instance=ExtResource("5_qdo4q")]
-unique_name_in_owner = true
-
 [connection signal="MatchInfoReceived" from="." to="VBoxContainer/Match" method="OnTestMatchMatchInfoReceived"]
 [connection signal="UpdateReceived" from="." to="VBoxContainer/Match" method="OnTestMatchUpdateReceived"]
 [connection signal="MessageReceived" from="Connection" to="." method="OnConnectionMessageReceived"]
-[connection signal="pressed" from="ActionWindow/MarginContainer/VBoxContainer/RawActionContainer/SendActionButton" to="." method="OnSendActionButtonPressed"]
-[connection signal="pressed" from="ActionWindow/MarginContainer/VBoxContainer/FightButton" to="." method="OnFightButtonPressed"]
-[connection signal="pressed" from="ActionWindow/MarginContainer/VBoxContainer/RandomButton" to="." method="OnRandomButtonPressed"]
 [connection signal="Response" from="Controller" to="." method="OnControllerResponse"]
+[connection signal="pressed" from="Windows/ActionWindow/MarginContainer/VBoxContainer/RawActionContainer/SendActionButton" to="." method="OnSendActionButtonPressed"]
+[connection signal="pressed" from="Windows/ActionWindow/MarginContainer/VBoxContainer/FightButton" to="." method="OnFightButtonPressed"]
+[connection signal="pressed" from="Windows/ActionWindow/MarginContainer/VBoxContainer/RandomButton" to="." method="OnRandomButtonPressed"]

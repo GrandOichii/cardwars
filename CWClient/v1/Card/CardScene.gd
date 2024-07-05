@@ -19,11 +19,14 @@ class_name CardScene
 
 @onready var Bg: Polygon2D = %Bg
 
+@export var Behavior: CardBehavior = null
+
 var _card_name: String = ''
 var _landscape: String = ''
 
 func _ready():
-	pass # Replace with function body.
+	if Behavior != null:
+		Behavior.set_card(self)
 	
 func set_card_name(new_name: String):
 	if _card_name == new_name:

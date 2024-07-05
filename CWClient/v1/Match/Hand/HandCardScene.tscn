@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6n3iw6bu4tlg"]
+[gd_scene load_steps=5 format=3 uid="uid://c6n3iw6bu4tlg"]
 
 [ext_resource type="Script" path="res://v1/Match/Hand/HandCardScene.gd" id="1_5sois"]
 [ext_resource type="PackedScene" uid="uid://b123mvlorg2ki" path="res://v1/Card/CardScene.tscn" id="2_ogp1g"]
+[ext_resource type="Script" path="res://v1/Card/Behavior/HandCardBehavior.gd" id="3_fk5ln"]
+
+[sub_resource type="Resource" id="Resource_t1a2n"]
+resource_local_to_scene = true
+script = ExtResource("3_fk5ln")
+DefaultColor = Color(1, 1, 1, 1)
+PlayableColor = Color(0, 0.501961, 0, 1)
+HoverColor = Color(0, 0, 1, 1)
 
 [node name="HandCardScene" type="Control"]
 custom_minimum_size = Vector2(290, 400)
@@ -12,15 +20,13 @@ offset_bottom = -5.00002
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5sois")
-DefaultColor = Color(1, 1, 1, 1)
-PlayableColor = Color(0, 0.482353, 0, 1)
-HoverColor = Color(0, 0, 0.811765, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Card" parent="." instance=ExtResource("2_ogp1g")]
 unique_name_in_owner = true
 position = Vector2(145, 200)
 scale = Vector2(0.4, 0.4)
+Behavior = SubResource("Resource_t1a2n")
 
 [connection signal="gui_input" from="." to="." method="OnGuiInput"]
 [connection signal="mouse_entered" from="." to="." method="OnMouseEntered"]

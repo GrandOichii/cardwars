@@ -23,6 +23,10 @@ var _landscape_name = ''
 func _ready():
 	pass
 	
+func set_lane_idx(idx: int):
+	lane_idx = idx
+	CreatureCard.Behavior.lane_idx = idx
+	
 func reparent_creature(creature: CardScene, point: Node2D):
 	creature.reparent(point, false)
 	creature.position = Vector2.ZERO

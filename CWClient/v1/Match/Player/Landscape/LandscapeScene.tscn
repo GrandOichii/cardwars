@@ -1,9 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://cght8mrqgf8l2"]
+[gd_scene load_steps=9 format=3 uid="uid://cght8mrqgf8l2"]
 
 [ext_resource type="Texture2D" uid="uid://l4wy68nwu68j" path="res://assets/images/landscapes/BluePlains1.png" id="1_ov3c7"]
 [ext_resource type="Script" path="res://v1/Match/Player/Landscape/LandscapeScene.gd" id="1_qcmkx"]
 [ext_resource type="Resource" uid="uid://q0vhohu4g2dm" path="res://v1/Match/Player/Landscape/LandscapeMap1.tres" id="2_axa2e"]
 [ext_resource type="PackedScene" uid="uid://b123mvlorg2ki" path="res://v1/Card/CardScene.tscn" id="4_w3fph"]
+[ext_resource type="Script" path="res://v1/Card/Behavior/CreatureBehavior.gd" id="5_mmxfm"]
+[ext_resource type="Script" path="res://v1/Card/Behavior/InPlayCardBehavior.gd" id="6_ln7ui"]
+
+[sub_resource type="Resource" id="Resource_nk5rs"]
+resource_local_to_scene = true
+script = ExtResource("5_mmxfm")
+lane_idx = 0
+CanAttackColor = Color(1, 0.545028, 0.480815, 1)
+AttackHoverColor = Color(0.835718, 1.82205e-06, 1.71184e-07, 1)
+DefaultColor = Color(0, 0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_ilrdh"]
+resource_local_to_scene = true
+script = ExtResource("6_ln7ui")
+DefaultColor = Color(0, 0, 0, 0)
 
 [node name="LandscapeScene" type="Node2D"]
 script = ExtResource("1_qcmkx")
@@ -20,6 +35,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Creature" parent="ReadyCreaturePoint" instance=ExtResource("4_w3fph")]
 unique_name_in_owner = true
+Behavior = SubResource("Resource_nk5rs")
 
 [node name="AttackingCreaturePoint" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -39,8 +55,10 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Building" parent="BuildingPoint" instance=ExtResource("4_w3fph")]
 unique_name_in_owner = true
+Behavior = SubResource("Resource_ilrdh")
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -53,3 +71,4 @@ offset_right = 255.0
 offset_bottom = 374.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
