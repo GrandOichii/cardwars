@@ -7,14 +7,14 @@
 [ext_resource type="Script" path="res://v1/Card/Behavior/CreatureBehavior.gd" id="5_ssc60"]
 [ext_resource type="Script" path="res://v1/Card/Behavior/InPlayCardBehavior.gd" id="6_w53fr"]
 
-[sub_resource type="Resource" id="Resource_441th"]
+[sub_resource type="Resource" id="Resource_cwuuv"]
 resource_local_to_scene = true
 script = ExtResource("5_ssc60")
 CanAttackColor = Color(1, 0.518123, 0.45217, 1)
 AttackHoverColor = Color(0.763613, 1.17658e-06, 0, 1)
 DefaultColor = Color(0, 0, 0, 0)
 
-[sub_resource type="Resource" id="Resource_v4648"]
+[sub_resource type="Resource" id="Resource_fyrcc"]
 resource_local_to_scene = true
 script = ExtResource("6_w53fr")
 DefaultColor = Color(0, 0, 0, 0)
@@ -22,6 +22,13 @@ DefaultColor = Color(0, 0, 0, 0)
 [node name="LandscapeScene" type="Node2D"]
 script = ExtResource("1_qcmkx")
 landscape_mapping = ExtResource("2_axa2e")
+DefaultColor = Color(0, 0, 0, 0)
+LanePickColor = Color(0, 0.973479, 0, 1)
+LanePickHoverColor = Color(4.16848e-06, 0.631849, 0, 1)
+
+[node name="Bg" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+polygon = PackedVector2Array(-270, -380, 270, -380, 270, 380, -270, 380)
 
 [node name="Art" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -34,7 +41,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Creature" parent="ReadyCreaturePoint" instance=ExtResource("4_w3fph")]
 unique_name_in_owner = true
-Behavior = SubResource("Resource_441th")
+Behavior = SubResource("Resource_cwuuv")
 
 [node name="AttackingCreaturePoint" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -54,7 +61,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Building" parent="BuildingPoint" instance=ExtResource("4_w3fph")]
 unique_name_in_owner = true
-Behavior = SubResource("Resource_v4648")
+Behavior = SubResource("Resource_fyrcc")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -74,3 +81,6 @@ mouse_filter = 1
 [connection signal="Click" from="ReadyCreaturePoint/Creature" to="." method="OnCreatureClick"]
 [connection signal="MouseEnter" from="ReadyCreaturePoint/Creature" to="." method="OnCreatureMouseEnter"]
 [connection signal="MouseLeave" from="ReadyCreaturePoint/Creature" to="." method="OnCreatureMouseLeave"]
+[connection signal="gui_input" from="Control" to="." method="OnControlGuiInput"]
+[connection signal="mouse_entered" from="Control" to="." method="OnControlMouseEntered"]
+[connection signal="mouse_exited" from="Control" to="." method="OnControlMouseExited"]

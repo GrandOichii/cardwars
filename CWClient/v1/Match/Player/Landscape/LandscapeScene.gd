@@ -5,11 +5,17 @@ class_name LandscapeScene
 
 @export var landscape_mapping: LandscapeMap
 
+@export_group('Colors')
+@export var DefaultColor: Color
+@export var LanePickColor: Color
+@export var LanePickHoverColor: Color
+
 @onready var Art: Sprite2D = %Art
 @onready var ReadyCreaturePoint: Node2D = %ReadyCreaturePoint
 @onready var AttackingCreaturePoint: Node2D = %AttackingCreaturePoint
 @onready var FloopedCreaturePoint: Node2D = %FloopedCreaturePoint
 @onready var BuildingPoint: Node2D = %BuildingPoint
+@onready var Bg: Polygon2D = %Bg
 
 # for testing now
 @onready var CreatureCard: CardScene = %Creature
@@ -19,6 +25,7 @@ var player_idx: int = -1
 var lane_idx: int = -1
 
 var _landscape_name = ''
+var _controller: ControllerScene
 
 func _ready():
 	pass
@@ -28,6 +35,7 @@ func set_lane_idx(idx: int):
 	CreatureCard.Behavior.lane_idx = idx
 	
 func set_controller(controller: ControllerScene):
+	_controller = controller
 	CreatureCard.Behavior.set_controller(controller)
 	BuildingCard.Behavior.set_controller(controller)
 	
@@ -90,6 +98,14 @@ func _set_landscape_name(new_name: String, idx: int):
 			return
 	print('Art not found for ' + _landscape_name)
 
+func interact():
+	if can_pick_lane_for_creature():
+		_controller.pick_lane_for_creature(lane_idx)
+		return
+	
+func can_pick_lane_for_creature():
+	return _controller.can_pick_lane_for_creature(player_idx, lane_idx)
+
 # signal connections
 
 func OnCreatureMouseEnter():
@@ -100,3 +116,14 @@ func OnCreatureMouseLeave():
 
 func OnCreatureClick():
 	CreatureCard.Behavior.click()
+
+# TODO add highlight
+func OnControlMouseEntered():
+	pass # Replace with function body.
+
+func OnControlMouseExited():
+	pass # Replace with function body.
+
+func OnControlGuiInput(e):
+	if e.is_action_pressed('interact'):
+		interact()

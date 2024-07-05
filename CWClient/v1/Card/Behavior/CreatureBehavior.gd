@@ -23,5 +23,5 @@ func mouse_enter():
 func click():
 	super.click()
 	if can_attack():
-		Controller.send(str(lane_idx))
+		Controller.attack(lane_idx)
 		return

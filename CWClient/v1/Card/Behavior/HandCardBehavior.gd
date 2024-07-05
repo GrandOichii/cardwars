@@ -26,7 +26,7 @@ func mouse_leave():
 func click():
 	if not can_play():
 		return
-	Controller.send('p ' + _last.ID)
+	Controller.play(_last)
 
 func OnUpdate(update: Variant):
 	super.OnUpdate(update)
