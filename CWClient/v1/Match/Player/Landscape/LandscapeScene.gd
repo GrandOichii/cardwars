@@ -27,6 +27,10 @@ func set_lane_idx(idx: int):
 	lane_idx = idx
 	CreatureCard.Behavior.lane_idx = idx
 	
+func set_controller(controller: ControllerScene):
+	CreatureCard.Behavior.set_controller(controller)
+	BuildingCard.Behavior.set_controller(controller)
+	
 func reparent_creature(creature: CardScene, point: Node2D):
 	creature.reparent(point, false)
 	creature.position = Vector2.ZERO
@@ -85,3 +89,14 @@ func _set_landscape_name(new_name: String, idx: int):
 			Art.texture = res.textures[idx]
 			return
 	print('Art not found for ' + _landscape_name)
+
+# signal connections
+
+func OnCreatureMouseEnter():
+	CreatureCard.Behavior.mouse_enter()
+
+func OnCreatureMouseLeave():
+	CreatureCard.Behavior.mouse_leave()
+
+func OnCreatureClick():
+	CreatureCard.Behavior.click()

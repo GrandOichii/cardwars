@@ -3,6 +3,10 @@ class_name CardScene
 
 # !FIXME card name label doesn't shrink with the increase of card name, fix
 
+signal MouseEnter
+signal MouseLeave
+signal Click
+
 @export var Images: CardImages
 @export var Frames: CardFrames
 
@@ -72,7 +76,11 @@ func set_bg_color(color: Color):
 # signal connections
 
 func OnArea2dMouseEntered():
-	set_bg_color(Color.AQUA)
+	MouseEnter.emit()
 
 func OnArea2dMouseExited():
-	print('mouse leave')
+	MouseLeave.emit()
+
+func OnArea2dInputEvent(viewport, e, shape_idx):
+	if e.is_action_pressed('interact'):
+		Click.emit()

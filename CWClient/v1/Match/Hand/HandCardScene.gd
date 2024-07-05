@@ -24,5 +24,5 @@ func OnMouseExited():
 	Card.Behavior.mouse_leave()
 
 func OnGuiInput(e: InputEvent):
-	if e.is_action_pressed('play_card'):
+	if e.is_action_pressed('interact'):
 		Card.Behavior.click()

@@ -195,5 +195,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[connection signal="input_event" from="Area2D" to="." method="OnArea2dInputEvent"]
 [connection signal="mouse_entered" from="Area2D" to="." method="OnArea2dMouseEntered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="OnArea2dMouseExited"]

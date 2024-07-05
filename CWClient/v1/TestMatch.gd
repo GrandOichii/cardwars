@@ -38,6 +38,7 @@ func _ready():
 	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	
 	Connection.Connect(host, port)
+	Match.set_controller(Controller)
 
 func process_update(update: Variant):
 	# print(update)

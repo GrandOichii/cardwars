@@ -19,7 +19,11 @@ var PlayerIdx: int
 
 func _ready():
 	pass
-	
+
+func set_controller(controller: ControllerScene):
+	for landscape: LandscapeScene in Landscapes.get_children():
+		landscape.set_controller(controller)
+
 func load_match_info(match_info: Variant):
 	set_player_idx(match_info.PlayerIdx)
 		
