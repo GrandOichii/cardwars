@@ -12,6 +12,9 @@ offset_bottom = -5.00002
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5sois")
+DefaultColor = Color(1, 1, 1, 1)
+PlayableColor = Color(0, 0.482353, 0, 1)
+HoverColor = Color(0, 0, 0.811765, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Bg" type="ColorRect" parent="."]
@@ -22,8 +25,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Card" parent="." instance=ExtResource("2_ogp1g")]
 unique_name_in_owner = true
 position = Vector2(145, 200)
 scale = Vector2(0.4, 0.4)
+
+[connection signal="gui_input" from="." to="." method="OnGuiInput"]
+[connection signal="mouse_entered" from="." to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="." to="." method="OnMouseExited"]

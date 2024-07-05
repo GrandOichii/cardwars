@@ -19,6 +19,7 @@ signal MatchInfoReceived(Variant)
 @export var HandCardPS: PackedScene
 
 @onready var Match = %Match
+@onready var Controller: ControllerScene = %Controller
 @onready var Connection = %Connection
 @onready var HintLabel = %HintLabel
 
@@ -40,6 +41,8 @@ func _ready():
 
 func process_update(update: Variant):
 	# print(update)
+	
+	Controller.set_last_update(update)
 
 	HintLabel.text = update.Hint
 	var text = ''
@@ -59,6 +62,8 @@ func update_hand(update: Variant):
 	while (HandContainer.get_child_count() < newCount):
 		var child = HandCardPS.instantiate()
 		HandContainer.add_child(child)
+		var cardScene = child as HandCardScene
+		cardScene.set_controller(Controller)
 	while (HandContainer.get_child_count() > newCount):
 		HandContainer.remove_child(HandContainer.get_child(0))
 	for i in newCount:
@@ -99,3 +104,6 @@ func OnRandomButtonPressed():
 		var choice = choices[_rng.randi() % len(choices)]
 		Connection.Write(choice)
 		return
+
+func OnControllerResponse(msg: String):
+	Connection.Write(msg)

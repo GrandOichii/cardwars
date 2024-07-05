@@ -586,9 +586,9 @@ public class Program {
             StrictMode = true,
             CardDrawCost = 1,
             StartHandSize = 5,
-            CheckLandscapesForPlayingCards = false,
-            CanFloopOnFirstTurn = true,
-            CanAttackOnFirstTurn = true,
+            CheckLandscapesForPlayingCards = true,
+            CanFloopOnFirstTurn = false,
+            CanAttackOnFirstTurn = false,
             MaxBuildingsPerLane = 1,
         };
 
@@ -619,9 +619,10 @@ public class Program {
     }
 
     public static async Task TcpLoop(int seed) {
+        var rnd = new Random();
         while (true) {
             try {
-                await TcpMatch(seed);
+                await TcpMatch(rnd.Next());
             } catch (Exception e) {
                 PrintException(e);
             }

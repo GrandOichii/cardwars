@@ -2,8 +2,9 @@
 
 function _Create()
     local result = CardWars:Spell()
-
-    Common.AddRestriction(result, 
+    
+    -- !FIXME had 2 Blue Plains creatures in play, couldn't play
+    Common.AddRestriction(result,
         function (playerI)
             return nil, #Common.Targetable(playerI, Common.CreaturesTyped(playerI, CardWars.Landscapes.BluePlains)) > 0
         end

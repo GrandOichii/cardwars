@@ -68,7 +68,7 @@ func load_snapshot(snapshot: Variant):
 	# load art
 	_set_landscape_name(landscape.Name, landscape.Idx)
 
-	visible = !landscape.FaceDown
+	Art.visible = !landscape.FaceDown
 	
 func _set_landscape_name(new_name: String, idx: int):
 	if _landscape_name == new_name:

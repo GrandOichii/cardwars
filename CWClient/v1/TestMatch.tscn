@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgrfhj1ovlkyv"]
+[gd_scene load_steps=6 format=3 uid="uid://dgrfhj1ovlkyv"]
 
 [ext_resource type="PackedScene" uid="uid://bgpq7x7fblgp2" path="res://v1/Match/MatchScene.tscn" id="1_6newf"]
 [ext_resource type="Script" path="res://v1/TestMatch.gd" id="1_sfwn3"]
 [ext_resource type="PackedScene" uid="uid://fh8r4qhsop8j" path="res://v1/Connection/Wrappers/TcpConnectionWrapper.tscn" id="2_fgw36"]
 [ext_resource type="PackedScene" uid="uid://c6n3iw6bu4tlg" path="res://v1/Match/Hand/HandCardScene.tscn" id="2_u44bo"]
+[ext_resource type="PackedScene" uid="uid://m6ws3lvboo8e" path="res://v1/ControllerScene.tscn" id="5_qdo4q"]
 
 [node name="TestMatch" type="Control"]
 layout_mode = 3
@@ -119,9 +120,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="Controller" parent="." instance=ExtResource("5_qdo4q")]
+unique_name_in_owner = true
+
 [connection signal="MatchInfoReceived" from="." to="VBoxContainer/Match" method="OnTestMatchMatchInfoReceived"]
 [connection signal="UpdateReceived" from="." to="VBoxContainer/Match" method="OnTestMatchUpdateReceived"]
 [connection signal="MessageReceived" from="Connection" to="." method="OnConnectionMessageReceived"]
 [connection signal="pressed" from="ActionWindow/MarginContainer/VBoxContainer/RawActionContainer/SendActionButton" to="." method="OnSendActionButtonPressed"]
 [connection signal="pressed" from="ActionWindow/MarginContainer/VBoxContainer/FightButton" to="." method="OnFightButtonPressed"]
 [connection signal="pressed" from="ActionWindow/MarginContainer/VBoxContainer/RandomButton" to="." method="OnRandomButtonPressed"]
+[connection signal="Response" from="Controller" to="." method="OnControllerResponse"]
