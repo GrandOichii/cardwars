@@ -17,6 +17,11 @@ signal Response(msg: String)
 var match_info: Variant = null
 var last_update: Variant = null
 
+func _input(e):
+	if e.is_action_pressed('fight'):
+		# TODO add checks
+		send('f')
+
 func set_last_update(update: Variant):
 	last_update = update
 	Update.emit(update)

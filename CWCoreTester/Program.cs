@@ -576,7 +576,11 @@ public class Program {
         int port = 9090;
         var endpoint = new IPEndPoint(address, port);
         TcpListener listener = new(endpoint);
-        listener.Start();
+        try {
+            listener.Start();
+        } catch {
+            return;
+        }
         
         var config = new MatchConfig() {
             FreeDraw = 1,
@@ -595,10 +599,10 @@ public class Program {
         var cm = new FileCardMaster();
         cm.Load("../CWCore/cards");
 
-        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
+        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
             ?? throw new Exception("failed to read deck file")
         ;
-        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
+        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
             ?? throw new Exception("failed to read deck file")
         ;
 
