@@ -6,7 +6,6 @@ namespace CWCore.Match.Actions;
 
 public class RemoveFrozenTokenAction : IAction
 {
-    // TODO change to "removefrozen"
     public string ActionWord() => "rf";
 
     public async Task Exec(GameMatch match, int playerI, string[] args)

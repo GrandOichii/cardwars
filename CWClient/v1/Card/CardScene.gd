@@ -46,6 +46,7 @@ func set_landscape(new_landscape: String, is_creature: bool):
 	var tex = Frames.get_frame(_landscape, is_creature)
 	Frame.texture = tex
 	
+# !FIXME loaded Silo of Truth as having attack and defense
 func load_snapshot(card: Variant):
 	var is_creature = card.Type == 'Creature'
 	set_card_name(card.Name)

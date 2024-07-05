@@ -15,6 +15,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_sfwn3")
+landscape1 = "Cornfield"
+landscape2 = "Cornfield"
+landscape3 = "Cornfield"
+landscape4 = "Cornfield"
 HandCardPS = ExtResource("2_u44bo")
 
 [node name="Connection" parent="." instance=ExtResource("2_fgw36")]

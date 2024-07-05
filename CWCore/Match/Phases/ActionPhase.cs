@@ -15,7 +15,6 @@ public class UnknownActionException : GameMatchException
 }
 
 public class ActionPhase : IPhase {
-    // TODO change to "fight"
     private readonly static string FIGHT_ACTION = "f";
 
     private static readonly List<IAction> ACTIONS = new() {

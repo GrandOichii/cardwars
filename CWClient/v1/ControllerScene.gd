@@ -93,6 +93,17 @@ func pick_landscape(player_idx: int, lane_idx: int):
 	if match_info.PlayerIdx == 1:
 		player_idx = 1 - player_idx
 	send(str(player_idx) + ' ' + str(lane_idx))
+	
+func can_activate(in_play_card: Variant) -> bool:
+	var values = last_update.Args.values()
+	for v in values:
+		if v.begins_with('a ' + str(in_play_card.ID)):
+			return true
+	return false
+	
+func activate(in_play_card: Variant):
+	# !FIXME only activates the first ability of card
+	send('a ' + str(in_play_card.ID) + ' 0')
 
 func send(msg: String):
 	Response.emit(msg)

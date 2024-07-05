@@ -302,6 +302,7 @@ public class GameMatch {
         ;
 
         landscape.Original.Creature = null;
+        landscape.Creature = null;
 
         await player.Original.LeavePlay(landscape, creature);
         
@@ -325,6 +326,7 @@ public class GameMatch {
         }
 
         await player.Original.LeavePlay(landscape, building);
+        landscape.Buildings.Remove(building);
         
         // TODO add trigger
 

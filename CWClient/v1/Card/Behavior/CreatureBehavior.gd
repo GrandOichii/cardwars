@@ -32,6 +32,7 @@ func determine_bg_color():
 
 func mouse_enter():
 	super.mouse_enter()
+
 	if can_attack():
 		set_bg_color(AttackHoverColor)
 		return

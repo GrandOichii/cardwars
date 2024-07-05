@@ -35,7 +35,7 @@ var _update: Variant
 
 func _ready():
 	_rng.seed = seed
-	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	
 	Connection.Connect(host, port)
 	Match.set_controller(Controller)
