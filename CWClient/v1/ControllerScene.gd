@@ -8,8 +8,6 @@ class_name ControllerScene
 # PickCardInHand
 # PickCreature
 # PickLandscape
-# PickLane
-# PickLaneForBuilding
 # PickOption
 # PickPlayer
 # * PromptAction
@@ -50,6 +48,17 @@ func can_pick_lane_for_creature(player_idx: int, lane_idx: int) -> bool:
 		return false
 	return player_idx == match_info.PlayerIdx and str(lane_idx) in last_update.Args.values()
 
+func pick_lane_for_creature(lane_idx: int):
+	send(str(lane_idx))
+	
+func can_pick_lane_for_building(player_idx: int, lane_idx: int) -> bool:
+	if last_update.Request != 'PickLaneForBuilding':
+		return false
+	return player_idx == match_info.PlayerIdx and str(lane_idx) in last_update.Args.values()
+
+func pick_lane_for_building(lane_idx: int):
+	send(str(lane_idx))
+
 func can_pick_creature(card: Variant):
 	if last_update.Request != 'PickCreature':
 		return false
@@ -57,9 +66,15 @@ func can_pick_creature(card: Variant):
 
 func pick_creature(card: Variant):
 	send(str(card.ID))
-	
-func pick_lane_for_creature(lane_idx: int):
+
+func can_pick_lane(player_idx: int, lane_idx: int) -> bool:
+	if last_update.Request != 'PickLane':
+		return false
+	return player_idx == match_info.PlayerIdx and str(lane_idx) in last_update.Args.values()
+
+func pick_lane(lane_idx: int):
 	send(str(lane_idx))
+
 
 func send(msg: String):
 	Response.emit(msg)

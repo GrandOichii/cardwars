@@ -110,9 +110,21 @@ func interact():
 	if can_pick_lane_for_creature():
 		_controller.pick_lane_for_creature(lane_idx)
 		return
+	if can_pick_lane_for_building():
+		_controller.pick_lane_for_building(lane_idx)
+		return
+	if can_pick_lane():
+		_controller.pick_lane(lane_idx)
+		return
 	
 func can_pick_lane_for_creature():
 	return _controller.can_pick_lane_for_creature(player_idx, lane_idx)
+	
+func can_pick_lane_for_building():
+	return _controller.can_pick_lane_for_building(player_idx, lane_idx)
+
+func can_pick_lane():
+	return _controller.can_pick_lane(player_idx, lane_idx)
 
 func set_bg_color(color: Color):
 	Bg.color = color
@@ -122,6 +134,10 @@ func set_bg_color(color: Color):
 func OnUpdate(update: Variant):
 	_bg_color = DefaultColor
 	if can_pick_lane_for_creature():
+		_bg_color = LanePickColor
+	if can_pick_lane_for_building():
+		_bg_color = LanePickColor
+	if can_pick_lane():
 		_bg_color = LanePickColor
 	set_bg_color(_bg_color)
 
@@ -136,6 +152,13 @@ func OnCreatureClick():
 
 func OnControlMouseEntered():
 	if can_pick_lane_for_creature():
+		set_bg_color(LanePickHoverColor)
+		return
+	if can_pick_lane_for_building():
+		set_bg_color(LanePickHoverColor)
+		return
+
+	if can_pick_lane():
 		set_bg_color(LanePickHoverColor)
 		return
 
