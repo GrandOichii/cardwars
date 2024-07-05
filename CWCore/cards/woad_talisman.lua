@@ -3,18 +3,17 @@
 function _Create()
     local result = CardWars:Spell()
     
-    -- !FIXME had 2 Blue Plains creatures in play, couldn't play
     Common.AddRestriction(result,
-        function (playerI)
-            return nil, #Common.Targetable(playerI, Common.CreaturesTyped(playerI, CardWars.Landscapes.BluePlains)) > 0
+        function (id, playerI)
+            return nil, #Common.TargetableBySpell(Common.CreaturesTyped(playerI, CardWars.Landscapes.BluePlains), playerI, id) > 0
         end
     )
 
     result.EffectP:AddLayer(
-        function (playerI)
+        function (id, playerI)
             -- Target Blue Plains Creature you control has +2 ATK this turn.
 
-            local ids = Common.IDs(Common.Targetable(playerI, Common.CreaturesTyped(playerI, CardWars.Landscapes.BluePlains)))
+            local ids = Common.IDs(Common.TargetableBySpell(Common.CreaturesTyped(playerI, CardWars.Landscapes.BluePlains), playerI, id))
             local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
 
             UntilEndOfTurn(function ( layer)

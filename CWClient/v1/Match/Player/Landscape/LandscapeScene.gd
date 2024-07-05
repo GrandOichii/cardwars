@@ -56,6 +56,7 @@ func load_creature(landscape: Variant):
 		return
 	CreatureCard.visible = true
 	CreatureCard.load_in_play_snapshot(landscape.Creature)
+	CreatureCard.Behavior.load_snapshot(landscape.Creature)
 
 	# TODO add smooth transitions
 	reparent_creature(CreatureCard, ReadyCreaturePoint)
@@ -73,6 +74,7 @@ func load_buildings(landscape: Variant):
 	var building = landscape.Buildings[0]
 	BuildingCard.visible = true
 	BuildingCard.load_in_play_snapshot(building)
+	BuildingCard.Behavior.load_snapshot(landscape.Buildings[0])
 
 	# TODO add smooth transition
 	if building.Status == 2:
