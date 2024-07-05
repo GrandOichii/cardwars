@@ -8,6 +8,8 @@ class_name InPlayCardBehavior
 @export var CanActivateColor: Color
 @export var CanActivateHoverColor: Color
 
+# !FIXME activated abilities of buildings don't work
+
 var _bg_color = DefaultColor
 var _last: Variant = null
 
@@ -29,7 +31,6 @@ func determine_bg_color():
 
 func mouse_enter():
 	super.mouse_enter()
-
 	if can_activate():
 		set_bg_color(CanActivateHoverColor)
 		return

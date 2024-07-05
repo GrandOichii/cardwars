@@ -157,6 +157,15 @@ func OnCreatureMouseLeave():
 
 func OnCreatureClick():
 	CreatureCard.Behavior.click()
+	
+func OnBuildingClick():
+	BuildingCard.Behavior.click()
+
+func OnBuildingMouseEnter():
+	BuildingCard.Behavior.mouse_enter()
+
+func OnBuildingMouseLeave():
+	BuildingCard.Behavior.mouse_leave()
 
 func OnControlMouseEntered():
 	if can_pick_lane_for_creature():
@@ -178,3 +187,4 @@ func OnControlMouseExited():
 func OnControlGuiInput(e):
 	if e.is_action_pressed('interact'):
 		interact()
+

@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://v1/Card/Behavior/CreatureBehavior.gd" id="5_ssc60"]
 [ext_resource type="Script" path="res://v1/Card/Behavior/InPlayCardBehavior.gd" id="6_w53fr"]
 
-[sub_resource type="Resource" id="Resource_x771v"]
+[sub_resource type="Resource" id="Resource_agbg1"]
 resource_local_to_scene = true
 script = ExtResource("5_ssc60")
 CanAttackColor = Color(1, 0.518123, 0.45217, 1)
@@ -18,7 +18,7 @@ PickHoverColor = Color(0.877121, 0.44349, 0, 1)
 CanActivateColor = Color(0, 0, 0.458824, 1)
 CanActivateHoverColor = Color(0, 0, 0.909804, 1)
 
-[sub_resource type="Resource" id="Resource_2bwic"]
+[sub_resource type="Resource" id="Resource_m6n37"]
 resource_local_to_scene = true
 script = ExtResource("6_w53fr")
 DefaultColor = Color(0, 0, 0, 0)
@@ -49,7 +49,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Creature" parent="ReadyCreaturePoint" instance=ExtResource("4_w3fph")]
 unique_name_in_owner = true
-Behavior = SubResource("Resource_x771v")
+Behavior = SubResource("Resource_agbg1")
 
 [node name="AttackingCreaturePoint" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -69,7 +69,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Building" parent="BuildingPoint" instance=ExtResource("4_w3fph")]
 unique_name_in_owner = true
-Behavior = SubResource("Resource_2bwic")
+Behavior = SubResource("Resource_m6n37")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -89,6 +89,9 @@ mouse_filter = 1
 [connection signal="Click" from="ReadyCreaturePoint/Creature" to="." method="OnCreatureClick"]
 [connection signal="MouseEnter" from="ReadyCreaturePoint/Creature" to="." method="OnCreatureMouseEnter"]
 [connection signal="MouseLeave" from="ReadyCreaturePoint/Creature" to="." method="OnCreatureMouseLeave"]
+[connection signal="Click" from="BuildingPoint/Building" to="." method="OnBuildingClick"]
+[connection signal="MouseEnter" from="BuildingPoint/Building" to="." method="OnBuildingMouseEnter"]
+[connection signal="MouseLeave" from="BuildingPoint/Building" to="." method="OnBuildingMouseLeave"]
 [connection signal="gui_input" from="Control" to="." method="OnControlGuiInput"]
 [connection signal="mouse_entered" from="Control" to="." method="OnControlMouseEntered"]
 [connection signal="mouse_exited" from="Control" to="." method="OnControlMouseExited"]
