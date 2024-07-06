@@ -1,7 +1,7 @@
 -- Status: partially implemented
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
     Common.State.ModATKDEF(result, function (me)
         local landscape = STATE.Players[1 - me.Original.ControllerI].Landscapes[me.LaneI]

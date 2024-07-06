@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- While Papercut Tiger has exactly 5 Damage on it, it has +5 ATK.
     Common.State.ModATKDEF(result, function (me)

@@ -1,7 +1,7 @@
 -- Status: not implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- TODO tile???
     -- Business Dog has +2 ATK this turn for each card you have played \"Dog\" or \"Puppy\" in its tile this turn.

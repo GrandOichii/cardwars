@@ -1,5 +1,5 @@
 -- Status: implemented
 
-function _Create(props)
-    return CardWars:Creature(props)
+function _Create()
+    return CardWars:Creature()
 end

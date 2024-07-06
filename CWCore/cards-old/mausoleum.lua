@@ -1,8 +1,8 @@
 -- Your Creature in this Lane has +1 DEF for every 5 cards in your discard pile.
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
     Common.State.ModATKDEF(result, function (me)
         local player = STATE.Players[me.Original.ControllerI]

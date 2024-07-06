@@ -1,10 +1,10 @@
 -- Status: not tested
 -- TODO add support for "cannot be flipped"
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Flip target Cornfield Landscape in this Lane face down.',
         tags = {'floop'},
 

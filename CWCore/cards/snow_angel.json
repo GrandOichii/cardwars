@@ -1,0 +1,9 @@
+{
+    "Name": "Snow Angel",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Heal 1 Damage from each of your Creatures for each Landscape with a Frozen token on it players control.",
+    "Attack": 2,
+    "Defense": 7
+}

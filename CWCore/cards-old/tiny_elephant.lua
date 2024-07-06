@@ -1,7 +1,7 @@
 -- Status: implemented, requires a lot of testing
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     result:AddStateModifier(function (me, layer, zone)
         -- While in play, Tiny Elephant is also a Rainbow Creature (in addition to Blue Plains).

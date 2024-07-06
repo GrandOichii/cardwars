@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- While Wall of Chocolate has no Damage on it, it has +3 ATK.
     Common.State.ModATKDEF(result, function (me)

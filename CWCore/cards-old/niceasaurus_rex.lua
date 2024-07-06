@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     result:AddTrigger({
         -- At the start of your turn, if Niceasaurus Rex has Damage on it, draw a card.

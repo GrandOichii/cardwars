@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Kernel Queen has +1 ATK for each Flooped Creature you control.
     Common.State.ModATKDEF(result, function (me)

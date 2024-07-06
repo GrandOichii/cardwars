@@ -3,7 +3,7 @@
 from os import walk
 from pathlib import Path
 
-IMAGES_PATH = '../../assets/images/cards/art'
+IMAGES_PATH = '../../assets/images-old'
 TOP = '''
 [gd_resource type="Resource" script_class="CardImages" load_steps=800 format=3 uid="uid://3hbalh37jsoc"]
 [ext_resource type="Script" path="res://v1/Card/CardImage.gd" id="1_e43bw"]
@@ -25,12 +25,12 @@ i = 0
 for address, dirs, files in walk(IMAGES_PATH):
     for p in files:
         path = Path(p)
-        if path.suffix != '.png':
+        if path.suffix != '.jpg':
             continue
 
         i += 1
         name = path.stem
-        TOP += '[ext_resource type="Texture2D" path="{}/{}.png" id="1_{}"]\n'.format(address, name, i)
+        TOP += '[ext_resource type="Texture2D" path="{}/{}.jpg" id="1_{}"]\n'.format(address, name, i)
         MID += '[sub_resource type="Resource" id="Resource_{}"]\nscript = ExtResource("1_e43bw")\nname = "{}"\nimage = ExtResource("1_{}")\n\n'.format(i, name, i)
         BOTTOM += 'SubResource("Resource_{}"),'.format(i)
 

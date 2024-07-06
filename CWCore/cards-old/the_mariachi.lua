@@ -1,9 +1,9 @@
 -- Status: not implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Deal 1 Damage to target Creature for each Creature that entered play this turn.',
         tags = {'floop'},
 

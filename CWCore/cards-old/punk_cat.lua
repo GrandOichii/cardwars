@@ -1,8 +1,8 @@
 -- Status: implemented
 -- TODO? does this effect the opponents creatures?
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Each Creature that changed Lanes this turn has +2 ATK his turn.
     Common.State.ModATKDEF(result, function (me)

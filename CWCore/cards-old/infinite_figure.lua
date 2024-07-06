@@ -1,10 +1,10 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- TODO? doesn't specify that it TARGETS
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         -- Discard a card >>> Deal 1 Damage to another Creature in this Lane. (Use any number of times during each of your turns.)
 
         maxActivationsPerTurn = -1,

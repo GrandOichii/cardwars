@@ -1,9 +1,9 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Hero(props)
+function _Create()
+    local result = CardWars:Hero()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'Discard a card from you hand >>> Deal 1 Damage to target Creature.',
         tags = {'floop'},
 

@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- At the start of your turn, deal 3 Damage to each opponent who was no cards in hand.
     Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI)

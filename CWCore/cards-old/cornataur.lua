@@ -1,9 +1,9 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
+    result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Cornataur enters play, deal 1 Damage to your opponent for each Cornfield Landscape you control.
 
         local opponentI = 1 - playerI

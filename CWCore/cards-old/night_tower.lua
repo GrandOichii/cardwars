@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
-    Common.ActivatedEffects.Floop(result,
+    Common.ActivatedAbilities.Floop(result,
         'FLOOP >>> If your opponent has no Creature in this Lane they discard a card.',
         function (me, playerI, laneI)
             local creatures = Common.CreaturesInLane(1 - playerI, laneI)

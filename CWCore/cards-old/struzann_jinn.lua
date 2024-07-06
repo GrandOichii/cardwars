@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- +2 ATK for each Flooped Creature you control.
     Common.State.ModATKDEF(result, function (me)

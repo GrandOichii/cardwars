@@ -1,9 +1,9 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
+    result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Sandhorn Devil enters play, deal 1 Damage to each Creature in play, (including each of your Creatures).
 
         local ids = Common.IDs(Common.AllPlayers.Creatures())

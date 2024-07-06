@@ -1,0 +1,9 @@
+{
+    "Name": "Emperor Penguin",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Creatures on Landscapes with a Frozen token on it have -1 ATK.",
+    "Attack": 1,
+    "Defense": 8
+}

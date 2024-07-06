@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >> Move an exhausted Creature you control to this Landscape (if empty).',
         tags = {'floop'},
 

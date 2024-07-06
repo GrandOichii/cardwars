@@ -17,6 +17,8 @@ class_name LandscapeScene
 @onready var BuildingPoint: Node2D = %BuildingPoint
 @onready var Bg: Polygon2D = %Bg
 
+@onready var FrozenCover = %FrozenCover
+
 # for testing now
 @onready var CreatureCard: CardScene = %Creature
 @onready var BuildingCard: CardScene = %Building
@@ -92,6 +94,7 @@ func load_snapshot(snapshot: Variant):
 	_set_landscape_name(landscape.Name, landscape.Idx)
 
 	Art.visible = !landscape.FaceDown
+	FrozenCover.visible = 'Frozen' in landscape.Tokens
 	
 func _set_landscape_name(new_name: String, idx: int):
 	if _landscape_name == new_name:

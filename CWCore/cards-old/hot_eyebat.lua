@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Play Hot Eyebat only if you have 10 or more cards in your discard pile.
     Common.AddRestriction(result,

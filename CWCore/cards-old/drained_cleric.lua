@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- At the start of your turn, move Drained Cleric to an empty Landscape you control. If you cannot, discard a card.
     Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)

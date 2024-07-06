@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Furious Rooster has +1 ATK for each Damage on it.
     Common.State.ModATKDEF(result, function (me)

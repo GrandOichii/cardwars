@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     result.OnLeavePlayP:AddLayer(function(playerI, laneI)
         -- When Ethan Allfire leaves play, draw 1 card for each Cornfield Landscape you control.

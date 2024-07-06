@@ -1,9 +1,9 @@
 -- Status: implemented, could use some more testing
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
+    result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Brain Gooey enters play, if it replaced a Creature, it has +2 ATK this turn.
         local me = STATE.Players[playerI].Landscapes[laneI].Creature
         if me == nil then

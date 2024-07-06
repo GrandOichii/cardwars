@@ -1,9 +1,9 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.Floop(result,
+    Common.ActivatedAbilities.Floop(result,
         'FLOOP >>> Draw a card for each Flooped Creature you control (including this one).',
         function (me, playerI, laneI)
             local creatures = Common.FloopedCreatures(playerI)

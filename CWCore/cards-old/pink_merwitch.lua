@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.DiscardCard(result,
+    Common.ActivatedAbilities.DiscardCard(result,
         'Discard a card >>> Deal 1 Damage to each opposing Creature. (Use only once during each of your turns.)',
         function (me, playerI, laneI)
             local creatures = GetCreatures(1 - playerI)

@@ -1,8 +1,8 @@
 -- Farmhouse counts as an additional Cornfield Landscape you control.
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
     result:AddStateModifier(function (me, layer, zone)
         -- 

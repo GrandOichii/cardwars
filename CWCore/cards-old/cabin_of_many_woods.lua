@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
     Common.State.ModCostInHand(result, function (me)
         local ownerI = me.Original.OwnerI

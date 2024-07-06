@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
+    result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Pieclops enters play, heal 1 Damage from each adjacent Creature.
 
         local adjacent = Common.AdjacentCreatures(playerI, laneI)

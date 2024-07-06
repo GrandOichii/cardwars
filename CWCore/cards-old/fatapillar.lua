@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- +2 ATK for every 5 cards in your discard pile.
     Common.State.ModATKDEF(result, function (me)

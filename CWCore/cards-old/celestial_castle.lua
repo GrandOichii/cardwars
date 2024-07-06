@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
     Common.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI

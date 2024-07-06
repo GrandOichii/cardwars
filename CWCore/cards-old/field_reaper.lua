@@ -1,7 +1,7 @@
 -- Status: implemented, requires a lot of testing
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Additional Cost: Discard a card.
 
@@ -17,7 +17,7 @@ function _Create(props)
     end)
 
     -- When Field Reaper enters play, move target Creature in this Lane to an adjacent empty Lane on your side.
-    result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
+    result:OnEnter(function(me, playerI, laneI, replaced)
         local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.CreaturesInLane(laneI)))
         local adjacent = Common.AdjacentLandscapes(playerI, laneI)
         local options = {}

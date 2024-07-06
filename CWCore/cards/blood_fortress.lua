@@ -1,6 +1,6 @@
 -- Status: implemented
 
-function _Create(props)
+function _Create()
     local result = CardWars:InPlay()
 
     -- Your Creature in this Lane has +1 ATK.

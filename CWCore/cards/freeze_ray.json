@@ -1,0 +1,7 @@
+{
+    "Name": "Freeze Ray",
+    "Landscape": "IcyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Freeze target Landscape and then draw a card."
+}

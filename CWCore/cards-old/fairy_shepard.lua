@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Each Adjacent NiceLands Creature has +2 DEF.
     Common.State.ModATKDEF(result, function (me)

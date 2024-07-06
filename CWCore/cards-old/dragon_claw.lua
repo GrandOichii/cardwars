@@ -1,9 +1,9 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Move a Creature you control to an empty Lane.',
         tags = {'floop'},
 

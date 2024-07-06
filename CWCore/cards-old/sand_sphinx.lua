@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Return a Creature you control in this Lane to its owner\'s hand.',
         tags = {'floop'},
 

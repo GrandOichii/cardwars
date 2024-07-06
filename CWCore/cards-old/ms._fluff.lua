@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- While Ms. Fluff has exactly 7 Damage on it, it has +7 ATK.
     Common.State.ModATKDEF(result, function (me)

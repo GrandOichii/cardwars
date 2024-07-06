@@ -1,0 +1,9 @@
+{
+    "Name": "Cold Soldier",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "+3 ATK while your opponent does not control a Creature in this Lane",
+    "Attack": 2,
+    "Defense": 4
+}

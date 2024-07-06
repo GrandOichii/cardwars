@@ -1,9 +1,9 @@
 -- Status: not tested, requires a lot
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'FLOOP >>> Move target Building you control to any Landscape without one.',
         tags = {'floop'},
 

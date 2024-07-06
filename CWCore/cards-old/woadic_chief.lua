@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Woadic Chief has +2 ATK this turn for each Spell you have played this turn.
     Common.State.ModATKDEF(result, function (me)

@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.DestroyMe(result,
+    Common.ActivatedAbilities.DestroyMe(result,
         'Destroy Mace Stump >>> Target opponent discards a card for every 5 cards in your discard pile.',
         function (me, playerI, laneI)
             local amount = STATE.Players[playerI].DiscardPile.Count

@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = 'Pay 1 Action >>> Target Creature in this Lane has -10 ATK this turn.',
 
         maxActivationsPerTurn = -1,

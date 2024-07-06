@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Hero(props)
+function _Create()
+    local result = CardWars:Hero()
 
     result:AddStateModifier(function (layer, playerI)
         -- While you control only one Landscape type, your Rainbow Creatures have +1 ATK.

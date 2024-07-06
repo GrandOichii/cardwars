@@ -7,7 +7,7 @@ class_name ControllerScene
 # PickCardInDiscard
 # PickCardInHand
 # PickPlayer
-# * PromptAction - activated abilities, remove frozen counters
+# * PromptAction - activated abilities, remove frozen tokens
 # PromptLandscapePlacement
 
 signal Update(update: Variant)

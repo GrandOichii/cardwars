@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Each adjacent Creature has +1 ATK.
     Common.State.ModATKDEF(result, function (me)

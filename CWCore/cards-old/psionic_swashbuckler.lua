@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    result.OnEnterP:AddLayer(function(playerI, laneI, replaced)
+    result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Psionic Swashbuckler enters play, you may deal 3 Damage to target Flooped Creature
 
         local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.FloopedCreatures()))

@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.DiscardCard(
+    Common.ActivatedAbilities.DiscardCard(
         result,
         'Discard a card >>> Heal 1 Damage from Squatting Bald Man. (Use any number of times during each of your turns.)',
         function (me, playerI, laneI)

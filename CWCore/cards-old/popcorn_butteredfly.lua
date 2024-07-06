@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.Floop(result,
+    Common.ActivatedAbilities.Floop(result,
         'FLOOP >>> Draw a card for each Building you control.',
         function (me, playerI, laneI)
             local buildings = Common.Buildings(playerI)

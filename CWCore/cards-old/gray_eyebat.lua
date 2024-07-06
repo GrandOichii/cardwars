@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.PayActionPoints(result, 1,
+    Common.ActivatedAbilities.PayActionPoints(result, 1,
         'Pay 1 Action >>> Return a random Useless Swamp Creature from your discard pile to your hand.',
         function (me, playerI, laneI)
             local idx = Common.RandomCardInDiscard(playerI, function (card)

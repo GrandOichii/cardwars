@@ -93,6 +93,7 @@ CardWars.Triggers = {
     CREATURE_ENTER = 'creature_enter',
     DISCARD_FROM_HAND = 'discard_from_hand',
     CARD_DRAW = 'card_draw',
+    TOKEN_PLACED_ON_LANDSCAPE = 'token_placed_on_landscape',
 }
 
 -- Landscapes
@@ -358,8 +359,8 @@ end
 function Common.FilterLandscapes(predicate)
     local result = {}
 
-    for pi = 1, STATE.Players.Length do
-        local pState = STATE.Players[pi - 1]
+    for pi = 0, STATE.Players.Length - 1 do
+        local pState = STATE.Players[pi]
         for li = 1, pState.Landscapes.Count do
             local lane = pState.Landscapes[li - 1]
             if predicate(lane) then
@@ -438,6 +439,10 @@ function Common.CanFloop(card)
 end
 
 function Common.FreezeLandscape(playerI, laneI)
+    local landscape = STATE.Players[playerI].Landscapes[laneI]
+    if landscape:IsFrozen() then
+        return
+    end
     PlaceTokenOnLandscape(playerI, laneI, 'Frozen')
 end
 
@@ -1047,7 +1052,46 @@ function Common.SearchDeckFor(playerI, predicate)
     error('Error in SearchDeckFor: tried to find card '..cardName..' in deck of player ['..playerI..'], but failed')
 end
 
+function Common.FrozenLandscapes(playerI)
+    return Common.FilterLandscapes(function (landscape)
+        return landscape:IsFrozen() and landscape.Original.OwnerI == playerI
+    end)
+end
+
+function Common.SplitLandscapesByOwner(landscapes)
+    local result = {}
+    for i = 0, STATE.Players.Length - 1 do
+        result[i] = {}
+    end
+    for _, landscape in ipairs(landscapes) do
+        local idx = landscape.Original.OwnerI
+        result[idx][#result[idx]+1] = landscape
+    end
+    return result
+end
+
 Common.AllPlayers = {}
+
+function Common.AllPlayers.Landscapes()
+    return Common.FilterLandscapes(function (_)
+        return true
+    end)
+end
+
+function Common.AllPlayers.CreautresWithFrozenTokens()
+    local landscapes = Common.AllPlayers.FrozenLandscapes()
+    local result = {}
+    for _, landscape in ipairs(landscapes) do
+        result[#result+1] = landscape.Creature
+    end
+    return result
+end
+
+function Common.AllPlayers.FrozenLandscapes()
+    return Common.FilterLandscapes(function (landscape)
+        return landscape:IsFrozen()
+    end)
+end
 
 function Common.AllPlayers.LandscapesWithoutCreatures()
     return Common.FilterLandscapes(function (landscape)
@@ -1550,4 +1594,14 @@ function Common.Bounce.ReturnToHandAndPlayForFree(playerI, id)
     local card = STATE.Players[playerI].Hand[idx]
 
     PlayCardIfPossible(playerI, card.Original, true)
+end
+
+Common.Freeze = {}
+
+function Common.Freeze.TargetLandscape(playerI)
+    local landscapes = Common.SplitLandscapesByOwner(Common.AllPlayers.Landscapes())
+    local l1 = Common.Lanes(landscapes[playerI])
+    local l2 = Common.Lanes(landscapes[1 - playerI])
+    local choice = ChooseLandscape(playerI, l1, l2, 'Choose a Landscape to freeze')
+    Common.FreezeLandscape(choice[0], choice[1])
 end

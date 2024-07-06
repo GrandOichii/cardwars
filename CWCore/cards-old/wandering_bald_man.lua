@@ -2,8 +2,8 @@
 
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     Common.Triggers.AtTheStartOfYourTurn(result,
         function (me, controllerI, laneI, args)

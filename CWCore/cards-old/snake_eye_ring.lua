@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Spell(props)
+function _Create()
+    local result = CardWars:Spell()
 
     -- Return a random Useless Swamp Creature from your discard pile to your hand.
     result.EffectP:AddLayer(

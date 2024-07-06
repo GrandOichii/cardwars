@@ -1,0 +1,7 @@
+{
+    "Name": "Snow Way",
+    "Landscape": "IcyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Freeze two target Landscapes."
+}

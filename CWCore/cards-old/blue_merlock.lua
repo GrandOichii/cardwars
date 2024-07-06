@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.Floop(result,
+    Common.ActivatedAbilities.Floop(result,
         'FLOOP >>> Draw a card, then discard a card.',
         function (me, playerI, laneI)
             Draw(playerI, 1)

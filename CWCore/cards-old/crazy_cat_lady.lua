@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     Common.State.ModATKDEF(result, function (me)
         local creatures = Common.CreaturesTyped(me.Original.ControllerI, CardWars.Landscapes.Rainbow)

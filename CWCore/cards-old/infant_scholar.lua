@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- If you played one or more Rainbow cards this turn, Infant Scholar has +3 ATK this turn,
     Common.State.ModATKDEF(result, function (me)

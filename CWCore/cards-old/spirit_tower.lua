@@ -1,9 +1,9 @@
 -- Status: implemented, requires A LOT of testing
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         -- Pay 1 Action and FLOOP >>> If you control no Creatures in this Lane, move target Creature in this Lane to your side and ready it. At end of turn, return it to its owner's side.
 
         maxActivationsPerTurn = -1,

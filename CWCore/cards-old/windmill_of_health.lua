@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
     -- While your Creature in this Lane has no Damage on it, it has +2 ATK.
     Common.State.ModATKDEF(result, function (me)

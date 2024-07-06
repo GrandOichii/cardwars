@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.DiscardCard(result,
+    Common.ActivatedAbilities.DiscardCard(result,
         'Discard a card >>> Dogboy has +2 ATK this turn. (Use only once during each of your turns.)',
         function (me, playerI, laneI)
             local id = me.Original.Card.ID

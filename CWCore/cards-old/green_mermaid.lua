@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.DestroyMe(
+    Common.ActivatedAbilities.DestroyMe(
         result,
         'Destroy Green Mermaid >>> Deal 1 Damage to each opposing Creature.',
         function (me, playerI, laneI)

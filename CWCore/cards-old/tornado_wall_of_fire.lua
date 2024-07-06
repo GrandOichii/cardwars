@@ -1,9 +1,9 @@
 -- Status: not tested, requires a lot
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.Floop(result,
+    Common.ActivatedAbilities.Floop(result,
         'FLOOP >>> Tornado Wall of Fire has +3 ATK while Flooped.',
         function (me, playerI, laneI)
             local id = me.Original.Card.ID

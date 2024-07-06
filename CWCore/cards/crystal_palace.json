@@ -1,0 +1,7 @@
+{
+    "Name": "Crystal Palace",
+    "Landscape": "IcyLands",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "When a Landscape in this Lane becomes Frozen, deal 2 Damage to target Creature."
+}

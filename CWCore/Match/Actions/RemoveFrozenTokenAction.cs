@@ -22,7 +22,7 @@ public class RemoveFrozenTokenAction : IAction
 
         var hasToken = landscape.HasToken("Frozen");
         if (!hasToken) {
-            match.ActionError($"player {player.LogFriendlyName} tried to remove Frozen counter from lane {laneI}, where there is none");
+            match.ActionError($"player {player.LogFriendlyName} tried to remove Frozen token from lane {laneI}, where there is none");
             return;
         }
 

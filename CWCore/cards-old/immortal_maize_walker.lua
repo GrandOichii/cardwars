@@ -1,7 +1,7 @@
 -- Status: implemented, requires testing
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     result:AddStateModifier(function (me, layer, zone)
         -- While Immortal Maize Walker is on a Cornfield Landscape, it deals triple Damage.

@@ -1,7 +1,7 @@
 -- Status: not tested, requires further testing
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Your Creatures on adjacent Lanes may not be Attacked.
     Common.State.ModAttackRight(result, function (me)

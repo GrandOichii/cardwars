@@ -1,6 +1,6 @@
 -- Status: implemented
 
-function _Create(props)
+function _Create()
     local result = CardWars:Creature()
 
     -- Each adjacent Creature has +1 ATK.

@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- +3 ATK while your opponent does not control a Creature in this Lane.
     Common.State.ModATKDEF(result, function (me)

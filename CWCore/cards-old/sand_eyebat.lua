@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- When another Creature enters play under your control, Sand Eyebat gains 1 DEF.
     Common.Triggers.OnAnotherCreatureEnterPlayUnderYourControl(result,

@@ -227,7 +227,7 @@ public class GameMatch {
     }
 
     public async Task<int> DealDamageToPlayerBy(int playerI, CreatureState attacker) {
-        var amount = attacker.Attack * attacker.DamageMultiplier;
+        var amount = attacker.GetAttack() * attacker.DamageMultiplier;
         var dealt = await DealDamageToPlayer(playerI, amount);
         attacker.OnDealtDamage(dealt, null);
 
@@ -281,7 +281,7 @@ public class GameMatch {
     }
 
     public async Task DealDamageToCreatureBy(CreatureState to, CreatureState from) {
-        var damage = from.Attack * from.DamageMultiplier;
+        var damage = from.GetAttack() * from.DamageMultiplier;
         await DealDamageToCreature(to, damage, from);
         if (to.ShouldDie())
             from.OnDefeated(to.GetOriginal());
@@ -579,7 +579,11 @@ public class GameMatch {
         var player = GetPlayer(playerI);
         player.Landscapes[laneI].Tokens.Add(token);
 
-        // TODO trigger
+        await Emit("token_placed_on_landscape", new(){ 
+            {"playerI", playerI},
+            {"laneI", laneI},
+            {"token", token},
+        });
         // TODO update
     }
 

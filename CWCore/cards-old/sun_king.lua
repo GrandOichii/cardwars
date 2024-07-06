@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     result:AddStateModifier(function (me, layer, zone)
         -- Sun King counts as an additional Cornfield Landscape you control.

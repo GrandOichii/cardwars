@@ -1,7 +1,7 @@
 -- Status: implemented, not tested
 
-function _Create(props)
-    local result = CardWars:Spell(props)
+function _Create()
+    local result = CardWars:Spell()
     
     result.EffectP:AddLayer(
         function (playerI)

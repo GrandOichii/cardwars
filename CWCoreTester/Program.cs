@@ -537,7 +537,7 @@ public class Program {
         var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/bubblegum.json"))
             ?? throw new Exception("failed to read deck file")
         ;
-        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/lumpy.json"))
+        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/iceking.json"))
             ?? throw new Exception("failed to read deck file")
         ;
 
@@ -587,7 +587,7 @@ public class Program {
             StartingLifeTotal = 25,
             ActionPointsPerTurn = 2,
             LaneCount = 4,
-            StrictMode = true,
+            StrictMode = false,
             CardDrawCost = 1,
             StartHandSize = 5,
             CheckLandscapesForPlayingCards = true,
@@ -599,10 +599,10 @@ public class Program {
         var cm = new FileCardMaster();
         cm.Load("../CWCore/cards");
 
-        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/bubblegum.json"))
+        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
             ?? throw new Exception("failed to read deck file")
         ;
-        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/lumpy.json"))
+        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/iceking.json"))
             ?? throw new Exception("failed to read deck file")
         ;
 
@@ -724,7 +724,7 @@ public class Program {
             var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/bubblegum.json"))
                 ?? throw new Exception("failed to read deck file")
             ;
-            var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/lumpy.json"))
+            var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/iceking.json"))
                 ?? throw new Exception("failed to read deck file")
             ;
 

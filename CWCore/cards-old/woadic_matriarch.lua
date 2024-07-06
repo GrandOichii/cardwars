@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- Woadic Matriarch has +1 ATK for each Rainbow Creature you control.
     Common.State.ModATKDEF(result, function (me)

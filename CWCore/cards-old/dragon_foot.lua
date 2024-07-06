@@ -1,9 +1,9 @@
 -- Status: implemented, kinda sus code
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.DiscardCard(result, 
+    Common.ActivatedAbilities.DiscardCard(result, 
         'Discard a card >>> Dragon Foot has +1 ATK this turn. (Use up to five times during each of your turns.)',
 
         function (me, playerI, laneI)

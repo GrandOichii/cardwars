@@ -1,0 +1,7 @@
+{
+    "Name": "Frozen Heart",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Deal 1 Damage to target Creature. If that Creature is on a Landscape with a Frozen token on it, deal 3 Damage instead."
+}

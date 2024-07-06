@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- When SandWitch or another Creature enters play under your control, deal 1 Damage to your opponent.
     result:AddTrigger({

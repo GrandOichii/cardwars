@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     result.OnLeavePlayP:AddLayer(function(playerI, laneI)
         -- When Travelin' Farmer leaves play, deal 1 Damage to your opponent for each card in his hand.

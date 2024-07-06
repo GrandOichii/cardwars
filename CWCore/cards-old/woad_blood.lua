@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Spell(props)
+function _Create()
+    local result = CardWars:Spell()
 
     -- Each Creature that changed Lanes this turn has +2 ATK this turn.
     result.EffectP:AddLayer(

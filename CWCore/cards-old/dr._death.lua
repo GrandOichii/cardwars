@@ -2,10 +2,10 @@
 
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    result:AddActivatedEffect({
+    result:AddActivatedAbility({
         text = '',
         tags = {'floop'},
         checkF = function (me, playerI, laneI)

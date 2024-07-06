@@ -1,9 +1,9 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
-    Common.ActivatedEffects.Floop(result,
+    Common.ActivatedAbilities.Floop(result,
         'FLOOP >>> Discard the top 3 cards of your deck. For each Spell discarded this way, target player discards a card.',
         function (me, playerI, laneI)
             local milled = Mill(playerI, 3)

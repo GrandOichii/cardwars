@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
     Common.State.ModCostInHand(result, function (me)
         local ownerI = me.Original.OwnerI
@@ -12,7 +12,7 @@ function _Create(props)
         Common.Mod.Cost(me, -math.floor(amount / 5))
     end)
 
-    Common.ActivatedEffects.Floop(result,
+    Common.ActivatedAbilities.Floop(result,
         'Cardboard Mansion costs 1 less to play for every 5 cards in your Discard Pile. FLOOP >>> Gain 1 Action.',
         function (me, playerI, laneI)
             AddActionPoints(playerI, 1)

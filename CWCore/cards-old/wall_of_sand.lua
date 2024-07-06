@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- If one or more other SandyLand Creatures enter play during you turn, Wall of Sand has +2 ATK this turn.
     Common.State.ModATKDEF(result, function (me)

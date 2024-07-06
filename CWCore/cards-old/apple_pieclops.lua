@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- At the start of your turn, you may heal or deal 1 Damage to each Creature you control. (Choose for each Creature.)
     Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)

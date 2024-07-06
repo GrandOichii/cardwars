@@ -1,8 +1,8 @@
 
 -- Status: not implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
     
     -- Each time Emboldened Retriever attacks, you may deal a card. Much ball. Wow.
     -- TODO implement

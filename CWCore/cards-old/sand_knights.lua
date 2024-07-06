@@ -1,7 +1,7 @@
 -- Status: implemented
 
-function _Create(props)
-    local result = CardWars:Creature(props)
+function _Create()
+    local result = CardWars:Creature()
 
     -- +2 ATK if you control a Blue Plains Landscape.
     Common.State.ModATKDEF(result, function (me)

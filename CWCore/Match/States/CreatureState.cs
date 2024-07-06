@@ -96,4 +96,8 @@ public class CreatureState : InPlayCardState {
 
         return result;
     }
+
+    public int GetAttack() {
+        return Attack < 0 ? 0 : Attack;
+    }
 }

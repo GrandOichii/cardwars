@@ -1,7 +1,7 @@
 -- Status: not tested
 
-function _Create(props)
-    local result = CardWars:InPlay(props)
+function _Create()
+    local result = CardWars:InPlay()
 
     -- Your Creature on this Landscape has +2 DEF for each Oil Refinery you control.
     Common.State.ModATKDEF(result, function (me)

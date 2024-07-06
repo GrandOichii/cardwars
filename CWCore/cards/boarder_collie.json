@@ -1,0 +1,9 @@
+{
+    "Name": "Boarder Collie",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Move Boarder Collie to any of your empty Landscapes. If either Landscape in that Lane is Frozen, gain 1 Action.",
+    "Attack": 1,
+    "Defense": 7
+}

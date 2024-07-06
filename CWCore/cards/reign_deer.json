@@ -1,0 +1,9 @@
+{
+    "Name": "Reign Deer",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "FLOOP >>> Draw a card for each Landscape with a Frozen token on it players control.",
+    "Attack": 4,
+    "Defense": 4
+}
