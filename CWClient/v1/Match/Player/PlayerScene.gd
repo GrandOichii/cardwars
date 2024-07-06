@@ -75,6 +75,7 @@ func load_snapshot(snapshot: Variant):
 		RestrictedActionPointsLabel.text = ' + ' + str(player.RestrictedActionPoints)
 	HandSizeLabel.text = str(player.HandCount)
 	DeckCountLabel.text = str(player.DeckCount)
+	DiscardCountLabel.text = str(len(player.DiscardPile))
 	
 	for landscape: LandscapeScene in Landscapes.get_children():
 		landscape.load_snapshot(snapshot)

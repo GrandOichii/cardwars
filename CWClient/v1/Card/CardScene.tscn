@@ -25,17 +25,8 @@ polygon = PackedVector2Array(-355, -500, 355, -500, 355, 500, -355, 500)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_nt2pl")
 
-[node name="Art" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(2.08165e-12, -150)
-scale = Vector2(1.3, 1.3)
-texture = ExtResource("1_xi7ch")
-
-[node name="Frame" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-texture = ExtResource("2_aw167")
-
 [node name="Control" type="Control" parent="."]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -50,6 +41,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="Art" type="Sprite2D" parent="Control"]
+unique_name_in_owner = true
+position = Vector2(350, 340)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("1_xi7ch")
+
+[node name="Frame" type="Sprite2D" parent="Control"]
+unique_name_in_owner = true
+position = Vector2(350, 490)
+texture = ExtResource("2_aw167")
+
 [node name="CostLabel" type="Label" parent="Control"]
 unique_name_in_owner = true
 layout_mode = 1
@@ -60,7 +62,7 @@ anchor_right = 0.236
 anchor_bottom = 0.2
 offset_left = -0.300003
 offset_top = 0.399999
-offset_right = -0.200011
+offset_right = -0.19994
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -78,9 +80,9 @@ anchor_left = 0.268857
 anchor_top = 0.0295918
 anchor_right = 0.807
 anchor_bottom = 0.102
-offset_left = -0.200016
-offset_right = 0.0999713
-offset_bottom = 0.0399869
+offset_left = -0.200008
+offset_right = 0.100074
+offset_bottom = 0.0399637
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_b3sl5")
 theme_override_font_sizes/font_size = 40
@@ -97,10 +99,10 @@ anchor_left = 0.0444286
 anchor_top = 0.591796
 anchor_right = 0.958429
 anchor_bottom = 0.664122
-offset_left = -0.100001
-offset_top = 0.0399435
-offset_right = 0.099988
-offset_bottom = 0.159949
+offset_left = -0.1
+offset_top = 0.0399387
+offset_right = 0.10002
+offset_bottom = 0.160454
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_b3sl5")
 theme_override_font_sizes/font_size = 40
@@ -118,9 +120,9 @@ anchor_top = 0.670143
 anchor_right = 0.931286
 anchor_bottom = 0.869939
 offset_left = -0.100001
-offset_top = 0.259954
-offset_right = 0.099988
-offset_bottom = 0.459914
+offset_top = 0.259974
+offset_right = 0.10006
+offset_bottom = 0.459873
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_si267")
 theme_override_font_sizes/font_size = 30
@@ -140,7 +142,7 @@ anchor_bottom = 0.97398
 offset_left = -18.0
 offset_top = -42.5
 offset_right = 22.0
-offset_bottom = 56.5
+offset_bottom = 56.5001
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -161,7 +163,7 @@ anchor_right = 0.947143
 anchor_bottom = 0.972959
 offset_left = -18.0
 offset_top = -42.5
-offset_right = 22.0
+offset_right = 21.9999
 offset_bottom = 56.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -194,6 +196,8 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="Node2D" type="Node2D" parent="Control"]
 
 [connection signal="input_event" from="Area2D" to="." method="OnArea2dInputEvent"]
 [connection signal="mouse_entered" from="Area2D" to="." method="OnArea2dMouseEntered"]

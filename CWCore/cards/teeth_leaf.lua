@@ -8,7 +8,7 @@ function _Create()
         local ownerI = me.Original.OwnerI
         local player = STATE.Players[ownerI]
         local discardCount = player.DiscardPile.Count
-        if discardCount > 10 then
+        if discardCount >= 10 then
             Common.Mod.Cost(me, -2)
         end
     end)

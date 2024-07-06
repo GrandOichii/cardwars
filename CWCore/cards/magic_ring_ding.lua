@@ -16,7 +16,7 @@ function _Create()
                     local amount = math.floor(count / 5)
                     local creatures = Common.Creatures(playerI)
                     for _, creature in ipairs(creatures) do
-                        creature.Attack = creature.Attack + math.floor(amount / 5)
+                        creature.Attack = creature.Attack + amount
                     end
                 end
             end)

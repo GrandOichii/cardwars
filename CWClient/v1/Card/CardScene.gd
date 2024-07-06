@@ -27,6 +27,7 @@ signal Click
 
 var _card_name: String = ''
 var _landscape: String = ''
+var _is_creature: bool = false
 
 func _ready():
 	if Behavior != null:
@@ -40,13 +41,12 @@ func set_card_name(new_name: String):
 	Art.texture = Images.get_image(_card_name)
 	
 func set_landscape(new_landscape: String, is_creature: bool):
-	if _landscape == new_landscape:
+	if _landscape == new_landscape and is_creature == _is_creature:
 		return
 	_landscape = new_landscape
 	var tex = Frames.get_frame(_landscape, is_creature)
 	Frame.texture = tex
 	
-# !FIXME loaded Silo of Truth as having attack and defense
 func load_snapshot(card: Variant):
 	var is_creature = card.Type == 'Creature'
 	set_card_name(card.Name)

@@ -11,8 +11,7 @@ function _Create()
             if count == 0 then
                 return
             end
-
-            Common.DiscardNCards(opponent, math.floor(count / 2))
+            Common.DiscardNCards(opponent, math.floor(count / 5))
         end
     )
 

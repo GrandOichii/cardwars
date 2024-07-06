@@ -1,4 +1,5 @@
 -- Status: not tested
+-- TODO? does this count itself
 
 function _Create()
     local result = CardWars:Creature()
