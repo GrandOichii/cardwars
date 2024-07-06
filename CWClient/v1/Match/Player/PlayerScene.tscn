@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://l2oufr27nayw"]
+[gd_scene load_steps=7 format=3 uid="uid://l2oufr27nayw"]
 
 [ext_resource type="Script" path="res://v1/Match/Player/PlayerScene.gd" id="1_bs6vu"]
 [ext_resource type="Texture2D" uid="uid://u2gj8hr5pd71" path="res://assets/back.png" id="1_h5vy0"]
 [ext_resource type="Texture2D" uid="uid://burcmaxm7hmkq" path="res://assets/alt_back.png" id="2_2f8sk"]
+[ext_resource type="PackedScene" uid="uid://bhuby6f18t4gv" path="res://v1/Match/Player/Discard/DiscardCardScene.tscn" id="2_swuoo"]
 [ext_resource type="Texture2D" uid="uid://caa6vdd6d03st" path="res://assets/Finn.jpg" id="3_mkn4u"]
 [ext_resource type="PackedScene" uid="uid://cght8mrqgf8l2" path="res://v1/Match/Player/Landscape/LandscapeScene.tscn" id="5_gclyx"]
 
@@ -16,6 +17,7 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_bs6vu")
 landscape_packed_scene = "res://v1/Match/Player/Landscape/LandscapeScene.tscn"
+DiscardCardPS = ExtResource("2_swuoo")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -76,12 +78,13 @@ text = "50"
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/InfoContainer"]
 layout_mode = 2
 
-[node name="DiscardImage" type="TextureRect" parent="HBoxContainer/InfoContainer/HBoxContainer"]
+[node name="DiscardImage" type="TextureButton" parent="HBoxContainer/InfoContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 140)
 layout_mode = 2
-texture = ExtResource("2_2f8sk")
-expand_mode = 5
+texture_normal = ExtResource("2_2f8sk")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/InfoContainer/HBoxContainer/DiscardImage"]
 layout_mode = 1
@@ -156,5 +159,34 @@ use_threads = true
 [node name="HeroCardImageRequest" type="HTTPRequest" parent="Requests"]
 unique_name_in_owner = true
 
+[node name="DiscardWindow" type="Window" parent="."]
+unique_name_in_owner = true
+initial_position = 2
+size = Vector2i(1200, 420)
+visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="DiscardWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DiscardWindow/MarginContainer"]
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="DiscardPileCardContainer" type="HBoxContainer" parent="DiscardWindow/MarginContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="HBoxContainer/InfoContainer/HBoxContainer/DiscardImage" to="." method="OnDiscardImagePressed"]
 [connection signal="request_completed" from="Requests/TopDiscardCardImageRequest" to="." method="OnTopDiscardCardImageRequestRequestCompleted"]
 [connection signal="request_completed" from="Requests/HeroCardImageRequest" to="." method="OnHeroCardImageRequestRequestCompleted"]
+[connection signal="close_requested" from="DiscardWindow" to="." method="OnDiscardWindowCloseRequested"]

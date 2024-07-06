@@ -66,10 +66,15 @@ public class IOPlayerController : IPlayerController
 
     public async Task<int[]> PickCardInDiscard(GameMatch match, int playerI, List<int> options, List<int> opponentOptions, string hint)
     {
+        var args = OptionsToDict(options);
+        for (int i = 0; i < opponentOptions.Count; i++) {
+            args.Add($"o{i}", opponentOptions[i].ToString());
+        }
+
         await WriteData(new(match, playerI) {
             Request = "PickCardInDiscard",
             Hint = hint,
-            Args = OptionsToDict(options)
+            Args = args
         });
 
         var result = await _handler.Read();

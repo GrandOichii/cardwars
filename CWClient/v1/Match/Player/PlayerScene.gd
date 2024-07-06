@@ -4,6 +4,9 @@ class_name PlayerScene
 @export_file("*.tscn") var landscape_packed_scene: String = ''
 @export var ordering_flipped: bool = false
 
+@export_group('Packed Scenes')
+@export var DiscardCardPS: PackedScene
+
 @onready var InfoContainer = %InfoContainer
 @onready var NameLabel = %NameLabel
 @onready var LifeLabel = %LifeLabel
@@ -15,14 +18,21 @@ class_name PlayerScene
 
 @onready var Landscapes: Node2D = %Landscapes
 
+@onready var DiscardWindow = %DiscardWindow
+@onready var DiscardPileCardContainer = %DiscardPileCardContainer
+
 var PlayerIdx: int
+var Controller: ControllerScene = null
 
 func _ready():
 	pass
 
 func set_controller(controller: ControllerScene):
+	Controller = controller
 	for landscape: LandscapeScene in Landscapes.get_children():
 		landscape.set_controller(controller)
+	for card: DiscardCardScene in DiscardPileCardContainer.get_children():
+		card.set_controller(controller)
 
 func load_match_info(match_info: Variant):
 	set_player_idx(match_info.PlayerIdx)
@@ -32,6 +42,8 @@ func load_match_info(match_info: Variant):
 func set_player_idx(new_idx: int):
 	PlayerIdx = new_idx
 	var idx = 0
+	# TODO
+	DiscardWindow.title = 'Discard pile of player [' + str(PlayerIdx) + ']'
 	for landscape: LandscapeScene in Landscapes.get_children():
 		landscape.set_player_idx(new_idx)
 		landscape.set_lane_idx(idx)
@@ -66,3 +78,28 @@ func load_snapshot(snapshot: Variant):
 	
 	for landscape: LandscapeScene in Landscapes.get_children():
 		landscape.load_snapshot(snapshot)
+	_load_discard_pile(snapshot)
+	
+func _load_discard_pile(snapshot: Variant):
+	var player = snapshot.Players[PlayerIdx]
+	var newCount = len(player.DiscardPile)
+	while (DiscardPileCardContainer.get_child_count() < newCount):
+		var child = DiscardCardPS.instantiate()
+		DiscardPileCardContainer.add_child(child)
+		var cardScene = child as DiscardCardScene
+		cardScene.set_controller(Controller)
+		cardScene.set_player_idx(PlayerIdx)
+	while (DiscardPileCardContainer.get_child_count() > newCount):
+		DiscardPileCardContainer.remove_child(DiscardPileCardContainer.get_child(0))
+	for i in newCount:
+		var card = player.DiscardPile[i]
+		var cardScene = DiscardPileCardContainer.get_child(i) as DiscardCardScene
+		cardScene.set_discard_idx(i)
+		cardScene.load_snapshot(card)
+
+func OnDiscardImagePressed():
+	print('PRESS')
+	DiscardWindow.show()
+
+func OnDiscardWindowCloseRequested():
+	DiscardWindow.hide()

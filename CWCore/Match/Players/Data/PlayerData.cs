@@ -12,9 +12,8 @@ public readonly struct PlayerData {
     public int HandCount { get; }
 
     public List<LandscapeData> Landscapes { get; }
+    public List<CardData> DiscardPile { get; }
     
-    // TODO discard pile
-    // TODO landscapes
 
     public PlayerData(PlayerState player) {
         Name = player.Original.Name;
@@ -27,5 +26,6 @@ public readonly struct PlayerData {
         HandCount = player.Original.Hand.Count;
 
         Landscapes = player.Landscapes.Select(l => new LandscapeData(l)).ToList();
+        DiscardPile = player.DiscardPile.Select(c => new CardData(c)).ToList();
     }
 }

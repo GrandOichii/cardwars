@@ -119,5 +119,26 @@ func can_pick_card_in_hand(hand_idx: int) -> bool:
 func pick_card_in_hand(hand_idx: int):
 	send(str(hand_idx))
 
+func can_pick_card_in_discard(player_idx: int, discard_idx: int) -> bool:
+	if last_update.Request != 'PickCardInDiscard':
+		return false
+	var my_idx = match_info.PlayerIdx
+	var opp_idx = 1 - my_idx
+	if my_idx == 1:
+		player_idx = 1 - player_idx
+	for key in last_update.Args:
+		var value = last_update.Args[key]
+		if value != str(discard_idx):
+			continue
+		if key[0] == 'o' && player_idx != opp_idx:
+			continue
+		return true
+	return false
+	
+func pick_card_in_discard(player_idx: int, discard_idx: int):
+	if match_info.PlayerIdx == 1:
+		player_idx = 1 - player_idx
+	send(str(player_idx) + ' ' + str(discard_idx))
+
 func send(msg: String):
 	Response.emit(msg)

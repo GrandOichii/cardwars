@@ -5,6 +5,7 @@ class_name HandCardBehavior
 @export var DefaultColor: Color
 @export var PlayableColor: Color
 @export var HoverColor: Color
+# TODO change to PickColor and PickHoverColor
 @export var DiscardColor: Color
 @export var DiscardHoverColor: Color
 
