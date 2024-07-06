@@ -1,0 +1,9 @@
+{
+    "Name": "Dragon Foot",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Discard a card >>> Dragon Foot has +1 ATK this turn. (Use up to five times during each of your turns.)",
+    "Attack": 1,
+    "Defense": 5
+}

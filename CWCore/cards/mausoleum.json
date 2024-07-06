@@ -1,0 +1,7 @@
+{
+    "Name": "Mausoleum",
+    "Landscape": "Useless Swamp",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Your Creature in this Lane has +1 DEF for every 5 cards in your discard pile."
+}

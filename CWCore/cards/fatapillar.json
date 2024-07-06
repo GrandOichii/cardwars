@@ -1,0 +1,9 @@
+{
+    "Name": "Fatapillar",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "+2 ATK for every 5 cards in your discard pile.",
+    "Attack": 0,
+    "Defense": 3
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Volcano",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Destroy target Building. You may deal 3 Damage to a Creature in that Lane. Flip your Landscape in that Lane face down."
+}
