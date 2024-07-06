@@ -42,6 +42,8 @@ public class ActivateAction : IAction
             return;
         }
 
+        await match.ReloadState();
+
         match.LogInfo($"Player {player.LogFriendlyName} activated ability {abilityI} of card {card.Original.Card.LogFriendlyName}");
         ability.ExecEffect(pState, card, laneI);
         ability.ActivatedThisTurn++;

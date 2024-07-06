@@ -133,6 +133,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="PickStringWindow" type="Window" parent="Windows"]
+title = "Pick String"
+initial_position = 2
+size = Vector2i(400, 400)
+transient = true
+exclusive = true
+
 [connection signal="MatchInfoReceived" from="." to="VBoxContainer/Match" method="OnTestMatchMatchInfoReceived"]
 [connection signal="UpdateReceived" from="." to="VBoxContainer/Match" method="OnTestMatchUpdateReceived"]
 [connection signal="MessageReceived" from="Connection" to="." method="OnConnectionMessageReceived"]
