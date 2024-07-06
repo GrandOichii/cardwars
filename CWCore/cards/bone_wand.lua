@@ -1,10 +1,9 @@
--- Play only if you control a Useless Swamp Creature.
-
 -- Status: not tested
 
 function _Create()
     local result = CardWars:Spell()
 
+    -- Play only if you control a Useless Swamp Creature.
     Common.AddRestriction(result,
         function (id, playerI)
             return nil, #Common.CreaturesTyped(playerI, CardWars.Landscapes.UselessSwamp) > 0

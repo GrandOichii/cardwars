@@ -1,0 +1,9 @@
+{
+    "Name": "The Mariachi",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "FLOOP >>> Deal 1 Damage to target Creature for each Creature that entered play this turn.",
+    "Attack": 2,
+    "Defense": 9
+}

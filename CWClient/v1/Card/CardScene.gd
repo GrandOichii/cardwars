@@ -54,10 +54,14 @@ func load_snapshot(card: Variant):
 	IDLabel.text = card.ID
 	CostLabel.text = str(card.Cost)
 	TextLabel.text = card.Text
+	AttackLabel.visible = false
+	DefenseLabel.visible = false
 	if is_creature:
 		_load_creature(card)
 
 func _load_creature(card: Variant):
+	AttackLabel.visible = true
+	DefenseLabel.visible = true
 	AttackLabel.text = str(card.Attack)
 	DefenseLabel.text = str(card.Defense)
 

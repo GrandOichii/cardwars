@@ -14,6 +14,9 @@ func set_controller(controller: ControllerScene):
 func load_snapshot(card: Variant):
 	Card.load_snapshot(card)
 	Card.Behavior.load_snapshot(card)
+	
+func set_hand_idx(hand_idx: int):
+	Card.Behavior.set_hand_idx(hand_idx)
 
 # signal connections
 

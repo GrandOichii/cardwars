@@ -100,15 +100,25 @@ func pick_landscape(player_idx: int, lane_idx: int):
 	send(str(player_idx) + ' ' + str(lane_idx))
 	
 func can_activate(in_play_card: Variant) -> bool:
+	if last_update.Request != 'PromptAction':
+		return false
 	var values = last_update.Args.values()
 	for v in values:
-		if v.begins_with('a ' + str(in_play_card.ID)):
+		if v.begins_with('a ' + str(in_play_card.ID) + ' '):
 			return true
 	return false
 	
 func activate(in_play_card: Variant):
 	# !FIXME only activates the first ability of card
 	send('a ' + str(in_play_card.ID) + ' 0')
+	
+func can_pick_card_in_hand(hand_idx: int) -> bool:
+	if last_update.Request != 'PickCardInHand':
+		return false
+	return str(hand_idx) in last_update.Args.values()
+	
+func pick_card_in_hand(hand_idx: int):
+	send(str(hand_idx))
 
 func send(msg: String):
 	Response.emit(msg)

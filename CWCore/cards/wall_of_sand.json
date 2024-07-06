@@ -1,0 +1,9 @@
+{
+    "Name": "Wall of Sand",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "If one or more other SandyLands Creatures enter play during your turn, Wall of Sand has +2 ATK this turn.",
+    "Attack": 1,
+    "Defense": 12
+}

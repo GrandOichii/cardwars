@@ -22,13 +22,8 @@ function _Create()
             local ids = Common.DiscardPileCardIndicies(playerI, function (card)
                 return card.Original.Template.Type == 'Spell'
             end)
-            local choice = ChooseCardInDiscard(playerI, ids, {}, 'Choose a Rainbow card to place on top of your deck')
-            local pI = choice[0]
-            if pI ~= playerI then
-                -- * shouldn't ever happen
-                error('tried to pick card in opponent\'s discard')
-                return
-            end
+            local choice = ChooseCardInDiscard(playerI, ids, {}, 'Choose a Spell card to place on top of your deck')
+            assert(choice[0] == playerI, 'tried to pick card in opponent\'s discard (Heavenly Gazer)')
             local id = choice[1]
 
             PlaceFromDiscardOnTopOfDeck(playerI, id)

@@ -1,6 +1,6 @@
 {
     "Name": "Ogre Gas",
-    "Landscape": "Raibow",
+    "Landscape": "Rainbow",
     "Type": "Spell",
     "Cost": 0,
     "Text": "Reveal the top 3 cards of your deck. Put one of them on the bottom of your deck and discard the rest."

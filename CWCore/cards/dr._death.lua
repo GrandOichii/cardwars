@@ -1,12 +1,10 @@
--- Destroy a Creature you control and FLOOP >>> Destroy target opposing Creature in this Lane.
-
 -- Status: not tested
 
 function _Create()
     local result = CardWars:Creature()
 
     result:AddActivatedAbility({
-        text = '',
+        text = 'Destroy a Creature you control and FLOOP >>> Destroy target opposing Creature in this Lane.',
         tags = {'floop'},
         checkF = function (me, playerI, laneI)
             return

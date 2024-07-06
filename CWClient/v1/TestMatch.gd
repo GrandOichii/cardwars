@@ -70,6 +70,7 @@ func update_hand(update: Variant):
 	for i in newCount:
 		var card = update.Personal.Hand[i]
 		var cardScene = HandContainer.get_child(i) as HandCardScene
+		cardScene.set_hand_idx(i)
 		cardScene.load_snapshot(card)
 	
 func process_match_info(match_info: Variant):

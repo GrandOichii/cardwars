@@ -6,8 +6,14 @@ function _Create()
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Reveal the top 3 cards of your deck. Put one of them on the bottom of your deck and discard the rest.
-
             local amount = 3
+
+            -- TODO? this stops the spell's effect if the player's deck doesn't have 3 cards, change?
+            local deckCount = STATE.Players[playerI].Original.Deck.Count
+            if deckCount < amount then
+                return
+            end
+
             local cards = RevealCardsFromDeck(playerI, amount)
             local options = {}
             for _, card in ipairs(cards) do

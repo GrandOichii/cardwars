@@ -1,0 +1,30 @@
+{
+    "Cards": {
+        "Fummy": 1,
+        "Green Cactiball": 2,
+        "Sand Angel": 2,
+        "Sand Knights": 1,
+        "Tome of Ankhs": 1,
+        "Blood Fortress": 2,
+        "Celestial Castle": 1,
+        "Cerebral Bloodstorm": 2,
+        "Teleport": 2,
+        "Sandhorn Devil": 2,
+        "The Mariachi": 2,
+        "Wall of Sand": 2,
+        "Ms. Mummy": 1,
+        "Sand Sphinx": 2,
+        "Sandsnake": 2,
+        "Beach Mummy": 2,
+        "Sand Eyebat": 2,
+        "Shark": 2,
+        "SandWitch": 2,
+        "Peach Djinni": 2,
+        "Lost Golem": 1,
+        "Unempty Coffin": 2,
+        "ZaZo's Magic Seeds": 2
+    },
+    "Landscapes": {
+        "SandyLands": 4
+    }
+}

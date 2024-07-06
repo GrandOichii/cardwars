@@ -5,9 +5,15 @@ class_name HandCardBehavior
 @export var DefaultColor: Color
 @export var PlayableColor: Color
 @export var HoverColor: Color
+@export var DiscardColor: Color
+@export var DiscardHoverColor: Color
 
 var _bg_color: Color = DefaultColor
 var _last: Variant
+var _hand_idx: int
+
+func set_hand_idx(hand_idx: int):
+	_hand_idx = hand_idx
 
 func load_snapshot(card: Variant):
 	_last = card
@@ -15,22 +21,32 @@ func load_snapshot(card: Variant):
 func can_play() -> bool:
 	return Controller.can_play(_last)
 	
+func can_pick() -> bool:
+	return Controller.can_pick_card_in_hand(_hand_idx)
+	
 func mouse_enter():
-	if not can_play():
+	if can_play():
+		set_bg_color(HoverColor)
 		return
-	set_bg_color(HoverColor)
+	if can_pick():
+		set_bg_color(DiscardHoverColor)
+		return
 	
 func mouse_leave():
 	set_bg_color(_bg_color)
 	
 func click():
-	if not can_play():
+	if can_play():
+		Controller.play(_last)
 		return
-	Controller.play(_last)
+	if can_pick():
+		Controller.pick_card_in_hand(_hand_idx)
 
 func OnUpdate(update: Variant):
 	super.OnUpdate(update)
 	_bg_color = DefaultColor
 	if can_play():
 		_bg_color = PlayableColor
+	if can_pick():
+		_bg_color = DiscardColor
 	set_bg_color(_bg_color)

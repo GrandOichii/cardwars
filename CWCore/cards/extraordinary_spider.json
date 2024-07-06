@@ -1,0 +1,9 @@
+{
+    "Name": "Extraordinary Spider",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "At the start of your turn, deal 1 Damage to target opponent for every 5 cards in your discard pile.",
+    "Attack": 1,
+    "Defense": 7
+}
