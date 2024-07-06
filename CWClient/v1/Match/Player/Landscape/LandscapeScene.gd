@@ -107,6 +107,8 @@ func _set_landscape_name(new_name: String, idx: int):
 	print('Art not found for ' + _landscape_name)
 
 func interact():
+	if _controller.last_update == null:
+		return
 	if can_pick_lane_for_creature():
 		_controller.pick_lane_for_creature(lane_idx)
 		return
@@ -150,24 +152,38 @@ func OnUpdate(update: Variant):
 	set_bg_color(_bg_color)
 
 func OnCreatureMouseEnter():
+	if _controller.last_update == null:
+		return
 	CreatureCard.Behavior.mouse_enter()
 
 func OnCreatureMouseLeave():
+	if _controller.last_update == null:
+		return
 	CreatureCard.Behavior.mouse_leave()
 
 func OnCreatureClick():
+	if _controller.last_update == null:
+		return
 	CreatureCard.Behavior.click()
 	
 func OnBuildingClick():
+	if _controller.last_update == null:
+		return
 	BuildingCard.Behavior.click()
 
 func OnBuildingMouseEnter():
+	if _controller.last_update == null:
+		return
 	BuildingCard.Behavior.mouse_enter()
 
 func OnBuildingMouseLeave():
+	if _controller.last_update == null:
+		return
 	BuildingCard.Behavior.mouse_leave()
 
 func OnControlMouseEntered():
+	if _controller.last_update == null:
+		return
 	if can_pick_lane_for_creature():
 		set_bg_color(LanePickHoverColor)
 		return
@@ -182,6 +198,8 @@ func OnControlMouseEntered():
 		return
 
 func OnControlMouseExited():
+	if _controller.last_update == null:
+		return
 	set_bg_color(_bg_color)
 
 func OnControlGuiInput(e):

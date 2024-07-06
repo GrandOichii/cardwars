@@ -29,6 +29,10 @@ signal MatchInfoReceived(Variant)
 
 @onready var HandContainer = %HandContainer
 
+@onready var PickStringWindow = %PickStringWindow
+@onready var PickStringText = %PickStringText
+@onready var PickStringButtonContainer = %PickStringButtonContainer
+
 @onready var _rng = RandomNumberGenerator.new()
 
 var _update: Variant
@@ -54,8 +58,25 @@ func process_update(update: Variant):
 	if update.Request == 'PromptLandscapePlacement':
 		Connection.Write(landscape1 + '|' + landscape2 + '|' + landscape3 + '|' + landscape4)
 		return
+	if update.Request == 'PickOption':
+		setup_pick_string(update)
+		return
 	
 	update_hand(update)
+
+func setup_pick_string(update: Variant):
+	PickStringText.text = update.Hint
+	PickStringWindow.show()
+	while (PickStringButtonContainer.get_child_count() > 0):
+		PickStringButtonContainer.remove_child(PickStringButtonContainer.get_child(0))
+	for option in update.Args.values():
+		var b = Button.new()
+		PickStringButtonContainer.add_child(b)
+		b.text = option
+		var action = func():
+			Connection.Write(option)
+			PickStringWindow.hide()
+		b.pressed.connect(action)
 	
 func update_hand(update: Variant):
 	var personal = update.Personal
