@@ -20,6 +20,7 @@ signal Click
 @onready var AttackLabel: Label = %AttackLabel
 @onready var DefenseLabel: Label = %DefenseLabel
 @onready var IDLabel: Label = %IDLabel
+@onready var DamageLabel: Label = %DamageLabel
 
 @onready var Bg: Polygon2D = %Bg
 
@@ -41,8 +42,6 @@ func set_card_name(new_name: String):
 	Art.texture = Images.get_image(_card_name)
 	
 func set_landscape(new_landscape: String, is_creature: bool):
-	if _landscape == new_landscape and is_creature == _is_creature:
-		return
 	_landscape = new_landscape
 	var tex = Frames.get_frame(_landscape, is_creature)
 	Frame.texture = tex
@@ -74,6 +73,10 @@ func load_in_play_snapshot(card: Variant):
 func _load_in_play_creature(card: Variant):
 	# TODO change label color depending if defense is higher or lower than base
 	DefenseLabel.text = str(card.Defense - card.Damage)
+	DamageLabel.hide()
+	if card.Damage > 0:
+		DamageLabel.show()
+		DamageLabel.text = str(card.Damage)
 	
 func set_bg_color(color: Color):
 	Bg.color = color

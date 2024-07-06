@@ -15,10 +15,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_sfwn3")
-landscape1 = "Useless Swamp"
-landscape2 = "Useless Swamp"
-landscape3 = "Useless Swamp"
-landscape4 = "Useless Swamp"
+landscape1 = "NiceLands"
+landscape2 = "NiceLands"
+landscape3 = "NiceLands"
+landscape4 = "NiceLands"
 HandCardPS = ExtResource("2_u44bo")
 
 [node name="Connection" parent="." instance=ExtResource("2_fgw36")]

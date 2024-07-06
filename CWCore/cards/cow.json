@@ -1,0 +1,9 @@
+{
+    "Name": "Cow",
+    "Landscape": "Rainbow",
+    "Type": "Creature",
+    "Cost": 0,
+    "Text": "Moo.",
+    "Attack": 1,
+    "Defense": 5
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "Cutie Koala",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "While Cutie Koala has 4 or more Damage on it, it has +2 ATK.",
+    "Attack": 1,
+    "Defense": 8
+}

@@ -25,5 +25,7 @@
         "Blue Candy": 2,
         "Cave of Solitude": 1
     },
-    "Landscapes": {}
+    "Landscapes": {
+        "NiceLands": 4
+    }
 }
