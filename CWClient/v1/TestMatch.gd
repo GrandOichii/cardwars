@@ -4,18 +4,12 @@ signal UpdateReceived(Variant)
 signal MatchInfoReceived(Variant)
 
 @export var player_name: String = 'RealPlayer'
-@export var deck: Deck
+@export var decks: Array[Deck] = []
 @export var seed = 0
 
 @export_group("Connection")
 @export var host: String = '127.0.0.1'
 @export var port: int = 9090
-
-@export_group("Landscapes")
-@export_enum("Blue Plains", "Cornfield", "IcyLands", "NiceLands", "SandyLands", "Useless Swamp") var landscape1 = "Blue Plains"
-@export_enum("Blue Plains", "Cornfield", "IcyLands", "NiceLands", "SandyLands", "Useless Swamp") var landscape2 = "Blue Plains"
-@export_enum("Blue Plains", "Cornfield", "IcyLands", "NiceLands", "SandyLands", "Useless Swamp") var landscape3 = "Blue Plains"
-@export_enum("Blue Plains", "Cornfield", "IcyLands", "NiceLands", "SandyLands", "Useless Swamp") var landscape4 = "Blue Plains"
 
 @export_group("Packed scenes")
 @export var HandCardPS: PackedScene
@@ -35,6 +29,12 @@ signal MatchInfoReceived(Variant)
 @onready var PickStringText = %PickStringText
 @onready var PickStringButtonContainer = %PickStringButtonContainer
 
+@onready var ConnectWindow = %ConnectWindow
+@onready var AddressEdit = %AddressEdit
+@onready var PortEdit = %PortEdit
+@onready var DeckOption = %DeckOption
+@onready var PlayerNameEdit = %PlayerNameEdit
+
 @onready var _rng = RandomNumberGenerator.new()
 
 var _update: Variant
@@ -42,9 +42,12 @@ var _update: Variant
 func _ready():
 	_rng.seed = seed
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	
-	Connection.Connect(host, port)
-	Match.set_controller(Controller)
+	AddressEdit.text = host
+	PortEdit.text = str(port)
+	PlayerNameEdit.text = player_name
+	for deck in decks:
+		DeckOption.add_item(deck.name)
+		DeckOption.set_item_metadata(DeckOption.item_count - 1, deck)
 
 func process_update(update: Variant):
 	# print(update)
@@ -58,7 +61,11 @@ func process_update(update: Variant):
 	OptionsLabel.text = text
 	
 	if update.Request == 'PromptLandscapePlacement':
-		Connection.Write(landscape1 + '|' + landscape2 + '|' + landscape3 + '|' + landscape4)
+		var landscapes = []
+		for key in update.Args:
+			for i in int(update.Args[key]):
+				landscapes += [key]
+		Connection.Write('|'.join(landscapes))
 		return
 	if update.Request == 'PickOption':
 		setup_pick_string(update)
@@ -137,5 +144,15 @@ func OnDrawButtonPressed():
 	Connection.Write('d')
 
 func OnConnectionConnected():
-	Connection.Write(player_name)
+	Connection.Write(PlayerNameEdit.text)
+	var deck = DeckOption.get_selected_metadata()
 	Connection.Write(deck.to_json())
+	ConnectWindow.hide()
+	Match.show()
+
+func OnConnectButtonPressed():
+	Connection.Connect(AddressEdit.text, int(PortEdit.text))
+	Match.set_controller(Controller)
+
+func OnConnectWindowCloseRequested():
+	get_tree().quit()

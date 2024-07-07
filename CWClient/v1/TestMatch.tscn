@@ -1,11 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgrfhj1ovlkyv"]
+[gd_scene load_steps=15 format=3 uid="uid://dgrfhj1ovlkyv"]
 
 [ext_resource type="PackedScene" uid="uid://bgpq7x7fblgp2" path="res://v1/Match/MatchScene.tscn" id="1_6newf"]
 [ext_resource type="Script" path="res://v1/TestMatch.gd" id="1_sfwn3"]
+[ext_resource type="Resource" uid="uid://dg42fb003nb33" path="res://v1/Deck/finn.tres" id="2_6r2ga"]
 [ext_resource type="PackedScene" uid="uid://fh8r4qhsop8j" path="res://v1/Connection/Wrappers/TcpConnectionWrapper.tscn" id="2_fgw36"]
+[ext_resource type="Resource" uid="uid://b0xug8kw8wsc2" path="res://v1/Deck/lumpy.tres" id="2_ibkj7"]
 [ext_resource type="PackedScene" uid="uid://c6n3iw6bu4tlg" path="res://v1/Match/Hand/HandCardScene.tscn" id="2_u44bo"]
+[ext_resource type="Resource" uid="uid://v8kb0ynjc670" path="res://v1/Deck/iceking.tres" id="2_y7n1o"]
 [ext_resource type="Resource" uid="uid://bj0k52hj0bhif" path="res://v1/Deck/rainicorn.tres" id="2_yphpd"]
+[ext_resource type="Resource" uid="uid://tjy5k3b78uyt" path="res://v1/Deck/bmo.tres" id="4_fr6nk"]
+[ext_resource type="Resource" uid="uid://b6brfk2wry4gw" path="res://v1/Deck/bubblegum.tres" id="5_10p2p"]
 [ext_resource type="PackedScene" uid="uid://m6ws3lvboo8e" path="res://v1/ControllerScene.tscn" id="5_qdo4q"]
+[ext_resource type="Resource" uid="uid://dkqeft4fg80c8" path="res://v1/Deck/gunter.tres" id="6_lpw1n"]
+[ext_resource type="Resource" uid="uid://i8jfw4ladpdl" path="res://v1/Deck/jake.tres" id="7_dc2p8"]
+[ext_resource type="Resource" uid="uid://cg8nnhng6qymi" path="res://v1/Deck/marceline.tres" id="9_wtd6b"]
 
 [node name="TestMatch" type="Control"]
 layout_mode = 3
@@ -16,9 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_sfwn3")
-deck = ExtResource("2_yphpd")
-landscape1 = "IcyLands"
-landscape2 = "IcyLands"
+decks = Array[Resource("res://v1/Deck/Deck.gd")]([ExtResource("2_y7n1o"), ExtResource("4_fr6nk"), ExtResource("5_10p2p"), ExtResource("6_lpw1n"), ExtResource("7_dc2p8"), ExtResource("2_ibkj7"), ExtResource("9_wtd6b"), ExtResource("2_yphpd"), ExtResource("2_6r2ga")])
 HandCardPS = ExtResource("2_u44bo")
 
 [node name="Connection" parent="." instance=ExtResource("2_fgw36")]
@@ -34,6 +40,7 @@ grow_vertical = 2
 
 [node name="Match" parent="VBoxContainer" instance=ExtResource("1_6newf")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -174,6 +181,67 @@ text = "Option1"
 layout_mode = 2
 text = "Option2"
 
+[node name="ConnectWindow" type="Window" parent="Windows"]
+unique_name_in_owner = true
+title = "Connect to match"
+initial_position = 2
+size = Vector2i(1000, 600)
+transient = true
+exclusive = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Windows/ConnectWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Windows/ConnectWindow/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Windows/ConnectWindow/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddressEdit" type="LineEdit" parent="Windows/ConnectWindow/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter match address"
+
+[node name="PortEdit" type="LineEdit" parent="Windows/ConnectWindow/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Port"
+
+[node name="HSeparator" type="HSeparator" parent="Windows/ConnectWindow/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerNameEdit" type="LineEdit" parent="Windows/ConnectWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Enter your name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Windows/ConnectWindow/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Deck" type="Label" parent="Windows/ConnectWindow/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Deck: "
+
+[node name="DeckOption" type="OptionButton" parent="Windows/ConnectWindow/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ConnectButton" type="Button" parent="Windows/ConnectWindow/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Connect
+"
+
 [connection signal="MatchInfoReceived" from="." to="VBoxContainer/Match" method="OnTestMatchMatchInfoReceived"]
 [connection signal="UpdateReceived" from="." to="VBoxContainer/Match" method="OnTestMatchUpdateReceived"]
 [connection signal="Connected" from="Connection" to="." method="OnConnectionConnected"]
@@ -183,3 +251,5 @@ text = "Option2"
 [connection signal="pressed" from="Windows/ActionWindow/MarginContainer/VBoxContainer/FightButton" to="." method="OnFightButtonPressed"]
 [connection signal="pressed" from="Windows/ActionWindow/MarginContainer/VBoxContainer/DrawButton" to="." method="OnDrawButtonPressed"]
 [connection signal="pressed" from="Windows/ActionWindow/MarginContainer/VBoxContainer/RandomButton" to="." method="OnRandomButtonPressed"]
+[connection signal="close_requested" from="Windows/ConnectWindow" to="." method="OnConnectWindowCloseRequested"]
+[connection signal="pressed" from="Windows/ConnectWindow/MarginContainer/VBoxContainer/ConnectButton" to="." method="OnConnectButtonPressed"]

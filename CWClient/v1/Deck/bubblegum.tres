@@ -1,140 +1,136 @@
-
-[gd_resource type="Resource" script_class="Deck" load_steps=100 format=3]
+[gd_resource type="Resource" script_class="Deck" load_steps=29 format=3 uid="uid://b6brfk2wry4gw"]
 
 [ext_resource type="Script" path="res://v1/Deck/DeckCard.gd" id="1_noyiv"]
 [ext_resource type="Script" path="res://v1/Deck/Deck.gd" id="1_x3p7u"]
 [ext_resource type="Script" path="res://v1/Deck/DeckLandscape.gd" id="2_j2wsj"]
-    
+
 [sub_resource type="Resource" id="Resource_1"]
 script = ExtResource("1_noyiv")
 card = "Angel of Chocolate"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("1_noyiv")
 card = "Cutie Koala"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_3"]
 script = ExtResource("1_noyiv")
 card = "Blood Fortress"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_4"]
 script = ExtResource("1_noyiv")
 card = "Celestial Castle"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_5"]
 script = ExtResource("1_noyiv")
 card = "Angel Heart"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_6"]
 script = ExtResource("1_noyiv")
 card = "Albino Eyebat"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_7"]
 script = ExtResource("1_noyiv")
 card = "Cotton Eyebat"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_8"]
 script = ExtResource("1_noyiv")
 card = "Wall of Chocolate"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_9"]
 script = ExtResource("1_noyiv")
 card = "Ms. Fluff"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_10"]
 script = ExtResource("1_noyiv")
 card = "Angel of Vanilla"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_11"]
 script = ExtResource("1_noyiv")
 card = "Cow"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_12"]
 script = ExtResource("1_noyiv")
 card = "Piestorm"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_13"]
 script = ExtResource("1_noyiv")
 card = "Green Candy"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_14"]
 script = ExtResource("1_noyiv")
 card = "Windmill of Health"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_15"]
 script = ExtResource("1_noyiv")
 card = "Fairy Shepard"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_16"]
 script = ExtResource("1_noyiv")
 card = "Rainbow Eyebat"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_17"]
 script = ExtResource("1_noyiv")
 card = "Pieclops"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_18"]
 script = ExtResource("1_noyiv")
 card = "Apple Pieclops"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_19"]
 script = ExtResource("1_noyiv")
 card = "Niceasaurus Rex"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_20"]
 script = ExtResource("1_noyiv")
 card = "Ring of Fluffy"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_21"]
 script = ExtResource("1_noyiv")
 card = "Snakemint"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_22"]
 script = ExtResource("1_noyiv")
 card = "Falling Star"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_23"]
 script = ExtResource("1_noyiv")
 card = "Blue Candy"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_24"]
 script = ExtResource("1_noyiv")
 card = "Cave of Solitude"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_l1"]
 script = ExtResource("2_j2wsj")
 landscape = "NiceLands"
 amount = 4
 
-        
-
 [resource]
 script = ExtResource("1_x3p7u")
 name = "bubblegum"
-    
 cards = Array[ExtResource("1_noyiv")]([SubResource("Resource_1"), SubResource("Resource_2"), SubResource("Resource_3"), SubResource("Resource_4"), SubResource("Resource_5"), SubResource("Resource_6"), SubResource("Resource_7"), SubResource("Resource_8"), SubResource("Resource_9"), SubResource("Resource_10"), SubResource("Resource_11"), SubResource("Resource_12"), SubResource("Resource_13"), SubResource("Resource_14"), SubResource("Resource_15"), SubResource("Resource_16"), SubResource("Resource_17"), SubResource("Resource_18"), SubResource("Resource_19"), SubResource("Resource_20"), SubResource("Resource_21"), SubResource("Resource_22"), SubResource("Resource_23"), SubResource("Resource_24")])
 landscapes = Array[ExtResource("2_j2wsj")]([SubResource("Resource_l1")])

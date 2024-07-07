@@ -160,36 +160,43 @@ func OnUpdate(update: Variant):
 	set_bg_color(_bg_color)
 
 func OnCreatureMouseEnter():
+	if _controller == null: return
 	if _controller.last_update == null:
 		return
 	CreatureCard.Behavior.mouse_enter()
 
 func OnCreatureMouseLeave():
+	if _controller == null: return
 	if _controller.last_update == null:
 		return
 	CreatureCard.Behavior.mouse_leave()
 
 func OnCreatureClick():
+	if _controller == null: return
 	if _controller.last_update == null:
 		return
 	CreatureCard.Behavior.click()
 	
 func OnBuildingClick():
+	if _controller == null: return
 	if _controller.last_update == null:
 		return
 	BuildingCard.Behavior.click()
 
 func OnBuildingMouseEnter():
+	if _controller == null: return
 	if _controller.last_update == null:
 		return
 	BuildingCard.Behavior.mouse_enter()
 
 func OnBuildingMouseLeave():
+	if _controller == null: return
 	if _controller.last_update == null:
 		return
 	BuildingCard.Behavior.mouse_leave()
 
 func OnControlMouseEntered():
+	if _controller == null: return
 	if _controller.last_update == null:
 		return
 	if can_pick_lane_for_creature():
@@ -206,6 +213,7 @@ func OnControlMouseEntered():
 		return
 
 func OnControlMouseExited():
+	if _controller == null: return
 	if _controller.last_update == null:
 		return
 	set_bg_color(_bg_color)
