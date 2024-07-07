@@ -1,0 +1,9 @@
+{
+    "Name": "Industrial Assassin",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Destroy a Creature you control, FLOOP >>> Draw a card.",
+    "Attack": 2,
+    "Defense": 6
+}

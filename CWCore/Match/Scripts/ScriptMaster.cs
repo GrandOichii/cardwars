@@ -349,6 +349,11 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public int GetHitPoints(int playerI) {
+        return _match.GetPlayer(playerI).Life;
+    }
+
+    [LuaCommand]
     public void HealHitPoints(int playerI, int amount) {
         var player = _match.GetPlayer(playerI);
         player.HealHitPoints(amount)

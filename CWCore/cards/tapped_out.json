@@ -1,0 +1,7 @@
+{
+    "Name": "Tapped Out",
+    "Landscape": "Blue Plains",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Target Creature you control has +2 ATK for each exhausted Creature you control (at the time you play this)."
+}

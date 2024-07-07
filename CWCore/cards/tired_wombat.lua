@@ -1,0 +1,1 @@
+-- At the start of your turn, move Tired Wombat to an empty Landscape you control. If you cannot, move it to an empty Landscape your opponent controls.

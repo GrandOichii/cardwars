@@ -4,16 +4,16 @@ function _Create()
     local result = CardWars:Spell()
 
     Common.AddRestriction(result,
-        function (playerI)
-            return nil, #Common.Targetable(playerI, Common.Creatures(playerI)) > 0
+        function (id, playerI)
+            return nil, #Common.TargetableBySpell(Common.Creatures(playerI), playerI, id) > 0
         end
     )
 
     result.EffectP:AddLayer(
-        function (playerI)
+        function (id, playerI)
         -- Target Creature you control has +2 ATK for each exhausted Creature you control (at the time you play this).
 
-        local ids = Common.IDs(Common.Targetable(playerI, Common.Creatures(playerI)))
+        local ids = Common.IDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
         local target = TargetCreature(playerI, ids, '')
         local amount = #Common.ExhaustedCreatures(playerI)
         UntilEndOfTurn(function (layer)

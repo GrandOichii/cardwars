@@ -1,0 +1,7 @@
+{
+    "Name": "Magenapping",
+    "Landscape": "Blue Plains",
+    "Type": "Spell",
+    "Cost": 2,
+    "Text": "Play only if you control one or fewer Creatures and have 15 or fewer Hit Points. Move target Creature to target empty Landscape you control."
+}

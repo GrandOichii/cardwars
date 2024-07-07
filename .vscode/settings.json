@@ -73,7 +73,8 @@
         "DiscardFromPlay",
         "SoftUpdateState",
         "RemoveFromDeck",
-        "CreateState"
+        "CreateState",
+        "GetHitPoints"
     ],
     "dotnet.defaultSolution": "CWCore/CWCore.sln"
 }
