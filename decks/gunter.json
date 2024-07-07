@@ -26,5 +26,8 @@
         "Floating Ice Palace": 1,
         "Snow Training Camp": 1
     },
-    "Landscapes": {}
+    "Landscapes": {
+        "IcyLands": 2,
+        "Blue Plains": 2
+    }
 }

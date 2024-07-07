@@ -1082,7 +1082,7 @@ function Common.AllPlayers.Landscapes()
     end)
 end
 
-function Common.AllPlayers.CreautresWithFrozenTokens()
+function Common.AllPlayers.CreaturesWithFrozenTokens()
     local landscapes = Common.AllPlayers.FrozenLandscapes()
     local result = {}
     for _, landscape in ipairs(landscapes) do

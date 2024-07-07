@@ -6,8 +6,8 @@ function _Create()
     Common.ActivatedAbilities.Floop(result,
         'FLOOP >>> Draw a card for each Landscape with a Frozen token on it players control.',
         function (me, playerI, laneI)
-            local pairs = Common.SplitLandscapesByOwner(Common.AllPlayers.FrozenLandscapes())
-            Draw(playerI, #pairs[0] + #pairs[1])
+            local landscapes = Common.AllPlayers.FrozenLandscapes()
+            Draw(playerI, #landscapes)
         end
     )
 

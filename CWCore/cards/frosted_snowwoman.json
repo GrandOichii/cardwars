@@ -1,0 +1,9 @@
+{
+    "Name": "Frosted Snowwoman",
+    "Landscape": "IcyLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "When Frosted Snowwoman enters play, Freeze both Landscapes in her Lane.",
+    "Attack": 3,
+    "Defense": 5
+}

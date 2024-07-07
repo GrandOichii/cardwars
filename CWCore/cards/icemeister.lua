@@ -5,7 +5,7 @@ function _Create()
     local result = CardWars:Creature()
 
     Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
-        local creatures = Common.AllPlayers.CreautresWithFrozenTokens()
+        local creatures = Common.AllPlayers.CreaturesWithFrozenTokens()
         for _, creature in ipairs(creatures) do
             Common.Damage.ToCreatureByCreatureAbility(me.Original.Card.ID, controllerI, creature.Original.Card.ID, 1)
         end

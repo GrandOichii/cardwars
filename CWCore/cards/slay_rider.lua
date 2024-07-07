@@ -9,14 +9,14 @@ function _Create()
         checkF = function (me, playerI, laneI)
             return
                 Common.CanFloop(me) and
-                #Common.TargetableByCreature(Common.AllPlayers.CreautresWithFrozenTokens(), playerI, me.Original.Card.ID) > 0
+                #Common.TargetableByCreature(Common.AllPlayers.CreaturesWithFrozenTokens(), playerI, me.Original.Card.ID) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(Common.TargetableByCreature(Common.AllPlayers.CreautresWithFrozenTokens(), playerI, me.Original.Card.ID))
+            local ids = Common.IDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesWithFrozenTokens(), playerI, me.Original.Card.ID))
             local target = TargetCreature(playerI, ids, 'Choose a Creature to deal damage to')
             Common.Damage.ToCreatureByCreatureAbility(me.Original.Card.ID, playerI, target, 3)
         end

@@ -1,0 +1,9 @@
+{
+    "Name": "Fatigued Librarian",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Fatigued Librarian comes into play exhausted and does not ready at the start of your turn. Whenever Fatigued Librarian changes Lanes, ready it.",
+    "Attack": 3,
+    "Defense": 4
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Snowblower",
+    "Landscape": "IcyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Choose a Lane. Freeze both Landscapes in that Lane."
+}
