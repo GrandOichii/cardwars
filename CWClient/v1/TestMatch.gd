@@ -3,6 +3,7 @@ extends Control
 signal UpdateReceived(Variant)
 signal MatchInfoReceived(Variant)
 
+@export var start_fullscreen: bool = true
 @export var player_name: String = 'RealPlayer'
 @export var decks: Array[Deck] = []
 @export var seed = 0
@@ -41,7 +42,8 @@ var _update: Variant
 
 func _ready():
 	_rng.seed = seed
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	if start_fullscreen:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	AddressEdit.text = host
 	PortEdit.text = str(port)
 	PlayerNameEdit.text = player_name

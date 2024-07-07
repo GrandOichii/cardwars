@@ -583,7 +583,6 @@ public class Program {
         } catch {
             return;
         }
-
         
         var config = new MatchConfig() {
             FreeDraw = 1,
@@ -607,6 +606,21 @@ public class Program {
             ?? throw new Exception("failed to read deck file")
         ;
 
+        var match = new GameMatch(config, seed, cm, File.ReadAllText("../CWCore/core.lua")){
+            Logger = LoggerFactory
+                .Create(builder => builder.AddConsole())
+                .CreateLogger("Program")
+        };
+
+        await AddTCPPlayer(listener, match);
+        await AddTCPPlayer(listener, match);
+
+
+        await match.Run();
+    }
+
+    // TODO change return type
+    public static async Task AddTCPPlayer(TcpListener listener, GameMatch match) {
         System.Console.WriteLine("Waiting for connection...");
         var client = new TcpIOHandler(listener.AcceptTcpClient());
 
@@ -616,21 +630,10 @@ public class Program {
         // read deck
         var deckRaw = await client.Read();
         System.Console.WriteLine(deckRaw);
-        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(deckRaw);
+        var deck = JsonSerializer.Deserialize<DeckTemplate>(deckRaw);
 
-        var controller1 = new IOPlayerController(client);
-        var controller2 = new RandomPlayerController(seed, 200);
-
-        var match = new GameMatch(config, seed, cm, File.ReadAllText("../CWCore/core.lua")){
-            Logger = LoggerFactory
-                .Create(builder => builder.AddConsole())
-                .CreateLogger("Program")
-        };
-
-        await match.AddPlayer(name, deck1, controller1);
-        await match.AddPlayer("player2", deck2, controller2);
-
-        await match.Run();
+        var controller = new IOPlayerController(client);
+        await match.AddPlayer(name, deck, controller);
     }
 
     public static async Task TcpLoop(int seed) {

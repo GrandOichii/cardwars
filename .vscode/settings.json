@@ -76,5 +76,5 @@
         "CreateState",
         "GetHitPoints"
     ],
-    "dotnet.defaultSolution": "CWCore/CWCore.sln"
+    "dotnet.defaultSolution": "CWClient/CWClient.sln"
 }
