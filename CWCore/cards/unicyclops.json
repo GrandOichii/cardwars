@@ -1,0 +1,9 @@
+{
+    "Name": "Unicyclops",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "At the start of your turn, each player draws a card and then discards a card.",
+    "Attack": 1,
+    "Defense": 10
+}

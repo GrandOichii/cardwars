@@ -139,6 +139,14 @@ func pick_card_in_discard(player_idx: int, discard_idx: int):
 	if match_info.PlayerIdx == 1:
 		player_idx = 1 - player_idx
 	send(str(player_idx) + ' ' + str(discard_idx))
+	
+func can_remove_frozen_token(lane_idx: int):
+	if last_update.Request != 'PromptAction':
+		return false
+	return ('rf ' + str(lane_idx)) in last_update.Args.values()
+	
+func remove_frozen_token(lane_idx: int):
+	send('rf ' + str(lane_idx))
 
 func send(msg: String):
 	Response.emit(msg)

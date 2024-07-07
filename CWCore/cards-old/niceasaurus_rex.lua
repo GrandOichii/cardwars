@@ -6,7 +6,7 @@ function _Create()
     result:AddTrigger({
         -- At the start of your turn, if Niceasaurus Rex has Damage on it, draw a card.
 
-        trigger = CardWars.Triggers.TURN_START,
+        trigger = CardWars.Phases.START,
         checkF = function (me, controllerI, laneI)
             return GetCurPlayerI() == controllerI and me.Original.Damage > 0
         end,

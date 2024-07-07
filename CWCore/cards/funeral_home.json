@@ -1,0 +1,7 @@
+{
+    "Name": "Funeral Home",
+    "Landscape": "Useless Swamp",
+    "Type": "Building",
+    "Cost": 1,
+    "Text": "Whenever a foe discards a card, your Creature in this Lane has +1 ATK until the end of turn."
+}

@@ -136,6 +136,11 @@ func can_pick_landscape():
 
 func can_pick_lane():
 	return _controller.can_pick_lane(player_idx, lane_idx)
+	
+func remove_frozen_token():
+	if not _controller.can_remove_frozen_token(lane_idx):
+		return
+	_controller.remove_frozen_token(lane_idx)
 
 func set_bg_color(color: Color):
 	Bg.color = color
@@ -209,3 +214,12 @@ func OnControlGuiInput(e):
 	if e.is_action_pressed('interact'):
 		interact()
 
+func OnFrozenCoverMouseEntered():
+	pass # Replace with function body.
+
+func OnFrozenCoverMouseExited():
+	pass # Replace with function body.
+
+func OnFrozenCoverGuiInput(e):
+	if e.is_action_pressed('interact'):
+		remove_frozen_token()

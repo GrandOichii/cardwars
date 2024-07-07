@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:InPlay()
 
     -- TODO not clear - does the second effect resolve if you don't have a creature in this lane?
-    
+
     -- At the start of your turn, deal 1 or 2 Damage to your Creature in this Lane, then you heal 1 HP (Max 25).
     result:AddTrigger({
         trigger = CardWars.Phases.START,
@@ -24,7 +24,7 @@ function _Create()
                 if accept then
                     amount = 2
                 end
-                DealDamageToCreature(creature.Original.Card.ID, amount)
+                Common.Damage.ToCreatureByBuildingAbility(me.Original.Card.ID, controllerI, creature.Original.Card.ID, amount)
             end
 
             HealHitPoints(controllerI, 1)

@@ -534,7 +534,7 @@ public class Program {
         var cm = new FileCardMaster();
         cm.Load("../CWCore/cards");
 
-        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/bubblegum.json"))
+        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/marceline.json"))
             ?? throw new Exception("failed to read deck file")
         ;
         var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/iceking.json"))
@@ -599,7 +599,7 @@ public class Program {
         var cm = new FileCardMaster();
         cm.Load("../CWCore/cards");
 
-        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
+        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/marceline.json"))
             ?? throw new Exception("failed to read deck file")
         ;
         var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/iceking.json"))
@@ -721,7 +721,7 @@ public class Program {
             var cm = new FileCardMaster();
             cm.Load("../CWCore/cards");
 
-            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/bubblegum.json"))
+            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/marceline.json"))
                 ?? throw new Exception("failed to read deck file")
             ;
             var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/iceking.json"))

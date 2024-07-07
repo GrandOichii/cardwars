@@ -1,0 +1,7 @@
+{
+    "Name": "Pentaid",
+    "Landscape": "NiceLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Heal exactly 5 Damage from target Creature you control (no more and no less)."
+}

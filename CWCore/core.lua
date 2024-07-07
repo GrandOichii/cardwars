@@ -782,6 +782,10 @@ function Common.CreaturesTypedExcept(playerI, landscape, id)
     end)
 end
 
+function Common.OpponentIdxs(playerI)
+    return {1 - playerI}
+end
+
 function Common.CreaturesThatChangedLanes(playerI)
     return Common.FilterCreatures(function (creature)
         return
@@ -1604,4 +1608,13 @@ function Common.Freeze.TargetLandscape(playerI)
     local l2 = Common.Lanes(landscapes[1 - playerI])
     local choice = ChooseLandscape(playerI, l1, l2, 'Choose a Landscape to freeze')
     Common.FreezeLandscape(choice[0], choice[1])
+end
+
+Common.Reveal = {}
+
+function Common.Reveal.Hand(playerI)
+    local handCount = STATE.Players[playerI].Original.Hand.Count
+    for i = 0, handCount - 1 do
+        RevealCardFromHand(playerI, i)
+    end
 end

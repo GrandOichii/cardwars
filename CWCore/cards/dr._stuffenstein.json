@@ -1,0 +1,9 @@
+{
+    "Name": "Dr. Stuffenstein",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "FLOOP >>> Heal 2 Damage from a Creature on an adjacent Landscape. If Dr. Stuffenstein has 5 or more Damage on it, heal 2 Damage from each of your Creatures instead.",
+    "Attack": 1,
+    "Defense": 9
+}

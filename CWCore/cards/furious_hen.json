@@ -1,0 +1,9 @@
+{
+    "Name": "Furious Hen",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Furious Hen has +1 ATK for each Damage on it.",
+    "Attack": 0,
+    "Defense": 10
+}
