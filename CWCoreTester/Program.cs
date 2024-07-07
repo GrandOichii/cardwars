@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Mindmagma.Curses;
 using System.Net.Sockets;
 using System.Net;
+using CWCore.Utility;
 
 public class FileCardMasterData {
     [JsonPropertyName("cards")]
@@ -581,6 +582,7 @@ public class Program {
         } catch {
             return;
         }
+
         
         var config = new MatchConfig() {
             FreeDraw = 1,
@@ -602,12 +604,19 @@ public class Program {
         var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/marceline.json"))
             ?? throw new Exception("failed to read deck file")
         ;
-        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/gunter.json"))
-            ?? throw new Exception("failed to read deck file")
-        ;
 
         System.Console.WriteLine("Waiting for connection...");
-        var controller1 = new IOPlayerController(new TcpIOHandler(listener.AcceptTcpClient()));
+        var client = new TcpIOHandler(listener.AcceptTcpClient());
+
+        // read name 
+        var name = await client.Read();
+
+        // read deck
+        var deckRaw = await client.Read();
+        System.Console.WriteLine(deckRaw);
+        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(deckRaw);
+
+        var controller1 = new IOPlayerController(client);
         var controller2 = new RandomPlayerController(seed, 200);
 
         var match = new GameMatch(config, seed, cm, File.ReadAllText("../CWCore/core.lua")){
@@ -616,7 +625,7 @@ public class Program {
                 .CreateLogger("Program")
         };
 
-        await match.AddPlayer("player1", deck1, controller1);
+        await match.AddPlayer(name, deck1, controller1);
         await match.AddPlayer("player2", deck2, controller2);
 
         await match.Run();

@@ -3,6 +3,8 @@ extends Control
 signal UpdateReceived(Variant)
 signal MatchInfoReceived(Variant)
 
+@export var player_name: String = 'RealPlayer'
+@export var deck: Deck
 @export var seed = 0
 
 @export_group("Connection")
@@ -79,7 +81,6 @@ func setup_pick_string(update: Variant):
 		b.pressed.connect(action)
 	
 func update_hand(update: Variant):
-	var personal = update.Personal
 	var newCount = len(update.Personal.Hand)
 	while (HandContainer.get_child_count() < newCount):
 		var child = HandCardPS.instantiate()
@@ -134,3 +135,7 @@ func OnControllerResponse(msg: String):
 
 func OnDrawButtonPressed():
 	Connection.Write('d')
+
+func OnConnectionConnected():
+	Connection.Write(player_name)
+	Connection.Write(deck.to_json())

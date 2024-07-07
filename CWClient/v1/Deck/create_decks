@@ -1,0 +1,62 @@
+#!bin/python3
+
+from sys import argv
+from os import listdir
+from os.path import join
+from pathlib import Path
+import json
+
+if len(argv) != 2:
+    print('please specify deck directory')
+    exit(1)
+
+deck_dir = argv[1]
+for path in listdir(deck_dir):
+    p = Path(path)
+    if p.suffix != '.json': continue
+    deck_name = p.stem
+    deck_data = json.loads(open(join(deck_dir, path), 'r').read())
+    top = '''
+[gd_resource type="Resource" script_class="Deck" load_steps=100 format=3]
+
+[ext_resource type="Script" path="res://v1/Deck/DeckCard.gd" id="1_noyiv"]
+[ext_resource type="Script" path="res://v1/Deck/Deck.gd" id="1_x3p7u"]
+[ext_resource type="Script" path="res://v1/Deck/DeckLandscape.gd" id="2_j2wsj"]
+    '''
+
+    footer = f'''
+
+[resource]
+script = ExtResource("1_x3p7u")
+name = "{deck_name}"
+    '''
+
+    cards = 'cards = Array[ExtResource("1_noyiv")](['
+
+    card_i = 0
+    for card_name, card_amount in deck_data['Cards'].items():
+        card_i += 1
+        top += f'''
+[sub_resource type="Resource" id="Resource_{card_i}"]
+script = ExtResource("1_noyiv")
+card = "{card_name}"
+amount = {card_amount}
+        '''
+        cards += f'SubResource("Resource_{card_i}"), '
+
+    landscape_i = 0
+
+    landscapes = 'landscapes = Array[ExtResource("2_j2wsj")](['
+    for landscape_name, landscape_amount in deck_data['Landscapes'].items():
+        landscape_i += 1
+        top += f'''
+[sub_resource type="Resource" id="Resource_l{landscape_i}"]
+script = ExtResource("2_j2wsj")
+landscape = "{landscape_name}"
+amount = {landscape_amount}
+
+        '''
+        landscapes += f'SubResource("Resource_l{landscape_i}"), '
+
+    result = top + footer + '\n' + cards[:-2] + '])\n' + landscapes[:-2] + '])'
+    open(deck_name + '.tres', 'w').write(result)

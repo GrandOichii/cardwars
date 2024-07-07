@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="Deck" load_steps=8 format=3 uid="uid://df3168uuqooog"]
+
+[ext_resource type="Script" path="res://v1/Deck/DeckCard.gd" id="1_noyiv"]
+[ext_resource type="Script" path="res://v1/Deck/Deck.gd" id="1_x3p7u"]
+[ext_resource type="Script" path="res://v1/Deck/DeckLandscape.gd" id="2_j2wsj"]
+
+[sub_resource type="Resource" id="Resource_cc7qs"]
+script = ExtResource("1_noyiv")
+card = "first card"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_pnsqu"]
+script = ExtResource("1_noyiv")
+card = "second card"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_ost3s"]
+script = ExtResource("2_j2wsj")
+landscape = "NiceLands"
+amount = 3
+
+[sub_resource type="Resource" id="Resource_i6jb7"]
+script = ExtResource("2_j2wsj")
+landscape = "Cornfield"
+amount = 1
+
+[resource]
+script = ExtResource("1_x3p7u")
+name = "amogus"
+cards = Array[ExtResource("1_noyiv")]([SubResource("Resource_cc7qs"), SubResource("Resource_pnsqu")])
+landscapes = Array[ExtResource("2_j2wsj")]([SubResource("Resource_ost3s"), SubResource("Resource_i6jb7")])

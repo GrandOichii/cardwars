@@ -11,6 +11,8 @@ public partial class TcpConnectionWrapper : Node
 	#region Signals
 
 	[Signal]
+	public delegate void ConnectedEventHandler();
+	[Signal]
 	public delegate void MessageReceivedEventHandler(string message);
 
 	#endregion
@@ -23,6 +25,7 @@ public partial class TcpConnectionWrapper : Node
 		client.Connect(IPEndPoint.Parse(address));
 		_connection = new TcpConnection(client);
 		_connection.SubscribeToUpdate(OnRead);
+		EmitSignal(SignalName.Connected);
 		_connection.StartReceiveLoop();
 	}
 
