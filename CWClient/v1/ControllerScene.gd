@@ -88,9 +88,7 @@ func can_pick_landscape(player_idx: int, lane_idx) -> bool:
 		var value = last_update.Args[key]
 		if value != str(lane_idx):
 			continue
-		if key[0] == 'o' && player_idx != opp_idx:
-			continue
-		return true
+		return player_idx != opp_idx or key[0] == 'o'
 	return false
 
 func pick_landscape(player_idx: int, lane_idx: int):

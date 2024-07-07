@@ -16,9 +16,9 @@ function _Create()
                 end
             end
 
-            local ids = Common.IDs(Common.Creatures(target))
-            for _, cid in ipairs(ids) do
-                Common.Damage.ToCreatureBySpell(id, playerI, cid, 2)
+            local creatures = Common.Creatures(target)
+            for _, creature in ipairs(creatures) do
+                Common.Damage.ToCreatureBySpell(id, playerI, creature.Original.Card.ID, 2)
             end
         end
     )

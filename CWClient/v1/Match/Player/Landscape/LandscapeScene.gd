@@ -221,5 +221,5 @@ func OnFrozenCoverMouseExited():
 	pass # Replace with function body.
 
 func OnFrozenCoverGuiInput(e):
-	if e.is_action_pressed('interact'):
+	if e.is_action_pressed('interact_secondary'):
 		remove_frozen_token()

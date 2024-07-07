@@ -17,8 +17,6 @@ mouse_filter = 1
 script = ExtResource("1_sfwn3")
 landscape1 = "IcyLands"
 landscape2 = "IcyLands"
-landscape3 = "IcyLands"
-landscape4 = "IcyLands"
 HandCardPS = ExtResource("2_u44bo")
 
 [node name="Connection" parent="." instance=ExtResource("2_fgw36")]
