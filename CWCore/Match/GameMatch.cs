@@ -50,6 +50,9 @@ public class GameMatch {
         Config = config;
 
         Rng = new(seed);
+        CurPlayerI = 0;
+        if (config.RandomFirstPlayer)
+            CurPlayerI = Rng.Next() % 2;
 
         LogInfo("Running setup script");
         LState.DoString(setupScript);

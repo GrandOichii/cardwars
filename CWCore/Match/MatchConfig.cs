@@ -12,4 +12,5 @@ public class MatchConfig {
     public required bool CanAttackOnFirstTurn { get; set; }
     public required bool CanFloopOnFirstTurn { get; set; }
     public required int MaxBuildingsPerLane { get; set; }
+    public required bool RandomFirstPlayer { get; set; }
 }

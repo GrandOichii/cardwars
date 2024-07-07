@@ -530,6 +530,7 @@ public class Program {
             CanFloopOnFirstTurn = true,
             CanAttackOnFirstTurn = true,
             MaxBuildingsPerLane = 1,
+            RandomFirstPlayer = false
         };
 
         var cm = new FileCardMaster();
@@ -596,6 +597,7 @@ public class Program {
             CanFloopOnFirstTurn = false,
             CanAttackOnFirstTurn = false,
             MaxBuildingsPerLane = 1,
+            RandomFirstPlayer = true
         };
 
         var cm = new FileCardMaster();
@@ -656,6 +658,7 @@ public class Program {
                 CanFloopOnFirstTurn = true,
                 CanAttackOnFirstTurn = true,
                 MaxBuildingsPerLane = 1,
+                RandomFirstPlayer = false
             };
 
             var cm = new FileCardMaster();
@@ -725,6 +728,7 @@ public class Program {
                 CanFloopOnFirstTurn = true,
                 CanAttackOnFirstTurn = true,
                 MaxBuildingsPerLane = 1,
+                RandomFirstPlayer = false
             };
 
             var cm = new FileCardMaster();
