@@ -529,6 +529,10 @@ function Common.LandscapesWithoutCreatures(playerI)
     end)
 end
 
+function Common.EmptyLandscapes(playerI)
+    return Common.LandscapesWithoutCreatures(playerI)
+end
+
 function Common.LandscapesWithoutCreaturesTyped(playerI, lType)
     return Common.FilterLandscapes(function (landscape)
         return
@@ -725,14 +729,6 @@ function Common.AvailableToFlipDownLandscapesTyped(landscapeOwnerI, byI, type)
         if landscape:Is(type) then
             result[#result+1] = landscape
         end
-    end
-    return result
-end
-
-function Common.Lanes(landscapes)
-    local result = {}
-    for _, landscape in ipairs(landscapes) do
-        result[#result+1] = landscape.Original.Idx
     end
     return result
 end
@@ -1604,8 +1600,8 @@ Common.Freeze = {}
 
 function Common.Freeze.TargetLandscape(playerI)
     local landscapes = Common.SplitLandscapesByOwner(Common.AllPlayers.Landscapes())
-    local l1 = Common.Lanes(landscapes[playerI])
-    local l2 = Common.Lanes(landscapes[1 - playerI])
+    local l1 = CW.Lanes(landscapes[playerI])
+    local l2 = CW.Lanes(landscapes[1 - playerI])
     local choice = ChooseLandscape(playerI, l1, l2, 'Choose a Landscape to freeze')
     Common.FreezeLandscape(choice[0], choice[1])
 end
@@ -1617,4 +1613,462 @@ function Common.Reveal.Hand(playerI)
     for i = 0, handCount - 1 do
         RevealCardFromHand(playerI, i)
     end
+end
+
+CW = {}
+
+function CW.FilterCreatures(filter)
+    local result = {}
+    for pi = 1, STATE.Players.Length do
+        local pState = STATE.Players[pi - 1]
+        for li = 1, pState.Landscapes.Count do
+            local lane = pState.Landscapes[li - 1]
+            if lane.Creature ~= nil then
+                if filter == nil or filter(lane.Creature) then
+                    result[#result+1] = lane.Creature
+                end
+            end
+        end
+    end
+    return result
+end
+
+function CW.FilterLandscapes(filter)
+    local result = {}
+
+    for pi = 0, STATE.Players.Length - 1 do
+        local pState = STATE.Players[pi]
+        for li = 1, pState.Landscapes.Count do
+            local landscape = pState.Landscapes[li - 1]
+            if filter == nil or filter(landscape) then
+                result[#result+1] = landscape
+            end
+        end
+    end
+
+    return result
+end
+
+function CW.Creatures(playerI)
+    return CW.FilterCreatures(function (creature)
+        return playerI == nil or creature.Original.ControllerI == playerI
+    end)
+end
+
+function CW.CreaturesThatEnteredPlayThisTurn()
+    local landscapes = CW.FilterLandscapes()
+    local result = {}
+
+    for _, landscape in ipairs(landscapes) do
+        for i = 0, landscape.Original.CreaturesEnteredThisTurn - 1 do
+            result[#result+1] = landscape.Original.CreaturesEnteredThisTurn[i]
+        end
+    end
+
+    return result
+end
+
+function CW.SplitLandscapesByOwner(landscapes)
+    local result = {}
+    for i = 0, STATE.Players.Length - 1 do
+        result[i] = {}
+    end
+    for _, landscape in ipairs(landscapes) do
+        local idx = landscape.Original.OwnerI
+        result[idx][#result[idx]+1] = landscape
+    end
+    return result
+end
+
+function CW.Lanes(landscapes)
+    local result = {}
+    for _, landscape in ipairs(landscapes) do
+        result[#result+1] = landscape.Original.Idx
+    end
+    return result
+end
+
+function CW.CreatureFilter()
+    local result = {}
+
+    result.filters = {}
+
+    function result:Do()
+        local filter = function (creature)
+            for _, f in ipairs(result.filters) do
+                if not f(creature) then
+                    return false
+                end
+            end
+            return true
+        end
+        return CW.FilterCreatures(filter)
+    end
+
+    function result:OwnedBy(playerI)
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original.Card.OwnerI == playerI
+        end
+        return self
+    end
+
+    function result:ControlledBy(playerI)
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original.Card.OwnerI == playerI
+        end
+        return self
+    end
+
+    function result:AdjacentToLane(laneI)
+        result.filters[#result.filters+1] = function (creature)
+            return creature.LaneI == laneI - 1 or creature.LaneI == laneI + 1
+        end
+        return self
+    end
+
+    function result:NotControlledBy(playerI)
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original.Card.OwnerI ~= playerI
+        end
+        return self
+    end
+
+    function result:InLane(laneI)
+        result.filters[#result.filters+1] = function (creature)
+            return creature.LaneI == laneI
+        end
+        return self
+    end
+
+    return result
+end
+
+function CW.LandscapeFilter()
+    local result = {}
+
+    result.filters = {}
+
+    function result:Do()
+        local filter = function (landscape)
+            for _, f in ipairs(result.filters) do
+                if not f(landscape) then
+                    return false
+                end
+            end
+            return true
+        end
+        return CW.FilterLandscapes(filter)
+    end
+
+    function result:OwnedBy(playerI)
+        result.filters[#result.filters+1] = function (landscape)
+            return landscape.Original.OwnerI == playerI
+        end
+        return self
+    end
+
+    function result:OnLane(laneI)
+        result.filters[#result.filters+1] = function (landscape)
+            return landscape.Original.Idx == laneI
+        end
+        return self
+    end
+
+    function result:CanBeFlippedDown(byI)
+        result.filters[#result.filters+1] = function (landscape)
+            return landscape.CanFlipDown:Contains(byI)
+        end
+        return self
+    end
+
+    return result
+end
+
+function CW.SpellTargetCreature(card, creatureFilterFunc, targetHint, effectF)
+    Common.AddRestriction(card,
+        function (id, playerI)
+            return nil, #Common.TargetableBySpell(creatureFilterFunc(id, playerI), playerI, id) > 0
+        end
+    )
+
+    card.EffectP:AddLayer(
+        function (id, playerI)
+            local ids = Common.IDs(Common.TargetableBySpell(creatureFilterFunc(id, playerI), playerI, id))
+            local target = TargetCreature(playerI, ids, targetHint)
+            local creature = GetCreature(target)
+            effectF(id, playerI, creature)
+        end
+    )
+end
+
+CW.Target = {}
+
+function CW.Target.Landscape(options, byPlayerI)
+    local split = CW.SplitLandscapesByOwner(options)
+    local l1 = CW.Lanes(split[0])
+    local l2 = CW.Lanes(split[1])
+    if byPlayerI == 1 then
+        l1, l2 = l2, l1
+    end
+    if (#l1 + #l2) == 0 then
+        return nil
+    end
+    local choice = ChooseLandscape(byPlayerI, l1, l2, 'Choose a Cornfield Landscape to flip face-down')
+    return STATE.Players[choice[0]].Landscapes[choice[1]]
+end
+
+CW.Creature = {}
+
+function CW.Creature.ParrottrooperEffect(card, thenEffect)
+    card:OnEnter(function(me, playerI, laneI, replaced)
+        -- When  enters play, 
+
+        local landscapes = Common.AllPlayers.LandscapesWithoutCreatures()
+        local myLanes = {}
+        local opponentsLanes = {}
+        for _, landscape in ipairs(landscapes) do
+            if landscape.Original.OwnerI == playerI then
+                myLanes[#myLanes+1] = landscape
+            else
+                opponentsLanes[#opponentsLanes+1] = landscape
+            end
+        end
+        if #myLanes + #opponentsLanes == 0 then
+            return
+        end
+        local lane = ChooseLandscape(playerI, CW.Lanes(myLanes), CW.Lanes(opponentsLanes), 'Choose a landscape to move '..me.Original.Card.Template.Name..' to')
+        local toPlayerI = lane[0]
+        local toLaneI = lane[1]
+        if toPlayerI == playerI then
+            MoveCreature(me.Original.Card.ID, toLaneI)
+            return
+        end
+        StealCreature(playerI, me.Original.Card.ID, toLaneI)
+
+        if thenEffect == nil then
+            return
+        end
+
+        thenEffect(me)
+    end)
+
+    card:AddStateModifier(function (me, layer, zone)
+        -- ... It cannot be replaced. ...
+
+        if layer == CardWars.ModificationLayers.REPLACE_PRIVILEGES and zone == CardWars.Zones.IN_PLAY then
+            me.CanBeReplaced = false
+        end
+    end)
+end
+
+function CW.Creature.RockNRollerEffect(card)
+
+    card:OnEnter(function(me, playerI, laneI, replaced)
+        -- When Rock 'n Roller enters play, flip a Landscape in this Lane face down.
+
+        local landscape = CW.Target.Landscape(
+            CW.LandscapeFilter():OnLane(laneI):CanBeFlippedDown(playerI):Do(),
+            playerI
+        )
+        if landscape == nil then
+            return
+        end
+        CW.Landscape.FlipDown(landscape.Original.OwnerI, landscape.Original.Idx)
+    end)
+
+    card:OnLeave(function(id_, playerI_, laneI_, wasReady_)
+        -- When Rock 'n Roller leaves play, flip it face up.
+        -- CW.Landscape.FlipUp(landscape.Original.OwnerI, landscape.Original.Idx)
+        -- TODO
+    end)
+
+end
+
+CW.Landscape = {}
+
+function CW.Landscape.FlipDown(playerI, laneI)
+    TurnLandscapeFaceDown(playerI, laneI)
+end
+
+function CW.Landscape.FlipUp(playerI, laneI)
+    TurnLandscapeFaceUp(playerI, laneI)
+end
+
+function CW.Landscape.FlipDownUntilNextTurn(playerI, landscapeOwnerI, laneI)
+    TurnLandscapeFaceDown(landscapeOwnerI, laneI)
+
+    AtTheStartOfNextTurn(playerI, function ()
+        TurnLandscapeFaceUp(landscapeOwnerI, laneI)
+    end)
+end
+
+CW.Discard = {}
+
+function CW.Discard.ACard(playerI, hint)
+    hint = hint or 'Choose a card to discard'
+    local cards = STATE.Players[playerI].Hand
+    if cards.Count == 0 then
+        return nil
+    end
+
+    local ids = {}
+    for i = 1, cards.Count do
+        ids[#ids+1] = i - 1
+    end
+
+    local result = ChooseCardInHand(playerI, ids, hint)
+    local cardId = STATE.Players[playerI].Hand[result].Original.ID
+
+    DiscardFromHand(playerI, result)
+
+    return cardId
+end
+
+function CW.Discard.NCards(playerI, amount, hintFunc)
+    hintFunc = hintFunc or function (left)
+        return 'Discard a card ('..left..' left)'
+    end
+    for i = 1, amount do
+        CW.Discard.ACard(playerI, hintFunc(amount - i + 1))
+        UpdateState()
+    end
+end
+
+CW.ActivatedAbility = {}
+
+function CW.ActivatedAbility.Add(card, text, cost, effectF, maxActivationsPerTurn)
+    maxActivationsPerTurn = maxActivationsPerTurn or -1
+    local checkFunc = cost:CheckFunc()
+    local costFunc = cost:CostFunc()
+    card:AddActivatedAbility({
+        maxActivationsPerTurn = maxActivationsPerTurn,
+        text = text,
+        tags = cost:Tags(),
+        checkF = function (me, playerI, laneI)
+            return checkFunc(me, playerI, laneI)
+        end,
+        costF = function (me, playerI, laneI)
+            return costFunc(me, playerI, laneI)
+        end,
+        effectF = function (me, playerI, laneI)
+            effectF(me, playerI, laneI, effectF)
+        end
+    })
+end
+
+CW.ActivatedAbility.Cost = {}
+
+function CW.ActivatedAbility.Cost.And(...)
+    
+    local result = {}
+    result.costs = {...}
+    assert(#result.costs > 0, 'tried to create activated ability cost with no arguments')
+
+    function result:Tags()
+        local tags = {}
+        for _, cost in ipairs(self.costs) do
+            if cost.Tags ~= nil then
+                local costTags = cost:Tags()
+                for _, tag in ipairs(costTags) do
+                    tags[#tags+1] = tag
+                end
+            end
+        end
+        return tags
+    end
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return CW.Utility.All(result.costs, function (cost)
+                return cost:CheckFunc()(me, playerI, laneI)
+            end)
+        end
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            return CW.Utility.All(result.costs, function (cost)
+                return cost:CostFunc()(me, playerI, laneI)
+            end)
+        end
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.Floop()
+    local result = {}
+
+    function result:Tags()
+        return {'floop'}
+    end
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return Common.CanFloop(me)
+        end
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            FloopCard(me.Original.Card.ID)
+            return true
+        end
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.Check(checkF)
+    local result = {}
+
+    function result:Tags()
+        return {'floop'}
+    end
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return checkF(me, playerI, laneI)
+        end
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.DiscardFromHand(amount, hintFunc, maxActivationsPerTurn)
+    maxActivationsPerTurn = maxActivationsPerTurn or -1
+
+    local result = {}
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return GetHandCount(playerI) >= amount
+        end
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            CW.Discard.NCards(playerI, amount, hintFunc)
+            return true
+        end
+    end
+
+    return result
+end
+
+CW.Utility = {}
+
+function CW.Utility.All(list, predicate)
+    for _, item in ipairs(list) do
+        if not predicate(item) then
+            return false
+        end
+    end
+    return true
 end

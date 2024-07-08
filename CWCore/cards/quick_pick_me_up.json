@@ -1,0 +1,7 @@
+{
+    "Name": "Quick Pick Me Up",
+    "Landscape": "SandyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Return target Creature you control to its owner's hand. Gain Actions equal to its cost."
+}

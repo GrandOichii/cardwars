@@ -1,0 +1,9 @@
+{
+    "Name": "Fancy Zebracorn",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "+1 DEF for each different Landscape type you control.",
+    "Attack": 2,
+    "Defense": 4
+}

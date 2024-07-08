@@ -94,6 +94,7 @@ public class ScriptMaster {
         return result;
     }
 
+    // !FIXME for effects that use this, this could be a rules violation: buffing some creature +X Attack, then flickering it - this should remove the buff, but with this the buff will still apply. Solution: add a unique in-play ID.
     [LuaCommand]
     public CreatureState? GetCreatureOrDefault(string id) {
         var result = _match.GetInPlayCreatureOrDefault(id);

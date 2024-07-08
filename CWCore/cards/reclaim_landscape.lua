@@ -10,7 +10,7 @@ function _Create()
 
             -- flipping
 
-            local lanes = Common.Lanes(Common.FaceDownLandscapes(playerI))
+            local lanes = CW.Lanes(Common.FaceDownLandscapes(playerI))
 
             if #lanes ~= 0 then
                 local lane = ChooseLandscape(playerI, lanes, {}, 'Choose a Cornfield Landscape to flip face-up')
@@ -22,7 +22,7 @@ function _Create()
 
             -- movement 
 
-            local empty = Common.Lanes(Common.LandscapesWithoutBuildings(playerI))
+            local empty = CW.Lanes(Common.LandscapesWithoutBuildings(playerI))
 
             if #empty == 0 then
                 

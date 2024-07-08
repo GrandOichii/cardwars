@@ -1,0 +1,36 @@
+{
+    "Cards": {
+        "Bouncing Zebracorn": 1,
+        "Earth Mover": 1,
+        "Fancy Zebracorn": 2,
+        "Mantle Masher": 2,
+        "Ol' Corn Eye": 1,
+        "Quake Maker": 2,
+        "Rebounding Zebracorn": 2,
+        "Rock 'n Roller": 2,
+        "Grand Mummy": 1,
+        "Sandasaurus Rex": 1,
+        "Sandmagus": 1,
+        "TNTimmy": 2,
+        "Amaizing Avalanche": 1,
+        "Free Fall": 2,
+        "Quick Pick Me Up": 1,
+        "Drop Zone": 2,
+        "Ham Fist": 1,
+        "Lunchpad": 1,
+        "Parrotmilitary Outpost": 1,
+        "Sinkhole": 1,
+        "Silo of Freedom": 1,
+        "Rock Out!": 2,
+        "Husky Parrotrooper": 1,
+        "Jinxed Parrotrooper": 2,
+        "Static Parrotrooper": 2,
+        "Dragoon Parrotrooper": 1,
+        "Ska-pion": 2,
+        "Carmel Camel": 1
+    },
+    "Landscapes": {
+        "Cornfield": 2,
+        "SandyLands": 2
+    }
+}

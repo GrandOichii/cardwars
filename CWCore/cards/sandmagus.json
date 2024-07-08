@@ -1,0 +1,9 @@
+{
+    "Name": "Sandmagus",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "At the start of your turn, you may return Sandmagus to its owner's hand. If you do, each other Creature you control has +1 ATK this turn.",
+    "Attack": 2,
+    "Defense": 4
+}

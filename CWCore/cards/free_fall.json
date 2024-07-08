@@ -1,0 +1,7 @@
+{
+    "Name": "Free Fall",
+    "Landscape": "SandyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Each of your Creatures has +1 ATK this turn for each Creature that entered play this turn."
+}

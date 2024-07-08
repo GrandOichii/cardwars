@@ -1,0 +1,9 @@
+{
+    "Name": "Quake Maker",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "+2 ATK for each face-down Landscape in play.",
+    "Attack": 1,
+    "Defense": 7
+}

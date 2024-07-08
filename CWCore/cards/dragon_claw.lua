@@ -21,7 +21,7 @@ function _Create()
             local creatures = Common.IDs(Common.Creatures(playerI))
             local creatureId = ChooseCreature(playerI, creatures, 'Choose a creature to move')
 
-            local options = Common.Lanes(Common.LandscapesWithoutCreatures(playerI))
+            local options = CW.Lanes(Common.LandscapesWithoutCreatures(playerI))
             local lane = ChooseLane(playerI, options, 'Choose an empty Lane to move to')
 
             MoveCreature(creatureId, lane)

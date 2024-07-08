@@ -10,7 +10,7 @@ function _Create()
             DestroyCreature(me.Original.Card.ID)
             return
         end
-        local lanes = Common.Lanes(empty)
+        local lanes = CW.Lanes(empty)
         local choice = ChooseLandscape(controllerI, lanes, {}, 'Choose a landscape to move '..me.Original.Card.LogFriendlyName..' to')
         assert(choice[0] == controllerI, 'tried to choose opponent\'s card (Drained Cleric)')
         MoveCreature(me.Original.Card.ID, choice[1])

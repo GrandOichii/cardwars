@@ -58,10 +58,15 @@ func load_snapshot(card: Variant):
 	if is_creature:
 		_load_creature(card)
 
+func set_attack(attack: int):
+	if attack < 0:
+		attack = 0
+	AttackLabel.text = str(attack)
+
 func _load_creature(card: Variant):
 	AttackLabel.visible = true
 	DefenseLabel.visible = true
-	AttackLabel.text = str(card.Attack)
+	set_attack(card.Attack)
 	DefenseLabel.text = str(card.Defense)
 
 func load_in_play_snapshot(card: Variant):

@@ -1,0 +1,9 @@
+{
+    "Name": "Ska-pion",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Ska-pion costs 1 less to play while an opponent controls a Creature you own.",
+    "Attack": 3,
+    "Defense": 3
+}

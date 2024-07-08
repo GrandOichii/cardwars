@@ -1,0 +1,9 @@
+{
+    "Name": "Ol' Corn Eye",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "+1 DEF for each different Landscape type you control.",
+    "Attack": 4,
+    "Defense": 1
+}

@@ -1,0 +1,161 @@
+[gd_resource type="Resource" script_class="Deck" load_steps=34 format=3 uid="uid://bibnaxrkpddra"]
+
+[ext_resource type="Script" path="res://v1/Deck/DeckCard.gd" id="1_noyiv"]
+[ext_resource type="Script" path="res://v1/Deck/Deck.gd" id="1_x3p7u"]
+[ext_resource type="Script" path="res://v1/Deck/DeckLandscape.gd" id="2_j2wsj"]
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("1_noyiv")
+card = "Bouncing Zebracorn"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("1_noyiv")
+card = "Earth Mover"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("1_noyiv")
+card = "Fancy Zebracorn"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_4"]
+script = ExtResource("1_noyiv")
+card = "Mantle Masher"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_5"]
+script = ExtResource("1_noyiv")
+card = "Ol' Corn Eye"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_6"]
+script = ExtResource("1_noyiv")
+card = "Quake Maker"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_7"]
+script = ExtResource("1_noyiv")
+card = "Rebounding Zebracorn"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_8"]
+script = ExtResource("1_noyiv")
+card = "Rock 'n Roller"
+amount = 200
+
+[sub_resource type="Resource" id="Resource_9"]
+script = ExtResource("1_noyiv")
+card = "Grand Mummy"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_10"]
+script = ExtResource("1_noyiv")
+card = "Sandasaurus Rex"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_11"]
+script = ExtResource("1_noyiv")
+card = "Sandmagus"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_12"]
+script = ExtResource("1_noyiv")
+card = "TNTimmy"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_13"]
+script = ExtResource("1_noyiv")
+card = "Amaizing Avalanche"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_14"]
+script = ExtResource("1_noyiv")
+card = "Free Fall"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_15"]
+script = ExtResource("1_noyiv")
+card = "Quick Pick Me Up"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_16"]
+script = ExtResource("1_noyiv")
+card = "Drop Zone"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_17"]
+script = ExtResource("1_noyiv")
+card = "Ham Fist"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_18"]
+script = ExtResource("1_noyiv")
+card = "Lunchpad"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_19"]
+script = ExtResource("1_noyiv")
+card = "Parrotmilitary Outpost"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_20"]
+script = ExtResource("1_noyiv")
+card = "Sinkhole"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_21"]
+script = ExtResource("1_noyiv")
+card = "Silo of Freedom"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_22"]
+script = ExtResource("1_noyiv")
+card = "Rock Out!"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_23"]
+script = ExtResource("1_noyiv")
+card = "Husky Parrotrooper"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_24"]
+script = ExtResource("1_noyiv")
+card = "Jinxed Parrotrooper"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_25"]
+script = ExtResource("1_noyiv")
+card = "Static Parrotrooper"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_26"]
+script = ExtResource("1_noyiv")
+card = "Dragoon Parrotrooper"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_27"]
+script = ExtResource("1_noyiv")
+card = "Ska-pion"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_28"]
+script = ExtResource("1_noyiv")
+card = "Carmel Camel"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_l1"]
+script = ExtResource("2_j2wsj")
+landscape = "Cornfield"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_l2"]
+script = ExtResource("2_j2wsj")
+landscape = "SandyLands"
+amount = 2
+
+[resource]
+script = ExtResource("1_x3p7u")
+name = "lemongrab"
+cards = Array[ExtResource("1_noyiv")]([SubResource("Resource_1"), SubResource("Resource_2"), SubResource("Resource_3"), SubResource("Resource_4"), SubResource("Resource_5"), SubResource("Resource_6"), SubResource("Resource_7"), SubResource("Resource_8"), SubResource("Resource_9"), SubResource("Resource_10"), SubResource("Resource_11"), SubResource("Resource_12"), SubResource("Resource_13"), SubResource("Resource_14"), SubResource("Resource_15"), SubResource("Resource_16"), SubResource("Resource_17"), SubResource("Resource_18"), SubResource("Resource_19"), SubResource("Resource_20"), SubResource("Resource_21"), SubResource("Resource_22"), SubResource("Resource_23"), SubResource("Resource_24"), SubResource("Resource_25"), SubResource("Resource_26"), SubResource("Resource_27"), SubResource("Resource_28")])
+landscapes = Array[ExtResource("2_j2wsj")]([SubResource("Resource_l1"), SubResource("Resource_l2")])

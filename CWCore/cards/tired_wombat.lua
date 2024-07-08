@@ -7,7 +7,7 @@ function _Create()
     Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
         local empty = Common.LandscapesWithoutCreatures(controllerI)
         if #empty == 0 then
-            local lanes = Common.Lanes(Common.LandscapesWithoutCreatures(1 - controllerI))
+            local lanes = CW.Lanes(Common.LandscapesWithoutCreatures(1 - controllerI))
             if #lanes == 0 then
                 return
             end
@@ -17,7 +17,7 @@ function _Create()
             StealCreature(controllerI, me.Original.Card.ID, choice[1])
             return
         end
-        local lanes = Common.Lanes(empty)
+        local lanes = CW.Lanes(empty)
         local choice = ChooseLandscape(controllerI, lanes, {}, 'Choose a landscape to move '..me.Original.Card.LogFriendlyName..' to')
         assert(choice[0] == controllerI, 'tried to choose opponent\'s landscape (Tired Wombat)')
         MoveCreature(me.Original.Card.ID, choice[1])

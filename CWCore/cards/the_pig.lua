@@ -20,8 +20,8 @@ function _Create()
         end,
         effectF = function (me, playerI, laneI)
             local os = Common.AvailableToFlipDownLandscapesInLaneTyped(playerI, CardWars.Landscapes.Cornfield, laneI)
-            local options = Common.Lanes(os[1])
-            local opponentOptions = Common.Lanes(os[2])
+            local options = CW.Lanes(os[1])
+            local opponentOptions = CW.Lanes(os[2])
 
             -- TODO? change to target
             local landscape = ChooseLandscape(playerI, options, opponentOptions, 'Choose a Cornfield Landscape to flip face-down')

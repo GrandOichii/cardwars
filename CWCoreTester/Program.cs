@@ -613,10 +613,19 @@ public class Program {
         };
 
         await AddTCPPlayer(listener, match);
-        await AddTCPPlayer(listener, match);
-
+        // await AddTCPPlayer(listener, match);
+        await AddRandomPlayer(match, seed);
 
         await match.Run();
+    }
+
+    public static async Task AddRandomPlayer(GameMatch match, int seed) {
+        var deck = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
+            ?? throw new Exception("failed to read deck file")
+        ;
+        var controller = new RandomPlayerController(seed, 150);
+
+        await match.AddPlayer("RandomPlayer", deck, controller);
     }
 
     // TODO change return type

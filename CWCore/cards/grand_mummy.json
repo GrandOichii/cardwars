@@ -1,0 +1,9 @@
+{
+    "Name": "Grand Mummy",
+    "Landscape": "SandyLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "At the start of your turn, you may return Grand Mummy to its owner's hand. If you do, draw two cards.",
+    "Attack": 3,
+    "Defense": 3
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Parrotmilitary Outpost",
+    "Landscape": "Rainbow",
+    "Type": "Building",
+    "Cost": 0,
+    "Text": "Each Creature in this Lane has -1 ATK (min 0)."
+}

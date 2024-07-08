@@ -16,7 +16,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local empty = Common.Lanes(Common.LandscapesWithoutCreatures(playerI))
+            local empty = CW.Lanes(Common.LandscapesWithoutCreatures(playerI))
             local lane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')
             MoveCreature(me.Original.Card.ID, lane)
             for i = 0, 1 do

@@ -1,0 +1,7 @@
+{
+    "Name": "Ham Fist",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Target Creature you control has -5 ATK this turn. Draw a card."
+}
