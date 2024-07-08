@@ -12,14 +12,14 @@ function _Create()
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Destroy target Building. You may deal 3 Damage to a Creature in that Lane. Flip your Landscape in that Lane face down.
-            local ids = Common.IDs(Common.TargetableBySpell(Common.AllPlayers.Buildings(), playerI, id))
+            local ids = CW.IDs(Common.TargetableBySpell(Common.AllPlayers.Buildings(), playerI, id))
             local target = TargetBuilding(playerI, ids, 'Choose a creature to destroy')
             local building = GetBuilding(target)
             local laneI = building.LaneI
 
             DestroyBuilding(target)
             UpdateState()
-            local creatureIDs = Common.IDs(Common.TargetableBySpell(Common.AllPlayers.CreaturesInLane(laneI), playerI, id))
+            local creatureIDs = CW.IDs(Common.TargetableBySpell(Common.AllPlayers.CreaturesInLane(laneI), playerI, id))
             if #creatureIDs > 0 then
                 local creature = TargetCreature(playerI, creatureIDs, '')
                 local c = GetCreature(creature)

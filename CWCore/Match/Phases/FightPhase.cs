@@ -59,6 +59,11 @@ public class FightPhase : IPhase
                 continue;
             }
 
+            if (!defenderState.CanBeAttacked) {
+                match.ActionError($"Player {player.LogFriendlyName} tried to attack in lane {laneI}, but the defending creature can't be attacked (defender: {defenderState.Original.Card.LogFriendlyName})");
+                continue;
+            }
+
             // damage to creatures
             var defender = defenderState;
 
@@ -79,6 +84,8 @@ public class FightPhase : IPhase
 
             if (lane.Creature is null) continue;
             if (!lane.Creature.CanAttack) continue;
+            var defender = playerState.Original.Match.LastState.Players[1 - playerState.Original.Idx].Landscapes[i].Creature;
+            if (defender is not null && !defender.CanBeAttacked) continue;
 
             result.Add(i);
         }
@@ -87,13 +94,7 @@ public class FightPhase : IPhase
     }
 
     public static bool CanAttack(PlayerState playerState) {
-        foreach (var lane in playerState.Landscapes) {
-            if (lane.Creature is null) continue;
-
-            if (lane.Creature.CanAttack) return true;
-        }
-
-        return false;
+        return AvailableAttacks(playerState).Count > 0;
     }
 
     public string GetName() => "turn_fight";

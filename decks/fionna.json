@@ -1,0 +1,32 @@
+{
+    "Cards": {
+        "Business Dog": 1,
+        "Crazy Cat Lady": 2,
+        "Emboldened Retriever": 2,
+        "Fiddling Ferret": 1,
+        "Infant Scholar": 2,
+        "Lonely Panda": 2,
+        "Psionic Swashbuckler": 2,
+        "Woadic Matriarch": 1,
+        "Pony": 2,
+        "Glorious Gramophone": 2,
+        "River of Swords": 1,
+        "Singing Sword": 2,
+        "Sword Bouquet": 2,
+        "Oil Refinery": 2,
+        "Impossible Possum": 2,
+        "Woadic Enchantress": 2,
+        "Learning Center": 1,
+        "Charming City": 1,
+        "Friendship Bracelet": 2,
+        "Puppy Parade": 1,
+        "Vampire Lord": 1,
+        "The Dog": 2,
+        "Tiny Elephant": 2,
+        "Woadic Weirdo": 2
+    },
+    "Landscapes": {
+        "Blue Plains": 2,
+        "Useless Swamp": 2
+    }
+}

@@ -6,7 +6,7 @@ function _Create()
     result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Legion of Earlings enters play, you may return target Creature in this Lane to its owner's hand.
 
-        local options = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.CreaturesInLane(laneI)))
+        local options = CW.IDs(Common.Targetable(playerI, Common.AllPlayers.CreaturesInLane(laneI)))
         if #options == 0 then
             return
         end

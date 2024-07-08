@@ -5,7 +5,7 @@ function _Create()
     local result = CardWars:Creature()
 
     -- Each Creature that changed Lanes this turn has +2 ATK his turn.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local creatures = Common.CreaturesThatChangedLanes(controllerI)
         for _, creature in ipairs(creatures) do

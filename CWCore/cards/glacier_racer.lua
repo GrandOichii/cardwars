@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Creature()
     
     -- +4 ATK if both Landscapes in this Lane have Frozen tokens on them.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local laneI = me.LaneI
         for i = 0, STATE.Players.Length - 1 do
             local landscape = STATE.Players[i].Landscapes[laneI]

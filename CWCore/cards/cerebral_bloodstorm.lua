@@ -7,7 +7,10 @@ function _Create()
         function (id, playerI)
             -- Deal 1 Damage to each opposing Creature.
 
-            local creatures = Common.OpposingCreatures(playerI)
+            local creatures = CW.CreatureFilter()
+                :OpposingTo(playerI)
+                :Do()
+
             for _, creature in ipairs(creatures) do
                 Common.Damage.ToCreatureBySpell(id, playerI, creature.Original.Card.ID, 1)
             end

@@ -19,7 +19,7 @@ function _Create()
         end,
         effectF = function (me, playerI, laneI)
             local empty = Common.Lanes(Common.LandscapesWithoutBuildings(playerI))
-            local ids = Common.IDs(Common.Buildings(playerI))
+            local ids = CW.IDs(Common.Buildings(playerI))
 
             local buildingId = ChooseBuilding(playerI, ids, 'Choose a building to move')
             local newLane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')

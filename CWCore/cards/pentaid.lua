@@ -21,7 +21,7 @@ function _Create()
         function (id, playerI)
             -- Heal exactly 5 Damage from target Creature you control (no more and no less).
 
-            local ids = Common.IDs(Common.TargetableBySpell(filter(playerI), playerI, id))
+            local ids = CW.IDs(Common.TargetableBySpell(filter(playerI), playerI, id))
             local target = TargetCreature(playerI, ids, 'Choose a Creature to heal 5 damage from')
 
             HealDamage(target, 5)

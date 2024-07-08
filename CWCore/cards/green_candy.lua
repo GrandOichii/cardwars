@@ -12,7 +12,7 @@ function _Create()
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Heal or deal 1 Damage to target Creature.
-            local ids = Common.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ids = CW.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
 
             local target = TargetCreature(playerI, ids, 'Choose a creature')
             local creature = GetCreature(target)

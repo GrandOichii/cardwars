@@ -7,7 +7,7 @@ function _Create()
     CW.Creature.ParrottrooperEffect(result)
 
     -- Adjacent Creatures have - 1 ATK.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local creatures = CW.CreatureFilter()
             :ControlledBy(me.Original.ControllerI)
             :AdjacentToLane(me.LaneI)

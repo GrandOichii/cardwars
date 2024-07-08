@@ -17,7 +17,7 @@ function _Create()
             return true
         end,
         effectF = function (me, controllerI, laneI, args)
-            local ids = Common.IDs(Common.TargetableByBuilding(Common.AllPlayers.Creatures(), controllerI, me.Original.Card.ID))
+            local ids = CW.IDs(Common.TargetableByBuilding(Common.AllPlayers.Creatures(), controllerI, me.Original.Card.ID))
 
             local target = TargetCreature(controllerI, ids, 'Choose a creature to deal 2 damage to')
 

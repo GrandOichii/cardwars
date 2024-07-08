@@ -13,7 +13,7 @@ function _Create()
         function (playerI)
             -- Target Useless Swamp Creature you control has +2 ATK this turn.
 
-            local ids = Common.IDs(Common.Targetable(playerI, Common.CreaturesTyped(playerI, CardWars.Landscapes.UselessSwamp)))
+            local ids = CW.IDs(Common.Targetable(playerI, Common.CreaturesTyped(playerI, CardWars.Landscapes.UselessSwamp)))
             local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then

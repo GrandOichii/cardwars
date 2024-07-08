@@ -6,7 +6,7 @@ function _Create()
     result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Psionic Swashbuckler enters play, you may deal 3 Damage to target Flooped Creature
 
-        local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.FloopedCreatures()))
+        local ids = CW.IDs(Common.Targetable(playerI, Common.AllPlayers.FloopedCreatures()))
         if #ids == 0 then
             return
         end

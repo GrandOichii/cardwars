@@ -13,7 +13,7 @@ function _Create()
         function (id, playerI)
             -- Target Creature you control has +2 ATK this turn for each Spell you played this turn (including this one).
 
-            local ids = Common.IDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
+            local ids = CW.IDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
             local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then

@@ -13,7 +13,7 @@ function _Create()
         function (playerI)
             -- Heal or deal 1 Damage to target Creature.
 
-            local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
+            local ids = CW.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
             local target = TargetCreature(playerI, ids, 'Choose a creature')
             local creature = GetCreature(target)
             local accept = YesNo(playerI, 'Heal '..creature.Original.Card.Template.Name..'?')

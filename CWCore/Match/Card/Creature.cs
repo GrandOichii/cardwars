@@ -14,7 +14,7 @@ public class Creature : InPlayCard {
     public List<LuaFunction> OnAttackEffects { get; }
     public List<LuaFunction> OnDefeatedEffects { get; }
 
-    public Creature(MatchCard card, int controllerI) : base(card, controllerI) {
+    public Creature(GameMatch match, MatchCard card, int controllerI) : base(match, card, controllerI) {
         Attack = card.Template.Attack;
         Defense = card.Template.Defense;
         Damage = 0;

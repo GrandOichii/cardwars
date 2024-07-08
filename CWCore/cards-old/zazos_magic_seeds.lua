@@ -13,7 +13,7 @@ result.EffectP:AddLayer(
     function (playerI)
             -- Target SandyLands Creature has +2 ATK this turn for each Creature that entered play into an adjacent Lane this turn.
 
-            local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.CreaturesTyped(CardWars.Landscapes.SandyLands)))
+            local ids = CW.IDs(Common.Targetable(playerI, Common.AllPlayers.CreaturesTyped(CardWars.Landscapes.SandyLands)))
             local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then

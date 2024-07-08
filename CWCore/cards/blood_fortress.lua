@@ -4,13 +4,13 @@ function _Create()
     local result = CardWars:InPlay()
 
     -- Your Creature in this Lane has +1 ATK.
-    Common.State.ModATKDEF(result, function (me)
-        local controllerI = me.Original.ControllerI
-        local player = STATE.Players[controllerI]
-        local lane = player.Landscapes[me.LaneI]
-
-        if lane.Creature ~= nil then
-            lane.Creature.Attack = lane.Creature.Attack + 1
+    CW.State.ModATKDEF(result, function (me)
+        local creatures = CW.CreatureFilter()
+            :ControlledBy(me.Original.ControllerI)
+            :InLane(me.LaneI)
+            :Do()
+        for _, creature in ipairs(creatures) do
+            creature.Attack = creature.Attack + 1
         end
     end)
 

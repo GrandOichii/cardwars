@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:InPlay()
 
     -- Your Creature in this Lane has +1 DEF for every 5 cards in your discard pile.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local player = STATE.Players[me.Original.ControllerI]
         local creature = player.Landscapes[me.LaneI].Creature
         if creature == nil then

@@ -18,7 +18,7 @@ function _Create()
 
     -- When Field Reaper enters play, move target Creature in this Lane to an adjacent empty Lane on your side.
     result:OnEnter(function(me, playerI, laneI, replaced)
-        local ids = Common.IDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.Card.ID))
+        local ids = CW.IDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.Card.ID))
         local adjacent = Common.AdjacentLandscapes(playerI, laneI)
         local options = {}
         for _, landscape in ipairs(adjacent) do

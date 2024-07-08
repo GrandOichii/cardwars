@@ -20,7 +20,7 @@ function _Create()
         end,
         effectF = function (me, controllerI, laneI)
             -- TODO? should this be in check
-            local creatures = Common.IDs(Common.TargetableByCreature(
+            local creatures = CW.IDs(Common.TargetableByCreature(
                 Common.CreaturesTyped(controllerI, CardWars.Landscapes.SandyLands),
                 controllerI,
                 me.Original.Card.ID

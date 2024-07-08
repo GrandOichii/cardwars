@@ -37,7 +37,6 @@ func play(card: Variant):
 	send('p ' + card.ID)
 	
 func can_attack(player_idx: int, lane_idx: int) -> bool:
-	# !FIXME last_update is null sometimes on boot
 	if last_update.Request != 'PickAttackLane':
 		return false
 	return player_idx == match_info.PlayerIdx and str(lane_idx) in last_update.Args.values()

@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Creature()
 
     -- Husker Valkyrie has +2 ATK and +2 DEF if you control a Building on this Landscape.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local lane = me.LaneI
         local landscapes = STATE.Players[controllerI].Landscapes

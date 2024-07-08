@@ -18,7 +18,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(Common.ExhaustedCreatures(playerI))
+            local ids = CW.IDs(Common.ExhaustedCreatures(playerI))
             local target = ChooseCreature(playerI, ids, '')
             MoveCreature(target, laneI)
         end

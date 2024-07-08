@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local player = STATE.Players[controllerI]
         local discardCount = player.DiscardPile.Count

@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:InPlay()
 
     -- Your Creature on this Landscape has +2 DEF for each Oil Refinery you control.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local creature = STATE.Players[controllerI].Landscapes[me.LaneI].Creature
         if creature == nil then

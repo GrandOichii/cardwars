@@ -1,12 +1,15 @@
--- Status: not tested
+-- Status: implemented, CW
 
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.Floop(result,
+    CW.ActivatedAbility.Common.Floop(result,
         'FLOOP >>> Draw a card for each Flooped Creature you control (including this one).',
         function (me, playerI, laneI)
-            local creatures = Common.FloopedCreatures(playerI)
+            local creatures = CW.CreatureFilter()
+                :ControlledBy(playerI)
+                :Flooped()
+                :Do()
             Draw(playerI, #creatures)
         end
     )

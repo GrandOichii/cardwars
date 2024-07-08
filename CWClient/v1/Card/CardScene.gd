@@ -1,7 +1,7 @@
 extends Node2D
 class_name CardScene
 
-# !FIXME card name label doesn't shrink with the increase of card name, fix
+# !FIXME card name label doesn't shrink with the increase of card name
 
 signal MouseEnter
 signal MouseLeave

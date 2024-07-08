@@ -7,150 +7,140 @@
     
 [sub_resource type="Resource" id="Resource_1"]
 script = ExtResource("1_noyiv")
-card = "Future Scholar"
-amount = 2
+card = "Business Dog"
+amount = 1
         
 [sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("1_noyiv")
-card = "Blood Fortress"
-amount = 1
+card = "Crazy Cat Lady"
+amount = 2
         
 [sub_resource type="Resource" id="Resource_3"]
 script = ExtResource("1_noyiv")
-card = "Fatapillar"
+card = "Emboldened Retriever"
 amount = 2
         
 [sub_resource type="Resource" id="Resource_4"]
 script = ExtResource("1_noyiv")
-card = "Steakchop"
-amount = 2
+card = "Fiddling Ferret"
+amount = 1
         
 [sub_resource type="Resource" id="Resource_5"]
 script = ExtResource("1_noyiv")
-card = "Brief Power"
+card = "Infant Scholar"
 amount = 2
         
 [sub_resource type="Resource" id="Resource_6"]
 script = ExtResource("1_noyiv")
-card = "Toilet of Doom"
-amount = 1
+card = "Lonely Panda"
+amount = 2
         
 [sub_resource type="Resource" id="Resource_7"]
 script = ExtResource("1_noyiv")
-card = "Mausoleum"
-amount = 1
+card = "Psionic Swashbuckler"
+amount = 2
         
 [sub_resource type="Resource" id="Resource_8"]
 script = ExtResource("1_noyiv")
-card = "Night Tower"
+card = "Woadic Matriarch"
 amount = 1
         
 [sub_resource type="Resource" id="Resource_9"]
 script = ExtResource("1_noyiv")
-card = "Strength Crystal"
-amount = 1
+card = "Pony"
+amount = 2
         
 [sub_resource type="Resource" id="Resource_10"]
 script = ExtResource("1_noyiv")
-card = "Pants of Awesome"
-amount = 1
+card = "Glorious Gramophone"
+amount = 2
         
 [sub_resource type="Resource" id="Resource_11"]
 script = ExtResource("1_noyiv")
-card = "Subliminal Strength"
-amount = 2
+card = "River of Swords"
+amount = 1
         
 [sub_resource type="Resource" id="Resource_12"]
 script = ExtResource("1_noyiv")
-card = "Squatting Bald Man"
+card = "Singing Sword"
 amount = 2
         
 [sub_resource type="Resource" id="Resource_13"]
 script = ExtResource("1_noyiv")
-card = "Infinite Figure"
+card = "Sword Bouquet"
 amount = 2
         
 [sub_resource type="Resource" id="Resource_14"]
 script = ExtResource("1_noyiv")
-card = "Blueberry Djini"
+card = "Oil Refinery"
 amount = 2
         
 [sub_resource type="Resource" id="Resource_15"]
 script = ExtResource("1_noyiv")
-card = "Goat"
+card = "Impossible Possum"
 amount = 2
         
 [sub_resource type="Resource" id="Resource_16"]
 script = ExtResource("1_noyiv")
-card = "Brain Gooey"
+card = "Woadic Enchantress"
 amount = 2
         
 [sub_resource type="Resource" id="Resource_17"]
 script = ExtResource("1_noyiv")
-card = "Headphone Jerk"
+card = "Learning Center"
 amount = 1
         
 [sub_resource type="Resource" id="Resource_18"]
 script = ExtResource("1_noyiv")
-card = "Dragon Foot"
-amount = 2
+card = "Charming City"
+amount = 1
         
 [sub_resource type="Resource" id="Resource_19"]
 script = ExtResource("1_noyiv")
-card = "Pink Merwitch"
-amount = 1
+card = "Friendship Bracelet"
+amount = 2
         
 [sub_resource type="Resource" id="Resource_20"]
 script = ExtResource("1_noyiv")
-card = "Herculeye"
-amount = 2
+card = "Puppy Parade"
+amount = 1
         
 [sub_resource type="Resource" id="Resource_21"]
 script = ExtResource("1_noyiv")
-card = "Dogboy"
-amount = 2
+card = "Vampire Lord"
+amount = 1
         
 [sub_resource type="Resource" id="Resource_22"]
 script = ExtResource("1_noyiv")
-card = "Grape Djini"
+card = "The Dog"
 amount = 2
         
 [sub_resource type="Resource" id="Resource_23"]
 script = ExtResource("1_noyiv")
-card = "Volcano"
-amount = 1
+card = "Tiny Elephant"
+amount = 2
         
 [sub_resource type="Resource" id="Resource_24"]
 script = ExtResource("1_noyiv")
-card = "Travelin' Skeleton"
-amount = 1
-        
-[sub_resource type="Resource" id="Resource_25"]
-script = ExtResource("1_noyiv")
-card = "Skeletal Hand"
-amount = 1
-        
-[sub_resource type="Resource" id="Resource_26"]
-script = ExtResource("1_noyiv")
-card = "Pyramidia"
-amount = 1
+card = "Woadic Weirdo"
+amount = 2
         
 [sub_resource type="Resource" id="Resource_l1"]
 script = ExtResource("2_j2wsj")
-landscape = "Useless Swamp"
+landscape = "Blue Plains"
 amount = 2
 
         
 [sub_resource type="Resource" id="Resource_l2"]
 script = ExtResource("2_j2wsj")
-landscape = "Blue Plains"
+landscape = "Useless Swamp"
 amount = 2
 
         
 
 [resource]
 script = ExtResource("1_x3p7u")
-name = "lumpy"
+name = "fionna"
     
-cards = Array[ExtResource("1_noyiv")]([SubResource("Resource_1"), SubResource("Resource_2"), SubResource("Resource_3"), SubResource("Resource_4"), SubResource("Resource_5"), SubResource("Resource_6"), SubResource("Resource_7"), SubResource("Resource_8"), SubResource("Resource_9"), SubResource("Resource_10"), SubResource("Resource_11"), SubResource("Resource_12"), SubResource("Resource_13"), SubResource("Resource_14"), SubResource("Resource_15"), SubResource("Resource_16"), SubResource("Resource_17"), SubResource("Resource_18"), SubResource("Resource_19"), SubResource("Resource_20"), SubResource("Resource_21"), SubResource("Resource_22"), SubResource("Resource_23"), SubResource("Resource_24"), SubResource("Resource_25"), SubResource("Resource_26")])
+cards = Array[ExtResource("1_noyiv")]([SubResource("Resource_1"), SubResource("Resource_2"), SubResource("Resource_3"), SubResource("Resource_4"), SubResource("Resource_5"), SubResource("Resource_6"), SubResource("Resource_7"), SubResource("Resource_8"), SubResource("Resource_9"), SubResource("Resource_10"), SubResource("Resource_11"), SubResource("Resource_12"), SubResource("Resource_13"), SubResource("Resource_14"), SubResource("Resource_15"), SubResource("Resource_16"), SubResource("Resource_17"), SubResource("Resource_18"), SubResource("Resource_19"), SubResource("Resource_20"), SubResource("Resource_21"), SubResource("Resource_22"), SubResource("Resource_23"), SubResource("Resource_24")])
 landscapes = Array[ExtResource("2_j2wsj")]([SubResource("Resource_l1"), SubResource("Resource_l2")])

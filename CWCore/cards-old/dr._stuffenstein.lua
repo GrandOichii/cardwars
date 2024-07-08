@@ -17,9 +17,9 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(Common.Creatures(playerI))
+            local ids = CW.IDs(Common.Creatures(playerI))
             if me.Original.Damage > 5 then
-                local choices = Common.IDs(Common.AdjacentCreatures(playerI, laneI))
+                local choices = CW.IDs(Common.AdjacentCreatures(playerI, laneI))
                 local target = ChooseCreature(playerI, choices, 'Choose creature to heal')
                 ids = {target}
             end

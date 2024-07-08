@@ -13,7 +13,7 @@ function _Create()
         function (playerI)
         -- Target Creature you control has +2 ATK for each exhausted Creature you control (at the time you play this).
 
-        local ids = Common.IDs(Common.Targetable(playerI, Common.Creatures(playerI)))
+        local ids = CW.IDs(Common.Targetable(playerI, Common.Creatures(playerI)))
         local target = TargetCreature(playerI, ids, '')
         local amount = #Common.ExhaustedCreatures(playerI)
         UntilEndOfTurn(function (layer)

@@ -16,7 +16,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesWithFrozenTokens(), playerI, me.Original.Card.ID))
+            local ids = CW.IDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesWithFrozenTokens(), playerI, me.Original.Card.ID))
             local target = TargetCreature(playerI, ids, 'Choose a Creature to deal damage to')
             Common.Damage.ToCreatureByCreatureAbility(me.Original.Card.ID, playerI, target, 3)
         end

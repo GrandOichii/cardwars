@@ -23,7 +23,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(targets(me, playerI))
+            local ids = CW.IDs(targets(me, playerI))
             local target = TargetCreature(playerI, ids, 'Choose creature to damage')
 
             local myID = me.Original.Card.ID

@@ -17,7 +17,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local creatures = Common.IDs(Common.TargetableByCreature(Common.CreaturesInLane(playerI, laneI), playerI, me.Original.Card.ID))
+            local creatures = CW.IDs(Common.TargetableByCreature(Common.CreaturesInLane(playerI, laneI), playerI, me.Original.Card.ID))
 
             -- TODO? should this be targeting
             local target = TargetCreature(playerI, creatures, 'Choose a creature to return to hand')

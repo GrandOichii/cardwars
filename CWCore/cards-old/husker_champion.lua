@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Creature()
     
     -- Husker Champion has +2 ATK and +2 DEF if you control a Building on this Landscape.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local laneI = me.LaneI
         if STATE.Players[controllerI].Landscapes[laneI].Building ~= nil then

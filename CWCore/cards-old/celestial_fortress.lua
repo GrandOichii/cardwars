@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local landscape = STATE.Players[1 - me.Original.ControllerI].Landscapes[me.LaneI]
         if landscape.Creature ~= nil then
             landscape.Creature.Defense = landscape.Creature.Defense - 2

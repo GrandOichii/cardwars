@@ -17,7 +17,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
+            local ids = CW.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
             local target = TargetCreature(playerI, ids, 'Choose creature to damage')
             DealDamageToCreature(target, 1)
             if me.Original.Damage >= 5 then

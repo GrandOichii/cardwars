@@ -17,7 +17,7 @@ function _Create()
         effectF = function (me, playerI, laneI)
             local count = Common.CountLandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
 
-            local options = Common.IDs(Common.Targetable(playerI, Common.Creatures(1 - playerI)))
+            local options = CW.IDs(Common.Targetable(playerI, Common.Creatures(1 - playerI)))
 
             for i = 1, count do
                 if #options == 0 then

@@ -18,7 +18,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local options = Common.IDs(Common.AdjacentCreatures(playerI, laneI))
+            local options = CW.IDs(Common.AdjacentCreatures(playerI, laneI))
             local choice = ChooseCreature(playerI, options, 'Choose a creature to move to lane '..laneI)
 
             MoveCreature(choice, laneI)

@@ -11,6 +11,7 @@ public class CreatureState : InPlayCardState {
     public int Attack { get; set; }
     public int Defense { get; set; }
     public bool CanAttack { get; set; }
+    public bool CanBeAttacked { get; set; }
     public int DamageMultiplier { get; set; }
 
     public bool IgnoreBlocker { get; set; }
@@ -28,6 +29,7 @@ public class CreatureState : InPlayCardState {
         Defense = creature.Defense;
         CanAttack = creature.CanAttack();
 
+        CanBeAttacked = true;
         DamageMultiplier = 1;
         DamageModifiers = new();
         IgnoreBlocker = false;

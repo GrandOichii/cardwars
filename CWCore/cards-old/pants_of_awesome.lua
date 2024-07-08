@@ -14,7 +14,7 @@ function _Create()
     result.EffectP:AddLayer(
         function (playerI)
             -- Move target Creature you control to an empty Blue Plains Landscape you control, and then draw a card.
-            local ids = Common.IDs(Common.Targetable(playerI, Common.Creatures(playerI)))
+            local ids = CW.IDs(Common.Targetable(playerI, Common.Creatures(playerI)))
             local target = TargetCreature(playerI, ids, 'Choose a creature to move')
 
             local empty = Common.Lanes(Common.LandscapesWithoutCreaturesTyped(playerI, CardWars.Landscapes.BluePlains))

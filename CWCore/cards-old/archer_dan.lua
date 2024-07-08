@@ -16,7 +16,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(Common.AllPlayers.BuildingsInLane(laneI))
+            local ids = CW.IDs(Common.AllPlayers.BuildingsInLane(laneI))
             local target = TargetBuilding(playerI, ids, 'Choose a building to destroy')
             DestroyBuilding(target)
         end

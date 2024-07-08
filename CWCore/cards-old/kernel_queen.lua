@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Creature()
 
     -- Kernel Queen has +1 ATK for each Flooped Creature you control.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local creatures = Common.FloopedCreatures(controllerI)
 

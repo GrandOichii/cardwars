@@ -16,7 +16,7 @@ function _Create()
                 end
             end
 
-            local ids = Common.IDs(Common.Creatures(target))
+            local ids = CW.IDs(Common.Creatures(target))
             for _, id in ipairs(ids) do
                 DealDamageToCreature(id, 2)
             end

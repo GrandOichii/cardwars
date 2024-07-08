@@ -9,7 +9,7 @@ function _Create()
         if not replaced then
             return
         end
-        local options = Common.IDs(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.Card.ID))
+        local options = CW.IDs(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.Card.ID))
         if #options == 0 then
             return
         end

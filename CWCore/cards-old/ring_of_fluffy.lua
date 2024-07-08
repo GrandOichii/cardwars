@@ -12,7 +12,7 @@ function _Create()
         function (playerI)
             -- Target Creature you control has +X ATK this turn, where X is the amount of Damage on it.
 
-            local creatures = Common.IDs(Common.Targetable(playerI, Common.Creatures(playerI)))
+            local creatures = CW.IDs(Common.Targetable(playerI, Common.Creatures(playerI)))
             local target = TargetCreature(playerI, creatures, 'Choose a creature to buff')
 
             UntilEndOfTurn(function ( layer)

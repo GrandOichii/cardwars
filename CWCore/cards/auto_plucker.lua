@@ -19,7 +19,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local id = Common.IDs(Common.CreaturesInLane(playerI, laneI))[1]
+            local id = CW.IDs(Common.CreaturesInLane(playerI, laneI))[1]
             local creature = GetCreature(id)
             local accept = YesNo(playerI, 'Heal 1 damage from '..creature.Original.Card.Template.Name..'?')
             if accept then

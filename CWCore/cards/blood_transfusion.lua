@@ -23,7 +23,7 @@ function _Create()
 
             RemoveFromDiscard(choice[0], choice[1])
 
-            local ids = Common.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ids = CW.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
             local target = TargetCreature(playerI, ids, 'Choose a creature to heal')
             HealDamage(target, card:RealCost())
         end

@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Creature()
 
     -- If you played one or more Rainbow cards this turn, Infant Scholar has +3 ATK this turn,
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local count = Common.CardsPlayedThisTurnTyped(controllerI, CardWars.Landscapes.Rainbow)
         if count > 3 then

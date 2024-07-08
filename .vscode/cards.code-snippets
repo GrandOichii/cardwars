@@ -159,7 +159,7 @@
 		"prefix": "targetcreature",
 		"description": "target creature",
 		"body": [
-			"local ids = Common.IDs(Common.Targetable${1:BySpell}(${2:Common.AllPlayers.Creatures()}, $3))",
+			"local ids = CW.IDs(Common.Targetable${1:BySpell}(${2:Common.AllPlayers.Creatures()}, $3))",
             "local target = ${4:TargetCreature}(playerI, ids, '$5')",
 			"$0"
 		]
@@ -241,7 +241,7 @@
 		"prefix": "modatkdef",
 		"description": "Attack and Defense modification for cards in play",
 		"body": [
-			"Common.State.ModATKDEF(result, function (me)",
+			"CW.State.ModATKDEF(result, function (me)",
 			"\t$0",
 			"end)",
 		]

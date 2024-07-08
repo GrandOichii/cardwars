@@ -16,7 +16,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(Common.AdjacentCreatures(playerI, laneI))
+            local ids = CW.IDs(Common.AdjacentCreatures(playerI, laneI))
             local target = ChooseCreature(playerI, ids, 'Choose a creature to return to it\'s owners hand')
             ReturnCreatureToOwnersHand(target)
         end

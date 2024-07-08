@@ -19,7 +19,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(filter(me.Original.Card.ID, playerI))
+            local ids = CW.IDs(filter(me.Original.Card.ID, playerI))
             local target = TargetCreature(playerI, ids, 'Choose a creature to move '..me.Original.Damage..' damage to')
             local creature = GetCreature(target)
             local damage = me.Original.Damage

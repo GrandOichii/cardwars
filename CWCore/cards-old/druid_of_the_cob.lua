@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Creature()
 
     -- Flooped Creatures you control have +1 ATK.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
 
         local creatures = Common.FloopedCreatures(controllerI)

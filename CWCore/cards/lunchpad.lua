@@ -1,4 +1,3 @@
--- FLOOP >>> Draw a card for each Creature that entered play onto this Landscape this turn.
 -- Status: not tested
 
 function _Create()

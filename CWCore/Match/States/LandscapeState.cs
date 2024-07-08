@@ -8,7 +8,7 @@ public class LandscapeState : IStateModifier {
     public List<InPlayCardState> Buildings { get; set; }
     public List<int> CanFlipDown { get; set; }
     public int BuildingPlayLimit { get; set; }
-    public string Name;
+    public string Name { get; set; }
 
     public LandscapeState(PlayerState owner, Landscape landscape, int laneI) {
         Original = landscape;

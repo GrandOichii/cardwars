@@ -12,7 +12,7 @@ function _Create()
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Deal 1 Damage to target Creature. If that Creature is on a Landscape with a Frozen token on it, deal 3 Damage instead.
-            local ids = Common.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ids = CW.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
 
             local target = TargetCreature(playerI, ids, 'Choose a creature')
             local creature = GetCreature(target)

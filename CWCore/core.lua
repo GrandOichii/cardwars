@@ -314,13 +314,6 @@ end
 
 Common = {}
 
-function Common.IDs(tableArr)
-    local result = {}
-    for _, card in ipairs(tableArr) do
-        result[#result+1] = card.Original.Card.ID
-    end
-    return result
-end
 
 function Common.FilterCreatures(predicate)
     local result = {}
@@ -1354,26 +1347,9 @@ end
 
 Common.State = {}
 
-function Common.State.ModATKDEF(card, effect)
-    card:AddStateModifier(function (me, layer, zone)
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
-            effect(me)
-        end
-
-    end)
-end
-
 function Common.State.ModCostInHand(card, effect)
     card:AddStateModifier(function (me, layer, zone)
         if layer == CardWars.ModificationLayers.CARD_COST and zone == CardWars.Zones.HAND then
-            effect(me)
-        end
-    end)
-end
-
-function Common.State.ModAttackRight(card, effect)
-    card:AddStateModifier(function (me, layer, zone)
-        if layer == CardWars.ModificationLayers.ATTACK_RIGHTS and zone == CardWars.Zones.IN_PLAY then
             effect(me)
         end
     end)
@@ -1705,6 +1681,13 @@ function CW.CreatureFilter()
         return CW.FilterCreatures(filter)
     end
 
+    function result:Flooped()
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original:IsFlooped()
+        end
+        return self
+    end
+
     function result:OwnedBy(playerI)
         result.filters[#result.filters+1] = function (creature)
             return creature.Original.Card.OwnerI == playerI
@@ -1724,6 +1707,17 @@ function CW.CreatureFilter()
             return creature.LaneI == laneI - 1 or creature.LaneI == laneI + 1
         end
         return self
+    end
+
+    function result:OpposingTo(playerI)
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original.Card.OwnerI ~= playerI
+        end
+        return self
+    end
+
+    function result:ControlledByOpponentOf(playerI)
+        return self:ControlledBy(1 - playerI)
     end
 
     function result:NotControlledBy(playerI)
@@ -1774,9 +1768,23 @@ function CW.LandscapeFilter()
         return self
     end
 
+    function result:OfLandscapeType(name)
+        result.filters[#result.filters+1] = function (landscape)
+            return landscape.Name == name
+        end
+        return self
+    end
+
     function result:CanBeFlippedDown(byI)
         result.filters[#result.filters+1] = function (landscape)
             return landscape.CanFlipDown:Contains(byI)
+        end
+        return self
+    end
+
+    function result:Empty()
+        result.filters[#result.filters+1] = function (landscape)
+            return landscape.Creature == nil
         end
         return self
     end
@@ -1793,12 +1801,20 @@ function CW.SpellTargetCreature(card, creatureFilterFunc, targetHint, effectF)
 
     card.EffectP:AddLayer(
         function (id, playerI)
-            local ids = Common.IDs(Common.TargetableBySpell(creatureFilterFunc(id, playerI), playerI, id))
+            local ids = CW.IDs(Common.TargetableBySpell(creatureFilterFunc(id, playerI), playerI, id))
             local target = TargetCreature(playerI, ids, targetHint)
             local creature = GetCreature(target)
             effectF(id, playerI, creature)
         end
     )
+end
+
+function CW.IDs(tableArr)
+    local result = {}
+    for _, card in ipairs(tableArr) do
+        result[#result+1] = card.Original.Card.ID
+    end
+    return result
 end
 
 CW.Target = {}
@@ -1821,8 +1837,6 @@ CW.Creature = {}
 
 function CW.Creature.ParrottrooperEffect(card, thenEffect)
     card:OnEnter(function(me, playerI, laneI, replaced)
-        -- When  enters play, 
-
         local landscapes = Common.AllPlayers.LandscapesWithoutCreatures()
         local myLanes = {}
         local opponentsLanes = {}
@@ -1892,6 +1906,10 @@ function CW.Creature.RockNRollerEffect(card)
 end
 
 CW.Landscape = {}
+
+function CW.Landscape.IsEmpty(playerI, laneI)
+    return #CW.CreatureFilter():InLane(laneI):ControlledBy(playerI):Do() == 0
+end
 
 function CW.Landscape.FlipDown(playerI, laneI)
     TurnLandscapeFaceDown(playerI, laneI)
@@ -1966,7 +1984,7 @@ end
 CW.ActivatedAbility.Cost = {}
 
 function CW.ActivatedAbility.Cost.And(...)
-    
+
     local result = {}
     result.costs = {...}
     assert(#result.costs > 0, 'tried to create activated ability cost with no arguments')
@@ -2069,6 +2087,17 @@ function CW.ActivatedAbility.Cost.DiscardFromHand(amount, hintFunc, maxActivatio
     return result
 end
 
+CW.ActivatedAbility.Common = {}
+
+function CW.ActivatedAbility.Common.Floop(card, text, effect)
+    CW.ActivatedAbility.Add(
+        card,
+        text,
+        CW.ActivatedAbility.Cost.Floop(),
+        effect
+    )
+end
+
 CW.Utility = {}
 
 function CW.Utility.All(list, predicate)
@@ -2078,4 +2107,45 @@ function CW.Utility.All(list, predicate)
         end
     end
     return true
+end
+
+CW.State = {}
+
+function CW.State.CantBeAttacked(creature)
+    creature.CanBeAttacked = false
+end
+
+
+function CW.State.ModAttackRight(card, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        if layer == CardWars.ModificationLayers.ATTACK_RIGHTS and zone == CardWars.Zones.IN_PLAY then
+            effect(me)
+        end
+    end)
+end
+
+function CW.State.ModATKDEF(card, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
+            effect(me)
+        end
+
+    end)
+end
+
+CW.Choose = {}
+
+function CW.Choose.Creature(playerI, creatures, hint)
+    hint = hint or 'Choose a Creature'
+    if #creatures == 0 then
+        return nil
+    end
+    local options = CW.IDs(creatures)
+    local choice = ChooseCreature(playerI, options, hint)
+    local result = GetCreature(choice)
+    return result
+end
+
+function CW.Choose.Landscape(playerI, landscapes, hint)
+    -- TODO
 end

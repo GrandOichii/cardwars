@@ -6,7 +6,7 @@ function _Create()
     result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Sandsnake enters play, deal 4 Damage to target opposing Creature in this Lane.
 
-        local ids = Common.IDs(Common.TargetableByCreature(Common.OpposingCreaturesInLane(playerI, laneI), playerI, me.Original.Card.ID))
+        local ids = CW.IDs(Common.TargetableByCreature(Common.OpposingCreaturesInLane(playerI, laneI), playerI, me.Original.Card.ID))
         if #ids == 0 then
             return
         end

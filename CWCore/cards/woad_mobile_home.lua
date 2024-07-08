@@ -3,27 +3,30 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    result:AddActivatedAbility({
-        text = 'FLOOP >>> Move a Creature in an adjacent Lane to this Lane (if empty).',
-        tags = {'floop'},
+    local filter = function (playerI, laneI)
+        return CW.CreatureFilter():AdjacentToLane(laneI):ControlledBy(playerI)
+    end
 
-        checkF = function (me, playerI, laneI)
-            return
-                Common.CanFloop(me) and
-                STATE.Players[playerI].Landscapes[laneI].Creature == nil and
-                #Common.AdjacentCreatures(playerI, laneI) > 0
-        end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
-            local options = Common.IDs(Common.AdjacentCreatures(playerI, laneI))
-            local choice = ChooseCreature(playerI, options, 'Choose a creature to move to lane '..laneI)
+    CW.ActivatedAbility.Add(
+        result,
+        'FLOOP >>> Move a Creature in an adjacent Lane to this Lane (if empty).',
+        CW.ActivatedAbility.Cost.And(
+            CW.ActivatedAbility.Cost.Floop(),
+            CW.ActivatedAbility.Cost.Check(function (me, playerI, laneI)
+                return CW.Landscape.IsEmpty(playerI, laneI)
+            end),
+            CW.ActivatedAbility.Cost.Check(function (me, playerI, laneI)
+                return #filter(playerI, laneI):Do() > 0
+            end)
+        ),
+        function (me, playerI, laneI)
+            local creature = CW.Choose.Creature(playerI, filter(playerI, laneI):Do())
+            assert(creature ~= nil, 'TODO write this error message later')
 
-            MoveCreature(choice, laneI)
+            -- TODO change to IPID
+            MoveCreature(creature.Original.ID, laneI)
         end
-    })
+    )
 
     return result
 end

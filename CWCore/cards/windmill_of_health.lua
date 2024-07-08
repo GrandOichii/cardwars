@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:InPlay()
 
     -- While your Creature in this Lane has no Damage on it, it has +2 ATK.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local player = STATE.Players[controllerI]
         local lane = player.Landscapes[me.LaneI]

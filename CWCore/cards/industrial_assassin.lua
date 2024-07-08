@@ -13,7 +13,7 @@ function _Create()
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.Card.ID)
-            local ids = Common.IDs(Common.Creatures(playerI))
+            local ids = CW.IDs(Common.Creatures(playerI))
             local target = ChooseCreature(playerI, ids, 'Choose a Creature to destroy')
             DestroyCreature(target)
             return true

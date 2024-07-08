@@ -25,7 +25,7 @@ function _Create()
                     amount = amount + l.Original.CreaturesEnteredThisTurn.Count
                 end
             end
-            local ids = Common.IDs(Common.TargetableByCreature(Common.AllPlayers.Creatures(), playerI, me.Original.Card.ID))
+            local ids = CW.IDs(Common.TargetableByCreature(Common.AllPlayers.Creatures(), playerI, me.Original.Card.ID))
             local target = TargetCreature(playerI, ids, 'Choose a creature to deal damage to')
             Common.Damage.ToCreatureByCreatureAbility(me.Original.Card.ID, playerI, target, amount)
         end

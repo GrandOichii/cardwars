@@ -5,7 +5,7 @@ function _Create()
 
     -- At the start of your turn, you may heal or deal 1 Damage to each Creature you control. (Choose for each Creature.)
     Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
-        local ids = Common.IDs(Common.Creatures(controllerI))
+        local ids = CW.IDs(Common.Creatures(controllerI))
 
         local accept = YesNo(controllerI, 'Heal 1 damage to each Creature you control?')
         if accept then

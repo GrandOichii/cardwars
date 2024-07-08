@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Creature()
     
     -- +3 ATK while your opponent does not control a Creature in this Lane.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local opponentI = 1 - controllerI
 

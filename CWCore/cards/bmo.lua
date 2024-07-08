@@ -18,7 +18,7 @@ function _Create()
             return true
         end,
         effectF = function (playerI)
-            local ids = Common.IDs(Common.TargetableByHero(Common.AllPlayers.Creatures(), playerI))
+            local ids = CW.IDs(Common.TargetableByHero(Common.AllPlayers.Creatures(), playerI))
             local target = TargetCreature(playerI, ids, 'Choose a creature to deal damage to')
             Common.Damage.ToCreatureByHero(playerI, target, 1)
         end

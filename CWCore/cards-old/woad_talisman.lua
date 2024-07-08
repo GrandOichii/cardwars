@@ -12,7 +12,7 @@ function _Create()
         function (playerI)
             -- Target Blue Plains Creature you control has +2 ATK this turn.
 
-            local ids = Common.IDs(Common.Targetable(playerI, Common.CreaturesTyped(playerI, CardWars.Landscapes.BluePlains)))
+            local ids = CW.IDs(Common.Targetable(playerI, Common.CreaturesTyped(playerI, CardWars.Landscapes.BluePlains)))
             local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
 
             UntilEndOfTurn(function ( layer)

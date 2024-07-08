@@ -1,33 +1,30 @@
 -- Status: not tested
 
 function _Create()
-    local result = CardWars:Creature()
+    local result = CardWars:InPlay()
 
-    result:AddActivatedAbility({
-        text = 'FLOOP >>> Flip target Cornfield Landscape in this Lane face down.',
-        tags = {'floop'},
+    local targets = function (playerI, laneI)
+        return CW.LandscapeFilter():OnLane(laneI):OfLandscapeType(CardWars.Landscapes.Cornfield):CanBeFlippedDown(playerI)
+    end
 
-        checkF = function (me, playerI, laneI)
-            if not Common.CanFloop(me) then
-                return false
-            end
-            local options = Common.AvailableToFlipDownLandscapesInLaneTyped(playerI, CardWars.Landscapes.Cornfield, laneI)
-            return (#options[1] + #options[2]) > 0
-        end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
-            local os = Common.AvailableToFlipDownLandscapesInLaneTyped(playerI, CardWars.Landscapes.Cornfield, laneI)
-            local options = CW.Lanes(os[1])
-            local opponentOptions = CW.Lanes(os[2])
-
-            -- TODO? change to target
-            local landscape = ChooseLandscape(playerI, options, opponentOptions, 'Choose a Cornfield Landscape to flip face-down')
-            TurnLandscapeFaceDown(landscape[0], landscape[1])
+    CW.ActivatedAbility.Add(
+        result,
+        'FLOOP >>> Flip target Cornfield Landscape in this Lane face down.',
+        CW.ActivatedAbility.Cost.And(
+            CW.ActivatedAbility.Cost.Floop(),
+            CW.ActivatedAbility.Cost.Check(function (me, playerI, laneI)
+                return #targets(playerI, laneI):Do() > 0
+            end)
+        ),
+        function (me, playerI, laneI)
+            local landscape = CW.Target.Landscape(
+                targets(playerI, laneI):Do(),
+                playerI
+            )
+            assert(landscape ~= nil, 'activated ability check of card '..me.Original.Card.Template.Name..' returned true, but no flippable landscapes found')
+            CW.Landscape.FlipDown(landscape.Original.OwnerI, landscape.Original.Idx)
         end
-    })
+    )
 
     return result
 end

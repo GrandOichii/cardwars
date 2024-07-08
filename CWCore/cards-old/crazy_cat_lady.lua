@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local creatures = Common.CreaturesTyped(me.Original.ControllerI, CardWars.Landscapes.Rainbow)
         for _, creature in ipairs(creatures) do
             creature.Attack = creature.Attack + 1

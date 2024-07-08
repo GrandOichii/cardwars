@@ -19,7 +19,7 @@ function _Create()
         end,
         effectF = function (me, playerI, laneI)
             local id = me.Original.Card.ID
-            local ids = Common.IDs(Common.TargetableByCreature(Common.CreaturesExcept(playerI, id), playerI, id))
+            local ids = CW.IDs(Common.TargetableByCreature(Common.CreaturesExcept(playerI, id), playerI, id))
             local target = TargetCreature(playerI, ids, 'Choose creatures to swap lanes with '..me.Original.Card.Template.Name)
 
             SwapCreatures(id, target)

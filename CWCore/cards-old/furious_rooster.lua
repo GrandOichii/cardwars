@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Creature()
 
     -- Furious Rooster has +1 ATK for each Damage on it.
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         me.Attack = me.Attack + me.Original.Damage
     end)
 

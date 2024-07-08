@@ -23,7 +23,7 @@ All cards use Lua as their scripting language. All of the cards and their script
 function _Create()
     local result = CardWars:Creature()
 
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local id = me.Original.Card.ID
 

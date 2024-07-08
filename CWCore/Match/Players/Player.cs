@@ -193,7 +193,7 @@ public class Player {
         if (!Match.Active) return;
 
         var landscape = Match.LastState.Players[Idx].Landscapes[laneI];
-        var creature = new Creature(card, Idx);
+        var creature = new Creature(Match, card, Idx);
         if (entersPlayExhausted)
             creature.Status = InPlayCardStatus.EXHAUSTED;
 
@@ -226,7 +226,7 @@ public class Player {
     public async Task PlaceBuildingInLane(MatchCard card, int laneI) {
         var landscape = Match.LastState.Players[Idx].Landscapes[laneI];
 
-        var building = new InPlayCard(card, Idx);
+        var building = new InPlayCard(Match, card, Idx);
 
         var replaced = false;
         if (landscape.BuildingPlayLimit > 0 && landscape.Buildings.Count >= landscape.BuildingPlayLimit) {

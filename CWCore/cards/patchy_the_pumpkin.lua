@@ -15,11 +15,10 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            -- !FIXME reload state after each damage
             local count = Common.CountLandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
             local myID = me.Original.Card.ID
 
-            local options = Common.IDs(Common.TargetableByCreature(Common.Creatures(1 - playerI), playerI, myID))
+            local options = CW.IDs(Common.TargetableByCreature(Common.Creatures(1 - playerI), playerI, myID))
 
             for i = 1, count do
                 if #options == 0 then
@@ -37,6 +36,7 @@ function _Create()
                 end
 
                 options = newOptions
+                UpdateState()
             end
         end
     })

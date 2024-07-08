@@ -23,7 +23,7 @@ function _Create()
             if #present > 0 then
                 return
             end
-            local ids = Common.IDs(Common.TargetableByBuilding(Common.AllPlayers.Creatures(), playerI, me.Original.Card.ID))
+            local ids = CW.IDs(Common.TargetableByBuilding(Common.AllPlayers.Creatures(), playerI, me.Original.Card.ID))
             local target = TargetCreature(playerI, ids, 'Choose a creature to move/steal to lane '..laneI)
             local creature = GetCreature(target)
             local controllerI = creature.Original.ControllerI

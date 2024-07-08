@@ -29,7 +29,7 @@ function _Create()
                 return
             end
                 
-            local options = Common.IDs(Common.Buildings(playerI))
+            local options = CW.IDs(Common.Buildings(playerI))
             
             if #options == 0 then
 

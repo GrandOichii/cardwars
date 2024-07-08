@@ -42,7 +42,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local creatures = Common.IDs(Common.Creatures(playerI))
+            local creatures = CW.IDs(Common.Creatures(playerI))
             local creatureId = ChooseCreature(playerI, creatures, 'Choose a creature to move')
             local creature = GetCreature(creatureId)
             if creature.LaneI == laneI then

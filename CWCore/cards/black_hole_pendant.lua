@@ -13,7 +13,7 @@ function _Create()
     result.EffectP:AddLayer(
         function (id, playerI)
             -- 
-            local ids = Common.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ids = CW.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
             local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
             -- TODO not clear - at the time of playing or dynamic
             local amount = #GetUniqueLandscapeNames(1 - playerI)

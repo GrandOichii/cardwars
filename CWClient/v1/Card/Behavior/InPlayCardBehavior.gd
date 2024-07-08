@@ -8,8 +8,6 @@ class_name InPlayCardBehavior
 @export var CanActivateColor: Color
 @export var CanActivateHoverColor: Color
 
-# !FIXME activated abilities of buildings don't work
-
 var _bg_color = DefaultColor
 var _last: Variant = null
 

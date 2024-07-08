@@ -17,7 +17,7 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = Common.IDs(Common.Targetable(playerI, Common.OpposingCreaturesInLane(playerI, laneI)))
+            local ids = CW.IDs(Common.Targetable(playerI, Common.OpposingCreaturesInLane(playerI, laneI)))
             if #ids == 0 then
                 return
             end

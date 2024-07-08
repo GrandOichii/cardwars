@@ -14,6 +14,7 @@ public enum InPlayCardStatus {
 
 
 public class InPlayCard {
+    public string IPID { get; }
     public MatchCard Card { get; }
 
     public bool EnteredThisTurn { get; set; }
@@ -28,8 +29,8 @@ public class InPlayCard {
     public List<LuaFunction> OnEnterEffects { get; }
     public List<LuaFunction> OnLeaveEffects { get; }
 
-
-    public InPlayCard(MatchCard card, int controllerI) {
+    public InPlayCard(GameMatch match, MatchCard card, int controllerI) {
+        IPID = "ip" + match.CardIDGenerator.Next();
         Card = card;
         ControllerI = controllerI;
 

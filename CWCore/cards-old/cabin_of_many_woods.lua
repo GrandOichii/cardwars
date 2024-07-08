@@ -9,7 +9,7 @@ function _Create()
         Common.Mod.Cost(me, -count)
     end)
 
-    Common.State.ModATKDEF(result, function (me)
+    CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local player = STATE.Players[controllerI]
         local lane = player.Landscapes[me.LaneI]

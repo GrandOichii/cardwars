@@ -26,7 +26,7 @@ function _Create()
                 end
             end
 
-            local ids = Common.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
+            local ids = CW.IDs(Common.Targetable(playerI, Common.AllPlayers.Creatures()))
             local target = TargetCreature(playerI, ids, 'Choose a creature to deal damage to')
             DealDamageToCreature(target, amount)
         end
