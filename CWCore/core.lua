@@ -1660,7 +1660,7 @@ function CW.CreaturesThatEnteredPlayThisTurn()
     local result = {}
 
     for _, landscape in ipairs(landscapes) do
-        for i = 0, landscape.Original.CreaturesEnteredThisTurn - 1 do
+        for i = 0, landscape.Original.CreaturesEnteredThisTurn.Count - 1 do
             result[#result+1] = landscape.Original.CreaturesEnteredThisTurn[i]
         end
     end
@@ -1861,6 +1861,8 @@ function CW.Creature.ParrottrooperEffect(card, thenEffect)
     end)
 end
 
+RockNRollerEffectMemory = {}
+
 function CW.Creature.RockNRollerEffect(card)
 
     card:OnEnter(function(me, playerI, laneI, replaced)
@@ -1873,13 +1875,18 @@ function CW.Creature.RockNRollerEffect(card)
         if landscape == nil then
             return
         end
+        RockNRollerEffectMemory[me.Original.Card.ID] = landscape
         CW.Landscape.FlipDown(landscape.Original.OwnerI, landscape.Original.Idx)
+
     end)
 
     card:OnLeave(function(id_, playerI_, laneI_, wasReady_)
         -- When Rock 'n Roller leaves play, flip it face up.
-        -- CW.Landscape.FlipUp(landscape.Original.OwnerI, landscape.Original.Idx)
-        -- TODO
+        local landscape = RockNRollerEffectMemory[id_]
+        if landscape == nil then
+            return
+        end
+        CW.Landscape.FlipUp(landscape.Original.OwnerI, landscape.Original.Idx)
     end)
 
 end

@@ -11,8 +11,7 @@ function _Create()
             return GetCurPlayerI() == controllerI
         end,
         costF = function (me, controllerI, laneI)
-            -- TODO change name to me.Original.Card.Template.Name
-            local accept = YesNo(controllerI, 'Return Grand Mummy to its owner\'s hand?')
+            local accept = YesNo(controllerI, 'Return ' .. me.Original.Card.Template.Name .. ' to its owner\'s hand?')
             if not accept then
                 return false
             end

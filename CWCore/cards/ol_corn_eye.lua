@@ -5,7 +5,7 @@ function _Create()
 
     -- +1 DEF for each different Landscape type you control.
     Common.State.ModATKDEF(result, function (me)
-        me.Defense = me.Defense + #GetUniqueLandscapeNames()
+        me.Defense = me.Defense + #GetUniqueLandscapeNames(me.Original.ControllerI)
     end)
 
     return result

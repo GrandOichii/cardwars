@@ -7,7 +7,7 @@ function _Create()
     Common.ActivatedAbilities.Floop(result,
         'FLOOP >>> Draw a card for each Creature that entered play onto this Landscape this turn.',
         function (me, playerI, laneI)
-            local count = STATE.Players[playerI].Landscapes[laneI].CreaturesEnteredThisTurn.Count
+            local count = STATE.Players[playerI].Landscapes[laneI].Original.CreaturesEnteredThisTurn.Count
             Draw(playerI, count)
         end
     )
