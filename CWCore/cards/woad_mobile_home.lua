@@ -24,7 +24,7 @@ function _Create()
             assert(creature ~= nil, 'TODO write this error message later')
 
             -- TODO change to IPID
-            MoveCreature(creature.Original.ID, laneI)
+            MoveCreature(creature.Original.Card.ID, laneI)
         end
     )
 

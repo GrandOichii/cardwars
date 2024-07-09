@@ -25,28 +25,14 @@ function _Create()
         ),
         function (me, playerI, laneI)
             local creature = CW.Choose.Creature(playerI, creatureFilter(playerI, laneI):Do(), 'Choose a creature to move')
-            assert(creature ~= nil, 'TODO write error')
-            local landscape = CW.Choose.Landscape(playerI, landscapeFilter(playerI, laneI):Do(), 'Choose an empty Landscape to move '..creature.Original.Card.Template.Name..' to')
-            local options = CW.Lanes(Common.LandscapesWithoutCreatures(playerI))
-            local lane = ChooseLane(playerI, options, 'Choose an empty Lane to move to')
+            assert(creature ~= nil, 'failed to target creature in card '..me.Original.Card.Template.Name)
 
-            MoveCreature(creatureId, lane)
+            local landscape = CW.Choose.Lane(playerI, landscapeFilter(playerI, laneI):Do(), 'Choose an empty Landscape to move '..creature.Original.Card.Template.Name..' to')
+            assert(landscape ~= nil, 'failed to target landscapes in card '..me.Original.Card.Template.Name)
+
+            MoveCreature(creature.Original.Card.ID, landscape.Original.Idx)
         end
     )
-
-    result:AddActivatedAbility({
-        checkF = function (me, playerI, laneI)
-            if not Common.CanFloop(me) then
-                return false
-            end
-            return #Common.LandscapesWithoutCreatures(playerI) > 0
-        end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
-            return true
-        end,
-        effectF = 
-    })
 
     return result
 end

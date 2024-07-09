@@ -2146,6 +2146,14 @@ function CW.Choose.Creature(playerI, creatures, hint)
     return result
 end
 
-function CW.Choose.Landscape(playerI, landscapes, hint)
-    -- TODO
+function CW.Choose.Lane(playerI, landscapes, hint)
+    hint = hint or 'Choose a Lane'
+    if #landscapes == 0 then
+        return nil
+    end
+
+
+    local options = CW.Lanes(landscapes)
+    local laneI = ChooseLane(playerI, options, 'Choose an empty Lane to move to')
+    return STATE.Players[playerI].Landscapes[laneI]
 end

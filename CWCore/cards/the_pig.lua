@@ -1,7 +1,7 @@
 -- Status: not tested
 
 function _Create()
-    local result = CardWars:InPlay()
+    local result = CardWars:Creature()
 
     local targets = function (playerI, laneI)
         return CW.LandscapeFilter():OnLane(laneI):OfLandscapeType(CardWars.Landscapes.Cornfield):CanBeFlippedDown(playerI)
