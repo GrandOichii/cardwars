@@ -1701,6 +1701,13 @@ function CW.CreatureFilter()
         end
         return self
     end
+    
+    function result:LandscapeType(landscape)
+        result.filters[#result.filters+1] = function (creature)
+            return creature:IsType(landscape)
+        end
+        return self
+    end
 
     function result:AdjacentToLane(laneI)
         result.filters[#result.filters+1] = function (creature)
@@ -1730,6 +1737,13 @@ function CW.CreatureFilter()
     function result:InLane(laneI)
         result.filters[#result.filters+1] = function (creature)
             return creature.LaneI == laneI
+        end
+        return self
+    end
+
+    function result:MovedThisTurn()
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original.MovementCount > 0
         end
         return self
     end
@@ -2151,7 +2165,6 @@ function CW.Choose.Lane(playerI, landscapes, hint)
     if #landscapes == 0 then
         return nil
     end
-
 
     local options = CW.Lanes(landscapes)
     local laneI = ChooseLane(playerI, options, 'Choose an empty Lane to move to')

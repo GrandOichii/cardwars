@@ -2,23 +2,17 @@
 
 function _Create()
     local result = CardWars:Spell()
-    
-    Common.AddRestriction(result,
+
+    CW.SpellTargetCreature(
+        result,
         function (id, playerI)
-            return nil, #Common.TargetableBySpell(Common.CreaturesTyped(playerI, CardWars.Landscapes.BluePlains), playerI, id) > 0
-        end
-    )
-
-    result.EffectP:AddLayer(
-        function (id, playerI)
-            -- Target Blue Plains Creature you control has +2 ATK this turn.
-
-            local ids = CW.IDs(Common.TargetableBySpell(Common.CreaturesTyped(playerI, CardWars.Landscapes.BluePlains), playerI, id))
-            local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
-
-            UntilEndOfTurn(function ( layer)
+            return CW.CreatureFilter():ControlledBy(playerI):LandscapeType(CardWars.Landscapes.BluePlains):Do()
+        end,
+        'Choose a Blue Plains Creature to buff',
+        function (id, playerI, target)
+            UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creature = GetCreatureOrDefault(target)
+                    local creature = GetCreatureOrDefault(target.Original.Card.ID)
                     if creature == nil then
                         return
                     end

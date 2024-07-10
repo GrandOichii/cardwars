@@ -7,7 +7,7 @@ function _Create()
     -- Each Creature that changed Lanes this turn has +2 ATK his turn.
     CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
-        local creatures = Common.CreaturesThatChangedLanes(controllerI)
+        local creatures = CW.CreatureFilter():ControlledBy(controllerI):MovedThisTurn():Do()
         for _, creature in ipairs(creatures) do
             creature.Attack = creature.Attack + 2
         end
