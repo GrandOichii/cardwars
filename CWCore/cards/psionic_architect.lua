@@ -6,21 +6,17 @@ function _Create()
     result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Psionic Architect enters play, you may ready a Flooped Creature you control.
 
-        local ids = CW.IDs(Common.FloopedCreatures(playerI))
-
-        if #ids == 0 then
+        local creature = CW.Choose.Creature(playerI, CW.CreatureFilter():ControlledBy(playerI):Flooped():Do(), 'Choose a Flooped Creature to ready')
+        if creature == nil then
             return
         end
-
-        local creatureId = ChooseCreature(playerI, ids, 'Choose a creature to ready')
-        local creature = GetCreature(creatureId)
 
         local accept = YesNo(playerI, 'Ready '..creature.Original.Card.Template.Name..'?')
         if not accept then
             return
         end
 
-        ReadyCard(creatureId)
+        ReadyCard(creature.Original.Card.ID)
     end)
 
     return result

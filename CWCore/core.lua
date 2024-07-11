@@ -1664,6 +1664,50 @@ function CW.Lanes(landscapes)
     return result
 end
 
+function CW.FilterCardsPlayedThisTurn(playerI, filter)
+    local player = STATE.Players[playerI].Original
+
+    local result = {}
+    for i = 0, player.CardsPlayedThisTurn.Count - 1 do
+        local card = player.CardsPlayedThisTurn[i]
+        if filter(card) then
+            result[#result+1] = card
+        end
+    end
+    return result
+end
+
+function CW.CardsPlayedThisTurnFilter(by)
+    local result = {}
+
+    result.filters = {}
+
+    function result:Do()
+        local filter = function (card)
+            for _, f in ipairs(result.filters) do
+                if not f(card) then
+                    return false
+                end
+            end
+            return true
+        end
+        return CW.FilterCardsPlayedThisTurn(by, filter)
+    end
+
+    function result:OfType(type)
+        result.filters[#result.filters+1] = function (card)
+            return card.Template.Type == type
+        end
+        return self
+    end
+
+    function result:Spells()
+        return self:OfType('Spell')
+    end
+
+    return result
+end
+
 function CW.CreatureFilter()
     local result = {}
 
