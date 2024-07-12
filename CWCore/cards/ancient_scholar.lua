@@ -3,17 +3,20 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.Floop(result,
+    CW.ActivatedAbility.Add(
+        result,
         'FLOOP >>> Return a random Rainbow card from your Discard Pile to your Hand. If you Control a Building in this Lane, gain 1 Action.',
+        CW.ActivatedAbility.Cost.Floop(),
         function (me, playerI, laneI)
-            local idx = Common.RandomCardInDiscard(playerI, function (card)
-                return card.Original.Template.Landscape == CardWars.Landscapes.Rainbow
-            end)
-            if idx ~= nil then
+            local cards = CW.CardsInDiscardPileFilter(playerI):OfLandscapeType(CardWars.Landscapes.Rainbow):Do()
+
+            if #cards > 0 then
+                local indicies = CW.Keys(cards)
+                local idx = CW.Random(indicies)
                 ReturnToHandFromDiscard(playerI, idx)
             end
 
-            if Common.ControlBuildingInLane(playerI, laneI) then
+            if CW.Common.YouControlABuildingInThisLane(playerI, laneI) then
                 AddActionPoints(playerI, 1)
             end
         end

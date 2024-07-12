@@ -1593,15 +1593,55 @@ end
 
 CW = {}
 
+function CW.Keys(table)
+    local result = {}
+
+    for index, _ in pairs(table) do
+        result[#result+1] = index
+    end
+
+    return result
+end
+
+function CW.Values(table)
+    local result = {}
+
+    for _, value in pairs(table) do
+        result[#result+1] = value
+    end
+
+    return result
+end
+
+function CW.Random(arr)
+    return arr[Random(1, #arr)]
+end
+
 function CW.FilterCreatures(filter)
+    local result = {}
+    for pi = 0, STATE.Players.Length - 1 do
+        local pState = STATE.Players[pi]
+        for li = 0, pState.Landscapes.Count - 1 do
+            local landscape = pState.Landscapes[li]
+            if landscape.Creature ~= nil then
+                if filter == nil or filter(landscape.Creature) then
+                    result[#result+1] = landscape.Creature
+                end
+            end
+        end
+    end
+    return result
+end
+
+function CW.FilterBuildings(filter)
     local result = {}
     for pi = 1, STATE.Players.Length do
         local pState = STATE.Players[pi - 1]
         for li = 1, pState.Landscapes.Count do
-            local lane = pState.Landscapes[li - 1]
-            if lane.Creature ~= nil then
-                if filter == nil or filter(lane.Creature) then
-                    result[#result+1] = lane.Creature
+            local buildings = pState.Landscapes[li - 1].Buildings
+            for i = 0, buildings.Count - 1 do
+                if filter == nil or filter(buildings[i]) then
+                    result[#result+1] = buildings[i]
                 end
             end
         end
@@ -1625,11 +1665,14 @@ function CW.FilterLandscapes(filter)
     return result
 end
 
+-- TODO remove
 function CW.Creatures(playerI)
     return CW.FilterCreatures(function (creature)
         return playerI == nil or creature.Original.ControllerI == playerI
     end)
 end
+
+
 
 function CW.CreaturesThatEnteredPlayThisTurn()
     local landscapes = CW.FilterLandscapes()
@@ -1715,7 +1758,7 @@ function CW.CreatureFilter()
 
     function result:Do()
         local filter = function (creature)
-            for _, f in ipairs(result.filters) do
+            for _, f in ipairs(self.filters) do
                 if not f(creature) then
                     return false
                 end
@@ -1741,7 +1784,7 @@ function CW.CreatureFilter()
 
     function result:ControlledBy(playerI)
         result.filters[#result.filters+1] = function (creature)
-            return creature.Original.Card.OwnerI == playerI
+            return creature.Original.ControllerI == playerI
         end
         return self
     end
@@ -1788,6 +1831,127 @@ function CW.CreatureFilter()
     function result:MovedThisTurn()
         result.filters[#result.filters+1] = function (creature)
             return creature.Original.MovementCount > 0
+        end
+        return self
+    end
+
+    return result
+end
+
+function CW.BuildingFilter()
+    local result = {}
+
+    result.filters = {}
+
+    function result:Do()
+        local filter = function (building)
+            for _, f in ipairs(result.filters) do
+                if not f(building) then
+                    return false
+                end
+            end
+            return true
+        end
+        return CW.FilterBuildings(filter)
+    end
+
+    function result:Flooped()
+        result.filters[#result.filters+1] = function (building)
+            return building.Original:IsFlooped()
+        end
+        return self
+    end
+
+    function result:OwnedBy(playerI)
+        result.filters[#result.filters+1] = function (building)
+            return building.Original.Card.OwnerI == playerI
+        end
+        return self
+    end
+
+    function result:ControlledBy(playerI)
+        result.filters[#result.filters+1] = function (building)
+            return building.Original.Card.OwnerI == playerI
+        end
+        return self
+    end
+    
+    function result:LandscapeType(landscape)
+        result.filters[#result.filters+1] = function (building)
+            return building:IsType(landscape)
+        end
+        return self
+    end
+
+    function result:AdjacentToLane(laneI)
+        result.filters[#result.filters+1] = function (building)
+            return building.LaneI == laneI - 1 or building.LaneI == laneI + 1
+        end
+        return self
+    end
+
+    function result:ControlledByOpponentOf(playerI)
+        return self:ControlledBy(1 - playerI)
+    end
+
+    function result:NotControlledBy(playerI)
+        result.filters[#result.filters+1] = function (building)
+            return building.Original.Card.OwnerI ~= playerI
+        end
+        return self
+    end
+
+    function result:InLane(laneI)
+        result.filters[#result.filters+1] = function (building)
+            return building.LaneI == laneI
+        end
+        return self
+    end
+
+    function result:MovedThisTurn()
+        result.filters[#result.filters+1] = function (building)
+            return building.Original.MovementCount > 0
+        end
+        return self
+    end
+
+    return result
+end
+
+function CW.FilterCardsInDiscard(of, filter)
+    local cards = STATE.Players[of].DiscardPile
+    local result = {}
+
+    for i = 0, cards.Count - 1 do
+        local card = cards[i]
+        if filter(card) then
+            result[i] = card
+        end
+    end
+
+    return result
+end
+
+function CW.CardsInDiscardPileFilter(of)
+    local result = {}
+
+    result.filters = {}
+
+    function result:Do()
+        local filter = function (card)
+            for _, f in ipairs(result.filters) do
+                if not f(card) then
+                    return false
+                end
+            end
+            return true
+        end
+        return CW.FilterCardsInDiscard(of, filter)
+    end
+
+    function result:OfLandscapeType(landscapeType)
+        result.filters[#result.filters+1] = function (card)
+            return card.Original.Template.Landscape == landscapeType
         end
         return self
     end
@@ -2213,4 +2377,11 @@ function CW.Choose.Lane(playerI, landscapes, hint)
     local options = CW.Lanes(landscapes)
     local laneI = ChooseLane(playerI, options, 'Choose an empty Lane to move to')
     return STATE.Players[playerI].Landscapes[laneI]
+end
+
+CW.Common = {}
+
+function CW.Common.YouControlABuildingInThisLane(playerI, laneI)
+    local buildings = CW.BuildingFilter():ControlledBy(playerI):InLane(laneI):Do()
+    return #buildings > 0
 end
