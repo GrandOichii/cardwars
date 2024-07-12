@@ -10,7 +10,9 @@ function _Create()
             UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     -- TODO? does this effect all creatures
-                    local creatures = CW.CreatureFilter():MovedThisTurn():Do()
+                    local creatures = CW.CreatureFilter()
+                        :MovedThisTurn()
+                        :Do()
 
                     for _, creature in ipairs(creatures) do
                         creature.Attack = creature.Attack + 2

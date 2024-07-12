@@ -1960,21 +1960,25 @@ function CW.BuildingFilter()
     return result
 end
 
-function CW.FilterCardsInDiscard(of, filter)
-    local cards = STATE.Players[of].DiscardPile
+function CW.FilterCardsInDiscard(filter)
     local result = {}
-
-    for i = 0, cards.Count - 1 do
-        local card = cards[i]
-        if filter(card) then
-            result[i] = card
+    for pi = 0, STATE.Players.Length - 1 do
+        local cards = STATE.Players[pi].DiscardPile
+        for i = 0, cards.Count - 1 do
+            local card = cards[i]
+            if filter(card) then
+                result[#result+1] = {
+                    card = card,
+                    idx = i
+                }
+            end
         end
     end
 
     return result
 end
 
-function CW.CardsInDiscardPileFilter(of)
+function CW.CardsInDiscardPileFilter()
     local result = {}
 
     result.filters = {}
@@ -1988,12 +1992,19 @@ function CW.CardsInDiscardPileFilter(of)
             end
             return true
         end
-        return CW.FilterCardsInDiscard(of, filter)
+        return CW.FilterCardsInDiscard(filter)
     end
 
     function result:OfLandscapeType(landscapeType)
         result.filters[#result.filters+1] = function (card)
             return card.Original.Template.Landscape == landscapeType
+        end
+        return self
+    end
+
+    function result:OfPlayer(playerI)
+        result.filters[#result.filters+1] = function (card)
+            return card.Original.OwnerI == playerI
         end
         return self
     end
@@ -2045,7 +2056,7 @@ function CW.LandscapeFilter()
 
     function result:OfLandscapeType(name)
         result.filters[#result.filters+1] = function (landscape)
-            return landscape.Name == name
+            return landscape:Is(name)
         end
         return self
     end
@@ -2068,18 +2079,23 @@ function CW.LandscapeFilter()
 end
 
 function CW.SpellTargetCreature(card, creatureFilterFunc, targetHint, effectF)
-    Common.AddRestriction(card,
-        function (id, playerI)
-            return nil, #Common.TargetableBySpell(creatureFilterFunc(id, playerI), playerI, id) > 0
-        end
-    )
-
-    card.EffectP:AddLayer(
-        function (id, playerI)
-            local ipids = CW.IPIDs(Common.TargetableBySpell(creatureFilterFunc(id, playerI), playerI, id))
-            local target = TargetCreature(playerI, ipids, targetHint)
-            local creature = GetCreature(target)
-            effectF(id, playerI, creature)
+    CW.Spell.AddEffect(
+        card,
+        {
+            {
+                key = 'creature',
+                target = CW.Spell.Target.Creature(
+                    function (id, playerI)
+                        return creatureFilterFunc(id, playerI)
+                    end,
+                    function (id, playerI, targets)
+                        return targetHint
+                    end
+                )
+            }
+        },
+        function (id, playerI, targets)
+            effectF(id, playerI, targets.creature)
         end
     )
 end
@@ -2102,7 +2118,8 @@ end
 
 CW.Target = {}
 
-function CW.Target.Landscape(options, byPlayerI)
+function CW.Target.Landscape(options, byPlayerI, hint)
+    hint = hint or 'Choose a Landscape'
     local split = CW.SplitLandscapesByOwner(options)
     local l1 = CW.Lanes(split[0])
     local l2 = CW.Lanes(split[1])
@@ -2112,7 +2129,7 @@ function CW.Target.Landscape(options, byPlayerI)
     if (#l1 + #l2) == 0 then
         return nil
     end
-    local choice = ChooseLandscape(byPlayerI, l1, l2, 'Choose a Cornfield Landscape to flip face-down')
+    local choice = ChooseLandscape(byPlayerI, l1, l2, hint)
     return STATE.Players[choice[0]].Landscapes[choice[1]]
 end
 
@@ -2288,7 +2305,6 @@ function CW.Spell.Target.Creature(targetFunc, hintFunc)
     return result
 end
 
-
 function CW.Spell.Target.Lane(targetFunc, hintFunc)
     local result = {}
 
@@ -2381,32 +2397,6 @@ function CW.ActivatedAbility.Cost.And(...)
     return result
 end
 
-function CW.ActivatedAbility.Cost.TargetCreature(targetKey, filterFunc, targetHint)
-    local result = {}
-
-    function result:CheckFunc()
-        return function (me, playerI, laneI)
-            return #Common.TargetableByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID) > 0
-        end
-    end
-
-    function result:AddTargets(me, playerI, laneI, targets)
-        local options = CW.IPIDs(Common.TargetableByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID))
-        local target = TargetCreature(playerI, options, targetHint)
-
-        targets[targetKey] = GetCreature(target)
-        return true
-    end
-
-    function result:CostFunc()
-        return function (me, playerI, laneI)
-            return true
-        end
-    end
-
-    return result
-end
-
 function CW.ActivatedAbility.Cost.PayActionPoints(amount)
     local result = {}
 
@@ -2492,6 +2482,114 @@ function CW.ActivatedAbility.Cost.DiscardFromHand(amount, hintFunc, maxActivatio
     return result
 end
 
+CW.ActivatedAbility.Cost.Target = {}
+
+function CW.ActivatedAbility.Cost.Target.Creature(targetKey, filterFunc, hintFunc)
+    local result = {}
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return #Common.TargetableByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID) > 0
+        end
+    end
+
+    function result:AddTargets(me, playerI, laneI, targets)
+        local options = CW.IPIDs(Common.TargetableByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID))
+        local hint = hintFunc(me, playerI, laneI, targets)
+        local target = TargetCreature(playerI, options, hint)
+
+        targets[targetKey] = GetCreature(target)
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.Target.Landscape(targetKey, filterFunc, hintFunc)
+    local result = {}
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return #filterFunc(me, playerI, laneI) > 0
+        end
+    end
+
+    function result:AddTargets(me, playerI, laneI, targets)
+        local hint = hintFunc(me, playerI, laneI, targets)
+        local landscape = CW.Target.Landscape(
+            filterFunc(me, playerI, laneI),
+            playerI,
+            hint
+        )
+        assert(landscape ~= nil, 'TODO write error text')
+
+        targets[targetKey] = landscape
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.Target.Lane(targetKey, filterFunc, hintFunc)
+    local result = {}
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return #filterFunc(me, playerI, laneI) > 0
+        end
+    end
+
+    function result:AddTargets(me, playerI, laneI, targets)
+        local hint = hintFunc(me, playerI, laneI, targets)
+        local options = CW.Lanes(filterFunc(me, playerI, laneI))
+        local target = ChooseLane(playerI, options, hint)
+        targets[targetKey] = target
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.Target.CardInDiscardPile(targetKey, filterFunc, hintFunc)
+    local result = {}
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return #filterFunc(me, playerI, laneI) > 0
+        end
+    end
+
+    function result:AddTargets(me, playerI, laneI, targets)
+        local hint = hintFunc(me, playerI, laneI, targets)
+        local choice = CW.Choose.CardInDiscardPile(playerI, filterFunc(me, playerI, laneI), hint)
+
+        targets[targetKey] = choice
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    return result
+end
+
 CW.ActivatedAbility.Common = {}
 
 function CW.ActivatedAbility.Common.Floop(card, text, effect)
@@ -2549,6 +2647,29 @@ function CW.Choose.Creature(playerI, creatures, hint)
     local choice = ChooseCreature(playerI, options, hint)
     local result = GetCreature(choice)
     return result
+end
+
+function CW.Choose.CardInDiscardPile(playerI, cards, hint)
+    hint = hint or 'Choose a card in a discard pile'
+    local map = {
+        [0] = {},
+        [1] = {},
+    }
+    for _, pair in pairs(cards) do
+        local pidx = pair.card.Original.OwnerI
+        map[pidx][#map[pidx]+1] = pair.idx
+    end
+    if (#map[0] + #map[1]) == 0 then
+        return nil
+    end
+    if playerI == 1 then
+        map[0], map[1] = map[1], map[0]
+    end
+    local choice = ChooseCardInDiscard(playerI, map[0], map[1], hint)
+    return {
+        playerI = choice[0],
+        idx = choice[1]
+    }
 end
 
 function CW.Choose.Lane(playerI, landscapes, hint)

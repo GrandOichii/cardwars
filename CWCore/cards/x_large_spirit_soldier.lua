@@ -5,9 +5,11 @@ function _Create()
 
     -- Each adjacent Creature has +1 ATK.
     CW.State.ModATKDEF(result, function (me)
-        local controllerI = me.Original.ControllerI
-        local adjacent = Common.AdjacentCreatures(controllerI, me.LaneI)
-        for _, creature in ipairs(adjacent) do
+        local creatures = CW.CreatureFilter()
+            :ControlledBy(me.Original.ControllerI)
+            :AdjacentToLane(me.LaneI)
+            :Do()
+        for _, creature in ipairs(creatures) do
             creature.Attack = creature.Attack + 1
         end
     end)

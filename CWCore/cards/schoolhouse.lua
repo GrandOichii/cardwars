@@ -3,21 +3,24 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    result:AddActivatedAbility({
-        text = 'FLOOP >>> Your Creature in this Lane loses all abilities and gains the FLOOP ability of a random Creature (with a FLOOP ability) in your discard pile until end of turn.',
-        tags = {'floop'},
+    local filter = function (playerI, laneI)
+        return CW.CreatureFilter():ControlledBy(playerI):InLane(laneI):Do()
+    end
 
-        checkF = function (me, playerI, laneI)
-            return
-                Common.CanFloop(me) and
-                #Common.CreaturesInLane(playerI, laneI) == 1
-        end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.IPID)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
-            local creature = Common.CreaturesInLane(playerI, laneI)[1]
+    -- TODO not clear with the new card that will be able to stand in the same landscape as another creature
+    CW.ActivatedAbility.Add(
+        result,
+        'FLOOP >>> Your Creature in this Lane loses all abilities and gains the FLOOP ability of a random Creature (with a FLOOP ability) in your discard pile until end of turn.',
+        CW.ActivatedAbility.Cost.And(
+            CW.ActivatedAbility.Cost.Floop(),
+            CW.ActivatedAbility.Cost.Check(
+                function (me, playerI, laneI)
+                    return #filter(playerI, laneI) > 0
+                end
+            )
+        ),
+        function (me, playerI, laneI)
+            local creature = filter(playerI, laneI)[1]
             local ipid = creature.Original.IPID
 
             local abilities = Common.FloopAbilitiesOfCreaturesInDiscard(playerI)
@@ -42,7 +45,7 @@ function _Create()
                 end
             end)
         end
-    })
+    )
 
     return result
 end

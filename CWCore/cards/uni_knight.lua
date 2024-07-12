@@ -8,18 +8,17 @@ function _Create()
         'Pay 1 Action >>> Target Creature in this Lane has -10 ATK this turn.',
         CW.ActivatedAbility.Cost.And(
             CW.ActivatedAbility.Cost.PayActionPoints(1),
-            CW.ActivatedAbility.Cost.TargetCreature(
+            CW.ActivatedAbility.Cost.Target.Creature(
                 'creature',
                 function (me, playerI, laneI)
                     return CW.CreatureFilter():InLane(laneI):Do()
                 end,
-                'Choose a Creature to debuff'
+                function (me, playerI, laneI, targets)
+                    return 'Choose a Creature to debuff'
+                end
             )
         ),
         function (me, playerI, laneI, targets)
-            for key, value in pairs(targets) do
-                print(key, value)
-            end
             local ipid = targets.creature.Original.IPID
 
             UntilEndOfTurn(function (layer)
