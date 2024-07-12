@@ -92,7 +92,7 @@ amount = 2
 [sub_resource type="Resource" id="Resource_18"]
 script = ExtResource("1_noyiv")
 card = "Uni-Knight"
-amount = 1
+amount = 100
 
 [sub_resource type="Resource" id="Resource_19"]
 script = ExtResource("1_noyiv")

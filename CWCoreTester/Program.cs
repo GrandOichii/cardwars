@@ -654,6 +654,7 @@ public class Program {
                 }
                 System.Console.WriteLine("SEED: " + seed);
                 await TcpMatch(seed);
+                return;
             } catch (Exception e) {
                 PrintException(e);
             }
@@ -710,7 +711,7 @@ public class Program {
     }
 
     public static async Task Main(string[] args) {
-        var seed = 0;
+        var seed = -1;
         if (args.Length >= 1) {
             seed = int.Parse(args[0]);
         }

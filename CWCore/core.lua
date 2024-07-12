@@ -1952,10 +1952,20 @@ function CW.CardsInDiscardPileFilter(of)
 
     function result:OfLandscapeType(landscapeType)
         result.filters[#result.filters+1] = function (card)
-            print(card.Original.Template.Landscape, landscapeType)
             return card.Original.Template.Landscape == landscapeType
         end
         return self
+    end
+
+    function result:OfType(type)
+        result.filters[#result.filters+1] = function (card)
+            return card.Original.Template.Type == type
+        end
+        return self
+    end
+
+    function result:Spells()
+        return self:OfType('Spell')
     end
 
     return result
@@ -2197,6 +2207,7 @@ function CW.ActivatedAbility.Add(card, text, cost, effectF, maxActivationsPerTur
     maxActivationsPerTurn = maxActivationsPerTurn or -1
     local checkFunc = cost:CheckFunc()
     local costFunc = cost:CostFunc()
+
     card:AddActivatedAbility({
         maxActivationsPerTurn = maxActivationsPerTurn,
         text = text,
@@ -2208,7 +2219,11 @@ function CW.ActivatedAbility.Add(card, text, cost, effectF, maxActivationsPerTur
             return costFunc(me, playerI, laneI)
         end,
         effectF = function (me, playerI, laneI)
-            effectF(me, playerI, laneI, effectF)
+            local targets = {}
+            if cost.AddTargets ~= nil then
+                cost:AddTargets(me, playerI, laneI, targets)
+            end
+            effectF(me, playerI, laneI, targets)
         end
     })
 end
@@ -2247,6 +2262,59 @@ function CW.ActivatedAbility.Cost.And(...)
             return CW.Utility.All(result.costs, function (cost)
                 return cost:CostFunc()(me, playerI, laneI)
             end)
+        end
+    end
+
+    function result:AddTargets(me, playerI, laneI, targets)
+        for _, cost in ipairs(self.costs) do
+            if cost.AddTargets ~= nil then
+                cost:AddTargets(me, playerI, laneI, targets)
+            end
+        end
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.TargetCreature(targetKey, filterFunc, targetHint)
+    local result = {}
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return #Common.TargetableByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID) > 0
+        end
+    end
+
+    function result:AddTargets(me, playerI, laneI, targets)
+        local options = CW.IPIDs(Common.TargetableByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID))
+        local target = TargetCreature(playerI, options, targetHint)
+
+        targets[targetKey] = GetCreature(target)
+        return true
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.PayActionPoints(amount)
+    local result = {}
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return GetPlayer(playerI).Original.ActionPoints >= amount
+        end
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            PayActionPoints(playerI, amount)
+            return true
         end
     end
 
