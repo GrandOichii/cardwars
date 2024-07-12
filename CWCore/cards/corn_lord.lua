@@ -8,7 +8,11 @@ function _Create()
         local controllerI = me.Original.ControllerI
         local ipid = me.Original.IPID
 
-        local creatures = Common.CreaturesTypedExcept(controllerI, CardWars.Landscapes.Cornfield, ipid)
+        local creatures = CW.CreatureFilter()
+            :LandscapeType(CardWars.Landscapes.Cornfield)
+            :ControlledBy(controllerI)
+            :Except(ipid)
+            :Do()
 
         me.Attack = me.Attack + #creatures
     end)

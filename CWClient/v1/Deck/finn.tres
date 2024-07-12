@@ -67,7 +67,7 @@ amount = 2
 [sub_resource type="Resource" id="Resource_13"]
 script = ExtResource("1_noyiv")
 card = "Dragon Claw"
-amount = 200
+amount = 2
 
 [sub_resource type="Resource" id="Resource_14"]
 script = ExtResource("1_noyiv")
@@ -112,7 +112,7 @@ amount = 2
 [sub_resource type="Resource" id="Resource_22"]
 script = ExtResource("1_noyiv")
 card = "Heavenly Gazer"
-amount = 20
+amount = 1
 
 [sub_resource type="Resource" id="Resource_23"]
 script = ExtResource("1_noyiv")

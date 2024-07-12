@@ -7,7 +7,10 @@ function _Create()
         -- When Cornataur enters play, deal 1 Damage to your opponent for each Cornfield Landscape you control.
 
         local opponentI = 1 - playerI
-        local count = Common.CountLandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
+        local count = #CW.LandscapeFilter()
+            :OwnedBy(playerI)
+            :OfLandscapeType(CardWars.Landscapes.Cornfield)
+            :Do()
         DealDamageToPlayer(opponentI, count)
     end)
 

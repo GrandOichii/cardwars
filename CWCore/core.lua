@@ -1836,6 +1836,13 @@ function CW.CreatureFilter()
         return self
     end
 
+    function result:Except(ipid)
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original.IPID ~= ipid
+        end
+        return self
+    end
+
     return result
 end
 
@@ -2071,6 +2078,13 @@ function CW.LandscapeFilter()
     function result:Empty()
         result.filters[#result.filters+1] = function (landscape)
             return landscape.Creature == nil
+        end
+        return self
+    end
+
+    function result:AdjacentTo(laneI)
+        result.filters[#result.filters+1] = function (landscape)
+            return landscape.Original.Idx == laneI - 1 or landscape.Original.Idx == laneI + 1
         end
         return self
     end

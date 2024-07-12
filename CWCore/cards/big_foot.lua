@@ -7,7 +7,6 @@ function _Create()
         text = 'FLOOP >>> Flip target face-down Landscape you control face up. ',
         tags = {'floop'},
 
-
         checkF = function (me, playerI, laneI)
             if not Common.CanFloop(me) then
                 return false
