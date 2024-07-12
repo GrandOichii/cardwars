@@ -277,7 +277,7 @@ public class GameMatch {
     public async Task DealDamageToCreature(CreatureState creature, int amount, CreatureState from) {
         var source = LuaUtility.CreateTable(LState);
         source["type"] = (int)DamageSource.CREATURE;
-        source["id"] = from.Original.Card.ID;
+        source["ipid"] = from.Original.IPID;
         source["ownerI"] = from.Original.ControllerI;
 
         await DealDamageToCreature(creature, amount, source);
@@ -288,12 +288,12 @@ public class GameMatch {
         await DealDamageToCreature(to, damage, from);
         if (to.ShouldDie())
             from.OnDefeated(to.GetOriginal());
-        from.OnDealtDamage(damage, to.Original.Card.ID);
+        from.OnDealtDamage(damage, to.Original.IPID);
 
     }
 
-    public async Task DestroyCreature(string id) {
-        var creature = GetInPlayCreature(id);
+    public async Task DestroyCreature(string ipid) {
+        var creature = GetInPlayCreature(ipid);
         var player = GetPlayerState(creature.Original.Card.OwnerI);
         var landscape = GetPlayerState(creature.Original.ControllerI).Landscapes[creature.LaneI];
         await DestroyCreature(player, landscape);
@@ -314,8 +314,8 @@ public class GameMatch {
         LogInfo($"{creature.Original.Card.LogFriendlyName} in lane {creature.LaneI} dies!");
     }
 
-    public async Task DestroyBuilding(string id) {
-        var building = GetInPlayBuilding(id);
+    public async Task DestroyBuilding(string ipid) {
+        var building = GetInPlayBuilding(ipid);
         var player = GetPlayerState(building.Original.Card.OwnerI);
         var landscape = GetPlayerState(building.Original.ControllerI).Landscapes[building.LaneI];
         await DestroyBuilding(player, landscape, building);
@@ -349,46 +349,63 @@ public class GameMatch {
         }
     }
 
-    public CreatureState GetInPlayCreature(string id) {
-        return GetInPlayCreatureOrDefault(id)
-            ?? throw new GameMatchException($"Failed to find in-play creature with id {id}")
+    public CreatureState GetInPlayCreature(string ipid) {
+        return GetInPlayCreatureOrDefault(ipid)
+            ?? throw new GameMatchException($"Failed to find in-play creature with ipid {ipid}")
         ;
     }
 
-    public InPlayCardState GetInPlayBuilding(string id) {
-        return GetInPlayBuildingOrDefault(id)
-            ?? throw new GameMatchException($"Failed to find in-play building with id {id}")
+    public InPlayCardState GetInPlayBuilding(string ipid) {
+        return GetInPlayBuildingOrDefault(ipid)
+            ?? throw new GameMatchException($"Failed to find in-play building with ipid {ipid}")
         ;
     }
-    
-    public CreatureState? GetInPlayCreatureOrDefault(string id) {
-        foreach (var player in LastState.Players)
-            foreach (var lane in player.Landscapes)
-                if (lane.Creature is not null && lane.Creature.Original.Card.ID == id)
-                    return lane.Creature;
-        return null;
-    }
 
-    public InPlayCardState? GetInPlayBuildingOrDefault(string id) {
+    public InPlayCardState GetInPlayBuildingByID(string id) {
         foreach (var player in LastState.Players)
             foreach (var lane in player.Landscapes)
                 foreach (var building in lane.Buildings)
                     if (building.Original.Card.ID == id)
                         return building;
+        throw new GameMatchException($"Failed to find in-play building with id {id}");
+    }
+    
+    public CreatureState? GetInPlayCreatureOrDefault(string ipid) {
+        foreach (var player in LastState.Players)
+            foreach (var lane in player.Landscapes)
+                if (lane.Creature is not null && lane.Creature.Original.IPID == ipid)
+                    return lane.Creature;
         return null;
     }
 
-    public InPlayCardState GetInPlayCard(string id) {
-        foreach (var player in LastState.Players) {
-            foreach (var lane in player.Landscapes) {
+    public CreatureState GetInPlayCreatureByID(string id) {
+        foreach (var player in LastState.Players)
+            foreach (var lane in player.Landscapes)
                 if (lane.Creature is not null && lane.Creature.Original.Card.ID == id)
                     return lane.Creature;
+        throw new GameMatchException($"Failed to find in-play creature with id {id}");
+    }
+
+    public InPlayCardState? GetInPlayBuildingOrDefault(string ipid) {
+        foreach (var player in LastState.Players)
+            foreach (var lane in player.Landscapes)
                 foreach (var building in lane.Buildings)
-                    if (building.Original.Card.ID == id)
+                    if (building.Original.IPID == ipid)
+                        return building;
+        return null;
+    }
+
+    public InPlayCardState GetInPlayCard(string ipid) {
+        foreach (var player in LastState.Players) {
+            foreach (var lane in player.Landscapes) {
+                if (lane.Creature is not null && lane.Creature.Original.IPID == ipid)
+                    return lane.Creature;
+                foreach (var building in lane.Buildings)
+                    if (building.Original.IPID == ipid)
                         return building;
             }
         }
-        throw new GameMatchException($"Failed to find in-play card with id {id}");
+        throw new GameMatchException($"Failed to find in-play card with ipid {ipid}");
     }
 
     public async Task FloopCard(InPlayCardState card) {
@@ -482,11 +499,11 @@ public class GameMatch {
         // TODO trigger
     }
 
-    public async Task MoveCreature(string creatureId, int toI) {
+    public async Task MoveCreature(string creatureIPID, int toI) {
         foreach (var player in LastState.Players) {
             foreach (var landscape in player.Landscapes) {
                 var creature = landscape.Creature;
-                if (creature is null || creature.Original.Card.ID != creatureId) continue;
+                if (creature is null || creature.Original.IPID != creatureIPID) continue;
 
                 var prevLaneI = landscape.Original.Idx;
                 if (prevLaneI == toI) {
@@ -513,14 +530,14 @@ public class GameMatch {
                 return;
             }
         }
-        throw new GameMatchException($"failed to find creature with id {creatureId} to move to lane {toI}");
+        throw new GameMatchException($"failed to find creature with ipid {creatureIPID} to move to lane {toI}");
     }
 
-    public async Task SwapCreatures(string id1, string id2) {
+    public async Task SwapCreatures(string ipid1, string ipid2) {
         // TODO implement swapping with opponent's creatures
 
-        var creature1 = GetInPlayCreature(id1);
-        var creature2 = GetInPlayCreature(id2);
+        var creature1 = GetInPlayCreature(ipid1);
+        var creature2 = GetInPlayCreature(ipid2);
 
         var landscape1 = Players[creature1.Original.ControllerI].Landscapes[creature1.LaneI];
         var landscape2 = Players[creature2.Original.ControllerI].Landscapes[creature2.LaneI];
@@ -534,11 +551,11 @@ public class GameMatch {
         creature2.OnMove(creature1.Original.ControllerI, landscape2.Idx, landscape1.Idx);
     }
 
-    public async Task MoveBuilding(string buildingId, int toI) {
+    public async Task MoveBuilding(string buildingIPID, int toI) {
         // * mostly repeated code from MoveCreature
         foreach (var player in LastState.Players) {
             foreach (var lane in player.Landscapes) {
-                var building = lane.Buildings.FirstOrDefault(b => b.Original.Card.ID == buildingId);
+                var building = lane.Buildings.FirstOrDefault(b => b.Original.IPID == buildingIPID);
                 if (building is null) continue;
 
                 var prevLaneI = lane.Original.Idx;
@@ -566,7 +583,7 @@ public class GameMatch {
                 return;
             }
         }
-        throw new GameMatchException($"failed to find building with id {buildingId} to move to lane {toI}");
+        throw new GameMatchException($"failed to find building with ipid {buildingIPID} to move to lane {toI}");
     }
 
     public async Task HealDamage(CreatureState creature, int amount) {
@@ -590,7 +607,7 @@ public class GameMatch {
         // TODO update
     }
 
-    public async Task StealCreature(int fromPlayerI, string creatureId, int toLaneI) {
+    public async Task StealCreature(int fromPlayerI, string creatureIPID, int toLaneI) {
         var player = GetPlayerState(fromPlayerI);
         var newOwner = GetPlayerState(1 - fromPlayerI);
         var newLane = newOwner.Landscapes[toLaneI];
@@ -601,7 +618,7 @@ public class GameMatch {
         foreach (var landscape in player.Landscapes) {
             var creature = landscape.Creature;
             if (creature is null) continue;
-            if (creature.Original.Card.ID != creatureId) continue;
+            if (creature.Original.IPID != creatureIPID) continue;
 
             landscape.Original.Creature = null;
             newLane.Original.Creature = creature.GetOriginal();
@@ -614,7 +631,7 @@ public class GameMatch {
 
             return;
         }
-        throw new GameMatchException($"failed to find creature with id {creatureId} to steaal to lane {toLaneI}");
+        throw new GameMatchException($"failed to find creature with ipid {creatureIPID} to steal to lane {toLaneI}");
     }
 
     public async Task<List<MatchCard>> RevealCardsFromDeck(int playerI, int amount) {

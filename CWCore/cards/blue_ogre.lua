@@ -16,10 +16,10 @@ function _Create()
             -- TODO? not specified in the card whether it triggers for each individual card being drawn
 
             local amount = args.amount
-            local id = me.Original.Card.ID
+            local ipid = me.Original.IPID
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local c = GetCreatureOrDefault(id)
+                    local c = GetCreatureOrDefault(ipid)
                     if c == nil then
                         return
                     end

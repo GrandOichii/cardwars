@@ -15,7 +15,7 @@ function _Create()
         effectF = function (me, controllerI, laneI, args)
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local c = GetCreatureOrDefault(args.id)
+                    local c = GetCreatureOrDefault(args.ipid)
                     if c == nil then
                         return
                     end

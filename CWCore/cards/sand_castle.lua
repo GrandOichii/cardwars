@@ -15,7 +15,7 @@ function _Create()
             if creature.Original.ControllerI ~= creature.Original.Card.OwnerI then
                 return
             end
-            Common.Bounce.ReturnToHandAndPlayForFree(playerI, creature.Original.Card.ID)
+            Common.Bounce.ReturnToHandAndPlayForFree(playerI, creature.Original.IPID)
         end
     )
 

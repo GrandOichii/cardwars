@@ -12,12 +12,12 @@ function _Create()
                 #Common.AdjacentCreatures(playerI, laneI) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = CW.IDs(Common.AdjacentCreatures(playerI, laneI))
-            local target = ChooseCreature(playerI, ids, 'Choose a creature to return to it\'s owners hand')
+            local ipids = CW.IPIDs(Common.AdjacentCreatures(playerI, laneI))
+            local target = ChooseCreature(playerI, ipids, 'Choose a creature to return to it\'s owners hand')
             ReturnCreatureToOwnersHand(target)
         end
     })

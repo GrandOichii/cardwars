@@ -15,15 +15,15 @@ function _Create()
             if not accept then
                 return false
             end
-            ReturnCreatureToOwnersHand(me.Original.Card.ID)
+            ReturnCreatureToOwnersHand(me.Original.IPID)
             return true
         end,
         effectF = function (me, controllerI, laneI)
             -- TODO? should this be in check
-            local creatures = CW.IDs(Common.TargetableByCreature(
+            local creatures = CW.IPIDs(Common.TargetableByCreature(
                 Common.CreaturesTyped(controllerI, CardWars.Landscapes.SandyLands),
                 controllerI,
-                me.Original.Card.ID
+                me.Original.IPID
             ))
             if #creatures == 0 then
                 return

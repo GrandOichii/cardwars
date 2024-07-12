@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result:OnLeave(function(id, playerI, laneI, wasReady)
+    result:OnLeave(function(ipid, id, playerI, laneI, wasReady)
         -- If Bog Bum leaves play while Ready, each opponent discards a random card.
 
         if not wasReady then

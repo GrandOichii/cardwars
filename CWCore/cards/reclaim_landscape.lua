@@ -29,15 +29,15 @@ function _Create()
                 return
             end
                 
-            local options = CW.IDs(Common.Buildings(playerI))
+            local ipids = CW.IPIDs(Common.Buildings(playerI))
             
-            if #options == 0 then
+            if #ipids == 0 then
 
                 return
             end
             
-            local buildingId = ChooseBuilding(playerI, options, 'Choose a building to move')
-            local building = GetBuilding(buildingId)
+            local buildingIPID = ChooseBuilding(playerI, ipids, 'Choose a building to move')
+            local building = GetBuilding(buildingIPID)
 
             local accept = YesNo(playerI, 'Move '..building.Original.Card.Template.Name..' to an empty lane?')
             if not accept then
@@ -46,7 +46,7 @@ function _Create()
 
             local newLane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')
 
-            MoveBuilding(buildingId, newLane)
+            MoveBuilding(buildingIPID, newLane)
 
         end
     )

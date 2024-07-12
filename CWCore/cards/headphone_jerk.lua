@@ -9,14 +9,14 @@ function _Create()
         if not replaced then
             return
         end
-        local options = CW.IDs(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.Card.ID))
+        local options = CW.IPIDs(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.IPID))
         if #options == 0 then
             return
         end
 
-        local id = ChooseCreature(playerI, options, 'Choose a creature to deal damage to')
+        local ipid = ChooseCreature(playerI, options, 'Choose a creature to deal damage to')
         
-        Common.Damage.ToCreatureByCreatureAbility(me.Original.Card.ID, playerI, id, 3)
+        Common.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, ipid, 3)
     end)
 
     return result

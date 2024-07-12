@@ -30,7 +30,7 @@ function _Create()
             local landscape = CW.Choose.Lane(playerI, landscapeFilter(playerI, laneI):Do(), 'Choose an empty Landscape to move '..creature.Original.Card.Template.Name..' to')
             assert(landscape ~= nil, 'failed to target landscapes in card '..me.Original.Card.Template.Name)
 
-            MoveCreature(creature.Original.Card.ID, landscape.Original.Idx)
+            MoveCreature(creature.Original.IPID, landscape.Original.Idx)
         end
     )
 

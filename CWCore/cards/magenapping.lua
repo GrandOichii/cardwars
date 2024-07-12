@@ -18,18 +18,18 @@ function _Create()
         function (id, playerI)
             -- Move target Creature to target empty Landscape you control.
 
-            local creatures = CW.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
             local empty = CW.Lanes(Common.LandscapesWithoutCreatures(playerI))
 
-            local creatureId = TargetCreature(playerI, creatures, 'Choose a creature to move/steal')
+            local ipid = TargetCreature(playerI, ipids, 'Choose a creature to move/steal')
             local lane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')
 
-            local creature = GetCreature(creatureId)
+            local creature = GetCreature(ipid)
             if creature.Original.ControllerI == playerI then
-                MoveCreature(creatureId, lane)
+                MoveCreature(ipid, lane)
                 return
             end
-            StealCreature(creature.Original.ControllerI, creatureId, lane)
+            StealCreature(creature.Original.ControllerI, ipid, lane)
         end
     )
 

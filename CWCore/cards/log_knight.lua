@@ -1,11 +1,10 @@
--- FLOOP >>> Put a Building from your hand below this Lane. (If it doesn't already have one.)
 -- Status: not tested
 
 function _Create()
     local result = CardWars:Creature()
 
     result:AddActivatedAbility({
-        text = '',
+        text = 'FLOOP >>> Put a Building from your hand below this Lane. (If it doesn\'t already have one.)',
         tags = {'floop'},
         checkF = function (me, playerI, laneI)
             return
@@ -14,7 +13,7 @@ function _Create()
                 #Common.BuildingsInHand(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)

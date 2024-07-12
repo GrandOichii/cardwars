@@ -23,8 +23,7 @@ function _Create()
             local creature = CW.Choose.Creature(playerI, filter(playerI, laneI):Do())
             assert(creature ~= nil, 'TODO write this error message later')
 
-            -- TODO change to IPID
-            MoveCreature(creature.Original.Card.ID, laneI)
+            MoveCreature(creature.Original.IPID, laneI)
         end
     )
 

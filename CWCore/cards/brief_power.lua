@@ -12,9 +12,9 @@ function _Create()
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Target Useless Swamp Creature you control has +2 ATK this turn.
-            local ids = CW.IDs(Common.TargetableBySpell(Common.CreaturesTyped(playerI, CardWars.Landscapes.UselessSwamp), playerI, id))
+            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.CreaturesTyped(playerI, CardWars.Landscapes.UselessSwamp), playerI, id))
 
-            local target = TargetCreature(playerI, ids, 'Choose a creature to buff')
+            local target = TargetCreature(playerI, ipids, 'Choose a creature to buff')
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     local c = GetCreatureOrDefault(target)

@@ -10,16 +10,16 @@ function _Create()
             return
                 args.controllerI == controllerI and
                 args.laneI ~= laneI and
-                GetCreature(args.Original.Card.ID):IsType(CardWars.Landscapes.SandyLands)
+                GetCreature(args.Original.IPID):IsType(CardWars.Landscapes.SandyLands)
         end,
         costF = function (me, controllerI, laneI, args)
             return true
         end,
         effectF = function (me, controllerI, laneI, args)
-            local id = me.Original.Card.ID
+            local ipid = me.Original.IPID
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local c = GetCreatureOrDefault(id)
+                    local c = GetCreatureOrDefault(ipid)
                     if c == nil then
                         return
                     end

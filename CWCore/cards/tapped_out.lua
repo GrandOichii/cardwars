@@ -13,8 +13,8 @@ function _Create()
         function (id, playerI)
         -- Target Creature you control has +2 ATK for each exhausted Creature you control (at the time you play this).
 
-        local ids = CW.IDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
-        local target = TargetCreature(playerI, ids, '')
+        local ipids = CW.IPIDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
+        local target = TargetCreature(playerI, ipids, '')
         local amount = #Common.ExhaustedCreatures(playerI)
         UntilEndOfTurn(function (layer)
             if layer == CardWars.ModificationLayers.ATK_AND_DEF then

@@ -11,11 +11,11 @@ function _Create()
             return
                 Common.CanFloop(me) and
                 GetPlayer(playerI).Original.ActionPoints >= 1 and
-                #Common.TargetableByBuilding(Common.AllPlayers.Creatures(), playerI, me.Original.Card.ID) >= 1
+                #Common.TargetableByBuilding(Common.AllPlayers.Creatures(), playerI, me.Original.IPID) >= 1
         end,
         costF = function (me, playerI, laneI)
             PayActionPoints(playerI, 1)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
@@ -23,8 +23,8 @@ function _Create()
             if #present > 0 then
                 return
             end
-            local ids = CW.IDs(Common.TargetableByBuilding(Common.AllPlayers.Creatures(), playerI, me.Original.Card.ID))
-            local target = TargetCreature(playerI, ids, 'Choose a creature to move/steal to lane '..laneI)
+            local ipids = CW.IPIDs(Common.TargetableByBuilding(Common.AllPlayers.Creatures(), playerI, me.Original.IPID))
+            local target = TargetCreature(playerI, ipids, 'Choose a creature to move/steal to lane '..laneI)
             local creature = GetCreature(target)
             local controllerI = creature.Original.ControllerI
             local oldLane = creature.LaneI
@@ -43,7 +43,7 @@ function _Create()
                 end)
             end
 
-            ReadyCard(creature.Original.Card.ID)
+            ReadyCard(creature.Original.IPID)
         end
     })
 

@@ -6,10 +6,10 @@ function _Create()
     Common.ActivatedAbilities.DiscardCard(result,
         'Discard a card >>> Herculeye has +4 ATK this turn. (Use only once during each of your turns.)',
         function (me, playerI, laneI)
-            local id = me.Original.Card.ID
+            local ipid = me.Original.IPID
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF  then
-                    local creature = GetCreatureOrDefault(id)
+                    local creature = GetCreatureOrDefault(ipid)
                     if creature == nil then
                         return
                     end

@@ -12,12 +12,12 @@ function _Create()
                 #Common.AllPlayers.BuildingsInLane(laneI) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = CW.IDs(Common.AllPlayers.BuildingsInLane(laneI))
-            local target = TargetBuilding(playerI, ids, 'Choose a building to destroy')
+            local ipids = CW.IPIDs(Common.AllPlayers.BuildingsInLane(laneI))
+            local target = TargetBuilding(playerI, ipids, 'Choose a building to destroy')
             DestroyBuilding(target)
         end
     })

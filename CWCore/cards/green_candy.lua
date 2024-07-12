@@ -12,9 +12,9 @@ function _Create()
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Heal or deal 1 Damage to target Creature.
-            local ids = CW.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
 
-            local target = TargetCreature(playerI, ids, 'Choose a creature')
+            local target = TargetCreature(playerI, ipids, 'Choose a creature')
             local creature = GetCreature(target)
             local accept = YesNo(playerI, 'Heal '..creature.Original.Card.Template.Name..'?')
             if not accept then

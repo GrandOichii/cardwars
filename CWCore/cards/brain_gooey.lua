@@ -12,7 +12,7 @@ function _Create()
 
         UntilEndOfTurn(function (layer)
             if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                local creature = GetCreatureOrDefault(me.Original.Card.ID)
+                local creature = GetCreatureOrDefault(me.Original.IPID)
                 if creature == nil then
                     return
                 end

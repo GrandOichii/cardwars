@@ -8,7 +8,7 @@ function _Create()
         function (me, playerI, laneI)
             local creatures = GetCreatures(1 - playerI)
             for _, creature in ipairs(creatures) do
-                Common.Damage.ToCreatureByCreatureAbility(me.Original.Card.ID, playerI, creature.Original.Card.ID, 1)
+                Common.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, creature.Original.IPID, 1)
             end
         end, 1
     )

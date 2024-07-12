@@ -12,7 +12,7 @@ function _Create()
                 GetPlayer(playerI).Original.ActionPoints >= 1
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             PayActionPoints(playerI, 1)
             return true
         end,

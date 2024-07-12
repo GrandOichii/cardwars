@@ -57,14 +57,14 @@ public class CreatureState : InPlayCardState {
             );
     }
 
-    public void OnDealtDamage(int amount, string? toId) {
+    public void OnDealtDamage(int amount, string? toIPID) {
         // TODO catch exceptions
         foreach (var effect in OnDealDamageEffects)
             effect.Call(
                 Original.ControllerI,
                 LaneI,
                 amount,
-                toId
+                toIPID
             );
     }
 

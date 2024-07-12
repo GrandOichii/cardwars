@@ -6,10 +6,10 @@ function _Create()
     Common.ActivatedAbilities.Floop(result,
         'FLOOP >>> Each adjacent Creature has +2 ATK this turn.',
         function (me, playerI, laneI)
-            local id = me.Original.Card.ID
+            local ipid = me.Original.IPID
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local c = GetCreatureOrDefault(id)
+                    local c = GetCreatureOrDefault(ipid)
                     if c == nil then
                         return
                     end

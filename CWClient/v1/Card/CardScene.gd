@@ -71,6 +71,8 @@ func _load_creature(card: Variant):
 
 func load_in_play_snapshot(card: Variant):
 	load_snapshot(card)
+	# TODO move to a separate label
+	IDLabel.text = card.IPID
 	# TODO add multiple landscape type display
 	if card.Type == 'Creature':
 		_load_in_play_creature(card)

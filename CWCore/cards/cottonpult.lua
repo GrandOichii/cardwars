@@ -5,8 +5,8 @@ function _Create()
 
     -- TODO not specified in the rules, but during testing this leads to an infinite loop
     local targets = function (me, playerI)
-        local id = me.Original.Card.ID
-        return Common.TargetableByBuilding(Common.AllPlayers.CreaturesExcept(id), playerI, id)
+        local ipid = me.Original.IPID
+        return Common.TargetableByBuilding(Common.AllPlayers.CreaturesExcept(ipid), playerI, ipid)
     end
 
     result:AddActivatedAbility({
@@ -19,18 +19,18 @@ function _Create()
                 #targets(me, playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = CW.IDs(targets(me, playerI))
-            local target = TargetCreature(playerI, ids, 'Choose creature to damage')
+            local ipids = CW.IPIDs(targets(me, playerI))
+            local target = TargetCreature(playerI, ipids, 'Choose creature to damage')
 
-            local myID = me.Original.Card.ID
-            Common.Damage.ToCreatureByCreatureAbility(myID, playerI, target, 1)
+            local myIPID = me.Original.IPID
+            Common.Damage.ToCreatureByCreatureAbility(myIPID, playerI, target, 1)
             if me.Original.Damage >= 5 then
-                HealDamage(myID, 1)
-                ReadyCard(myID)
+                HealDamage(myIPID, 1)
+                ReadyCard(myIPID)
             end
         end
     })

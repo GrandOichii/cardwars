@@ -13,7 +13,7 @@ function _Create()
         local lanes = CW.Lanes(empty)
         local choice = ChooseLandscape(controllerI, lanes, {}, 'Choose a landscape to move '..me.Original.Card.LogFriendlyName..' to')
         assert(choice[0] == controllerI, 'tried to choose opponent\'s card (Drained Cleric)')
-        MoveCreature(me.Original.Card.ID, choice[1])
+        MoveCreature(me.Original.IPID, choice[1])
     end)
 
     return result

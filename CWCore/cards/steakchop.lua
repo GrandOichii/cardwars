@@ -8,7 +8,7 @@ function _Create()
     Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
         local accept = YesNo(controllerI, 'Discard 2 cards? ('..me.Original.Card.Template.Name..' will be destroyed otherwise)')
         if not accept then
-            DestroyCreature(me.Original.Card.ID)
+            DestroyCreature(me.Original.IPID)
             return
         end
         Common.DiscardNCards(controllerI, 2)

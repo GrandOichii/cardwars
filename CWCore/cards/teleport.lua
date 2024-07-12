@@ -16,12 +16,12 @@ function _Create()
         function (id, playerI)
             -- Move one of your Creatures to one of your empty Lanes.
 
-            local creatures = CW.IDs(Common.Creatures(playerI))
+            local ipids = CW.IPIDs(Common.Creatures(playerI))
             local empty = CW.Lanes(Common.LandscapesWithoutCreatures(playerI))
 
-            local creatureId = ChooseCreature(playerI, creatures, 'Choose a creature to move')
+            local creatureIPID = ChooseCreature(playerI, ipids, 'Choose a creature to move')
             local lane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')
-            MoveCreature(creatureId, lane)
+            MoveCreature(creatureIPID, lane)
         end
     )
 

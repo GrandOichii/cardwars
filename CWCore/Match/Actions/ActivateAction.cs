@@ -12,13 +12,13 @@ public class ActivateAction : IAction
     public async Task Exec(GameMatch match, int playerI, string[] args)
     {
         // TODO validate
-        var cardId = args[1];
+        var cardIPID = args[1];
         var abilityI = int.Parse(args[2]);
 
         var pState = match.GetPlayerState(playerI);
         var player = pState.Original;
 
-        var card = pState.GetInPlayCard(cardId);
+        var card = pState.GetInPlayCard(cardIPID);
         var laneI = card.LaneI;
         var abilities = card.ActivatedAbilities;
     
@@ -63,7 +63,7 @@ public class ActivateAction : IAction
                     var canActivate = effect.CanActivate(pState, card, card.LaneI);
                     if (!canActivate) continue;
 
-                    result.Add($"{ActionWord()} {card.Original.Card.ID} {i}");
+                    result.Add($"{ActionWord()} {card.Original.IPID} {i}");
                 } catch (Exception e) {
                     throw new GameMatchException($"failed to activate check of ability {i} of card {card.Original.Card.Template.Name}", e);
                 }

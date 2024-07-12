@@ -13,7 +13,7 @@ function _Create()
         function (id, playerI)
             -- Destroy target creature
             
-            local ids = CW.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ids = CW.IPIDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
             local target = TargetCreature(playerI, ids, 'Choose a creature to destroy')
             DestroyCreature(target)
         end

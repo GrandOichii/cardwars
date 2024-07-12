@@ -204,12 +204,12 @@ public class PlayerState : IStateModifier {
         throw new GameMatchException($"Unrecognized card type: {card.Original.Template.Type}");
     }
     
-    public InPlayCardState GetInPlayCard(string id) {
-        return GetInPlayCardOrDefault(id) ?? throw new GameMatchException($"player {Original.LogFriendlyName} doesn't have an in-play card with id {id}");
+    public InPlayCardState GetInPlayCard(string ipid) {
+        return GetInPlayCardOrDefault(ipid) ?? throw new GameMatchException($"player {Original.LogFriendlyName} doesn't have an in-play card with ipid {ipid}");
     }
 
-    public InPlayCardState? GetInPlayCardOrDefault(string id) {
-        return GetInPlayCards().FirstOrDefault(c => c.Original.Card.ID == id);
+    public InPlayCardState? GetInPlayCardOrDefault(string ipid) {
+        return GetInPlayCards().FirstOrDefault(c => c.Original.IPID == ipid);
     }
 
     public List<InPlayCardState> GetInPlayCards() {

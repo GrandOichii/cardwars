@@ -63,10 +63,10 @@ func pick_lane_for_building(lane_idx: int):
 func can_pick_creature(card: Variant):
 	if last_update.Request != 'PickCreature':
 		return false
-	return card.ID in last_update.Args.values()
+	return card.IPID in last_update.Args.values()
 
 func pick_creature(card: Variant):
-	send(str(card.ID))
+	send(str(card.IPID))
 
 func can_pick_lane(player_idx: int, lane_idx: int) -> bool:
 	if last_update.Request != 'PickLane':
@@ -100,13 +100,13 @@ func can_activate(in_play_card: Variant) -> bool:
 		return false
 	var values = last_update.Args.values()
 	for v in values:
-		if v.begins_with('a ' + str(in_play_card.ID) + ' '):
+		if v.begins_with('a ' + str(in_play_card.IPID) + ' '):
 			return true
 	return false
 	
 func activate(in_play_card: Variant):
 	# !FIXME only activates the first ability of card
-	send('a ' + str(in_play_card.ID) + ' 0')
+	send('a ' + str(in_play_card.IPID) + ' 0')
 	
 func can_pick_card_in_hand(hand_idx: int) -> bool:
 	if last_update.Request != 'PickCardInHand':

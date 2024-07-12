@@ -12,7 +12,7 @@ function _Create()
         'Choose a creature to return to hand',
         function (id, playerI, target)
             local cost = target.Original.Card.Template.Cost
-            ReturnCreatureToOwnersHand(target.Original.Card.ID)
+            ReturnCreatureToOwnersHand(target.Original.IPID)
             AddActionPoints(playerI, cost)
         end
     )

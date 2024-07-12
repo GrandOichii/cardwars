@@ -73,10 +73,10 @@ public class ConsolePlayerController : IPlayerController
         System.Console.WriteLine();
         
         foreach (var lane in landscapes)
-            System.Console.Write("|" + (lane.Creature is not null ? $"{lane.Creature.Original.Card.Template.Name}[{lane.Creature.Original.Card.ID}]({lane.Creature.CanAttack}) [{lane.Creature.Attack} / {lane.Creature.Defense - lane.Creature.GetDamage()}]" : "").PadRight(40) + "|");
+            System.Console.Write("|" + (lane.Creature is not null ? $"{lane.Creature.Original.Card.Template.Name}[{lane.Creature.Original.IPID}]({lane.Creature.CanAttack}) [{lane.Creature.Attack} / {lane.Creature.Defense - lane.Creature.GetDamage()}]" : "").PadRight(40) + "|");
         System.Console.WriteLine();
         foreach (var lane in landscapes)
-            System.Console.Write("|" + (lane.Buildings.Count > 0 ? $"{lane.Buildings[0].Original.Card.Template.Name}[{lane.Buildings[0].Original.Card.ID}]" : "").PadRight(40) + "|");
+            System.Console.Write("|" + (lane.Buildings.Count > 0 ? $"{lane.Buildings[0].Original.Card.Template.Name}[{lane.Buildings[0].Original.IPID}]" : "").PadRight(40) + "|");
         System.Console.WriteLine();
     }
 
@@ -536,7 +536,7 @@ public class Program {
         var cm = new FileCardMaster();
         cm.Load("../CWCore/cards");
 
-        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/lemongrab.json"))
+        var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
             ?? throw new Exception("failed to read deck file")
         ;
         var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
@@ -602,7 +602,7 @@ public class Program {
         var cm = new FileCardMaster();
         cm.Load("../CWCore/cards");
 
-        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/lemongrab.json"))
+        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
             ?? throw new Exception("failed to read deck file")
         ;
 
@@ -620,7 +620,7 @@ public class Program {
     }
 
     public static async Task AddRandomPlayer(GameMatch match, int seed) {
-        var deck = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
+        var deck = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
             ?? throw new Exception("failed to read deck file")
         ;
         var controller = new RandomPlayerController(seed, 150);
@@ -649,7 +649,11 @@ public class Program {
         var rnd = new Random();
         while (true) {
             try {
-                await TcpMatch(rnd.Next());
+                if (seed == -1) {
+                    seed = rnd.Next();
+                }
+                System.Console.WriteLine("SEED: " + seed);
+                await TcpMatch(seed);
             } catch (Exception e) {
                 PrintException(e);
             }
@@ -746,7 +750,7 @@ public class Program {
             var cm = new FileCardMaster();
             cm.Load("../CWCore/cards");
 
-            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/lemongrab.json"))
+            var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
                 ?? throw new Exception("failed to read deck file")
             ;
             var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))

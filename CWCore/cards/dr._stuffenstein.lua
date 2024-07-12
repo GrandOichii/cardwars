@@ -13,18 +13,18 @@ function _Create()
                 #Common.AdjacentCreatures(playerI, laneI) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = CW.IDs(Common.Creatures(playerI))
+            local ipids = CW.IPIDs(Common.Creatures(playerI))
             if me.Original.Damage > 5 then
-                local choices = CW.IDs(Common.AdjacentCreatures(playerI, laneI))
+                local choices = CW.IPIDs(Common.AdjacentCreatures(playerI, laneI))
                 local target = ChooseCreature(playerI, choices, 'Choose creature to heal')
-                ids = {target}
+                ipids = {target}
             end
-            for _, id in ipairs(ids) do
-                HealDamage(id, 2)
+            for _, ipid in ipairs(ipids) do
+                HealDamage(ipid, 2)
             end
         end
     })

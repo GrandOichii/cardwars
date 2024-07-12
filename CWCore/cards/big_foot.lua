@@ -16,7 +16,7 @@ function _Create()
             return #Common.FaceDownLandscapes(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)

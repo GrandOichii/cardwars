@@ -83,33 +83,32 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public CreatureState GetCreature(string id) {
-        var result = _match.GetInPlayCreature(id);
+    public CreatureState GetCreature(string ipid) {
+        var result = _match.GetInPlayCreature(ipid);
         return result;
     }
 
     [LuaCommand]
-    public InPlayCardState GetBuilding(string id) {
-        var result = _match.GetInPlayBuilding(id);
-        return result;
-    }
-
-    // !FIXME for effects that use this, this could be a rules violation: buffing some creature +X Attack, then flickering it - this should remove the buff, but with this the buff will still apply. Solution: add a unique in-play ID.
-    [LuaCommand]
-    public CreatureState? GetCreatureOrDefault(string id) {
-        var result = _match.GetInPlayCreatureOrDefault(id);
+    public InPlayCardState GetBuilding(string ipid) {
+        var result = _match.GetInPlayBuilding(ipid);
         return result;
     }
 
     [LuaCommand]
-    public InPlayCardState? GetBuildingOrDefault(string id) {
-        var result = _match.GetInPlayBuildingOrDefault(id);
+    public CreatureState? GetCreatureOrDefault(string ipid) {
+        var result = _match.GetInPlayCreatureOrDefault(ipid);
         return result;
     }
 
     [LuaCommand]
-    public void DealDamageToCreature(string creatureId, int amount, LuaTable sourceTable) {
-        var creature = _match.GetInPlayCreature(creatureId);
+    public InPlayCardState? GetBuildingOrDefault(string ipid) {
+        var result = _match.GetInPlayBuildingOrDefault(ipid);
+        return result;
+    }
+
+    [LuaCommand]
+    public void DealDamageToCreature(string creatureIPID, int amount, LuaTable sourceTable) {
+        var creature = _match.GetInPlayCreature(creatureIPID);
         _match.DealDamageToCreature(creature, amount, sourceTable)
             .Wait();
     }
@@ -122,8 +121,8 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public void FloopCard(string id) {
-        var card = _match.GetInPlayCard(id); 
+    public void FloopCard(string ipid) {
+        var card = _match.GetInPlayCard(ipid); 
         _match.FloopCard(card)
             .Wait();
     }
@@ -202,14 +201,14 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public void MoveCreature(string creatureId, int toI) {
-        _match.MoveCreature(creatureId, toI)
+    public void MoveCreature(string creatureIPID, int toI) {
+        _match.MoveCreature(creatureIPID, toI)
             .Wait();
     } 
 
     [LuaCommand]
-    public void MoveBuilding(string buildingId, int toI) {
-        _match.MoveBuilding(buildingId, toI)
+    public void MoveBuilding(string buildingIPID, int toI) {
+        _match.MoveBuilding(buildingIPID, toI)
             .Wait();
     } 
 
@@ -304,8 +303,8 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public void ReadyCard(string id) {
-        var card = _match.GetInPlayCard(id);
+    public void ReadyCard(string ipid) {
+        var card = _match.GetInPlayCard(ipid);
         _match.ReadyCard(card.Original)
             .Wait();
     }
@@ -343,8 +342,8 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public void ReturnCreatureToOwnersHand(string id) {
-        var creature = _match.GetInPlayCreature(id);
+    public void ReturnCreatureToOwnersHand(string ipid) {
+        var creature = _match.GetInPlayCreature(ipid);
         creature.ReturnToOwnersHand(_match)
             .Wait();
     }
@@ -362,8 +361,8 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public void HealDamage(string creatureId, int amount) {
-        var creature = _match.GetInPlayCreature(creatureId);
+    public void HealDamage(string creatureIPID, int amount) {
+        var creature = _match.GetInPlayCreature(creatureIPID);
         _match.HealDamage(creature, amount)
             .Wait();
     }
@@ -414,8 +413,8 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public void SwapCreatures(string id1, string id2) {
-        _match.SwapCreatures(id1, id2)
+    public void SwapCreatures(string ipid1, string ipid2) {
+        _match.SwapCreatures(ipid1, ipid2)
             .Wait();
     }
 
@@ -440,15 +439,15 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public bool DestroyBuilding(string id) {
-        _match.DestroyBuilding(id)
+    public bool DestroyBuilding(string ipid) {
+        _match.DestroyBuilding(ipid)
             .Wait();
         return true;
     }
 
     [LuaCommand]
-    public bool DestroyCreature(string id) {
-        _match.DestroyCreature(id)
+    public bool DestroyCreature(string ipid) {
+        _match.DestroyCreature(ipid)
             .Wait();
         return true;
     }
@@ -478,8 +477,8 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public void StealCreature(int fromPlayerI, string creatureId, int toLaneI) {
-        _match.StealCreature(fromPlayerI, creatureId, toLaneI)
+    public void StealCreature(int fromPlayerI, string creatureIPID, int toLaneI) {
+        _match.StealCreature(fromPlayerI, creatureIPID, toLaneI)
             .Wait();
     }
 
@@ -616,14 +615,14 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
-    public bool DiscardFromPlay(string cardID) {
-        var building = _match.GetInPlayBuilding(cardID);
+    public bool DiscardFromPlay(string cardIPID) {
+        var building = _match.GetInPlayBuilding(cardIPID);
         var player = _match.GetPlayerState(building.Original.Card.OwnerI);
         var landscape = _match.GetPlayerState(building.Original.ControllerI).Landscapes[building.LaneI];
         var removed = landscape.Original.Buildings.Remove(building.Original);
 
         if (!removed) {
-            throw new GameMatchException($"tried to remove building with id {cardID} in landscape {landscape.GetName()} from play, where it is not present");
+            throw new GameMatchException($"tried to remove building with ipid {cardIPID} in landscape {landscape.GetName()} from play, where it is not present");
         }
 
         player.Original.LeavePlay(landscape, building)

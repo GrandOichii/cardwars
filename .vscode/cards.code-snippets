@@ -159,7 +159,7 @@
 		"prefix": "targetcreature",
 		"description": "target creature",
 		"body": [
-			"local ids = CW.IDs(Common.Targetable${1:BySpell}(${2:Common.AllPlayers.Creatures()}, $3))",
+			"local ids = CW.IPIDs(Common.Targetable${1:BySpell}(${2:Common.AllPlayers.Creatures()}, $3))",
             "local target = ${4:TargetCreature}(playerI, ids, '$5')",
 			"$0"
 		]

@@ -16,7 +16,7 @@ function _Create()
             return
         end
 
-        ReadyCard(creature.Original.Card.ID)
+        ReadyCard(creature.Original.IPID)
     end)
 
     return result

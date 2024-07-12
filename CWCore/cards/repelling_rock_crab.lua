@@ -8,12 +8,12 @@ function _Create()
         if from.type ~= CardWars.DamageSources.CREATURE then
             return
         end
-        local id = from.id
-        local c = GetCreatureOrDefault(id)
+        local ipid = from.ipid
+        local c = GetCreatureOrDefault(ipid)
         if c == nil then
             return
         end
-        Common.Damage.ToCreatureByCreatureAbility(me.Original.Card.ID, playerI, id, amount)
+        Common.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, id, amount)
     end)
 
     return result

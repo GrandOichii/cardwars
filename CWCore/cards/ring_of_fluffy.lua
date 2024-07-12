@@ -13,8 +13,8 @@ function _Create()
         function (id, playerI)
             -- Target Creature you control has +X ATK this turn, where X is the amount of Damage on it.
 
-            local creatures = CW.IDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
-            local target = TargetCreature(playerI, creatures, 'Choose a creature to buff')
+            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
+            local target = TargetCreature(playerI, ipids, 'Choose a creature to buff')
 
             UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then

@@ -87,6 +87,7 @@ public class InPlayCardState : IStateModifier {
     public void OnLeavePlay(LandscapeState from) {
         foreach (var effect in OnLeaveEffects)
             effect.Call(
+                Original.IPID,
                 Original.Card.ID,
                 Original.ControllerI, 
                 from.Original.Idx, 

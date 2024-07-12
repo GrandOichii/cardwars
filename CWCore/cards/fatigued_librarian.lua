@@ -20,7 +20,7 @@ function _Create()
     result:OnMove(function(me, playerI, fromI, toI, wasStolen)
         -- Whenever Weakened Warrior changes Lanes, ready it.
 
-        ReadyCard(me.Original.Card.ID)
+        ReadyCard(me.Original.IPID)
     end)
 
 

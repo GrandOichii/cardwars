@@ -12,9 +12,9 @@ function _Create()
                 #Common.Creatures(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
-            local ids = CW.IDs(Common.Creatures(playerI))
-            local target = ChooseCreature(playerI, ids, 'Choose a Creature to destroy')
+            FloopCard(me.Original.IPID)
+            local ipids = CW.IPIDs(Common.Creatures(playerI))
+            local target = ChooseCreature(playerI, ipids, 'Choose a Creature to destroy')
             DestroyCreature(target)
             return true
         end,

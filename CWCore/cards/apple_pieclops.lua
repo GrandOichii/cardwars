@@ -8,13 +8,13 @@ function _Create()
         local creatures = Common.Creatures(controllerI)
         for _, creature in ipairs(creatures) do
             local accept = YesNo(controllerI, 'Heal 1 damage to '..creature.Original.Card.Template.Name..'?')
-            local id = creature.Original.Card.ID
+            local ipid = creature.Original.IPID
             if accept then
-                HealDamage(id, 1)
+                HealDamage(ipid, 1)
             end
             accept = YesNo(controllerI, 'Deal 1 damage to '..creature.Original.Card.Template.Name..'?')
             if accept then
-                Common.Damage.ToCreatureByCreatureAbility(me.Original.Card.ID, controllerI, id, 1)
+                Common.Damage.ToCreatureByCreatureAbility(me.Original.IPID, controllerI, ipid, 1)
             end
         end
     end)

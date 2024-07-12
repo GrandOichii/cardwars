@@ -385,19 +385,19 @@ function Common.TargetableBySpell(tableArr, ownerI, spellId)
     })
 end
 
-function Common.TargetableByCreature(tableArr, ownerI, creatureId)
+function Common.TargetableByCreature(tableArr, ownerI, creatureIPID)
     return Common.Targetable(tableArr, {
         type = CardWars.TargetSources.CREATURE_ABILITY,
         ownerI = ownerI,
-        spellId = creatureId
+        ipid = creatureIPID
     })
 end
 
-function Common.TargetableByBuilding(tableArr, ownerI, buildingId)
+function Common.TargetableByBuilding(tableArr, ownerI, buildingIPID)
     return Common.Targetable(tableArr, {
         type = CardWars.TargetSources.BUILDING_ABILITY,
         ownerI = ownerI,
-        spellId = buildingId
+        ipid = buildingIPID
     })
 end
 
@@ -446,7 +446,7 @@ function Common.GainDefense(creature, amount)
         amount = creature.Original.Damage
     end
 
-    HealDamage(creature.Original.Card.ID, amount)
+    HealDamage(creature.Original.IPID, amount)
     creature.Original.Defense = creature.Original.Defense + def
 end
 
@@ -567,11 +567,11 @@ function Common.OpposingCreatures(playerI)
     return Common.Creatures(1 - playerI)
 end
 
-function Common.CreaturesExcept(playerI, id)
+function Common.CreaturesExcept(playerI, ipid)
     return Common.FilterCreatures(function (creature)
         return
             creature.Original.ControllerI == playerI and
-            creature.Original.Card.ID ~= id
+            creature.Original.IPID ~= ipid
     end)
 end
 
@@ -762,12 +762,12 @@ function Common.CreaturesPlayedThisTurnCount(playerI)
     return count
 end
 
-function Common.CreaturesTypedExcept(playerI, landscape, id)
+function Common.CreaturesTypedExcept(playerI, landscape, ipid)
     return Common.FilterCreatures(function (creature)
         return
             creature.Original.ControllerI == playerI and
             creature:IsType(landscape) and
-            creature.Original.Card.ID ~= id
+            creature.Original.IPID ~= ipid
     end)
 end
 
@@ -1104,7 +1104,7 @@ function Common.AllPlayers.CreaturesInLane(laneI)
     return Common.AllPlayers.CreaturesInLaneExcept(laneI, '__empty_id__')
 end
 
-function Common.AllPlayers.CreaturesInLaneExcept(laneI, id)
+function Common.AllPlayers.CreaturesInLaneExcept(laneI, ipid)
     local result = {}
     local players = GetPlayers()
 
@@ -1112,8 +1112,8 @@ function Common.AllPlayers.CreaturesInLaneExcept(laneI, id)
         local player = players[i]
         local lane = player.Landscapes[laneI]
         if lane.Creature ~= nil then
-            local cid = lane.Creature.Original.Card.ID
-            if cid ~= id then
+            local cipid = lane.Creature.Original.IPID
+            if cipid ~= ipid then
                 result[#result+1] = lane.Creature
             end
         end
@@ -1158,8 +1158,8 @@ function Common.AllPlayers.Creatures()
     return Common.FilterCreatures(function (_) return true end)
 end
 
-function Common.AllPlayers.CreaturesExcept(id)
-    return Common.FilterCreatures(function (creature) return creature.Original.Card.ID ~= id end)
+function Common.AllPlayers.CreaturesExcept(ipid)
+    return Common.FilterCreatures(function (creature) return creature.Original.IPID ~= ipid end)
 end
 
 function Common.AllPlayers.Buildings()
@@ -1266,7 +1266,7 @@ function Common.ActivatedAbilities.DestroyMe(card, text, effect)
             return true
         end,
         costF = function (me, playerI, laneI)
-            return DestroyCreature(me.Original.Card.ID)
+            return DestroyCreature(me.Original.IPID)
         end,
         effectF = effect
     })
@@ -1279,7 +1279,7 @@ function Common.ActivatedAbilities.DiscardFromPlay(card, text, effect)
             return true
         end,
         costF = function (me, playerI, laneI)
-            return DiscardFromPlay(me.Original.Card.ID)
+            return DiscardFromPlay(me.Original.IPID)
         end,
         effectF = effect
     })
@@ -1293,7 +1293,7 @@ function Common.ActivatedAbilities.Floop(card, text, effect)
             return Common.CanFloop(me)
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = effect
@@ -1445,7 +1445,7 @@ function Common.State.WhileAttackingCreature(card, defenderPredicate, effect)
             return
         end
 
-        if not GetCreature(me.Original.Card.ID).Original.Attacking then
+        if not GetCreature(me.Original.IPID).Original.Attacking then
             return
         end
 
@@ -1509,42 +1509,42 @@ end
 
 Common.Damage = {}
 
-function Common.Damage.ToCreatureBySpell(spellId, ownerI, creatureId, amount)
-    DealDamageToCreature(creatureId, amount, {
+function Common.Damage.ToCreatureBySpell(spellId, ownerI, creatureIPID, amount)
+    DealDamageToCreature(creatureIPID, amount, {
         type = CardWars.DamageSources.SPELL,
         id = spellId,
         ownerI = ownerI
     })
 end
 
-function Common.Damage.ToCreatureByHero(playerI, creatureId, amount)
-    DealDamageToCreature(creatureId, amount, {
-        type = CardWars.DamageSources.SPELL,
+function Common.Damage.ToCreatureByHero(playerI, creatureIPID, amount)
+    DealDamageToCreature(creatureIPID, amount, {
+        type = CardWars.DamageSources.HERO_ABILITY,
         playerI = playerI
     })
 end
 
-function Common.Damage.ToCreatureByBuildingAbility(buildingId, ownerI, creatureId, amount)
-    DealDamageToCreature(creatureId, amount, {
+function Common.Damage.ToCreatureByBuildingAbility(buildingIPID, ownerI, creatureIPID, amount)
+    DealDamageToCreature(creatureIPID, amount, {
         type = CardWars.DamageSources.BUILDING_ABILITY,
-        id = buildingId,
+        ipid = buildingIPID,
         ownerI = ownerI
     })
 end
 
-function Common.Damage.ToCreatureByCreatureAbility(fromId, controllerI, toId, amount)
-    DealDamageToCreature(toId, amount, {
+function Common.Damage.ToCreatureByCreatureAbility(creatureIPID, controllerI, toIPID, amount)
+    DealDamageToCreature(toIPID, amount, {
         type = CardWars.DamageSources.CREATURE_ABILITY,
         ownerI = controllerI,
-        id = fromId
+        ipid = creatureIPID
     })
 end
 
-function Common.Damage.ToCreatureByCreature(fromId, controllerI, toId, amount)
-    DealDamageToCreature(toId, amount, {
+function Common.Damage.ToCreatureByCreature(creatureIPID, controllerI, toIPID, amount)
+    DealDamageToCreature(toIPID, amount, {
         type = CardWars.DamageSources.CREATURE,
         ownerI = controllerI,
-        id = fromId
+        ipid = creatureIPID
     })
 end
 
@@ -1562,8 +1562,9 @@ end
 
 Common.Bounce = {}
 
-function Common.Bounce.ReturnToHandAndPlayForFree(playerI, id)
-    ReturnCreatureToOwnersHand(id)
+function Common.Bounce.ReturnToHandAndPlayForFree(playerI, ipid)
+    local id = GetCreature(ipid).Original.Card.ID
+    ReturnCreatureToOwnersHand(ipid)
     UpdateState()
 
     local idx = Common.HandCardIdx(playerI, id)
@@ -1951,6 +1952,7 @@ function CW.CardsInDiscardPileFilter(of)
 
     function result:OfLandscapeType(landscapeType)
         result.filters[#result.filters+1] = function (card)
+            print(card.Original.Template.Landscape, landscapeType)
             return card.Original.Template.Landscape == landscapeType
         end
         return self
@@ -1999,7 +2001,7 @@ function CW.LandscapeFilter()
 
     function result:CanBeFlippedDown(byI)
         result.filters[#result.filters+1] = function (landscape)
-            return landscape.CanFlipDown:Contains(byI)
+            return landscape.CanFlipDown:Contains(byI) and not landscape.Original.FaceDown
         end
         return self
     end
@@ -2023,8 +2025,8 @@ function CW.SpellTargetCreature(card, creatureFilterFunc, targetHint, effectF)
 
     card.EffectP:AddLayer(
         function (id, playerI)
-            local ids = CW.IDs(Common.TargetableBySpell(creatureFilterFunc(id, playerI), playerI, id))
-            local target = TargetCreature(playerI, ids, targetHint)
+            local ipids = CW.IPIDs(Common.TargetableBySpell(creatureFilterFunc(id, playerI), playerI, id))
+            local target = TargetCreature(playerI, ipids, targetHint)
             local creature = GetCreature(target)
             effectF(id, playerI, creature)
         end
@@ -2035,6 +2037,14 @@ function CW.IDs(tableArr)
     local result = {}
     for _, card in ipairs(tableArr) do
         result[#result+1] = card.Original.Card.ID
+    end
+    return result
+end
+    
+function CW.IPIDs(tableArr)
+    local result = {}
+    for _, card in ipairs(tableArr) do
+        result[#result+1] = card.Original.IPID
     end
     return result
 end
@@ -2076,10 +2086,10 @@ function CW.Creature.ParrottrooperEffect(card, thenEffect)
         local toPlayerI = lane[0]
         local toLaneI = lane[1]
         if toPlayerI == playerI then
-            MoveCreature(me.Original.Card.ID, toLaneI)
+            MoveCreature(me.Original.IPID, toLaneI)
             return
         end
-        StealCreature(playerI, me.Original.Card.ID, toLaneI)
+        StealCreature(playerI, me.Original.IPID, toLaneI)
 
         if thenEffect == nil then
             return
@@ -2111,14 +2121,14 @@ function CW.Creature.RockNRollerEffect(card)
         if landscape == nil then
             return
         end
-        RockNRollerEffectMemory[me.Original.Card.ID] = landscape
+        RockNRollerEffectMemory[me.Original.IPID] = landscape
         CW.Landscape.FlipDown(landscape.Original.OwnerI, landscape.Original.Idx)
 
     end)
 
-    card:OnLeave(function(id_, playerI_, laneI_, wasReady_)
+    card:OnLeave(function(ipid_, id_, playerI_, laneI_, wasReady_)
         -- When Rock 'n Roller leaves play, flip it face up.
-        local landscape = RockNRollerEffectMemory[id_]
+        local landscape = RockNRollerEffectMemory[ipid_]
         if landscape == nil then
             return
         end
@@ -2258,7 +2268,7 @@ function CW.ActivatedAbility.Cost.Floop()
 
     function result:CostFunc()
         return function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end
     end
@@ -2362,7 +2372,7 @@ function CW.Choose.Creature(playerI, creatures, hint)
     if #creatures == 0 then
         return nil
     end
-    local options = CW.IDs(creatures)
+    local options = CW.IPIDs(creatures)
     local choice = ChooseCreature(playerI, options, hint)
     local result = GetCreature(choice)
     return result

@@ -11,8 +11,8 @@ function _Create()
     )
 
     result.PayCostsP:AddLayer(function (playerI, handI)
-        local ids = CW.IDs(Common.ReadiedCreatures(playerI))
-        local target = TargetCreature(playerI, ids, 'Choose a creature to floop as an additional cost')
+        local ipids = CW.IPIDs(Common.ReadiedCreatures(playerI))
+        local target = TargetCreature(playerI, ipids, 'Choose a creature to floop as an additional cost')
 
         FloopCard(target)
         return nil, true

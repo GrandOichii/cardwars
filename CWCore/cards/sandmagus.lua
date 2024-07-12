@@ -15,7 +15,7 @@ function _Create()
             if not accept then
                 return false
             end
-            ReturnCreatureToOwnersHand(me.Original.Card.ID)
+            ReturnCreatureToOwnersHand(me.Original.IPID)
             return true
         end,
         effectF = function (me, controllerI, laneI)

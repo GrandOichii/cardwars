@@ -11,17 +11,17 @@ function _Create()
             return
                 args.laneI == laneI and
                 args.token == 'Frozen' and
-                #Common.TargetableByBuilding(Common.AllPlayers.Creatures(), controllerI, me.Original.Card.ID) > 0
+                #Common.TargetableByBuilding(Common.AllPlayers.Creatures(), controllerI, me.Original.IPID) > 0
         end,
         costF = function (me, controllerI, laneI, args)
             return true
         end,
         effectF = function (me, controllerI, laneI, args)
-            local ids = CW.IDs(Common.TargetableByBuilding(Common.AllPlayers.Creatures(), controllerI, me.Original.Card.ID))
+            local ipids = CW.IPIDs(Common.TargetableByBuilding(Common.AllPlayers.Creatures(), controllerI, me.Original.IPID))
 
-            local target = TargetCreature(controllerI, ids, 'Choose a creature to deal 2 damage to')
+            local target = TargetCreature(controllerI, ipids, 'Choose a creature to deal 2 damage to')
 
-            Common.Damage.ToCreatureByBuildingAbility(me.Original.Card.ID, controllerI, target, 2)
+            Common.Damage.ToCreatureByBuildingAbility(me.Original.IPID, controllerI, target, 2)
         end
     })
 

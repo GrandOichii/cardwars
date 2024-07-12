@@ -9,9 +9,9 @@ function _Create()
         CW.ActivatedAbility.Cost.Floop(),
         function (me, playerI, laneI)
             local cards = CW.CardsInDiscardPileFilter(playerI):OfLandscapeType(CardWars.Landscapes.Rainbow):Do()
+            local indicies = CW.Keys(cards)
 
-            if #cards > 0 then
-                local indicies = CW.Keys(cards)
+            if #indicies > 0 then
                 local idx = CW.Random(indicies)
                 ReturnToHandFromDiscard(playerI, idx)
             end

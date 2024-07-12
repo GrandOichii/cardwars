@@ -10,10 +10,10 @@ function _Create()
         checkF = function (me, playerI, laneI)
             return
                 Common.CanFloop(me) and
-                #Common.TargetableByCreature(Common.AllPlayers.Creatures(), playerI, me.Original.Card.ID) > 0
+                #Common.TargetableByCreature(Common.AllPlayers.Creatures(), playerI, me.Original.IPID) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
@@ -25,9 +25,9 @@ function _Create()
                     amount = amount + l.Original.CreaturesEnteredThisTurn.Count
                 end
             end
-            local ids = CW.IDs(Common.TargetableByCreature(Common.AllPlayers.Creatures(), playerI, me.Original.Card.ID))
-            local target = TargetCreature(playerI, ids, 'Choose a creature to deal damage to')
-            Common.Damage.ToCreatureByCreatureAbility(me.Original.Card.ID, playerI, target, amount)
+            local ipids = CW.IPIDs(Common.TargetableByCreature(Common.AllPlayers.Creatures(), playerI, me.Original.IPID))
+            local target = TargetCreature(playerI, ipids, 'Choose a creature to deal damage to')
+            Common.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, target, amount)
         end
     })
 

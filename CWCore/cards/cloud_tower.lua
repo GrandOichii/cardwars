@@ -38,17 +38,17 @@ function _Create()
                 #Common.Creatures(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local creatures = CW.IDs(Common.Creatures(playerI))
-            local creatureId = ChooseCreature(playerI, creatures, 'Choose a creature to move')
-            local creature = GetCreature(creatureId)
+            local ipids = CW.IPIDs(Common.Creatures(playerI))
+            local ipid = ChooseCreature(playerI, ipids, 'Choose a creature to move')
+            local creature = GetCreature(ipid)
             if creature.LaneI == laneI then
                 return
             end
-            MoveCreature(creatureId, laneI)
+            MoveCreature(ipid, laneI)
         end
     })
 

@@ -12,7 +12,7 @@ function _Create()
                 :Do()
 
             for _, creature in ipairs(creatures) do
-                Common.Damage.ToCreatureBySpell(id, playerI, creature.Original.Card.ID, 1)
+                Common.Damage.ToCreatureBySpell(id, playerI, creature.Original.IPID, 1)
             end
         end
     )

@@ -14,12 +14,12 @@ function _Create()
                 #Common.ExhaustedCreatures(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ids = CW.IDs(Common.ExhaustedCreatures(playerI))
-            local target = ChooseCreature(playerI, ids, '')
+            local ipids = CW.IPIDs(Common.ExhaustedCreatures(playerI))
+            local target = ChooseCreature(playerI, ipids, '')
             MoveCreature(target, laneI)
         end
     })

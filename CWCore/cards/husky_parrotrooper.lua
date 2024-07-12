@@ -8,7 +8,7 @@ function _Create()
         result,
         function (me)
             SoftUpdateState()
-            local newMe = GetCreature(me.Original.Card.ID)
+            local newMe = GetCreature(me.Original.IPID)
             CW.Landscape.FlipDown(newMe.Original.ControllerI, newMe.LaneI)
         end
     )

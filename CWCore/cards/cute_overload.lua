@@ -12,7 +12,7 @@ function _Create()
             for _, creature in ipairs(creatures) do
                 local accept = YesNo(playerI, 'Destroy '..creature.Original.Card.Template.Name..'?')
                 if accept then
-                    DestroyCreature(creature.Original.Card.ID)
+                    DestroyCreature(creature.Original.IPID)
                     count = count + 1
                 end
             end

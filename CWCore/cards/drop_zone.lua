@@ -11,7 +11,7 @@ function _Create()
         end,
         'Choose a creature to return to hand',
         function (id, playerI, target)
-            ReturnCreatureToOwnersHand(target.Original.Card.ID)
+            ReturnCreatureToOwnersHand(target.Original.IPID)
         end
     )
 

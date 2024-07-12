@@ -10,14 +10,14 @@ function _Create()
         checkF = function (me, playerI, laneI)
             return
                 GetPlayer(playerI).Original.ActionPoints > 0 and
-                #Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.Card.ID) > 0
+                #Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.IPID) > 0
         end,
         costF = function (me, playerI, laneI)
             PayActionPoints(playerI, 1)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local options = CW.IDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.Card.ID))
+            local options = CW.IPIDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.IPID))
 
             local target = TargetCreature(playerI, options, 'Choose a creature to debuff')
 

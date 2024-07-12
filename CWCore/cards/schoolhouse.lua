@@ -13,12 +13,12 @@ function _Create()
                 #Common.CreaturesInLane(playerI, laneI) == 1
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
             local creature = Common.CreaturesInLane(playerI, laneI)[1]
-            local id = creature.Original.Card.ID
+            local ipid = creature.Original.IPID
 
             local abilities = Common.FloopAbilitiesOfCreaturesInDiscard(playerI)
             local a = nil
@@ -29,7 +29,7 @@ function _Create()
             end
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ABILITY_GRANTING_REMOVAL then
-                    local c = GetCreatureOrDefault(id)
+                    local c = GetCreatureOrDefault(ipid)
                     if c == nil then
                         return
                     end

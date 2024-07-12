@@ -1,151 +1,146 @@
-
-[gd_resource type="Resource" script_class="Deck" load_steps=100 format=3]
+[gd_resource type="Resource" script_class="Deck" load_steps=31 format=3 uid="uid://8hgo58kfka4v"]
 
 [ext_resource type="Script" path="res://v1/Deck/DeckCard.gd" id="1_noyiv"]
 [ext_resource type="Script" path="res://v1/Deck/Deck.gd" id="1_x3p7u"]
 [ext_resource type="Script" path="res://v1/Deck/DeckLandscape.gd" id="2_j2wsj"]
-    
+
 [sub_resource type="Resource" id="Resource_1"]
 script = ExtResource("1_noyiv")
 card = "Weary Trading Post"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("1_noyiv")
 card = "Wake Up Call"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_3"]
 script = ExtResource("1_noyiv")
 card = "Drained Cleric"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_4"]
 script = ExtResource("1_noyiv")
 card = "Cute Overload"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_5"]
 script = ExtResource("1_noyiv")
 card = "Industrial Assassin"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_6"]
 script = ExtResource("1_noyiv")
 card = "Spazzy Cola"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_7"]
 script = ExtResource("1_noyiv")
 card = "Tapped Out"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_8"]
 script = ExtResource("1_noyiv")
 card = "Fancy Spa"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_9"]
 script = ExtResource("1_noyiv")
 card = "Magenapping"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_10"]
 script = ExtResource("1_noyiv")
 card = "Tired Wombat"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_11"]
 script = ExtResource("1_noyiv")
 card = "Woadic Ring Leader"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_12"]
 script = ExtResource("1_noyiv")
 card = "Fatigued Librarian"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_13"]
 script = ExtResource("1_noyiv")
 card = "Weakened Warrior"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_14"]
 script = ExtResource("1_noyiv")
 card = "Frosted Deanimator"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_15"]
 script = ExtResource("1_noyiv")
 card = "Frosted Snowwoman"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_16"]
 script = ExtResource("1_noyiv")
 card = "Glacier Racer"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_17"]
 script = ExtResource("1_noyiv")
 card = "Icy Commando"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_18"]
 script = ExtResource("1_noyiv")
 card = "Icy Intruder"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_19"]
 script = ExtResource("1_noyiv")
 card = "Snow Baller"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_20"]
 script = ExtResource("1_noyiv")
 card = "The Cooler"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_21"]
 script = ExtResource("1_noyiv")
 card = "Icy Infiltrator"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_22"]
 script = ExtResource("1_noyiv")
 card = "Snowblower"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_23"]
 script = ExtResource("1_noyiv")
 card = "Snowvalanche"
 amount = 2
-        
+
 [sub_resource type="Resource" id="Resource_24"]
 script = ExtResource("1_noyiv")
 card = "Floating Ice Palace"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_25"]
 script = ExtResource("1_noyiv")
 card = "Snow Training Camp"
 amount = 1
-        
+
 [sub_resource type="Resource" id="Resource_l1"]
 script = ExtResource("2_j2wsj")
 landscape = "IcyLands"
 amount = 2
 
-        
 [sub_resource type="Resource" id="Resource_l2"]
 script = ExtResource("2_j2wsj")
 landscape = "Blue Plains"
 amount = 2
 
-        
-
 [resource]
 script = ExtResource("1_x3p7u")
 name = "gunter"
-    
 cards = Array[ExtResource("1_noyiv")]([SubResource("Resource_1"), SubResource("Resource_2"), SubResource("Resource_3"), SubResource("Resource_4"), SubResource("Resource_5"), SubResource("Resource_6"), SubResource("Resource_7"), SubResource("Resource_8"), SubResource("Resource_9"), SubResource("Resource_10"), SubResource("Resource_11"), SubResource("Resource_12"), SubResource("Resource_13"), SubResource("Resource_14"), SubResource("Resource_15"), SubResource("Resource_16"), SubResource("Resource_17"), SubResource("Resource_18"), SubResource("Resource_19"), SubResource("Resource_20"), SubResource("Resource_21"), SubResource("Resource_22"), SubResource("Resource_23"), SubResource("Resource_24"), SubResource("Resource_25")])
 landscapes = Array[ExtResource("2_j2wsj")]([SubResource("Resource_l1"), SubResource("Resource_l2")])

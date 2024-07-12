@@ -11,7 +11,7 @@ function _Create()
             local creatures = Common.AllPlayers.CreaturesWithFrozenTokens()
             for _, creature in ipairs(creatures) do
                 if creature.Original.ControllerI ~= playerI then
-                    Common.Damage.ToCreatureBySpell(id, playerI, creature.Original.Card.ID, 2)
+                    Common.Damage.ToCreatureBySpell(id, playerI, creature.Original.IPID, 2)
                 end
             end
         end

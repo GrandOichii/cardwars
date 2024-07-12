@@ -8,19 +8,19 @@ function _Create()
         tags = {'floop'},
 
         checkF = function (me, playerI, laneI)
-            local id = me.Original.Card.ID
+            local ipid = me.Original.IPID
             return
                 Common.CanFloop(me) and
-                #Common.TargetableByCreature(Common.CreaturesExcept(playerI, id), playerI, id) > 0
+                #Common.TargetableByCreature(Common.CreaturesExcept(playerI, ipid), playerI, ipid) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local id = me.Original.Card.ID
-            local ids = CW.IDs(Common.TargetableByCreature(Common.CreaturesExcept(playerI, id), playerI, id))
-            local target = TargetCreature(playerI, ids, 'Choose creatures to swap lanes with '..me.Original.Card.Template.Name)
+            local ipid = me.Original.IPID
+            local ipids = CW.IPIDs(Common.TargetableByCreature(Common.CreaturesExcept(playerI, ipid), playerI, ipid))
+            local target = TargetCreature(playerI, ipids, 'Choose creatures to swap lanes with '..me.Original.Card.Template.Name)
 
             SwapCreatures(id, target)
         end

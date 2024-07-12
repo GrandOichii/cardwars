@@ -1,20 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://dgrfhj1ovlkyv"]
+[gd_scene load_steps=15 format=3 uid="uid://dgrfhj1ovlkyv"]
 
 [ext_resource type="PackedScene" uid="uid://bgpq7x7fblgp2" path="res://v1/Match/MatchScene.tscn" id="1_6newf"]
 [ext_resource type="Script" path="res://v1/TestMatch.gd" id="1_sfwn3"]
-[ext_resource type="Resource" uid="uid://dnh7o5kv4hg66" path="res://v1/Deck/finn.tres" id="2_6r2ga"]
+[ext_resource type="Resource" uid="uid://bxaql8wy4p0ru" path="res://v1/Deck/finn.tres" id="2_6r2ga"]
 [ext_resource type="PackedScene" uid="uid://fh8r4qhsop8j" path="res://v1/Connection/Wrappers/TcpConnectionWrapper.tscn" id="2_fgw36"]
-[ext_resource type="Resource" uid="uid://d1lofwrelbqgf" path="res://v1/Deck/lumpy.tres" id="2_ibkj7"]
+[ext_resource type="Resource" uid="uid://djdcsi2xv1mha" path="res://v1/Deck/lumpy.tres" id="2_ibkj7"]
 [ext_resource type="PackedScene" uid="uid://c6n3iw6bu4tlg" path="res://v1/Match/Hand/HandCardScene.tscn" id="2_u44bo"]
-[ext_resource type="Resource" uid="uid://dubc308h4yt2i" path="res://v1/Deck/iceking.tres" id="2_y7n1o"]
-[ext_resource type="Resource" uid="uid://bw1kkb5p8kd1i" path="res://v1/Deck/rainicorn.tres" id="2_yphpd"]
-[ext_resource type="Resource" uid="uid://bcs73ddh2gplm" path="res://v1/Deck/bmo.tres" id="4_fr6nk"]
-[ext_resource type="Resource" uid="uid://duf4d5wjxlf0s" path="res://v1/Deck/bubblegum.tres" id="5_10p2p"]
+[ext_resource type="Resource" uid="uid://bdcsgoevdtwkl" path="res://v1/Deck/iceking.tres" id="2_y7n1o"]
+[ext_resource type="Resource" uid="uid://bg55drsoe2mf1" path="res://v1/Deck/rainicorn.tres" id="2_yphpd"]
+[ext_resource type="Resource" uid="uid://dhno4pywhk7xo" path="res://v1/Deck/bmo.tres" id="4_fr6nk"]
+[ext_resource type="Resource" uid="uid://88rwipfug7yh" path="res://v1/Deck/bubblegum.tres" id="5_10p2p"]
 [ext_resource type="PackedScene" uid="uid://m6ws3lvboo8e" path="res://v1/ControllerScene.tscn" id="5_qdo4q"]
-[ext_resource type="Resource" uid="uid://dcgyjsjc22365" path="res://v1/Deck/gunter.tres" id="6_lpw1n"]
-[ext_resource type="Resource" uid="uid://dfh5eyorb514r" path="res://v1/Deck/jake.tres" id="7_dc2p8"]
-[ext_resource type="Resource" uid="uid://6kldqqes88kk" path="res://v1/Deck/marceline.tres" id="9_wtd6b"]
-[ext_resource type="Resource" uid="uid://bibnaxrkpddra" path="res://v1/Deck/lemongrab.tres" id="11_1eskm"]
+[ext_resource type="Resource" uid="uid://8hgo58kfka4v" path="res://v1/Deck/gunter.tres" id="6_lpw1n"]
+[ext_resource type="Resource" uid="uid://csokmoabg0pxf" path="res://v1/Deck/jake.tres" id="7_dc2p8"]
+[ext_resource type="Resource" uid="uid://3q380j63ny2b" path="res://v1/Deck/marceline.tres" id="9_wtd6b"]
 
 [node name="TestMatch" type="Control"]
 layout_mode = 3
@@ -25,7 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_sfwn3")
-decks = Array[Resource("res://v1/Deck/Deck.gd")]([ExtResource("11_1eskm"), ExtResource("2_y7n1o"), ExtResource("4_fr6nk"), ExtResource("5_10p2p"), ExtResource("6_lpw1n"), ExtResource("7_dc2p8"), ExtResource("2_ibkj7"), ExtResource("9_wtd6b"), ExtResource("2_yphpd"), ExtResource("2_6r2ga")])
+decks = Array[Resource("res://v1/Deck/Deck.gd")]([ExtResource("2_6r2ga"), ExtResource("2_y7n1o"), ExtResource("4_fr6nk"), ExtResource("5_10p2p"), ExtResource("6_lpw1n"), ExtResource("7_dc2p8"), ExtResource("2_ibkj7"), ExtResource("9_wtd6b"), ExtResource("2_yphpd")])
 HandCardPS = ExtResource("2_u44bo")
 
 [node name="Connection" parent="." instance=ExtResource("2_fgw36")]

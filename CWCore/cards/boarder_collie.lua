@@ -12,13 +12,13 @@ function _Create()
                 #Common.LandscapesWithoutCreatures(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
             local empty = CW.Lanes(Common.LandscapesWithoutCreatures(playerI))
             local lane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')
-            MoveCreature(me.Original.Card.ID, lane)
+            MoveCreature(me.Original.IPID, lane)
             for i = 0, 1 do
                 local l = STATE.Players[i].Landscapes[lane]
                 if l:IsFrozen() then

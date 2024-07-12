@@ -211,11 +211,11 @@ public class Player {
         await Match.ReloadState();
         if (!Match.Active) return;
 
-        var state = Match.GetInPlayCreature(card.ID);
+        var state = Match.GetInPlayCreatureByID(card.ID);
         state.OnEnterPlay(replaced);
 
         await Match.Emit("creature_enter", new() {
-            {"id", creature.Card.ID},
+            {"ipid", creature.IPID},
             {"Original", creature},
             {"controllerI", Idx},
             {"laneI", laneI},
@@ -243,11 +243,11 @@ public class Player {
         await Match.ReloadState();
         if (!Match.Active) return;
 
-        var state = Match.GetInPlayBuilding(card.ID);
+        var state = Match.GetInPlayBuildingByID(card.ID);
         state.OnEnterPlay(replaced);
 
         await Match.Emit("building_enter", new() {
-            {"id", building.Card.ID},
+            {"ipid", building.IPID},
             {"Original", building},
             {"controllerI", Idx},
             {"laneI", laneI},

@@ -6,6 +6,7 @@ function _Create()
     -- If one or more other SandyLand Creatures enter play during you turn, Wall of Sand has +2 ATK this turn.
     CW.State.ModATKDEF(result, function (me)
         -- TODO? the "enter play during your turn" kinda scares me
+        -- TODO? does this need to change to IPID
         local id = me.Original.Card.ID
         for i = 0, 1 do
             local p = STATE.Players[i]

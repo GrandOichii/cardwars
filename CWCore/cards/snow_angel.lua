@@ -10,7 +10,7 @@ function _Create()
             local amount = #landscapes
             local creatures = Common.Creatures(playerI)
             for _, creature in ipairs(creatures) do
-                HealDamage(creature.Original.Card.ID, amount)
+                HealDamage(creature.Original.IPID, amount)
             end
         end
     )

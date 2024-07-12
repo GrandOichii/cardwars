@@ -15,18 +15,18 @@ function _Create()
                 #Common.CreaturesInLane(playerI, laneI) == 1
         end,
         costF = function (me, playerI, laneI)
-            FloopCard(me.Original.Card.ID)
+            FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local id = CW.IDs(Common.CreaturesInLane(playerI, laneI))[1]
-            local creature = GetCreature(id)
+            local ipid = CW.IPIDs(Common.CreaturesInLane(playerI, laneI))[1]
+            local creature = GetCreature(ipid)
             local accept = YesNo(playerI, 'Heal 1 damage from '..creature.Original.Card.Template.Name..'?')
             if accept then
-                HealDamage(id, 1)
+                HealDamage(ipid, 1)
                 return
             end
-            Common.Damage.ToCreatureByBuildingAbility(me.Original.Card.ID, playerI, id, 1)
+            Common.Damage.ToCreatureByBuildingAbility(me.Original.IPID, playerI, ipid, 1)
         end
     })
 

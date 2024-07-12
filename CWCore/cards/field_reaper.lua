@@ -18,7 +18,7 @@ function _Create()
 
     -- When Field Reaper enters play, move target Creature in this Lane to an adjacent empty Lane on your side.
     result:OnEnter(function(me, playerI, laneI, replaced)
-        local ids = CW.IDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.Card.ID))
+        local ipids = CW.IPIDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.IPID))
         local adjacent = Common.AdjacentLandscapes(playerI, laneI)
         local options = {}
         for _, landscape in ipairs(adjacent) do
@@ -29,12 +29,12 @@ function _Create()
         if #options == 0 then
             return
         end
-        local target = TargetCreature(playerI, ids, 'Choose a creature to move/steal')
+        local target = TargetCreature(playerI, ipids, 'Choose a creature to move/steal')
         local creature = GetCreature(target)
         local moveTo = ChooseLandscape(playerI, options, {}, 'Choose a landscape to move '..creature.Original.Card.LogFriendlyName..' to')
 
         if creature.Original.ControllerI == playerI then
-            MoveCreature(creature.Original.Card.ID, moveTo[1])
+            MoveCreature(creature.Original.IPID, moveTo[1])
             return
         end
         StealCreature(1 - playerI, target, moveTo[1])

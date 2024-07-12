@@ -14,10 +14,10 @@ function _Create()
             -- Deal 1 Damage to target creature for each Cornfield Landscape you control.
 
             local amount = Common.CountLandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
-            local creatureIds = CW.IDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
 
-            local creatureId = ChooseCreature(playerI, creatureIds, 'Choose a creature to deal damage to')
-            Common.Damage.ToCreatureBySpell(id, playerI, creatureId, amount)
+            local ipid = ChooseCreature(playerI, ipids, 'Choose a creature to deal damage to')
+            Common.Damage.ToCreatureBySpell(id, playerI, ipid, amount)
         end
     )
 

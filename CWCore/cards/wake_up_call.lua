@@ -9,7 +9,7 @@ function _Create()
 
             local creatures = Common.Creatures(playerI)
             for _, creature in ipairs(creatures) do
-                ReadyCard(creature.Original.Card.ID)
+                ReadyCard(creature.Original.IPID)
             end
         end
     )

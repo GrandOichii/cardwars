@@ -8,7 +8,7 @@ function _Create()
     
         local adjacent = Common.AdjacentCreatures(playerI, laneI)
         for _, creature in ipairs(adjacent) do
-            HealDamage(creature.Original.Card.ID, 1)
+            HealDamage(creature.Original.IPID, 1)
         end
     end)
 

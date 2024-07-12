@@ -7,7 +7,7 @@ function _Create()
         result,
         'Discard a card >>> Heal 1 Damage from Squatting Bald Man. (Use any number of times during each of your turns.)',
         function (me, playerI, laneI)
-            HealDamage(me.Original.Card.ID, 1)
+            HealDamage(me.Original.IPID, 1)
         end
     )
 
