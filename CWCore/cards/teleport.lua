@@ -3,25 +3,36 @@
 function _Create()
     local result = CardWars:Spell()
 
-    -- TODO? does this spell target
-    Common.AddRestriction(result,
-        function (id, playerI)
-            return nil,
-                #Common.Creatures(playerI) > 0 and
-                #Common.LandscapesWithoutCreatures(playerI) > 0
-        end
-    )
-
-    result.EffectP:AddLayer(
-        function (id, playerI)
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'creature',
+                target = CW.Spell.Target.Creature(
+                    function (id, playerI)
+                        return CW.CreatureFilter():ControlledBy(playerI):Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a creature to move'
+                    end
+                )
+            },
+            {
+                key = 'lane',
+                target = CW.Spell.Target.Lane(
+                    function (id, playerI)
+                        return CW.LaneFilter(playerI):Empty():Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose an empty Lane to move '..targets.creature.Original.Card.Template.Name..' to'
+                    end
+                )
+            }
+        },
+        function (id, playerI, targets)
             -- Move one of your Creatures to one of your empty Lanes.
 
-            local ipids = CW.IPIDs(Common.Creatures(playerI))
-            local empty = CW.Lanes(Common.LandscapesWithoutCreatures(playerI))
-
-            local creatureIPID = ChooseCreature(playerI, ipids, 'Choose a creature to move')
-            local lane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')
-            MoveCreature(creatureIPID, lane)
+            MoveCreature(targets.creature.Original.IPID, targets.lane)
         end
     )
 

@@ -1839,6 +1839,47 @@ function CW.CreatureFilter()
     return result
 end
 
+function CW.FilterLanes(of, filter)
+    local result = {}
+
+    local landscapes = STATE.Players[of].Landscapes
+    for i = 0, landscapes.Count - 1 do
+        local landscape = landscapes[i]
+        if filter == nil or filter(landscape) then
+            result[#result+1] = landscape
+        end
+    end
+
+    return result
+end
+
+function CW.LaneFilter(of)
+    local result = {}
+
+    result.filters = {}
+
+    function result:Do()
+        local filter = function (landscape)
+            for _, f in ipairs(self.filters) do
+                if not f(landscape) then
+                    return false
+                end
+            end
+            return true
+        end
+        return CW.FilterLanes(of, filter)
+    end
+
+    function result:Empty()
+        result.filters[#result.filters+1] = function (landscape)
+            return landscape.Creature == nil
+        end
+        return self
+    end
+
+    return result
+end
+
 function CW.BuildingFilter()
     local result = {}
 
@@ -2199,6 +2240,70 @@ function CW.Discard.NCards(playerI, amount, hintFunc)
         CW.Discard.ACard(playerI, hintFunc(amount - i + 1))
         UpdateState()
     end
+end
+
+CW.Spell = {}
+
+function CW.Spell.AddEffect(card, targetTable, effectFunc)
+    Common.AddRestriction(card,
+        function (id, playerI)
+            for _, target in ipairs(targetTable) do
+
+                if #target.target:GetOptions(id, playerI) == 0 then
+                    return nil, false
+                end
+            end
+            return nil, true
+        end
+    )
+
+    card.EffectP:AddLayer(
+        function (id, playerI)
+            local targets = {}
+            for _, target in ipairs(targetTable) do
+                targets[target.key] = target.target:Do(id, playerI, targets)
+            end
+
+            effectFunc(id, playerI, targets)
+        end
+    )
+end
+
+CW.Spell.Target = {}
+
+function CW.Spell.Target.Creature(targetFunc, hintFunc)
+    local result = {}
+
+    function result:GetOptions(id, playerI)
+        return Common.TargetableBySpell(targetFunc(id, playerI), playerI, id)
+    end
+
+    function result:Do(id, playerI, targets)
+        local options = CW.IPIDs(self:GetOptions(id, playerI))
+        local hint = hintFunc(id, playerI, targets)
+        local target = TargetCreature(playerI, options, hint)
+        return GetCreature(target)
+    end
+
+    return result
+end
+
+
+function CW.Spell.Target.Lane(targetFunc, hintFunc)
+    local result = {}
+
+    function result:GetOptions(id, playerI)
+        return targetFunc(id, playerI)
+    end
+
+    function result:Do(id, playerI, targets)
+        local options = CW.Lanes(self:GetOptions(id, playerI))
+        local hint = hintFunc(id, playerI, targets)
+        local target = ChooseLane(playerI, options, hint)
+        return target
+    end
+
+    return result
 end
 
 CW.ActivatedAbility = {}
