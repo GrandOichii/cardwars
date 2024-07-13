@@ -7,7 +7,7 @@ function _Create()
         function (id, playerI)
             -- Destroy any number of Creatures you control. Draw a card for each Creature destroyed this way.
 
-            local creatures = Common.Creatures(playerI)
+            local creatures = CW.CreatureFilter():ControlledBy(playerI):Do()
             local count = 0
             for _, creature in ipairs(creatures) do
                 local accept = YesNo(playerI, 'Destroy '..creature.Original.Card.Template.Name..'?')

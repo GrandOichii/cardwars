@@ -7,7 +7,7 @@ function _Create()
         function (playerI)
             -- Ready each Creature you control.
 
-            local creatures = Common.Creatures(playerI)
+            local creatures = CW.CreatureFilter():ControlledBy(playerI):Do()
             for _, creature in ipairs(creatures) do
                 ReadyCard(creature.Original.IPID)
             end

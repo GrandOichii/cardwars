@@ -1257,6 +1257,13 @@ function CW.CreatureFilter()
         end
         return self
     end
+
+    function result:Exhausted()
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original:IsExhausted()
+        end
+        return self
+    end
     
     function result:DamageEq(damage)
         result.filters[#result.filters+1] = function (creature)
@@ -2106,9 +2113,11 @@ function CW.ActivatedAbility.Cost.Floop()
     return result
 end
 
-function CW.ActivatedAbility.Cost.SacrificeACreature(fitlerCreationFunc, hint)
+function CW.ActivatedAbility.Cost.SacrificeACreature(fitlerCreationFunc, hintFunc)
     local result = {}
-    hint = hint or 'Choose a Creature to sacrifice'
+    hintFunc = hintFunc or function (me, playerI, laneI)
+        return 'Choose a Creature to sacrifice to '..me.Original.Card.Template.Name
+    end 
 
     function result:_SacTargets(me, playerI, laneI)
         local f = fitlerCreationFunc(me, playerI, laneI)
@@ -2133,6 +2142,7 @@ function CW.ActivatedAbility.Cost.SacrificeACreature(fitlerCreationFunc, hint)
     function result:CostFunc()
         return function (me, playerI, laneI)
             local ipids = CW.IPIDs(self:_SacTargets(me, playerI, laneI))
+            local hint = hintFunc(me, playerI, laneI)
             local target = TargetCreature(playerI, ipids, hint)
             DestroyCreature(target)
             return true

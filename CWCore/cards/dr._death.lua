@@ -10,8 +10,7 @@ function _Create()
             CW.ActivatedAbility.Cost.SacrificeACreature(
                 function (me, playerI, laneI)
                     return CW.CreatureFilter():Except(me.Original.IPID)
-                end,
-                'Choose a creature to sacrifice to Dr. Death'
+                end
             ),
             CW.ActivatedAbility.Cost.Floop(),
             CW.ActivatedAbility.Cost.Target.Creature(

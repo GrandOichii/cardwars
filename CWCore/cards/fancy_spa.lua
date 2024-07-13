@@ -5,17 +5,17 @@ function _Create()
 
     -- At the start of your Fight Phase, if you control an exhausted Creature on this Landscape, draw a card.
     CW.Triggers.AtTheStartOfYourFightPhase(result, function (me, controllerI, laneI, args)
-        local creatures = Common.CreaturesInLane(controllerI, laneI)
+        local creatures = CW.CreatureFilter()
+            :ControlledBy(controllerI)
+            :InLane(laneI)
+            :Exhausted()
+            :Do()
+
         if #creatures == 0 then
             return
         end
 
-        for _, creature in ipairs(creatures) do
-            if creature.Original:IsExhausted() then
-                Draw(controllerI, 1)
-                return
-            end
-        end
+        Draw(controllerI, 1)
     end)
 
     return result

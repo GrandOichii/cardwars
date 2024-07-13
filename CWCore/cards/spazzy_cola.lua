@@ -9,7 +9,7 @@ function _Create()
 
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creatures = Common.AllPlayers.Creatures()
+                    local creatures = CW.CreatureFilter():Do()
                     for _, creature in ipairs(creatures) do
                         creature.Attack = creature.Attack + 1
                     end
