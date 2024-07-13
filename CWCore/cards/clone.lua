@@ -7,7 +7,7 @@ function _Create()
         function (id, playerI)
             -- Play your next Creature or Building for free if a Creature or Building with that name is in play.
 
-            Common.Mod.ModNextCostFunc(playerI,
+            CW.Mod.ModNextCostFunc(playerI,
                 function (card)
                     local cards = Common.InPlay(playerI)
                     for _, c in ipairs(cards) do
@@ -18,7 +18,7 @@ function _Create()
                     return false
                 end,
                 function (card)
-                    Common.Mod.Cost(card, -card.Cost)
+                    CW.Mod.Cost(card, -card.Cost)
                 end
             )
         end

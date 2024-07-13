@@ -5,20 +5,20 @@ function _Create()
 
     Common.AddRestriction(result,
         function (id, playerI)
-            return nil, #Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
+            return nil, #CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
         end
     )
 
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Heal or deal 1 Damage to target Creature.
-            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id))
 
             local target = TargetCreature(playerI, ipids, 'Choose a creature')
             local creature = GetCreature(target)
             local accept = YesNo(playerI, 'Heal '..creature.Original.Card.Template.Name..'?')
             if not accept then
-                Common.Damage.ToCreatureBySpell(id, playerI, target, 1)
+                CW.Damage.ToCreatureBySpell(id, playerI, target, 1)
                 return
             end
 

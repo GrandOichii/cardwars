@@ -314,102 +314,8 @@ end
 
 Common = {}
 
-
-function Common.FilterCreatures(predicate)
-    local result = {}
-    for pi = 1, STATE.Players.Length do
-        local pState = STATE.Players[pi - 1]
-        for li = 1, pState.Landscapes.Count do
-            local lane = pState.Landscapes[li - 1]
-            if lane.Creature ~= nil then
-                if predicate(lane.Creature) then
-                    result[#result+1] = lane.Creature
-                end
-            end
-        end
-    end
-
-    return result
-end
-
-function Common.FilterBuildings(predicate)
-    local result = {}
-    for pi = 1, STATE.Players.Length do
-        local pState = STATE.Players[pi - 1]
-        for li = 1, pState.Landscapes.Count do
-            local lane = pState.Landscapes[li - 1]
-            for bi = 0, lane.Buildings.Count - 1 do
-                if predicate(lane.Buildings[bi]) then
-                    result[#result+1] = lane.Buildings[bi]
-                end
-            end
-        end
-    end
-
-    return result
-end
-
-function Common.FilterLandscapes(predicate)
-    local result = {}
-
-    for pi = 0, STATE.Players.Length - 1 do
-        local pState = STATE.Players[pi]
-        for li = 1, pState.Landscapes.Count do
-            local lane = pState.Landscapes[li - 1]
-            if predicate(lane) then
-                result[#result+1] = lane
-            end
-        end
-    end
-
-    return result
-end
-
-function Common.Targetable(tableArr, by)
-    local result = {}
-
-    for _, card in ipairs(tableArr) do
-        if card:CanBeTargetedBy(by) then
-            result[#result+1] = card
-        end
-    end
-
-    return result
-end
-
-function Common.TargetableBySpell(tableArr, ownerI, spellId)
-    return Common.Targetable(tableArr, {
-        type = CardWars.TargetSources.SPELL,
-        ownerI = ownerI,
-        spellId = spellId
-    })
-end
-
-function Common.TargetableByCreature(tableArr, ownerI, creatureIPID)
-    return Common.Targetable(tableArr, {
-        type = CardWars.TargetSources.CREATURE_ABILITY,
-        ownerI = ownerI,
-        ipid = creatureIPID
-    })
-end
-
-function Common.TargetableByBuilding(tableArr, ownerI, buildingIPID)
-    return Common.Targetable(tableArr, {
-        type = CardWars.TargetSources.BUILDING_ABILITY,
-        ownerI = ownerI,
-        ipid = buildingIPID
-    })
-end
-
-function Common.TargetableByHero(tableArr, ownerI)
-    return Common.Targetable(tableArr, {
-        type = CardWars.TargetSources.HERO_ABILITY,
-        ownerI = ownerI,
-    })
-end
-
 function Common.CreaturesNamed(playerI, name)
-    return Common.FilterCreatures( function (creature)
+    return CW.FilterCreatures( function (creature)
         return
             creature.Original.ControllerI == playerI and
             creature.Original.Card.Template.Name == name
@@ -417,7 +323,7 @@ function Common.CreaturesNamed(playerI, name)
 end
 
 function Common.BuildingsNamed(playerI, name)
-    return Common.FilterBuildings(function (building)
+    return CW.FilterBuildings(function (building)
         return
             building.Original.ControllerI == playerI and
             building.Original.Card.Template.Name == name
@@ -511,13 +417,13 @@ function Common.AdjacentCreaturesTyped(playerI, laneI, type)
 end
 
 function Common.LandscapesWithoutBuildings(playerI)
-    return Common.FilterLandscapes(function (landscape)
+    return CW.FilterLandscapes(function (landscape)
         return landscape.Original.OwnerI == playerI and landscape.Buildings.Count == 0
     end)
 end
 
 function Common.LandscapesWithoutCreatures(playerI)
-    return Common.FilterLandscapes(function (landscape)
+    return CW.FilterLandscapes(function (landscape)
         return landscape.Original.OwnerI == playerI and landscape.Creature == nil
     end)
 end
@@ -527,7 +433,7 @@ function Common.EmptyLandscapes(playerI)
 end
 
 function Common.LandscapesWithoutCreaturesTyped(playerI, lType)
-    return Common.FilterLandscapes(function (landscape)
+    return CW.FilterLandscapes(function (landscape)
         return
             landscape:Is(lType) and
             landscape.Original.OwnerI == playerI and
@@ -547,7 +453,7 @@ function Common.InPlay(playerI)
 end
 
 function Common.Creatures(playerI)
-    return Common.FilterCreatures(function (creature)
+    return CW.FilterCreatures(function (creature)
         return creature.Original.ControllerI == playerI
     end)
 end
@@ -558,7 +464,7 @@ function Common.FriendlyCreatures(playerI)
 end
 
 function Common.OwnedCreatures(playerI)
-    return Common.FilterCreatures(function (creature)
+    return CW.FilterCreatures(function (creature)
         return creature.Original.Card.OwnerI == playerI
     end)
 end
@@ -568,7 +474,7 @@ function Common.OpposingCreatures(playerI)
 end
 
 function Common.CreaturesExcept(playerI, ipid)
-    return Common.FilterCreatures(function (creature)
+    return CW.FilterCreatures(function (creature)
         return
             creature.Original.ControllerI == playerI and
             creature.Original.IPID ~= ipid
@@ -576,13 +482,13 @@ function Common.CreaturesExcept(playerI, ipid)
 end
 
 function Common.Buildings(playerI)
-    return Common.FilterBuildings(function (building)
+    return CW.FilterBuildings(function (building)
         return building.Original.ControllerI == playerI
     end)
 end
 
 function Common.ReadiedCreatures(playerI)
-    return Common.FilterCreatures(function (creature)
+    return CW.FilterCreatures(function (creature)
         return
             creature.Original.ControllerI == playerI and
             creature.Original:GetStatus() == 0
@@ -590,7 +496,7 @@ function Common.ReadiedCreatures(playerI)
 end
 
 function Common.FloopedCreatures(playerI)
-    return Common.FilterCreatures(function (creature)
+    return CW.FilterCreatures(function (creature)
         return
             creature.Original.ControllerI == playerI and
             creature.Original:IsFlooped()
@@ -598,7 +504,7 @@ function Common.FloopedCreatures(playerI)
 end
 
 function Common.ExhaustedCreatures(playerI)
-    return Common.FilterCreatures(function (creature)
+    return CW.FilterCreatures(function (creature)
         return
             creature.Original.ControllerI == playerI and
             creature.Original:IsExhausted()
@@ -610,7 +516,7 @@ function Common.CreaturesTyped(playerI, landscape)
 end
 
 function Common.LandscapesWithBuildings(playerI)
-    return Common.FilterLandscapes(function (landscape)
+    return CW.FilterLandscapes(function (landscape)
         return
             landscape.Original.OwnerI == playerI and
             landscape.Buildings.Count > 0
@@ -630,7 +536,7 @@ function Common.LandscapesTyped(playerI, type)
 end
 
 function Common.CountCreaturesThatCountAsLandscape(playerI, type)
-    local creatures = Common.FilterCreatures(function (creature)
+    local creatures = CW.FilterCreatures(function (creature)
         return
             creature.Original.ControllerI == playerI and
             creature.CountsAsLandscapes:Contains(type)
@@ -650,7 +556,7 @@ function Common.CountCreaturesThatCountAsLandscape(playerI, type)
 end
 
 function Common.CountBuildingsThatCountAsLandscape(playerI, type)
-    local buildings = Common.FilterBuildings(function (building)
+    local buildings = CW.FilterBuildings(function (building)
         return
             building.Original.ControllerI == playerI and
             building.CountsAsLandscapes:Contains(type)
@@ -763,7 +669,7 @@ function Common.CreaturesPlayedThisTurnCount(playerI)
 end
 
 function Common.CreaturesTypedExcept(playerI, landscape, ipid)
-    return Common.FilterCreatures(function (creature)
+    return CW.FilterCreatures(function (creature)
         return
             creature.Original.ControllerI == playerI and
             creature:IsType(landscape) and
@@ -776,7 +682,7 @@ function Common.OpponentIdxs(playerI)
 end
 
 function Common.CreaturesThatChangedLanes(playerI)
-    return Common.FilterCreatures(function (creature)
+    return CW.FilterCreatures(function (creature)
         return
             creature.Original.ControllerI == playerI and
             creature.Original.MovementCount > 0
@@ -1046,7 +952,7 @@ function Common.SearchDeckFor(playerI, predicate)
 end
 
 function Common.FrozenLandscapes(playerI)
-    return Common.FilterLandscapes(function (landscape)
+    return CW.FilterLandscapes(function (landscape)
         return landscape:IsFrozen() and landscape.Original.OwnerI == playerI
     end)
 end
@@ -1066,7 +972,7 @@ end
 Common.AllPlayers = {}
 
 function Common.AllPlayers.Landscapes()
-    return Common.FilterLandscapes(function (_)
+    return CW.FilterLandscapes(function (_)
         return true
     end)
 end
@@ -1081,19 +987,19 @@ function Common.AllPlayers.CreaturesWithFrozenTokens()
 end
 
 function Common.AllPlayers.FrozenLandscapes()
-    return Common.FilterLandscapes(function (landscape)
+    return CW.FilterLandscapes(function (landscape)
         return landscape:IsFrozen()
     end)
 end
 
 function Common.AllPlayers.LandscapesWithoutCreatures()
-    return Common.FilterLandscapes(function (landscape)
+    return CW.FilterLandscapes(function (landscape)
         return landscape.Creature == nil
     end)
 end
 
 function Common.AllPlayers.CreaturesTyped(landscape)
-    return Common.FilterCreatures(function (creature)
+    return CW.FilterCreatures(function (creature)
         return
             creature:IsType(landscape)
     end)
@@ -1138,7 +1044,7 @@ function Common.AllPlayers.BuildingsInLane(laneI)
 end
 
 function Common.AllPlayers.LandscapesTyped(type)
-    return Common.FilterLandscapes(function (landscape)
+    return CW.FilterLandscapes(function (landscape)
         return landscape:Is(type)
     end)
 end
@@ -1155,19 +1061,19 @@ function Common.AllPlayers.CountLandscapesTyped(type)
 end
 
 function Common.AllPlayers.Creatures()
-    return Common.FilterCreatures(function (_) return true end)
+    return CW.FilterCreatures(function (_) return true end)
 end
 
 function Common.AllPlayers.CreaturesExcept(ipid)
-    return Common.FilterCreatures(function (creature) return creature.Original.IPID ~= ipid end)
+    return CW.FilterCreatures(function (creature) return creature.Original.IPID ~= ipid end)
 end
 
 function Common.AllPlayers.Buildings()
-    return Common.FilterBuildings(function (_) return true end)
+    return CW.FilterBuildings(function (_) return true end)
 end
 
 function Common.AllPlayers.FloopedCreatures()
-    return Common.FilterCreatures(function (creature)
+    return CW.FilterCreatures(function (creature)
         return creature.Original:IsFlooped()
     end)
 end
@@ -1177,84 +1083,6 @@ function Common.AllPlayers.AvailableToFlipDownLandscapes(byI)
         Common.AvailableToFlipDownLandscapes(0, byI),
         Common.AvailableToFlipDownLandscapes(1, byI),
     }
-end
-
-Common.Mod = {}
-
-function Common.Mod.Cost(me, amount)
-    me.Cost = me.Cost + amount
-    if me.Cost < 0 then
-        me.Cost = 0
-    end
-end
-
-function Common.Mod.ModNextCost(playerI, amount, predicate)
-    Common.Mod.ModNextCostFunc(playerI, predicate, function (card)
-        Common.Mod.Cost(card, amount)
-    end)
-end
-
-function Common.Mod.ModNextCostFunc(playerI, predicate, modF)
-    local rememberedIdx = STATE.Players[playerI].CardsPlayedThisTurn.Count
-    UntilEndOfTurn(function (layer)
-        if layer ~= CardWars.ModificationLayers.CARD_COST then
-            return
-        end
-
-        local newPlayed = STATE.Players[playerI].CardsPlayedThisTurn
-        if newPlayed.Count > rememberedIdx then
-            for i = rememberedIdx, newPlayed.Count - 1 do
-                local card = newPlayed[i]
-                if predicate(card) then
-                    return
-                end
-            end
-        end
-
-        local cards = STATE.Players[playerI].Hand
-        for i = 0, cards.Count - 1 do
-            local card = cards[i]
-            if predicate(card) then
-                modF(card)
-            end
-        end
-    end)
-end
-
-Common.Triggers = {}
-
-function Common.Triggers.AtTheStartOfYourPhase(card, phase, effect)
-    card:AddTrigger({
-        trigger = phase,
-        checkF = function (me, controllerI, laneI, args)
-            return args.playerI == controllerI
-        end,
-        costF = function (me, controllerI, laneI, args)
-            return true
-        end,
-        effectF = effect
-    })
-end
-
-function Common.Triggers.AtTheStartOfYourTurn(card, effect)
-    Common.Triggers.AtTheStartOfYourPhase(card, CardWars.Phases.START, effect)
-end
-
-function Common.Triggers.AtTheStartOfYourFightPhase(card, effect)
-    Common.Triggers.AtTheStartOfYourPhase(card, CardWars.Phases.FIGHT, effect)
-end
-
-function Common.Triggers.OnAnotherCreatureEnterPlayUnderYourControl(card, effect)
-    card:AddTrigger({
-        trigger = CardWars.Triggers.CREATURE_ENTER,
-        checkF = function (me, controllerI, laneI, args)
-            return args.controllerI == controllerI and args.laneI ~= laneI
-        end,
-        costF = function (me, controllerI, laneI, args)
-            return true
-        end,
-        effectF = effect
-    })
 end
 
 Common.ActivatedAbilities = {}
@@ -1345,157 +1173,6 @@ function Common.AddRestriction(card, restriction)
     card.CanPlayP:AddLayer(restriction)
 end
 
-Common.State = {}
-
-function Common.State.ModCostInHand(card, effect)
-    card:AddStateModifier(function (me, layer, zone)
-        if layer == CardWars.ModificationLayers.CARD_COST and zone == CardWars.Zones.HAND then
-            effect(me)
-        end
-    end)
-end
-
-function Common.State.CantBeAttacked(creature)
-    local opponent = 1 - creature.Original.ControllerI
-    local lane = STATE.Players[opponent].Landscapes[creature.LaneI]
-    local c = lane.Creature
-    if c == nil then
-        return
-    end
-    -- TODO? split CanAttack and CanBeAttacked in CreatureState?
-    Common.State.CantAttack(creature)
-end
-
-function Common.State.CantAttack(creature)
-    creature.CanAttack = false
-end
-
-function Common.State.CantBeTargeted(inPlayCard, by)
-    -- * by can be nil
-
-    inPlayCard.CanBeTargetedCheckers:Add(function (table)
-        return table.ownerI == by
-    end)
-end
-
-function Common.State.ChangeLandscapeType(layer, cardID, to)
-    if layer == CardWars.ModificationLayers.IN_HAND_CARD_TYPE then
-        for playerI = 0, 1 do
-            local hand = STATE.Players[playerI].Hand
-            for i = 0, hand.Count - 1 do
-                if hand[i].Original.ID == cardID then
-                    hand[i].LandscapeType = CardWars.Landscapes.Rainbow
-                    break
-                end
-            end
-        end
-        -- TODO cards in discard, cards in play, ?cards played this turn?, ?cards that entered play on a specific lane?
-    end
-end
-
-function Common.State.WhileDefendingAgainst(card, againstPredicate, effect)
-    card:AddStateModifier(function (me, layer, zone)
-        if layer ~= CardWars.ModificationLayers.ATK_AND_DEF then
-            return
-        end
-        if zone ~= CardWars.Zones.IN_PLAY then
-            return
-        end
-        if GetPhase() ~= CardWars.Phases.FIGHT then
-            return
-        end
-        local playerI = me.Original.ControllerI
-        if GetCurPlayerI() == playerI then
-            return
-        end
-
-        local against = STATE.Players[1 - playerI].Landscapes[me.LaneI].Creature
-        if against == nil then
-            return
-        end
-
-        if not against.Original.Attacking then
-            return
-        end
-
-        if not againstPredicate(against) then
-            return
-        end
-
-        effect(me)
-    end)
-end
-
-function Common.State.WhileAttackingCreature(card, defenderPredicate, effect)
-    card:AddStateModifier(function (me, layer, zone)
-        if layer ~= CardWars.ModificationLayers.ATK_AND_DEF then
-            return
-        end
-
-        if zone ~= CardWars.Zones.IN_PLAY then
-            return
-        end
-
-        if GetPhase() ~= CardWars.Phases.FIGHT then
-            return
-        end
-
-        local playerI = me.Original.ControllerI
-        if GetCurPlayerI() ~= playerI then
-            return
-        end
-
-        if not GetCreature(me.Original.IPID).Original.Attacking then
-            return
-        end
-
-        local defender = STATE.Players[1 - playerI].Landscapes[me.LaneI].Creature
-        if defender == nil then
-            return
-        end
-
-
-        if not defenderPredicate(defender) then
-            return
-        end
-
-        effect(me)
-    end)
-end
-
-Common.AbilityGrantingRemoval = {}
-
-function Common.AbilityGrantingRemoval.RemovaAllFromBuilding(card)
-    card.ActivatedAbilities:Clear()
-    card.TriggeredAbilities:Clear()
-    card.StateModifiers:Clear()
-    card.OnMoveEffects:Clear()
-    card.OnEnterEffects:Clear()
-    card.OnLeaveEffects:Clear()
-end
-
-function Common.AbilityGrantingRemoval.RemovaAllFromCreature(card)
-    Common.AbilityGrantingRemoval.RemovaAllFromBuilding(card)
-
-    card.OnDealDamageEffects:Clear()
-    card.OnDamagedEffects:Clear()
-    card.OnAttackEffects:Clear()
-    card.OnDefeatedEffects:Clear()
-end
-
-function Common.AbilityGrantingRemoval.RemoveAllActivatedAbilities(card)
-    card.ActivatedAbilities:Clear()
-end
-
-function Common.AbilityGrantingRemoval.CopyFromBuilding(card, from)
-    card.ActivatedAbilities:AddRange(from.ActivatedAbilities)
-    card.TriggeredAbilities:AddRange(from.TriggeredAbilities)
-    card.StateModifiers:AddRange(from.StateModifiers)
-    card.OnMoveEffects:AddRange(from.OnMoveEffects)
-    card.OnEnterEffects:AddRange(from.OnEnterEffects)
-    card.OnLeaveEffects:AddRange(from.OnLeaveEffects)
-end
-
 Common.Flip = {}
 
 function Common.Flip.CanFlipDown(landscape, playerI)
@@ -1505,59 +1182,6 @@ end
 function Common.Flip.DisallowFlipDownFor(landscape, playerI)
     local allowed = landscape.CanFlipDown
     allowed:Remove(playerI)
-end
-
-Common.Damage = {}
-
-function Common.Damage.ToCreatureBySpell(spellId, ownerI, creatureIPID, amount)
-    DealDamageToCreature(creatureIPID, amount, {
-        type = CardWars.DamageSources.SPELL,
-        id = spellId,
-        ownerI = ownerI
-    })
-end
-
-function Common.Damage.ToCreatureByHero(playerI, creatureIPID, amount)
-    DealDamageToCreature(creatureIPID, amount, {
-        type = CardWars.DamageSources.HERO_ABILITY,
-        playerI = playerI
-    })
-end
-
-function Common.Damage.ToCreatureByBuildingAbility(buildingIPID, ownerI, creatureIPID, amount)
-    DealDamageToCreature(creatureIPID, amount, {
-        type = CardWars.DamageSources.BUILDING_ABILITY,
-        ipid = buildingIPID,
-        ownerI = ownerI
-    })
-end
-
-function Common.Damage.ToCreatureByCreatureAbility(creatureIPID, controllerI, toIPID, amount)
-    DealDamageToCreature(toIPID, amount, {
-        type = CardWars.DamageSources.CREATURE_ABILITY,
-        ownerI = controllerI,
-        ipid = creatureIPID
-    })
-end
-
-function Common.Damage.ToCreatureByCreature(creatureIPID, controllerI, toIPID, amount)
-    DealDamageToCreature(toIPID, amount, {
-        type = CardWars.DamageSources.CREATURE,
-        ownerI = controllerI,
-        ipid = creatureIPID
-    })
-end
-
-function Common.Damage.PreventCreatureDamage(creature)
-    creature.DamageModifiers:Add(function (me, from, damage)
-        if
-            from.type == CardWars.DamageSources.CREATURE and
-            from.ownerI ~= me.Original.ControllerI
-        then
-            return 0
-        end
-        return damage
-    end)
 end
 
 Common.Bounce = {}
@@ -1591,6 +1215,9 @@ function Common.Reveal.Hand(playerI)
         RevealCardFromHand(playerI, i)
     end
 end
+
+
+
 
 CW = {}
 
@@ -1672,8 +1299,6 @@ function CW.Creatures(playerI)
         return playerI == nil or creature.Original.ControllerI == playerI
     end)
 end
-
-
 
 function CW.CreaturesThatEnteredPlayThisTurn()
     local landscapes = CW.FilterLandscapes()
@@ -2047,9 +1672,16 @@ function CW.LandscapeFilter()
         return CW.FilterLandscapes(filter)
     end
 
-    function result:OwnedBy(playerI)
+    function result:ControlledBy(playerI)
         result.filters[#result.filters+1] = function (landscape)
             return landscape.Original.OwnerI == playerI
+        end
+        return self
+    end
+
+    function result:WhereBuildingsCanBeMovedTo()
+        result.filters[#result.filters+1] = function (landscape)
+            return landscape.Buildings.Count == 0
         end
         return self
     end
@@ -2071,6 +1703,13 @@ function CW.LandscapeFilter()
     function result:CanBeFlippedDown(byI)
         result.filters[#result.filters+1] = function (landscape)
             return landscape.CanFlipDown:Contains(byI) and not landscape.Original.FaceDown
+        end
+        return self
+    end
+
+    function result:CanBeFlippedUp(byI)
+        result.filters[#result.filters+1] = function (landscape)
+            return landscape.Original.FaceDown
         end
         return self
     end
@@ -2306,7 +1945,7 @@ function CW.Spell.Target.Creature(targetFunc, hintFunc)
     local result = {}
 
     function result:GetOptions(id, playerI)
-        return Common.TargetableBySpell(targetFunc(id, playerI), playerI, id)
+        return CW.Targetable.BySpell(targetFunc(id, playerI), playerI, id)
     end
 
     function result:Do(id, playerI, targets)
@@ -2342,11 +1981,15 @@ function CW.ActivatedAbility.Add(card, text, cost, effectF, maxActivationsPerTur
     maxActivationsPerTurn = maxActivationsPerTurn or -1
     local checkFunc = cost:CheckFunc()
     local costFunc = cost:CostFunc()
+    local tags = {}
+    if cost.Tags ~= nil then
+        tags = cost:Tags()
+    end
 
     card:AddActivatedAbility({
         maxActivationsPerTurn = maxActivationsPerTurn,
         text = text,
-        tags = cost:Tags(),
+        tags = tags,
         checkF = function (me, playerI, laneI)
             return checkFunc(me, playerI, laneI)
         end,
@@ -2503,16 +2146,42 @@ function CW.ActivatedAbility.Cost.Target.Creature(targetKey, filterFunc, hintFun
 
     function result:CheckFunc()
         return function (me, playerI, laneI)
-            return #Common.TargetableByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID) > 0
+            return #CW.Targetable.ByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID) > 0
         end
     end
 
     function result:AddTargets(me, playerI, laneI, targets)
-        local options = CW.IPIDs(Common.TargetableByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID))
+        local options = CW.IPIDs(CW.Targetable.ByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID))
         local hint = hintFunc(me, playerI, laneI, targets)
         local target = TargetCreature(playerI, options, hint)
 
         targets[targetKey] = GetCreature(target)
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.Target.Building(targetKey, filterFunc, hintFunc)
+    local result = {}
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return #CW.Targetable.ByBuilding(filterFunc(me, playerI, laneI), playerI, me.Original.IPID) > 0
+        end
+    end
+
+    function result:AddTargets(me, playerI, laneI, targets)
+        local options = CW.IPIDs(CW.Targetable.ByBuilding(filterFunc(me, playerI, laneI), playerI, me.Original.IPID))
+        local hint = hintFunc(me, playerI, laneI, targets)
+        local target = TargetBuilding(playerI, options, hint)
+
+        targets[targetKey] = GetBuilding(target)
     end
 
     function result:CostFunc()
@@ -2626,30 +2295,6 @@ function CW.Utility.All(list, predicate)
     return true
 end
 
-CW.State = {}
-
-function CW.State.CantBeAttacked(creature)
-    creature.CanBeAttacked = false
-end
-
-
-function CW.State.ModAttackRight(card, effect)
-    card:AddStateModifier(function (me, layer, zone)
-        if layer == CardWars.ModificationLayers.ATTACK_RIGHTS and zone == CardWars.Zones.IN_PLAY then
-            effect(me)
-        end
-    end)
-end
-
-function CW.State.ModATKDEF(card, effect)
-    card:AddStateModifier(function (me, layer, zone)
-        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
-            effect(me)
-        end
-
-    end)
-end
-
 CW.Choose = {}
 
 function CW.Choose.Creature(playerI, creatures, hint)
@@ -2702,4 +2347,348 @@ CW.Common = {}
 function CW.Common.YouControlABuildingInThisLane(playerI, laneI)
     local buildings = CW.BuildingFilter():ControlledBy(playerI):InLane(laneI):Do()
     return #buildings > 0
+end
+
+CW.Triggers = {}
+
+function CW.Triggers.AtTheStartOfYourTurn(card, effect)
+    CW.Triggers.AtTheStartOfYourPhase(card, CardWars.Phases.START, effect)
+end
+
+function CW.Triggers.AtTheStartOfYourPhase(card, phase, effect)
+    card:AddTrigger({
+        trigger = phase,
+        checkF = function (me, controllerI, laneI, args)
+            return args.playerI == controllerI
+        end,
+        costF = function (me, controllerI, laneI, args)
+            return true
+        end,
+        effectF = effect
+    })
+end
+
+function CW.Triggers.AtTheStartOfYourFightPhase(card, effect)
+    CW.Triggers.AtTheStartOfYourPhase(card, CardWars.Phases.FIGHT, effect)
+end
+
+function CW.Triggers.OnAnotherCreatureEnterPlayUnderYourControl(card, effect)
+    card:AddTrigger({
+        trigger = CardWars.Triggers.CREATURE_ENTER,
+        checkF = function (me, controllerI, laneI, args)
+            return args.controllerI == controllerI and args.laneI ~= laneI
+        end,
+        costF = function (me, controllerI, laneI, args)
+            return true
+        end,
+        effectF = effect
+    })
+end
+
+CW.Targetable = {}
+
+function CW.Targetable.Base(tableArr, by)
+    local result = {}
+
+    for _, card in ipairs(tableArr) do
+        if card:CanBeTargetedBy(by) then
+            result[#result+1] = card
+        end
+    end
+
+    return result
+end
+
+function CW.Targetable.BySpell(tableArr, ownerI, spellId)
+    return CW.Targetable.Base(tableArr, {
+        type = CardWars.TargetSources.SPELL,
+        ownerI = ownerI,
+        spellId = spellId
+    })
+end
+
+function CW.Targetable.ByCreature(tableArr, ownerI, creatureIPID)
+    return CW.Targetable.Base(tableArr, {
+        type = CardWars.TargetSources.CREATURE_ABILITY,
+        ownerI = ownerI,
+        ipid = creatureIPID
+    })
+end
+
+function CW.Targetable.ByBuilding(tableArr, ownerI, buildingIPID)
+    return CW.Targetable.Base(tableArr, {
+        type = CardWars.TargetSources.BUILDING_ABILITY,
+        ownerI = ownerI,
+        ipid = buildingIPID
+    })
+end
+
+function CW.Targetable.ByHero(tableArr, ownerI)
+    return CW.Targetable.Base(tableArr, {
+        type = CardWars.TargetSources.HERO_ABILITY,
+        ownerI = ownerI,
+    })
+end
+
+CW.Mod = {}
+
+function CW.Mod.Cost(me, amount)
+    me.Cost = me.Cost + amount
+    if me.Cost < 0 then
+        me.Cost = 0
+    end
+end
+
+function CW.Mod.ModNextCost(playerI, amount, predicate)
+    CW.Mod.ModNextCostFunc(playerI, predicate, function (card)
+        CW.Mod.Cost(card, amount)
+    end)
+end
+
+function CW.Mod.ModNextCostFunc(playerI, predicate, modF)
+    local rememberedIdx = STATE.Players[playerI].CardsPlayedThisTurn.Count
+    UntilEndOfTurn(function (layer)
+        if layer ~= CardWars.ModificationLayers.CARD_COST then
+            return
+        end
+
+        local newPlayed = STATE.Players[playerI].CardsPlayedThisTurn
+        if newPlayed.Count > rememberedIdx then
+            for i = rememberedIdx, newPlayed.Count - 1 do
+                local card = newPlayed[i]
+                if predicate(card) then
+                    return
+                end
+            end
+        end
+
+        local cards = STATE.Players[playerI].Hand
+        for i = 0, cards.Count - 1 do
+            local card = cards[i]
+            if predicate(card) then
+                modF(card)
+            end
+        end
+    end)
+end
+
+CW.State = {}
+
+function CW.State.ModCostInHand(card, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        if layer == CardWars.ModificationLayers.CARD_COST and zone == CardWars.Zones.HAND then
+            effect(me)
+        end
+    end)
+end
+
+function CW.State.CantBeAttacked(creature)
+    local opponent = 1 - creature.Original.ControllerI
+    local lane = STATE.Players[opponent].Landscapes[creature.LaneI]
+    local c = lane.Creature
+    if c == nil then
+        return
+    end
+    -- TODO? split CanAttack and CanBeAttacked in CreatureState?
+    CW.State.CantAttack(creature)
+end
+
+function CW.State.CantAttack(creature)
+    creature.CanAttack = false
+end
+
+function CW.State.CantBeTargeted(inPlayCard, by)
+    -- * by can be nil
+
+    inPlayCard.CanBeTargetedCheckers:Add(function (table)
+        return table.ownerI == by
+    end)
+end
+
+function CW.State.ChangeLandscapeType(layer, cardID, to)
+    if layer == CardWars.ModificationLayers.IN_HAND_CARD_TYPE then
+        for playerI = 0, 1 do
+            local hand = STATE.Players[playerI].Hand
+            for i = 0, hand.Count - 1 do
+                if hand[i].Original.ID == cardID then
+                    hand[i].LandscapeType = CardWars.Landscapes.Rainbow
+                    break
+                end
+            end
+        end
+        -- TODO cards in discard, cards in play, ?cards played this turn?, ?cards that entered play on a specific lane?
+    end
+end
+
+function CW.State.WhileDefendingAgainst(card, againstPredicate, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        if layer ~= CardWars.ModificationLayers.ATK_AND_DEF then
+            return
+        end
+        if zone ~= CardWars.Zones.IN_PLAY then
+            return
+        end
+        if GetPhase() ~= CardWars.Phases.FIGHT then
+            return
+        end
+        local playerI = me.Original.ControllerI
+        if GetCurPlayerI() == playerI then
+            return
+        end
+
+        local against = STATE.Players[1 - playerI].Landscapes[me.LaneI].Creature
+        if against == nil then
+            return
+        end
+
+        if not against.Original.Attacking then
+            return
+        end
+
+        if not againstPredicate(against) then
+            return
+        end
+
+        effect(me)
+    end)
+end
+
+function CW.State.WhileAttackingCreature(card, defenderPredicate, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        if layer ~= CardWars.ModificationLayers.ATK_AND_DEF then
+            return
+        end
+
+        if zone ~= CardWars.Zones.IN_PLAY then
+            return
+        end
+
+        if GetPhase() ~= CardWars.Phases.FIGHT then
+            return
+        end
+
+        local playerI = me.Original.ControllerI
+        if GetCurPlayerI() ~= playerI then
+            return
+        end
+
+        if not GetCreature(me.Original.IPID).Original.Attacking then
+            return
+        end
+
+        local defender = STATE.Players[1 - playerI].Landscapes[me.LaneI].Creature
+        if defender == nil then
+            return
+        end
+
+
+        if not defenderPredicate(defender) then
+            return
+        end
+
+        effect(me)
+    end)
+end
+
+function CW.State.ModAttackRight(card, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        if layer == CardWars.ModificationLayers.ATTACK_RIGHTS and zone == CardWars.Zones.IN_PLAY then
+            effect(me)
+        end
+    end)
+end
+
+function CW.State.ModATKDEF(card, effect)
+    card:AddStateModifier(function (me, layer, zone)
+        if layer == CardWars.ModificationLayers.ATK_AND_DEF and zone == CardWars.Zones.IN_PLAY then
+            effect(me)
+        end
+
+    end)
+end
+
+CW.Damage = {}
+
+function CW.Damage.ToCreatureBySpell(spellId, ownerI, creatureIPID, amount)
+    DealDamageToCreature(creatureIPID, amount, {
+        type = CardWars.DamageSources.SPELL,
+        id = spellId,
+        ownerI = ownerI
+    })
+end
+
+function CW.Damage.ToCreatureByHero(playerI, creatureIPID, amount)
+    DealDamageToCreature(creatureIPID, amount, {
+        type = CardWars.DamageSources.HERO_ABILITY,
+        playerI = playerI
+    })
+end
+
+function CW.Damage.ToCreatureByBuildingAbility(buildingIPID, ownerI, creatureIPID, amount)
+    DealDamageToCreature(creatureIPID, amount, {
+        type = CardWars.DamageSources.BUILDING_ABILITY,
+        ipid = buildingIPID,
+        ownerI = ownerI
+    })
+end
+
+function CW.Damage.ToCreatureByCreatureAbility(creatureIPID, controllerI, toIPID, amount)
+    DealDamageToCreature(toIPID, amount, {
+        type = CardWars.DamageSources.CREATURE_ABILITY,
+        ownerI = controllerI,
+        ipid = creatureIPID
+    })
+end
+
+function CW.Damage.ToCreatureByCreature(creatureIPID, controllerI, toIPID, amount)
+    DealDamageToCreature(toIPID, amount, {
+        type = CardWars.DamageSources.CREATURE,
+        ownerI = controllerI,
+        ipid = creatureIPID
+    })
+end
+
+function CW.Damage.PreventCreatureDamage(creature)
+    creature.DamageModifiers:Add(function (me, from, damage)
+        if
+            from.type == CardWars.DamageSources.CREATURE and
+            from.ownerI ~= me.Original.ControllerI
+        then
+            return 0
+        end
+        return damage
+    end)
+end
+
+CW.AbilityGrantingRemoval = {}
+
+function CW.AbilityGrantingRemoval.RemovaAllFromBuilding(card)
+    card.ActivatedAbilities:Clear()
+    card.TriggeredAbilities:Clear()
+    card.StateModifiers:Clear()
+    card.OnMoveEffects:Clear()
+    card.OnEnterEffects:Clear()
+    card.OnLeaveEffects:Clear()
+end
+
+function CW.AbilityGrantingRemoval.RemovaAllFromCreature(card)
+    CW.AbilityGrantingRemoval.RemovaAllFromBuilding(card)
+
+    card.OnDealDamageEffects:Clear()
+    card.OnDamagedEffects:Clear()
+    card.OnAttackEffects:Clear()
+    card.OnDefeatedEffects:Clear()
+end
+
+function CW.AbilityGrantingRemoval.RemoveAllActivatedAbilities(card)
+    card.ActivatedAbilities:Clear()
+end
+
+function CW.AbilityGrantingRemoval.CopyFromBuilding(card, from)
+    card.ActivatedAbilities:AddRange(from.ActivatedAbilities)
+    card.TriggeredAbilities:AddRange(from.TriggeredAbilities)
+    card.StateModifiers:AddRange(from.StateModifiers)
+    card.OnMoveEffects:AddRange(from.OnMoveEffects)
+    card.OnEnterEffects:AddRange(from.OnEnterEffects)
+    card.OnLeaveEffects:AddRange(from.OnLeaveEffects)
 end

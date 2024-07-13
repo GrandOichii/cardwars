@@ -5,14 +5,14 @@ function _Create()
 
     Common.AddRestriction(result,
         function (id, playerI)
-            return nil, #Common.TargetableBySpell(Common.AllPlayers.CreaturesTyped(CardWars.Landscapes.SandyLands), playerI, id) > 0
+            return nil, #CW.Targetable.BySpell(Common.AllPlayers.CreaturesTyped(CardWars.Landscapes.SandyLands), playerI, id) > 0
         end
     )
 
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Target SandyLands Creature has +2 ATK this turn for each Creature that entered play into an adjacent Lane this turn.
-            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.AllPlayers.CreaturesTyped(CardWars.Landscapes.SandyLands), playerI, id))
+            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.CreaturesTyped(CardWars.Landscapes.SandyLands), playerI, id))
 
             local target = TargetCreature(playerI, ipids, 'Choose a creature to buff')
             UntilEndOfTurn(function (layer)

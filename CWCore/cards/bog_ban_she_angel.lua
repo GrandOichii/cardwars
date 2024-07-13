@@ -5,7 +5,7 @@ function _Create()
 
     local filter = function (myIPID, playerI)
         -- !FIXME card text doesn't exclude itself
-        return Common.TargetableByCreature(Common.CreaturesExcept(playerI, myIPID), playerI, myIPID)
+        return CW.Targetable.ByCreature(Common.CreaturesExcept(playerI, myIPID), playerI, myIPID)
     end
 
     result:AddActivatedAbility({

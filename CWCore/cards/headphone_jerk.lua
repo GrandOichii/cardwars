@@ -16,7 +16,7 @@ function _Create()
 
         local ipid = ChooseCreature(playerI, options, 'Choose a creature to deal damage to')
         
-        Common.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, ipid, 3)
+        CW.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, ipid, 3)
     end)
 
     return result

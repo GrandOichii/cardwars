@@ -7,7 +7,7 @@ function _Create()
     CW.Creature.ParrottrooperEffect(result)
 
     -- At the start of your turn, discard a card.
-    Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
+    CW.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
         CW.Discard.ACard(controllerI)
     end)
 

@@ -14,7 +14,7 @@ function _Create()
                     return
                 end
                 for _, building in ipairs(buildings) do
-                    Common.AbilityGrantingRemoval.RemovaAllFromBuilding(building)
+                    CW.AbilityGrantingRemoval.RemovaAllFromBuilding(building)
                 end
             end
         end

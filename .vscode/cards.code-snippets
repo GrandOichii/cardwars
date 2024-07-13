@@ -101,7 +101,7 @@
 		"prefix": "turnstart",
 		"description": "turn start trigger",
 		"body": [
-			"Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)",
+			"CW.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)",
 			"\t$0",
 			"end)"
 		]
@@ -159,7 +159,7 @@
 		"prefix": "targetcreature",
 		"description": "target creature",
 		"body": [
-			"local ids = CW.IPIDs(Common.Targetable${1:BySpell}(${2:Common.AllPlayers.Creatures()}, $3))",
+			"local ids = CW.IPIDs(CW.Targetable.Base${1:BySpell}(${2:Common.AllPlayers.Creatures()}, $3))",
             "local target = ${4:TargetCreature}(playerI, ids, '$5')",
 			"$0"
 		]
@@ -251,7 +251,7 @@
 		"prefix": "modcost",
 		"description": "card play cost modification (in hand)",
 		"body": [
-			"Common.State.ModCostInHand(result, function (me)",
+			"CW.State.ModCostInHand(result, function (me)",
 			"\t$0",
 			"end)",
 		]

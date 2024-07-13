@@ -9,7 +9,7 @@ function _Create()
             return nil,
                 #Common.Creatures(playerI) <= 1 and
                 GetHitPoints(playerI) <= 15 and
-                #Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id) > 0 and
+                #CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id) > 0 and
                 #Common.LandscapesWithoutCreatures(playerI) > 0
         end
     )
@@ -18,7 +18,7 @@ function _Create()
         function (id, playerI)
             -- Move target Creature to target empty Landscape you control.
 
-            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id))
             local empty = CW.Lanes(Common.LandscapesWithoutCreatures(playerI))
 
             local ipid = TargetCreature(playerI, ipids, 'Choose a creature to move/steal')

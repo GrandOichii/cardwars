@@ -6,7 +6,13 @@ function _Create()
     result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Husker Worm enters play, flip a Cornfield Landscape you control face down.
 
-        local options = CW.Lanes(Common.AvailableToFlipDownLandscapesTyped(playerI, playerI, CardWars.Landscapes.Cornfield))
+        local options = CW.Lanes(
+            CW.LandscapeFilter()
+                :ControlledBy(playerI)
+                :CanBeFlippedDown(playerI)
+                :OfLandscapeType(CardWars.Landscapes.Cornfield)
+                :Do()
+        )
         if #options == 0 then
             return
         end

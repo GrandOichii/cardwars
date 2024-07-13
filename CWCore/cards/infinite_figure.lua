@@ -11,16 +11,16 @@ function _Create()
         checkF = function (me, playerI, laneI)
             return
                 STATE.Players[me.Original.ControllerI].Hand.Count > 0 and
-                #Common.TargetableByCreature(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.IPID), playerI, me.Original.IPID) > 0
+                #CW.Targetable.ByCreature(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.IPID), playerI, me.Original.IPID) > 0
         end,
         costF = function (me, playerI, laneI)
             Common.ChooseAndDiscardCard(me.Original.ControllerI)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.IPID), playerI, me.Original.IPID))
+            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.IPID), playerI, me.Original.IPID))
             local target = TargetCreature(playerI, ipids, 'Choose a creature to deal damage to')
-            Common.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, target, 1)
+            CW.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, target, 1)
         end
     })
 

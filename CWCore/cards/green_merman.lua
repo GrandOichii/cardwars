@@ -14,7 +14,7 @@ function _Create()
             local card = milled[1]
             local creatures = Common.OpposingCreatures(playerI)
             for _, creature in ipairs(creatures) do
-                Common.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, creature.Original.IPID, card.Template.Cost)
+                CW.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, creature.Original.IPID, card.Template.Cost)
             end
         end
     )

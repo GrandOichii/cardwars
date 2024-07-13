@@ -10,7 +10,7 @@ function _Create()
         if layer == CardWars.ModificationLayers.ABILITY_GRANTING_REMOVAL and zone == CardWars.Zones.IN_PLAY then
             local buildings = Common.AdjacentBuildings(me.Original.ControllerI, me.LaneI)
             for _, building in ipairs(buildings) do
-                Common.AbilityGrantingRemoval.CopyFromBuilding(me, building)
+                CW.AbilityGrantingRemoval.CopyFromBuilding(me, building)
             end
         end
 

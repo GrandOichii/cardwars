@@ -27,7 +27,7 @@ function _Create()
                     if creature ~= nil then
                         local attacked = STATE.Players[1 - pIdx].Landscapes[i].Creature
                         if attacked ~= nil then
-                            Common.Damage.ToCreatureByCreature(creature.Original.IPID, creature.Original.ControllerI, attacked.Original.IPID, creature.Attack)
+                            CW.Damage.ToCreatureByCreature(creature.Original.IPID, creature.Original.ControllerI, attacked.Original.IPID, creature.Attack)
                         end
                     end
                 end

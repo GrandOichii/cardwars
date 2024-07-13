@@ -12,13 +12,13 @@ function _Create()
                 if layer == CardWars.ModificationLayers.ATTACK_RIGHTS then
                     local creatures = Common.CreaturesInLane(playerI, laneI)
                     for _, creature in ipairs(creatures) do
-                        Common.State.CantBeAttacked(creature)
+                        CW.State.CantBeAttacked(creature)
                     end
                 end
                 if layer == CardWars.ModificationLayers.TARGETING_PERMISSIONS then
                     local creatures = Common.CreaturesInLane(playerI, laneI)
                     for _, creature in ipairs(creatures) do
-                        Common.State.CantBeTargeted(creature)
+                        CW.State.CantBeTargeted(creature)
                     end
                 end
             end)

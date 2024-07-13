@@ -20,7 +20,7 @@ function _Create()
             RevealCardFromHand(playerI, cardI)
             local id = cards[cardI].Original.ID
             UntilEndOfTurn(function (layer)
-                Common.State.ChangeLandscapeType(layer, id, CardWars.Landscapes.Rainbow)
+                CW.State.ChangeLandscapeType(layer, id, CardWars.Landscapes.Rainbow)
             end)
         end
     )

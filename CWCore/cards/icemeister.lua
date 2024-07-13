@@ -4,10 +4,10 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
+    CW.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
         local creatures = Common.AllPlayers.CreaturesWithFrozenTokens()
         for _, creature in ipairs(creatures) do
-            Common.Damage.ToCreatureByCreatureAbility(me.Original.IPID, controllerI, creature.Original.IPID, 1)
+            CW.Damage.ToCreatureByCreatureAbility(me.Original.IPID, controllerI, creature.Original.IPID, 1)
         end
     end)
 

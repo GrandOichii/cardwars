@@ -8,7 +8,7 @@ function _Create()
         local controllerI = me.Original.ControllerI
 
         local landscapes = CW.LandscapeFilter()
-            :OwnedBy(controllerI)
+            :ControlledBy(controllerI)
             :OfLandscapeType(CardWars.Landscapes.Cornfield)
             :AdjacentTo(me.LaneI)
             :Do()

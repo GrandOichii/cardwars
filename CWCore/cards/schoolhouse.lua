@@ -37,7 +37,7 @@ function _Create()
                         return
                     end
 
-                    Common.AbilityGrantingRemoval.RemovaAllFromCreature(c)
+                    CW.AbilityGrantingRemoval.RemovaAllFromCreature(c)
                     if a == nil then
                         return
                     end

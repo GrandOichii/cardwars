@@ -11,16 +11,16 @@ function _Create()
         checkF = function (playerI)
             return
                 GetHandCount(playerI) > 0 and
-                #Common.TargetableByHero(Common.AllPlayers.Creatures(), playerI) > 0
+                #CW.Targetable.ByHero(Common.AllPlayers.Creatures(), playerI) > 0
         end,
         costF = function (playerI)
             Common.ChooseAndDiscardCard(playerI)
             return true
         end,
         effectF = function (playerI)
-            local ipids = CW.IPIDs(Common.TargetableByHero(Common.AllPlayers.Creatures(), playerI))
+            local ipids = CW.IPIDs(CW.Targetable.ByHero(Common.AllPlayers.Creatures(), playerI))
             local target = TargetCreature(playerI, ipids, 'Choose a creature to deal damage to')
-            Common.Damage.ToCreatureByHero(playerI, target, 1)
+            CW.Damage.ToCreatureByHero(playerI, target, 1)
         end
     })
 

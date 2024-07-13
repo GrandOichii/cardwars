@@ -8,7 +8,7 @@ function _Create()
 
         local opponentI = 1 - playerI
         local count = #CW.LandscapeFilter()
-            :OwnedBy(playerI)
+            :ControlledBy(playerI)
             :OfLandscapeType(CardWars.Landscapes.Cornfield)
             :Do()
         DealDamageToPlayer(opponentI, count)

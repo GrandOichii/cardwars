@@ -3,8 +3,10 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    Common.ActivatedAbilities.Floop(result,
+    CW.ActivatedAbility.Add(
+        result,
         'Pay 2 Actions >>> Steal a random card from your opponent and play it at no cost.',
+        CW.ActivatedAbility.Cost.PayActionPoints(2),
         function (me, playerI, laneI)
             local opponent = 1 - playerI
             local cards = STATE.Players[opponent].Hand
@@ -14,8 +16,8 @@ function _Create()
 
             local idx = Random(0, cards.Count)
             local card = RemoveCardFromHand(opponent, idx)
-
             UpdateState()
+
             PlayCardIfPossible(playerI, card, true)
         end
     )

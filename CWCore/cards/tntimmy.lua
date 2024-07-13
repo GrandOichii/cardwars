@@ -8,7 +8,7 @@ function _Create()
 
         local creatures = Common.OpposingCreatures(playerI)
         for _, creature in ipairs(creatures) do
-            Common.Damage.ToCreatureByCreatureAbility(ipid, playerI, creature.Original.IPID, 1)
+            CW.Damage.ToCreatureByCreatureAbility(ipid, playerI, creature.Original.IPID, 1)
         end
     end)
 

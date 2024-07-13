@@ -6,11 +6,11 @@ function _Create()
     result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Legion of Earlings enters play, you may return target Creature in this Lane to its owner's hand.
 
-        local ipids = CW.IPIDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.IPID))
+        local ipids = CW.IPIDs(CW.Targetable.ByCreature(CW.CreatureFilter():InLane(laneI):Do(), playerI, me.Original.IPID))
         if #ipids == 0 then
             return
         end
-        
+
         local target = TargetCreature(playerI, ipids, 'Choose a creature to return to hand')
         local creature = GetCreature(target)
 

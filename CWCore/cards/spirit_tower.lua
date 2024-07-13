@@ -11,7 +11,7 @@ function _Create()
             return
                 Common.CanFloop(me) and
                 GetPlayer(playerI).Original.ActionPoints >= 1 and
-                #Common.TargetableByBuilding(Common.AllPlayers.Creatures(), playerI, me.Original.IPID) >= 1
+                #CW.Targetable.ByBuilding(Common.AllPlayers.Creatures(), playerI, me.Original.IPID) >= 1
         end,
         costF = function (me, playerI, laneI)
             PayActionPoints(playerI, 1)
@@ -23,7 +23,7 @@ function _Create()
             if #present > 0 then
                 return
             end
-            local ipids = CW.IPIDs(Common.TargetableByBuilding(Common.AllPlayers.Creatures(), playerI, me.Original.IPID))
+            local ipids = CW.IPIDs(CW.Targetable.ByBuilding(Common.AllPlayers.Creatures(), playerI, me.Original.IPID))
             local target = TargetCreature(playerI, ipids, 'Choose a creature to move/steal to lane '..laneI)
             local creature = GetCreature(target)
             local controllerI = creature.Original.ControllerI

@@ -9,8 +9,9 @@ function _Create()
 
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-
-                    local creatures = Common.CreaturesTyped(playerI, CardWars.Landscapes.Cornfield)
+                    local creatures = CW.CreatureFilter()
+                        :ControlledBy(playerI)
+                        :Do()
 
                     local amount = #GetUniqueLandscapeNames(playerI)
                     for _, creature in ipairs(creatures) do

@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:InPlay()
 
     -- At the start of your Fight Phase, if you control an exhausted Creature on this Landscape, draw a card.
-    Common.Triggers.AtTheStartOfYourFightPhase(result, function (me, controllerI, laneI, args)
+    CW.Triggers.AtTheStartOfYourFightPhase(result, function (me, controllerI, laneI, args)
         local creatures = Common.CreaturesInLane(controllerI, laneI)
         if #creatures == 0 then
             return

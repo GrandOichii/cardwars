@@ -5,7 +5,7 @@ function _Create()
 
     Common.AddRestriction(result,
         function (id, playerI)
-            return nil, #Common.TargetableBySpell(Common.Creatures(playerI), playerI, id) > 0
+            return nil, #CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id) > 0
         end
     )
 
@@ -13,7 +13,7 @@ function _Create()
         function (id, playerI)
         -- Target Creature you control has +2 ATK for each exhausted Creature you control (at the time you play this).
 
-        local ipids = CW.IPIDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
+        local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id))
         local target = TargetCreature(playerI, ipids, '')
         local amount = #Common.ExhaustedCreatures(playerI)
         UntilEndOfTurn(function (layer)

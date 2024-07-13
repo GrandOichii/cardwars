@@ -5,14 +5,14 @@ function _Create()
 
     Common.AddRestriction(result,
         function (id, playerI)
-            return nil, #Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
+            return nil, #CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
         end
     )
 
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Deal 1 Damage to target Creature. If that Creature is on a Landscape with a Frozen token on it, deal 3 Damage instead.
-            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id))
 
             local target = TargetCreature(playerI, ipids, 'Choose a creature')
             local creature = GetCreature(target)
@@ -22,7 +22,7 @@ function _Create()
             if landscape:IsFrozen() then
                 damage = 3
             end
-            Common.Damage.ToCreatureBySpell(id, playerI, target, damage)
+            CW.Damage.ToCreatureBySpell(id, playerI, target, damage)
         end
     )
 

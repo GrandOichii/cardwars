@@ -3,22 +3,23 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result:AddActivatedAbility({
-        text = 'FLOOP >>> Deal 1 Damage to target Creature. Do this once for each Cornfield Landscape you control. (May only target each Creature once.)',
-        tags = {'floop'},
+    CW.ActivatedAbility.Add(
+        result,
+        'FLOOP >>> Deal 1 Damage to target Creature. Do this once for each Cornfield Landscape you control. (May only target each Creature once.)',
+        CW.ActivatedAbility.Cost.Floop(),
+        function (me, playerI, laneI)
 
-        checkF = function (me, playerI, laneI)
-            return Common.CanFloop(me)
-        end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.IPID)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
-            local count = Common.CountLandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
+            local count = #CW.LandscapeFilter()
+                :ControlledBy(playerI)
+                :OfLandscapeType(CardWars.Landscapes.Cornfield)
+                :Do()
+
             local myIPID = me.Original.IPID
 
-            local ipids = CW.IPIDs(Common.TargetableByCreature(Common.Creatures(1 - playerI), playerI, myIPID))
+            -- TODO this feels like this should only target opposing creatures
+            local ipids = CW.IPIDs(CW.Targetable.ByCreature(CW.CreatureFilter()
+                :Do()
+            , playerI, myIPID))
 
             for i = 1, count do
                 if #ipids == 0 then
@@ -26,7 +27,7 @@ function _Create()
                 end
 
                 local target = TargetCreature(playerI, ipids, 'Choose a creature to deal damage to')
-                Common.Damage.ToCreatureByCreatureAbility(myIPID, playerI, target, 1)
+                CW.Damage.ToCreatureByCreatureAbility(myIPID, playerI, target, 1)
 
                 local newOptions = {}
                 for _, option in ipairs(ipids) do
@@ -38,8 +39,9 @@ function _Create()
                 ipids = newOptions
                 UpdateState()
             end
+
         end
-    })
+    )
 
     return result
 end

@@ -10,14 +10,14 @@ function _Create()
         checkF = function (me, playerI, laneI)
             return
                 Common.CanFloop(me) and
-                #Common.TargetableByCreature(Common.CreaturesInLane(playerI, laneI), playerI, me.Original.IPID) > 0
+                #CW.Targetable.ByCreature(Common.CreaturesInLane(playerI, laneI), playerI, me.Original.IPID) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.IPID)
             return true
         end,
         effectF = function (me, playerI, laneI)
-            local ipids = CW.IPIDs(Common.TargetableByCreature(Common.CreaturesInLane(playerI, laneI), playerI, me.Original.IPID))
+            local ipids = CW.IPIDs(CW.Targetable.ByCreature(Common.CreaturesInLane(playerI, laneI), playerI, me.Original.IPID))
 
             -- TODO? should this be targeting
             local target = TargetCreature(playerI, ipids, 'Choose a creature to return to hand')

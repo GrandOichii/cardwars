@@ -12,7 +12,7 @@ function _Create()
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Put target Creature you own into your hand, and then play it for free.
-            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.OwnedCreatures(playerI), playerI, id))
+            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.OwnedCreatures(playerI), playerI, id))
             local target = TargetCreature(playerI, ipids, 'Choose a creature you own to return to your hand and them play for free')
 
             Common.Bounce.ReturnToHandAndPlayForFree(playerI, target)

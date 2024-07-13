@@ -9,7 +9,7 @@ function _Create()
         local ipids = CW.IPIDs(Common.AllPlayers.Creatures())
 
         for _, ipid in ipairs(ipids) do
-            Common.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, ipid, 1)
+            CW.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, ipid, 1)
         end
     end)
 

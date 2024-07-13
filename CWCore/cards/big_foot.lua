@@ -3,29 +3,26 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result:AddActivatedAbility({
-        text = 'FLOOP >>> Flip target face-down Landscape you control face up. ',
-        tags = {'floop'},
-
-        checkF = function (me, playerI, laneI)
-            if not Common.CanFloop(me) then
-                return false
-            end
-
-            return #Common.FaceDownLandscapes(playerI) > 0
-        end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.IPID)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
-            local options = CW.Lanes(Common.FaceDownLandscapes(playerI))
-
-            -- TODO? change to target
-            local lane = ChooseLandscape(playerI, options, {}, 'Choose a face-down Landscape to flip')
-            TurnLandscapeFaceUp(lane[0], lane[1])
+    CW.ActivatedAbility.Add(
+        result,
+        'FLOOP >>> Flip target face-down Landscape you control face up. ',
+        CW.ActivatedAbility.Cost.And(
+            CW.ActivatedAbility.Cost.Floop(),
+            CW.ActivatedAbility.Cost.Target.Landscape(
+                'landscape',
+                function (me, playerI, laneI)
+                    return CW.LandscapeFilter():CanBeFlippedUp(playerI):Do()
+                end,
+                function (me, playerI, laneI, targets)
+                    return 'Choose a Landscape to Flip face up'
+                end
+            )
+        ),
+        function (me, playerI, laneI, targets)
+            local landscape = targets.landscape
+            TurnLandscapeFaceUp(landscape.Original.OwnerI, landscape.Original.Idx)
         end
-    })
+    )
 
     return result
 end

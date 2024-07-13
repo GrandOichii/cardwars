@@ -6,7 +6,7 @@ function _Create()
     Common.AddRestriction(result,
         function (id, playerI)
             return nil,
-                #Common.TargetableBySpell(Common.Creatures(playerI), playerI, id) > 0 and
+                #CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id) > 0 and
                 #Common.LandscapesWithoutCreaturesTyped(playerI, CardWars.Landscapes.BluePlains) > 0
         end
     )
@@ -14,7 +14,7 @@ function _Create()
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Move target Creature you control to an empty Blue Plains Landscape you control, and then draw a card.
-            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
+            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id))
             local target = TargetCreature(playerI, ipids, 'Choose a creature to move')
 
             local empty = CW.Lanes(Common.LandscapesWithoutCreaturesTyped(playerI, CardWars.Landscapes.BluePlains))

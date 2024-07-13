@@ -7,7 +7,7 @@ function _Create()
         function (id, playerI)
             -- Reduce the cost of the next Creature you play this turn by 2 Actions.
 
-            Common.Mod.ModNextCost(playerI, -2,
+            CW.Mod.ModNextCost(playerI, -2,
                 function (card)
                     return card.Original.Template.Type == 'Creature'
                 end

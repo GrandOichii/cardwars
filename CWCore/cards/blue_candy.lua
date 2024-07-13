@@ -5,7 +5,7 @@ function _Create()
 
     Common.AddRestriction(result,
         function (id, playerI)
-            return nil, #Common.TargetableBySpell(Common.Creatures(playerI), playerI, id) > 0
+            return nil, #CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id) > 0
         end
     )
 
@@ -13,7 +13,7 @@ function _Create()
         function (id, playerI)
             -- Heal up to 3 Damage from target Creature you control.
 
-            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
+            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id))
             local target = TargetCreature(playerI, ipids, 'Choose a creature to heal')
             local c = GetCreature(target)
 

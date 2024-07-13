@@ -26,7 +26,7 @@ function _Create()
                 HealDamage(ipid, 1)
                 return
             end
-            Common.Damage.ToCreatureByBuildingAbility(me.Original.IPID, playerI, ipid, 1)
+            CW.Damage.ToCreatureByBuildingAbility(me.Original.IPID, playerI, ipid, 1)
         end
     })
 

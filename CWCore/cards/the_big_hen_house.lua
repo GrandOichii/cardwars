@@ -24,7 +24,7 @@ function _Create()
                 if accept then
                     amount = 2
                 end
-                Common.Damage.ToCreatureByBuildingAbility(me.Original.IPID, controllerI, creature.Original.IPID, amount)
+                CW.Damage.ToCreatureByBuildingAbility(me.Original.IPID, controllerI, creature.Original.IPID, amount)
             end
 
             HealHitPoints(controllerI, 1)

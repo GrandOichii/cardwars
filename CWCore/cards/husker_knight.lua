@@ -7,7 +7,7 @@ function _Create()
     CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local count = #CW.LandscapeFilter()
-            :OwnedBy(controllerI)
+            :ControlledBy(controllerI)
             :OfLandscapeType(CardWars.Landscapes.Cornfield)
             :Do()
 

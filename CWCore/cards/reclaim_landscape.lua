@@ -10,7 +10,12 @@ function _Create()
 
             -- flipping
 
-            local lanes = CW.Lanes(Common.FaceDownLandscapes(playerI))
+            local lanes = CW.Lanes(
+                CW.LandscapeFilter()
+                    :ControlledBy(playerI)
+                    :CanBeFlippedUp(playerI)
+                    :Do()
+            )
 
             if #lanes ~= 0 then
                 local lane = ChooseLandscape(playerI, lanes, {}, 'Choose a Cornfield Landscape to flip face-up')
@@ -22,20 +27,27 @@ function _Create()
 
             -- movement 
 
-            local empty = CW.Lanes(Common.LandscapesWithoutBuildings(playerI))
+            local empty = CW.Lanes(
+                CW.LandscapeFilter()
+                    :ControlledBy(playerI)
+                    :WhereBuildingsCanBeMovedTo()
+                    :Do()
+            )
 
             if #empty == 0 then
-                
                 return
             end
-                
-            local ipids = CW.IPIDs(Common.Buildings(playerI))
-            
-            if #ipids == 0 then
 
+            local ipids = CW.IPIDs(
+                CW.BuildingFilter()
+                    :ControlledBy(playerI)
+                    :Do()
+            )
+
+            if #ipids == 0 then
                 return
             end
-            
+
             local buildingIPID = ChooseBuilding(playerI, ipids, 'Choose a building to move')
             local building = GetBuilding(buildingIPID)
 

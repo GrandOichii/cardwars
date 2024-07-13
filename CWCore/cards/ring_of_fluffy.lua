@@ -5,7 +5,7 @@ function _Create()
 
     Common.AddRestriction(result,
         function (id, playerI)
-            return nil, #Common.TargetableBySpell(Common.Creatures(playerI), playerI, id) > 0
+            return nil, #CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id) > 0
         end
     )
 
@@ -13,7 +13,7 @@ function _Create()
         function (id, playerI)
             -- Target Creature you control has +X ATK this turn, where X is the amount of Damage on it.
 
-            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.Creatures(playerI), playerI, id))
+            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id))
             local target = TargetCreature(playerI, ipids, 'Choose a creature to buff')
 
             UntilEndOfTurn(function ( layer)

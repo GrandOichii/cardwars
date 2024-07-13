@@ -208,9 +208,10 @@ public class Player {
 
         CardsPlayedThisTurn.Add(card);
 
-        await Match.ReloadState();
-        if (!Match.Active) return;
+        await Match.SoftReloadState();
+        // if (!Match.Active) return;
 
+        // System.Console.WriteLine("played " + creature.Card.Template.Name);
         var state = Match.GetInPlayCreatureByID(card.ID);
         state.OnEnterPlay(replaced);
 

@@ -5,7 +5,7 @@ function _Create()
     
     Common.AddRestriction(result,
     function (id, playerI)
-        return nil, #Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
+        return nil, #CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
     end
 )
 
@@ -23,7 +23,7 @@ function _Create()
 
             RemoveFromDiscard(choice[0], choice[1])
 
-            local ipids = CW.IPIDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id))
             local target = TargetCreature(playerI, ipids, 'Choose a creature to heal')
             HealDamage(target, card:RealCost())
         end

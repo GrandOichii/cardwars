@@ -11,7 +11,7 @@ function _Create()
                 if layer == CardWars.ModificationLayers.DAMAGE_MODIFICATION then
                     local creatures = Common.Creatures(playerI)
                     for _, creature in ipairs(creatures) do
-                        Common.Damage.PreventCreatureDamage(creature)
+                        CW.Damage.PreventCreatureDamage(creature)
                     end
                 end
             end)

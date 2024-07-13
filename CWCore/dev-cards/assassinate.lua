@@ -5,7 +5,7 @@ function _Create()
 
     Common.AddRestriction(result,
         function (id, playerI)
-            return nil, #Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
+            return nil, #CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
         end
     )
 
@@ -13,7 +13,7 @@ function _Create()
         function (id, playerI)
             -- Destroy target creature
             
-            local ids = CW.IPIDs(Common.TargetableBySpell(Common.AllPlayers.Creatures(), playerI, id))
+            local ids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id))
             local target = TargetCreature(playerI, ids, 'Choose a creature to destroy')
             DestroyCreature(target)
         end

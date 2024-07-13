@@ -13,7 +13,7 @@ function _Create()
         if c == nil then
             return
         end
-        Common.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, id, amount)
+        CW.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, id, amount)
     end)
 
     return result

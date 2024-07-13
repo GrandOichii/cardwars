@@ -18,14 +18,18 @@ function _Create()
 
     -- When Field Reaper enters play, move target Creature in this Lane to an adjacent empty Lane on your side.
     result:OnEnter(function(me, playerI, laneI, replaced)
-        local ipids = CW.IPIDs(Common.TargetableByCreature(Common.AllPlayers.CreaturesInLane(laneI), playerI, me.Original.IPID))
-        local adjacent = Common.AdjacentLandscapes(playerI, laneI)
-        local options = {}
-        for _, landscape in ipairs(adjacent) do
-            if landscape.Creature == nil then
-                options[#options+1] = landscape.Original.Idx
-            end
-        end
+        local ipids = CW.IPIDs(CW.Targetable.ByCreature(
+            CW.CreatureFilter()
+                :InLane(laneI)
+                :Do()
+        ))
+        local adjacent = CW.LandscapeFilter()
+            :ControlledBy(playerI)
+            :AdjacentTo(laneI)
+            :Empty()
+            :Do()
+        local options = CW.Lanes(adjacent)
+
         if #options == 0 then
             return
         end

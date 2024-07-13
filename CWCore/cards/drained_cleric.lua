@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Creature()
 
     -- At the start of your turn, move Drained Cleric to an empty Landscape you control. If you cannot, discard a card.
-    Common.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
+    CW.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
         local empty = Common.LandscapesWithoutCreatures(controllerI)
         if #empty == 0 then
             Common.ChooseAndDiscardCard(controllerI)

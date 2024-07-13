@@ -11,7 +11,7 @@ function _Create()
             local ipid = me.Original.IPID
             return
                 Common.CanFloop(me) and
-                #Common.TargetableByCreature(Common.CreaturesExcept(playerI, ipid), playerI, ipid) > 0
+                #CW.Targetable.ByCreature(Common.CreaturesExcept(playerI, ipid), playerI, ipid) > 0
         end,
         costF = function (me, playerI, laneI)
             FloopCard(me.Original.IPID)
@@ -19,7 +19,7 @@ function _Create()
         end,
         effectF = function (me, playerI, laneI)
             local ipid = me.Original.IPID
-            local ipids = CW.IPIDs(Common.TargetableByCreature(Common.CreaturesExcept(playerI, ipid), playerI, ipid))
+            local ipids = CW.IPIDs(CW.Targetable.ByCreature(Common.CreaturesExcept(playerI, ipid), playerI, ipid))
             local target = TargetCreature(playerI, ipids, 'Choose creatures to swap lanes with '..me.Original.Card.Template.Name)
 
             SwapCreatures(id, target)
