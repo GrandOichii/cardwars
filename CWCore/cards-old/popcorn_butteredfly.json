@@ -1,9 +1,0 @@
-{
-    "Name": "Popcorn Butteredfly",
-    "Landscape": "Cornfield",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "FLOOP >>> Draw a card for each Building you control.",
-    "Attack": 1,
-    "Defense": 5
-}

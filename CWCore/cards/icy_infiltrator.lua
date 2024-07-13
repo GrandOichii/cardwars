@@ -6,7 +6,7 @@ function _Create()
     result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Icy Infiltrator enters play, Freeze its Landscape.
 
-        Common.FreezeLandscape(playerI, laneI)
+        CW.Freeze.Landscape(playerI, laneI)
     end)
 
     return result

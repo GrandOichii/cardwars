@@ -1,9 +1,0 @@
-{
-    "Name": "Angel Heart",
-    "Landscape": "Rainbow",
-    "Type": "Creature",
-    "Cost": 0,
-    "Text": "While Angel Heart has exactly 3 Damage on it, it has +3 ATK.",
-    "Attack": 0,
-    "Defense": 7
-}

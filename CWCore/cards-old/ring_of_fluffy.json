@@ -1,7 +1,0 @@
-{
-    "Name": "Ring of Fluffy",
-    "Landscape": "NiceLands",
-    "Type": "Spell",
-    "Cost": 2,
-    "Text": "Target Creature you control has +X ATK this turn, where X is the amount of Damage on it."
-}

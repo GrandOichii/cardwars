@@ -1,9 +1,0 @@
-{
-    "Name": "Cottonpult",
-    "Landscape": "NiceLands",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "FLOOP >>> Deal 1 Damage to target Creature. If Cottonpult has 5 or more Damage on it, it heals 1 Damage and readies.",
-    "Attack": 1,
-    "Defense": 8
-}

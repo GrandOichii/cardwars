@@ -1,7 +1,0 @@
-{
-    "Name": "Black Hole Pendant",
-    "Landscape": "Rainbow",
-    "Type": "Spell",
-    "Cost": 0,
-    "Text": "Target Creature has +X ATK this turn, where X is the number of different Landscape types your opponent controls."
-}

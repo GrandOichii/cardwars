@@ -1,9 +1,0 @@
-{
-    "Name": "Travelin' Skeleton",
-    "Landscape": "Blue Plains",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "FLOOP >>> Travelin' Skeleton and another Creature you control change Lanes with each other.",
-    "Attack": 0,
-    "Defense": 8
-}

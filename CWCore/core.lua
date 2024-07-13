@@ -337,14 +337,6 @@ function Common.CanFloop(card)
     return card.Original:CanFloop()
 end
 
-function Common.FreezeLandscape(playerI, laneI)
-    local landscape = STATE.Players[playerI].Landscapes[laneI]
-    if landscape:IsFrozen() then
-        return
-    end
-    PlaceTokenOnLandscape(playerI, laneI, 'Frozen')
-end
-
 function Common.GainDefense(creature, amount)
     local def = 0
     if amount > creature.Original.Damage then
@@ -1162,7 +1154,7 @@ function Common.Freeze.TargetLandscape(playerI)
     local l1 = CW.Lanes(landscapes[playerI])
     local l2 = CW.Lanes(landscapes[1 - playerI])
     local choice = ChooseLandscape(playerI, l1, l2, 'Choose a Landscape to freeze')
-    Common.FreezeLandscape(choice[0], choice[1])
+    CW.Freeze.Landscape(choice[0], choice[1])
 end
 
 Common.Reveal = {}
@@ -1173,9 +1165,6 @@ function Common.Reveal.Hand(playerI)
         RevealCardFromHand(playerI, i)
     end
 end
-
-
-
 
 CW = {}
 
@@ -1359,6 +1348,13 @@ function CW.CreatureFilter()
     function result:Flooped()
         result.filters[#result.filters+1] = function (creature)
             return creature.Original:IsFlooped()
+        end
+        return self
+    end
+
+    function result:OnFrozenLandscapes()
+        result.filters[#result.filters+1] = function (creature)
+            return STATE.Players[creature.Original.ControllerI].Landscapes[creature.LaneI]:IsFrozen()
         end
         return self
     end
@@ -1680,6 +1676,13 @@ function CW.LandscapeFilter()
         return self
     end
 
+    function result:IsFrozen()
+        result.filters[#result.filters+1] = function (landscape)
+            return landscape:IsFrozen()
+        end
+        return self
+    end
+
     function result:OfLandscapeType(name)
         result.filters[#result.filters+1] = function (landscape)
             return landscape:Is(name)
@@ -1776,6 +1779,17 @@ end
 
 function CW.AddRestriction(card, restriction)
     card.CanPlayP:AddLayer(restriction)
+end
+
+CW.Freeze = {}
+
+function CW.Freeze.Landscape(playerI, laneI)
+    local landscape = STATE.Players[playerI].Landscapes[laneI]
+    -- TODO? not specified in the rules
+    if landscape:IsFrozen() then
+        return
+    end
+    PlaceTokenOnLandscape(playerI, laneI, 'Frozen')
 end
 
 CW.Target = {}

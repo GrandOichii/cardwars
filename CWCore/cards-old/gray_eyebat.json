@@ -1,9 +1,0 @@
-{
-    "Name": "Gray Eyebat",
-    "Landscape": "Useless Swamp",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "Pay 1 Action >>> Return a random Useless Swamp Creature from your discard pile to your hand.",
-    "Attack": 2,
-    "Defense": 7
-}

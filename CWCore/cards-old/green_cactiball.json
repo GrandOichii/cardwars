@@ -1,9 +1,0 @@
-{
-    "Name": "Green Cactiball",
-    "Landscape": "SandyLands",
-    "Type": "Creature",
-    "Cost": 1,
-    "Attack": 0,
-    "Defense": 4,
-    "Text": "+2 ATK for each Green Cactiball you control. "
-}

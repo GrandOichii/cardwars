@@ -1,9 +1,0 @@
-{
-    "Name": "Pieclops",
-    "Landscape": "NiceLands",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "When Pieclops enters play, heal 1 Damage from each adjacent Creature.",
-    "Attack": 2,
-    "Defense": 7
-}

@@ -1,9 +1,0 @@
-{
-    "Name": "Djini Ghost",
-    "Landscape": "Blue Plains",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "FLOOP >>> Pay 2 less to play your next Spell this Turn.",
-    "Attack": 1,
-    "Defense": 6
-}

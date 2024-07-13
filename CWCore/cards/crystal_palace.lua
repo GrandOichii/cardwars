@@ -2,7 +2,7 @@
 
 function _Create()
     local result = CardWars:InPlay()
-    
+
     result:AddTrigger({
         -- When a Landscape in this Lane becomes Frozen, deal 2 Damage to target Creature.
 
@@ -11,13 +11,13 @@ function _Create()
             return
                 args.laneI == laneI and
                 args.token == 'Frozen' and
-                #CW.Targetable.ByBuilding(Common.AllPlayers.Creatures(), controllerI, me.Original.IPID) > 0
+                #CW.Targetable.ByBuilding(CW:CreatureFilter():Do(), controllerI, me.Original.IPID) > 0
         end,
         costF = function (me, controllerI, laneI, args)
             return true
         end,
         effectF = function (me, controllerI, laneI, args)
-            local ipids = CW.IPIDs(CW.Targetable.ByBuilding(Common.AllPlayers.Creatures(), controllerI, me.Original.IPID))
+            local ipids = CW.IPIDs(CW.Targetable.ByBuilding(CW:CreatureFilter():Do(), controllerI, me.Original.IPID))
 
             local target = TargetCreature(controllerI, ipids, 'Choose a creature to deal 2 damage to')
 

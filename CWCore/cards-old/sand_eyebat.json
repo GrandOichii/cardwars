@@ -1,9 +1,0 @@
-{
-    "Name": "Sand Eyebat",
-    "Landscape": "SandyLands",
-    "Type": "Creature",
-    "Cost": 2,
-    "Text": "When another Creature enters play under your control, Sand Eyebat gains 1 DEF.",
-    "Attack": 1,
-    "Defense": 10
-}

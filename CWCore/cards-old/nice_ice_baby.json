@@ -1,9 +1,0 @@
-{
-    "Name": "Nice Ice Baby",
-    "Landscape": "Rainbow",
-    "Type": "Creature",
-    "Cost": 0,
-    "Attack": 1,
-    "Defense": 2,
-    "Text": "+3 ATK while your opponent does not control a Creature in this Lane. "
-}

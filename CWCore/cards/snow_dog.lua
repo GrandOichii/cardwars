@@ -3,7 +3,8 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.Floop(result,
+    CW.ActivatedAbility.Common.Floop(
+        result,
         'FLOOP >>> Each adjacent Creature has +2 ATK this turn.',
         function (me, playerI, laneI)
             local ipid = me.Original.IPID
@@ -13,7 +14,10 @@ function _Create()
                     if c == nil then
                         return
                     end
-                    local adjacent = Common.AdjacentCreatures(playerI, c.LaneI)
+                    local adjacent = CW.CreatureFilter()
+                        :ControlledBy(playerI)
+                        :AdjacentToLane(c.LaneI)
+                        :Do()
                     for _, creature in ipairs(adjacent) do
                         creature.Attack = creature.Attack + 2
                     end

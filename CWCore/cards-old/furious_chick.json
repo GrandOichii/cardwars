@@ -1,9 +1,0 @@
-{
-    "Name": "Furious Chick",
-    "Landscape": "Rainbow",
-    "Type": "Creature",
-    "Cost": 0,
-    "Text": "Furious Chick has +1 ATK for each Damage on it.",
-    "Attack": 0,
-    "Defense": 5
-}

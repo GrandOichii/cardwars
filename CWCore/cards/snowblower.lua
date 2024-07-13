@@ -13,8 +13,8 @@ function _Create()
             end
 
             local lane = ChooseLane(playerI, lanes, 'Choose an Lane to freeze both Landscapes')
-            Common.FreezeLandscape(playerI, lane)
-            Common.FreezeLandscape(1 - playerI, lane)
+            CW.Freeze.Landscape(playerI, lane)
+            CW.Freeze.Landscape(1 - playerI, lane)
         end
     )
 

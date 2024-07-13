@@ -1,9 +1,0 @@
-{
-    "Name": "Blue Merlock",
-    "Landscape": "Useless Swamp",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "FLOOP >>> Draw a card, then discard a card.",
-    "Attack": 2,
-    "Defense": 5
-}

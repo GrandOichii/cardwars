@@ -16,8 +16,8 @@ function _Create()
             return true
         end,
         effectF = function (me, playerI, laneI)
-            Common.FreezeLandscape(playerI, laneI)
-            Common.FreezeLandscape(1 - playerI, laneI)
+            CW.Freeze.Landscape(playerI, laneI)
+            CW.Freeze.Landscape(1 - playerI, laneI)
         end
     })
 

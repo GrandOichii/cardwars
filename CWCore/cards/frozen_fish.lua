@@ -12,7 +12,7 @@ function _Create()
         local lane = ChooseLandscape(playerI, {laneI}, {laneI}, 'Choose a Landscape to freeze')
         local accept = YesNo(playerI, 'Freeeze Landscape?')
         if accept then
-            Common.FreezeLandscape(lane[0], lane[1])
+            CW.Freeze.Landscape(lane[0], lane[1])
         end
     end)
 

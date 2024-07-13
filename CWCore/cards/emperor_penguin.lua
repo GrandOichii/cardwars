@@ -5,7 +5,7 @@ function _Create()
 
     -- Creatures on Landscapes with a Frozen token on it have -1 ATK.
     CW.State.ModATKDEF(result, function (me)
-        local creatures = Common.AllPlayers.CreaturesWithFrozenTokens()
+        local creatures = CW.CreatureFilter():OnFrozenLandscapes():Do()
         for _, creature in ipairs(creatures) do
             creature.Attack = creature.Attack - 1
         end

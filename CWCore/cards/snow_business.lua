@@ -3,13 +3,27 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    Common.ActivatedAbilities.PayActionPoints(result, 1,
+    CW.ActivatedAbility.Add(
+        result,
         'Pay 1 Action >>> Freeze target Landscape in this Lane.',
-        function (me, playerI, laneI)
+        CW.ActivatedAbility.Cost.And(
+            CW.ActivatedAbility.Cost.PayActionPoints(1),
+            CW.ActivatedAbility.Cost.Target.Landscape(
+                'landscape',
+                function (me, playerI, laneI)
+                    return CW.LandscapeFilter():OnLane(laneI)
+                        :Do()
+                end,
+                function (me, playerI, laneI, targets)
+                    return 'Choose a Landscape to freeze'
+                end
+            )
+        ),
+        function (me, playerI, laneI, targets)
             -- TODO? change to TargetLandscape
-            local lane = ChooseLandscape(playerI, {laneI}, {laneI}, 'Choose a Landscape to freeze')
-            Common.FreezeLandscape(lane[0], lane[1])
-        end
+            CW.Freeze.Landscape(targets.landscape.Original.OwnerI, targets.landscape.Original.Idx)
+        end,
+        -1
     )
 
     return result

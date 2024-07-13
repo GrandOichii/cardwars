@@ -1,9 +1,0 @@
-{
-    "Name": "Husker Valkyrie",
-    "Landscape": "Cornfield",
-    "Type": "Creature",
-    "Cost": 2,
-    "Text": "Husker Valkyrie has +2 ATK and +2 DEF if you control a Building on this Landscape.",
-    "Attack": 2,
-    "Defense": 6
-}

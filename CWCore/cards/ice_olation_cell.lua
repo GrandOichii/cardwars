@@ -7,11 +7,10 @@ function _Create()
         -- Creatures on Landscapes with a Frozen token on it in this Lane cannot Attack or use abilities.
 
         if (layer == CardWars.ModificationLayers.ATTACK_RIGHTS or layer == CardWars.ModificationLayers.ABILITY_GRANTING_REMOVAL) and zone == CardWars.Zones.IN_PLAY then
-            local landscapes = Common.LandscapesInLane(me.LaneI)
-            for playerI, landscape in ipairs(landscapes) do
-                local l = landscape[1]
-                if l:IsFrozen() then
-                    local creature = l.Creature
+            local landscapes = CW.LandscapeFilter():OnLane(me.LaneI):Do()
+            for _, landscape in ipairs(landscapes) do
+                if landscape:IsFrozen() then
+                    local creature = landscape.Creature
                     if creature ~= nil then
                         CW.State.CantAttack(creature)
                         -- TODO what does "use abilities" mean - only activated abilities or ALL abilities (including state modifiers)

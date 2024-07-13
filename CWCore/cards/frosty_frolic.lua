@@ -3,13 +3,22 @@
 function _Create()
     local result = CardWars:Spell()
 
-    result.EffectP:AddLayer(
-        function (id, playerI)
-            -- Target player discards 1 card from her hand for each Landscape with a Frozen token on it she controls.
-
-            local target = TargetPlayer(playerI, {0, 1}, 'Choose a player')
-            local landscapes = Common.FrozenLandscapes(target)
-            Common.DiscardNCards(target, #landscapes)
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'playerIdx',
+                target = CW.Spell.Target.Player(
+                    function (id, playerI, targets)
+                        return 'Choose a player'
+                    end
+                )
+            }
+        },
+        function (id, playerI, targets)
+            local idx = targets.playerIdx
+            local landscapes = Common.FrozenLandscapes(idx)
+            CW.Discard.NCards(idx, #landscapes)
         end
     )
 

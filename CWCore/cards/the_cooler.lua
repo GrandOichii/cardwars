@@ -6,7 +6,7 @@ function _Create()
     result:OnLeave(function(ipid, id, playerI, laneI, wasReady)
         -- When The Cooler leaves play, Freeze its Landscape.
 
-        Common.FreezeLandscape(playerI, laneI)
+        CW.Freeze.Landscape(playerI, laneI)
     end)
 
     return result

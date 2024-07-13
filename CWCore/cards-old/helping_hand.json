@@ -1,9 +1,0 @@
-{
-    "Name": "Helping Hand",
-    "Landscape": "Rainbow",
-    "Type": "Creature",
-    "Cost": 0,
-    "Text": "FLOOP >>> Return a Building from your discard pile to your hand.",
-    "Attack": 1,
-    "Defense": 4
-}

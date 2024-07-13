@@ -6,7 +6,7 @@ function _Create()
     result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Frosted Snowwoman enters play, Freeze both Landscapes in her Lane.
         for i = 0, STATE.Players.Length - 1 do
-            Common.FreezeLandscape(i, laneI)
+            CW.Freeze.Landscape(i, laneI)
         end
     end)
 

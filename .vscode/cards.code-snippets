@@ -16,6 +16,175 @@
 			")"
 		]
 	},
+	"activated-ability-floop": {
+		"scope": "lua",
+		"prefix": "aa-floop",
+		"description": "activated ability with flooping as cost",
+		"body": [
+			"CW.ActivatedAbility.Common.Floop(",
+			"\tresult,",
+			"\t'$1',",
+			"\tfunction (me, playerI, laneI)",
+			"\t\t$0",
+			"\tend",
+			")"
+		]
+	},
+	"activated-abiility-target-landscape": {
+		"scope": "lua",
+		"prefix": "aat-landscape",
+		"description": "add a landscape target to an activated ability",
+		"body": [
+			"CW.ActivatedAbility.Cost.Target.Landscape(",
+            "    '${1:landscape}',",
+            "    function (me, playerI, laneI)",
+            "        return CW.LandscapeFilter():${2}",
+			"            :Do()",
+            "    end,",
+            "    function (me, playerI, laneI, targets)",
+            "        return '${3:Choose a Landscape}'",
+            "    end",
+            ")"
+		]
+	},
+	"activated-abiility-target-creature": {
+		"scope": "lua",
+		"prefix": "aat-creature",
+		"description": "add a creature target to an activated ability",
+		"body": [
+			"CW.ActivatedAbility.Cost.Target.Creature(",
+			"    '${1:creature}',",
+			"    function (me, playerI, laneI)",
+			"        return CW.CreatureFilter():$2",
+			"            :Do()",
+			"    end,",
+			"    function (me, playerI, laneI, targets)",
+			"        return 'Choose a Creature$3'",
+			"    end",
+			")",
+		]
+	},
+	"activated-ability": {
+		"scope": "lua",
+		"prefix": "aa",
+		"description": "activated ability",
+		"body": [
+			"CW.ActivatedAbility.Add(",
+			"    result,",
+			"    '$1',",
+			"    $2,",
+			"    function (me, playerI, laneI, targets)",
+			"        $0",
+			"    end,",
+			"    ${3:-1}",
+			")"
+		]
+	},
+	"activated-ability-pay-action-points-cost": {
+		"scope": "lua",
+		"prefix": "aac-ap",
+		"description": "activated ability action point cost",
+		"body": "CW.ActivatedAbility.Cost.PayActionPoints(${1:1})$0"
+	},
+	"activated-ability-floop-cost": {
+		"scope": "lua",
+		"prefix": "aac-floop",
+		"description": "activated ability floop cost",
+		"body": "CW.ActivatedAbility.Cost.Floop()$0"
+	},
+	"activated-ability-destroy-self-cost": {
+		"scope": "lua",
+		"prefix": "aac-destroyself",
+		"description": "activated ability destroy self cost",
+		"body": "CW.ActivatedAbility.Cost.DestroySelf()$0"
+	},
+	"activated-ability-and-cost": {
+		"scope": "lua",
+		"prefix": "aac-and",
+		"description": "activated ability and cost",
+		"body": [
+			"CW.ActivatedAbility.Cost.And(",
+            "    $0",
+			"),"
+		]
+	},
+
+	"spell-effect": {
+		"scope": "lua",
+		"prefix": "spell-effect",
+		"description": "complex spell effect",
+		"body": [
+			"CW.Spell.AddEffect(",
+			"    result,",
+			"    {",
+			"        $1",
+			"    },",
+			"    function (id, playerI, targets)",
+			"        $0",
+			"    end",
+			")"
+		]
+	},
+	"spell-target-landscape": {
+		"scope": "lua",
+		"prefix": "spellt-landscape",
+		"description": "add landscape target to spell effect",
+		"body": [
+			"{",
+			"    key = '${1:landscape}',",
+			"    target = CW.Spell.Target.Landscape(",
+			"        function (id, playerI)",
+			"            return CW.LandscapeFilter():$2",
+			"                :Do()",
+			"        end,",
+			"        function (id, playerI, targets)",
+			"            return '$3'",
+			"        end",
+			"    )",
+			"}"
+		]
+	},
+	"spell-target-player": {
+		"scope": "lua",
+		"prefix": "spellt-player",
+		"description": "add player target to spell effect",
+		"body": [
+			"{",
+            "    key = '${1:playerIdx}',",
+            "    target = CW.Spell.Target.Player(",
+            "        function (id, playerI, targets)",
+            "            return 'Choose a player$2'",
+            "        end",
+            "    )",
+            "}",
+		]
+	},
+	"spell-target-creature": {
+		"scope": "lua",
+		"prefix": "spellt-creature",
+		"description": "add creature target to spell effect",
+		"body": [
+			"{",
+            "    key = '${1:creature}',",
+            "    target = CW.Spell.Target.Creature(",
+            "        function (id, playerI)",
+            "            return CW.CreatureFilter():$2",
+			"                :Do()",
+            "        end,",
+            "        function (id, playerI, targets)",
+            "            return 'Choose a creature$3'",
+            "        end",
+            "    )",
+            "},"
+		]
+	},
+
+
+
+
+
+
+
 	"creature": {
 		"scope": "lua",
 		"prefix": "creature",
@@ -70,27 +239,6 @@
 			"\tcostF = function (me, playerI, laneI)",
 			"\t\tFloopCard(me.Original.Card.ID)",
 			"\t\treturn true",
-			"\tend,",
-			"\teffectF = function (me, playerI, laneI)",
-			"\t\t$0",
-			"\tend",
-			"})",
-		]
-	},
-	"activated_ability": {
-		"scope": "lua",
-		"prefix": "aa",
-		"description": "add activated ability TODO old",
-		"body": [
-			"result:AddActivatedAbility({",
-			"\t-- $1 >>> $2",
-			"",
-			"\tmaxActivationsPerTurn = ${3:-1},",
-			"\tcheckF = function (me, playerI, laneI)",
-			"\t\t$4",
-			"\tend,",
-			"\tcostF = function (me, playerI, laneI)",
-			"\t\t$5",
 			"\tend,",
 			"\teffectF = function (me, playerI, laneI)",
 			"\t\t$0",

@@ -1,9 +1,0 @@
-{
-    "Name": "Sandhorn Devil",
-    "Landscape": "SandyLands",
-    "Type": "Creature",
-    "Cost": 1,
-    "Attack": 3,
-    "Defense": 6,
-    "Text": "When Sandhorn Devil enters play, deal 1 Damage to each Creature in play, (including each of your Creatures)."
-}

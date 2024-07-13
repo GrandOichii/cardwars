@@ -1,9 +1,0 @@
-{
-    "Name": "Green Mermaid",
-    "Landscape": "Useless Swamp",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "Destroy Green Mermaid >>> Deal 1 Damage to each opposing Creature.",
-    "Attack": 1,
-    "Defense": 9
-}

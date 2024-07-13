@@ -1,9 +1,0 @@
-{
-    "Name": "Lost Golem",
-    "Landscape": "SandyLands",
-    "Type": "Creature",
-    "Cost": 3,
-    "Text": "Lost Golem costs 1 less to play for each other Creature you have played this turn.",
-    "Attack": 5,
-    "Defense": 6
-}
