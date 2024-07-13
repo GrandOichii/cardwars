@@ -3,25 +3,38 @@
 function _Create()
     local result = CardWars:Spell()
 
-    CW.AddRestriction(result,
-        function (id, playerI)
-            return nil, #CW.Targetable.BySpell(Common.AllPlayers.CreaturesTyped(CardWars.Landscapes.SandyLands), playerI, id) > 0
-        end
-    )
+    -- Target SandyLands Creature has +2 ATK this turn for each Creature that entered play into an adjacent Lane this turn.
 
-    result.EffectP:AddLayer(
-        function (id, playerI)
-            -- Target SandyLands Creature has +2 ATK this turn for each Creature that entered play into an adjacent Lane this turn.
-            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.CreaturesTyped(CardWars.Landscapes.SandyLands), playerI, id))
-
-            local target = TargetCreature(playerI, ipids, 'Choose a creature to buff')
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'creature',
+                target = CW.Spell.Target.Creature(
+                    function (id, playerI)
+                        return CW.CreatureFilter()
+                            :LandscapeType(CardWars.Landscapes.SandyLands)
+                            :ControlledBy(playerI)
+                            :Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a creature to buff'
+                    end
+                )
+            }
+        },
+        function (id, playerI, targets)
+            local ipid = targets.creature.Original.IPID
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local c = GetCreatureOrDefault(target)
+                    local c = GetCreatureOrDefault(ipid)
                     if c == nil then
                         return
                     end
-                    local adjacent = Common.AdjacentLandscapes(playerI, c.LaneI)
+                    local adjacent = CW.LandscapeFilter()
+                        :ControlledBy(playerI)
+                        :AdjacentTo(c.LaneI)
+                        :Do()
                     local amount = 0
                     for _, landscape in ipairs(adjacent) do
                         amount = amount + landscape.Original.CreaturesEnteredThisTurn.Count
@@ -31,6 +44,7 @@ function _Create()
                 end
             end)
         end
+
     )
 
     return result

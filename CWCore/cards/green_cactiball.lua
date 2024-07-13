@@ -6,8 +6,11 @@ function _Create()
     -- +2 ATK for each Green Cactiball you control.
     CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
-        local count = Common.CreaturesNamed(controllerI, 'Green Cactiball')
-        me.Attack = me.Attack + #count * 2
+        local count = #CW.CreatureFilter()
+            :ControlledBy(controllerI)
+            :Named('Green Cactiball')
+            :Do()
+        me.Attack = me.Attack + count * 2
     end)
 
     return result

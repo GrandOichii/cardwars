@@ -3,7 +3,8 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.Floop(result,
+    CW.ActivatedAbility.Common.Floop(
+        result,
         'FLOOP >>> Gain 1 Action this turn.',
         function (me, playerI, laneI)
             AddActionPoints(playerI, 1)

@@ -5,8 +5,10 @@ function _Create()
 
     result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Sandsnake enters play, deal 4 Damage to target opposing Creature in this Lane.
-
-        local ipids = CW.IPIDs(CW.Targetable.ByCreature(Common.OpposingCreaturesInLane(playerI, laneI), playerI, me.Original.IPID))
+        local f = CW.CreatureFilter()
+            :OpposingTo(playerI)
+            :InLane(laneI)
+        local ipids = CW.IPIDs(CW.Targetable.ByCreature(f:Do(), playerI, me.Original.IPID))
         if #ipids == 0 then
             return
         end

@@ -1370,6 +1370,13 @@ function CW.CreatureFilter()
         return self
     end
 
+    function result:Named(name)
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original.Card.Template.Name == name
+        end
+        return self
+    end
+
     function result:ControlledBy(playerI)
         result.filters[#result.filters+1] = function (creature)
             return creature.Original.ControllerI == playerI

@@ -6,9 +6,11 @@ function _Create()
     result.EffectP:AddLayer(
         function (id, playerI)
             -- Draw a card for each of your empty Lanes.
-            -- TODO not clear what "empty" means - without creatures, buildings, or both?
 
-            local amount = #Common.LandscapesWithoutCreatures(playerI)
+            local amount = #CW.LandscapeFilter()
+                :ControlledBy(playerI)
+                :Empty()
+                :Do()
 
             Draw(playerI, amount)
         end

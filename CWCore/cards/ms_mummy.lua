@@ -21,7 +21,7 @@ function _Create()
         effectF = function (me, controllerI, laneI)
             -- TODO? should this be in check
             local creatures = CW.IPIDs(CW.Targetable.ByCreature(
-                Common.CreaturesTyped(controllerI, CardWars.Landscapes.SandyLands),
+                CW.CreatureFilter():ControlledBy(controllerI):LandscapeType(CardWars.Landscapes.SandyLands):Do(),
                 controllerI,
                 me.Original.IPID
             ))

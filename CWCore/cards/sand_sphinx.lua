@@ -3,28 +3,25 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    result:AddActivatedAbility({
-        text = 'FLOOP >>> Return a Creature you control in this Lane to its owner\'s hand.',
-        tags = {'floop'},
-
-        checkF = function (me, playerI, laneI)
-            return
-                Common.CanFloop(me) and
-                #CW.Targetable.ByCreature(Common.CreaturesInLane(playerI, laneI), playerI, me.Original.IPID) > 0
-        end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.IPID)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
-            local ipids = CW.IPIDs(CW.Targetable.ByCreature(Common.CreaturesInLane(playerI, laneI), playerI, me.Original.IPID))
-
-            -- TODO? should this be targeting
-            local target = TargetCreature(playerI, ipids, 'Choose a creature to return to hand')
-
-            ReturnCreatureToOwnersHand(target)
+    CW.ActivatedAbility.Add(
+        result,
+        'FLOOP >>> Return a Creature you control in this Lane to its owner\'s hand.',
+        CW.ActivatedAbility.Cost.And(
+            CW.ActivatedAbility.Cost.Floop(),
+            CW.ActivatedAbility.Cost.Target.Creature(
+                'creature',
+                function (me, playerI, laneI)
+                    return CW.CreatureFilter():InLane(laneI):ControlledBy(playerI):Do()
+                end,
+                function (me, playerI, laneI, targets)
+                    return 'Choose a Creature to return to hand'
+                end
+            )
+        ),
+        function (me, playerI, laneI, targets)
+            ReturnCreatureToOwnersHand(targets.creature.Original.IPID)
         end
-    })
+    )
 
     return result
 end
