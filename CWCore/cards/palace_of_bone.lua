@@ -7,7 +7,11 @@ function _Create()
         -- Opposing Creatures in this Lane don't trigger entering or leaving play effects.
 
         if layer == CardWars.ModificationLayers.ABILITY_GRANTING_REMOVAL and zone == CardWars.Zones.IN_PLAY then
-            local creatures = Common.OpposingCreaturesInLane(me.Original.ControllerI, me.LaneI)
+            local creatures = CW.CreatureFilter()
+                :OpposingTo(me.Original.ControllerI)
+                :InLane(me.LaneI)
+                :Do()
+
             for _, creature in ipairs(creatures) do
                 creature.OnEnterEffects:Clear()
                 creature.OnLeaveEffects:Clear()

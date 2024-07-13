@@ -14,7 +14,9 @@ function _Create()
                         return
                     end
                     local amount = math.floor(count / 5)
-                    local creatures = Common.Creatures(playerI)
+                    local creatures = CW.CreatureFilter()
+                        :ControlledBy(playerI)
+                        :Do()
                     for _, creature in ipairs(creatures) do
                         creature.Attack = creature.Attack + amount
                     end

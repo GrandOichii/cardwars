@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Spell()
 
-    Common.AddRestriction(result,
+    CW.AddRestriction(result,
         function (id, playerI)
             local options = Common.AllPlayers.AvailableToFlipDownLandscapes(playerI)
             return nil, (#options[1] + #options[2]) > 0

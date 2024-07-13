@@ -7,7 +7,7 @@ function _Create()
     CW.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
         local empty = Common.LandscapesWithoutCreatures(controllerI)
         if #empty == 0 then
-            Common.ChooseAndDiscardCard(controllerI)
+            CW.Discard.ACard(controllerI)
             return
         end
         local lanes = CW.Lanes(empty)

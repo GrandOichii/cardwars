@@ -7,7 +7,7 @@ function _Create()
     CW.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
         for i = 0, 1 do
             Draw(i, 1)
-            Common.ChooseAndDiscardCard(i)
+            CW.Discard.ACard(i)
         end
     end)
 

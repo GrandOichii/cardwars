@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://v1/Card/Behavior/CreatureBehavior.gd" id="5_ssc60"]
 [ext_resource type="Script" path="res://v1/Card/Behavior/InPlayCardBehavior.gd" id="6_w53fr"]
 
-[sub_resource type="Resource" id="Resource_i7sv8"]
+[sub_resource type="Resource" id="Resource_36exi"]
 resource_local_to_scene = true
 script = ExtResource("5_ssc60")
 CanAttackColor = Color(1, 0.518123, 0.45217, 1)
@@ -18,7 +18,7 @@ PickHoverColor = Color(0.877121, 0.44349, 0, 1)
 CanActivateColor = Color(0, 0, 0.458824, 1)
 CanActivateHoverColor = Color(0, 0, 0.909804, 1)
 
-[sub_resource type="Resource" id="Resource_t70je"]
+[sub_resource type="Resource" id="Resource_m5pxg"]
 resource_local_to_scene = true
 script = ExtResource("6_w53fr")
 DefaultColor = Color(0, 0, 0, 0)
@@ -76,7 +76,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Creature" parent="ReadyCreaturePoint" instance=ExtResource("4_w3fph")]
 unique_name_in_owner = true
-Behavior = SubResource("Resource_i7sv8")
+Behavior = SubResource("Resource_36exi")
 
 [node name="AttackingCreaturePoint" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -96,7 +96,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Building" parent="BuildingPoint" instance=ExtResource("4_w3fph")]
 unique_name_in_owner = true
-Behavior = SubResource("Resource_t70je")
+Behavior = SubResource("Resource_m5pxg")
 
 [connection signal="gui_input" from="Control" to="." method="OnControlGuiInput"]
 [connection signal="mouse_entered" from="Control" to="." method="OnControlMouseEntered"]

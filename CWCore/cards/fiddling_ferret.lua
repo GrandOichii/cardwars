@@ -9,7 +9,7 @@ function _Create()
             Draw(playerI, 1)
             UpdateState()
 
-            local discardedId = Common.ChooseAndDiscardCard(playerI)
+            local discardedId = CW.Discard.ACard(playerI)
             if discardedId == 0 then
                 return
             end

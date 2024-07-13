@@ -10,7 +10,7 @@ function _Create()
         CW.ActivatedAbility.Cost.And(
             CW.ActivatedAbility.Cost.Floop(),
             CW.ActivatedAbility.Cost.Target.CardInDiscardPile(
-                'card',
+                'discarded',
                 function (me, playerI, laneI)
                     return CW.CardsInDiscardPileFilter():OfPlayer(playerI):Spells():Do()
                 end,
@@ -20,7 +20,7 @@ function _Create()
             )
         ),
         function (me, playerI, laneI, targets)
-            PlaceFromDiscardOnTopOfDeck(targets.card.playerI, targets.card.idx)
+            PlaceFromDiscardOnTopOfDeck(targets.discarded.playerI, targets.discarded.idx)
         end
     )
 

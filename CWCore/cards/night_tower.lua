@@ -10,7 +10,7 @@ function _Create()
             if #creatures == 0 then
                 return
             end
-            Common.ChooseAndDiscardCard(1 - playerI)
+            CW.Discard.ACard(1 - playerI)
         end
     )
 

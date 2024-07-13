@@ -539,7 +539,7 @@ public class Program {
         var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
             ?? throw new Exception("failed to read deck file")
         ;
-        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
+        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/bmo.json"))
             ?? throw new Exception("failed to read deck file")
         ;
 
@@ -602,7 +602,7 @@ public class Program {
         var cm = new FileCardMaster();
         cm.Load("../CWCore/cards");
 
-        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
+        var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/bmo.json"))
             ?? throw new Exception("failed to read deck file")
         ;
 
@@ -620,7 +620,7 @@ public class Program {
     }
 
     public static async Task AddRandomPlayer(GameMatch match, int seed) {
-        var deck = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
+        var deck = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/bmo.json"))
             ?? throw new Exception("failed to read deck file")
         ;
         var controller = new RandomPlayerController(seed, 150);
@@ -654,12 +654,13 @@ public class Program {
                 }
                 System.Console.WriteLine("SEED: " + seed);
                 await TcpMatch(seed);
-                return;
+                // return;
             } catch (Exception e) {
                 PrintException(e);
             }
         }
     }
+
     public static async Task SimpleConsole() {
         try {
             var seed = 0;
@@ -754,7 +755,7 @@ public class Program {
             var deck1 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/jake.json"))
                 ?? throw new Exception("failed to read deck file")
             ;
-            var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/finn.json"))
+            var deck2 = JsonSerializer.Deserialize<DeckTemplate>(File.ReadAllText("../decks/bmo.json"))
                 ?? throw new Exception("failed to read deck file")
             ;
 

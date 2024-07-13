@@ -5,14 +5,14 @@ function _Create()
 
     -- Additional Cost: Discard a card.
 
-    Common.AddRestriction(result,
+    CW.AddRestriction(result,
         function (id, playerI)
             return nil, GetHandCount(playerI) > 0
         end
     )
 
     result.PayCostsP:AddLayer(function (playerI, handI)
-        Common.ChooseAndDiscardCard(playerI)
+        CW.Discard.ACard(playerI)
         return nil, true
     end)
 

@@ -1,22 +1,25 @@
--- Pay 1 Action >>> Return a random Useless Swamp Creature from your discard pile to your hand.
 -- Status: not tested
 
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.PayActionPoints(result, 1,
+    -- Pay 1 Action >>> Return a random Useless Swamp Creature from your discard pile to your hand.
+    CW.ActivatedAbility.Add(
+        result,
         'Pay 1 Action >>> Return a random Useless Swamp Creature from your discard pile to your hand.',
+        CW.ActivatedAbility.Cost.PayActionPoints(1),
         function (me, playerI, laneI)
-            local idx = Common.RandomCardInDiscard(playerI, function (card)
-                return card.Original.Template.Type == 'Creature' and card.Original.Template.Landscape == CardWars.Landscapes.UselessSwamp
-            end)
-            if idx == nil then
+            local cards = CW.CardsInDiscardPileFilter()
+                :OfLandscapeType(CardWars.Landscapes.UselessSwamp)
+                :Creatures()
+                :Do()
+            local pair = CW.Common.RandomCardInDiscard(playerI, cards)
+            if pair == nil then
                 return
             end
-            ReturnToHandFromDiscard(playerI, idx)
+            ReturnToHandFromDiscard(playerI, pair.idx)
         end
     )
-
 
     return result
 end

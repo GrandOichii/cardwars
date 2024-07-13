@@ -13,16 +13,10 @@ function _Create()
                 :OfLandscapeType(CardWars.Landscapes.Rainbow)
                 :Do()
 
-            local indicies = {}
-            for _, pair in ipairs(cards) do
-                if pair.card.Original.OwnerI == playerI then
-                    indicies[#indicies+1] = pair.idx
-                end
-            end
+            local pair = CW.Common.RandomCardInDiscard(playerI, cards)
 
-            if #indicies > 0 then
-                local idx = CW.Random(indicies)
-                ReturnToHandFromDiscard(playerI, idx)
+            if pair ~= nil then
+                ReturnToHandFromDiscard(playerI, pair.idx)
             end
 
             if CW.Common.YouControlABuildingInThisLane(playerI, laneI) then

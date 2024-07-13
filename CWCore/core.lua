@@ -778,30 +778,10 @@ function Common.HandCardIdx(playerI, id)
     return nil
 end
 
-function Common.ChooseAndDiscardCard(playerI, hint)
-    hint = hint or 'Choose a card to discard'
-    local cards = STATE.Players[playerI].Hand
-    if cards.Count == 0 then
-        return nil
-    end
-
-    local ids = {}
-    for i = 1, cards.Count do
-        ids[#ids+1] = i - 1
-    end
-
-    local result = ChooseCardInHand(playerI, ids, hint)
-    local cardId = STATE.Players[playerI].Hand[result].Original.ID
-
-    DiscardFromHand(playerI, result)
-
-    return cardId
-end
-
 function Common.DiscardNCards(playerI, amount)
     -- TODO could be better
     for i = 1, amount do
-        Common.ChooseAndDiscardCard(playerI)
+        CW.Discard.ACard(playerI)
         UpdateState()
     end
 end
@@ -898,24 +878,6 @@ function Common.OpposingCreaturesInLane(playerI, laneI)
     end
     return result
 
-end
-
-function Common.FloopAbilitiesOfCreaturesInDiscard(playerI)
-    local result = {}
-    local player = STATE.Players[playerI]
-    for i = 0, player.DiscardPile.Count - 1 do
-        local card = player.DiscardPile[i].Original
-        if card.Template.Type == 'Creature' then
-            local data = player.DiscardPile[i].Original.Data
-            for _, aa in ipairs(data.ActivatedAbilities) do
-                if aa:HasTag('floop') then
-                    result[#result+1] = aa
-                end
-            end
-        end
-    end
-
-    return result
 end
 
 function Common.UntilFightPhase(playerI, modF)
@@ -1162,15 +1124,11 @@ function Common.ActivatedAbilities.DiscardCard(card, text, effect, maxActivation
             return GetHandCount(playerI) > 0
         end,
         costF = function (me, playerI, laneI)
-            Common.ChooseAndDiscardCard(playerI)
+            CW.Discard.ACard(playerI)
             return true
         end,
         effectF = effect
     })
-end
-
-function Common.AddRestriction(card, restriction)
-    card.CanPlayP:AddLayer(restriction)
 end
 
 Common.Flip = {}
@@ -1372,6 +1330,10 @@ function CW.CardsPlayedThisTurnFilter(by)
 
     function result:Spells()
         return self:OfType('Spell')
+    end
+
+    function result:Creatures()
+        return self:OfType('Creature')
     end
 
     return result
@@ -1641,6 +1603,13 @@ function CW.CardsInDiscardPileFilter()
         return self
     end
 
+    function result:OfCost(cost)
+        result.filters[#result.filters+1] = function (card)
+            return card.Original.Cost == cost
+        end
+        return self
+    end
+
     function result:OfType(type)
         result.filters[#result.filters+1] = function (card)
             return card.Original.Template.Type == type
@@ -1650,6 +1619,10 @@ function CW.CardsInDiscardPileFilter()
 
     function result:Spells()
         return self:OfType('Spell')
+    end
+
+    function result:Creatures()
+        return self:OfType('Creature')
     end
 
     return result
@@ -1760,13 +1733,35 @@ function CW.IDs(tableArr)
     end
     return result
 end
-    
+
 function CW.IPIDs(tableArr)
     local result = {}
     for _, card in ipairs(tableArr) do
         result[#result+1] = card.Original.IPID
     end
     return result
+end
+
+function CW.FloopAbilitiesOfCreaturesInDiscard(playerI)
+    local result = {}
+    local player = STATE.Players[playerI]
+    for i = 0, player.DiscardPile.Count - 1 do
+        local card = player.DiscardPile[i].Original
+        if card.Template.Type == 'Creature' then
+            local data = player.DiscardPile[i].Original.Data
+            for _, aa in ipairs(data.ActivatedAbilities) do
+                if aa:HasTag('floop') then
+                    result[#result+1] = aa
+                end
+            end
+        end
+    end
+
+    return result
+end
+
+function CW.AddRestriction(card, restriction)
+    card.CanPlayP:AddLayer(restriction)
 end
 
 CW.Target = {}
@@ -1915,7 +1910,7 @@ end
 CW.Spell = {}
 
 function CW.Spell.AddEffect(card, targetTable, effectFunc)
-    Common.AddRestriction(card,
+    CW.AddRestriction(card,
         function (id, playerI)
             for _, target in ipairs(targetTable) do
 
@@ -1953,6 +1948,20 @@ function CW.Spell.Target.Creature(targetFunc, hintFunc)
         local hint = hintFunc(id, playerI, targets)
         local target = TargetCreature(playerI, options, hint)
         return GetCreature(target)
+    end
+
+    return result
+end
+
+function CW.Spell.Target.Opponent()
+    local result = {}
+
+    function result:GetOptions(id, playerI)
+        return {1 - playerI}
+    end
+
+    function result:Do(id, playerI, targets)
+        return self:GetOptions(id, playerI)[1]
     end
 
     return result
@@ -2088,7 +2097,63 @@ function CW.ActivatedAbility.Cost.Floop()
 
     function result:CostFunc()
         return function (me, playerI, laneI)
+            
             FloopCard(me.Original.IPID)
+            return true
+        end
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.SacrificeACreature(fitlerCreationFunc, hint)
+    local result = {}
+    hint = hint or 'Choose a Creature to sacrifice'
+
+    function result:_SacTargets(me, playerI, laneI)
+        local f = fitlerCreationFunc(me, playerI, laneI)
+            :ControlledBy(playerI)
+
+        local t = me.Original.Card.Template.Type
+        if t == 'Creature' then
+            return CW.Targetable.ByCreature(f:Do(), playerI, me.Original.IPID)
+        end
+        if t == 'Building' then
+            return CW.Targetable.ByBuilding(f:Do(), playerI, me.Original.IPID)
+        end
+        error('tried to give an activated ability to a card of type '..t..' (card name: '..me.Original.Card.Template.Name..')')
+    end
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return #self:_SacTargets(me, playerI, laneI) > 0
+        end
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            local ipids = CW.IPIDs(self:_SacTargets(me, playerI, laneI))
+            local target = TargetCreature(playerI, ipids, hint)
+            DestroyCreature(target)
+            return true
+        end
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.DestroySelf()
+    local result = {}
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            DestroyCreature(me.Original.IPID)
             return true
         end
     end
@@ -2141,53 +2206,60 @@ end
 
 CW.ActivatedAbility.Cost.Target = {}
 
-function CW.ActivatedAbility.Cost.Target.Creature(targetKey, filterFunc, hintFunc)
+function CW.ActivatedAbility.Cost.Target._InPlayCreatureBase(targetKey, filterFunc, hintFunc)
     local result = {}
 
-    function result:CheckFunc()
-        return function (me, playerI, laneI)
-            return #CW.Targetable.ByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID) > 0
+    function result:_Targets(me, playerI, laneI)
+        local t = me.Original.Card.Template.Type
+        if t == 'Creature' then
+            return CW.Targetable.ByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID)
         end
-    end
-
-    function result:AddTargets(me, playerI, laneI, targets)
-        local options = CW.IPIDs(CW.Targetable.ByCreature(filterFunc(me, playerI, laneI), playerI, me.Original.IPID))
-        local hint = hintFunc(me, playerI, laneI, targets)
-        local target = TargetCreature(playerI, options, hint)
-
-        targets[targetKey] = GetCreature(target)
+        if t == 'Building' then
+            return CW.Targetable.ByBuilding(filterFunc(me, playerI, laneI), playerI, me.Original.IPID)
+        end
+        error('tried to give an activated ability to a card of type '..t..' (card name: '..me.Original.Card.Template.Name..')')
     end
 
     function result:CostFunc()
         return function (me, playerI, laneI)
             return true
         end
+    end
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return #self:_Targets(me, playerI, laneI) > 0
+        end
+    end
+
+    function result:AddTargets(me, playerI, laneI, targets)
+        local options = CW.IPIDs(self:_Targets(me, playerI, laneI))
+        local hint = hintFunc(me, playerI, laneI, targets)
+        self:_SetTarget(playerI, options, hint, targets)
+    end
+
+    return result
+end
+
+function CW.ActivatedAbility.Cost.Target.Creature(targetKey, filterFunc, hintFunc)
+    local result = CW.ActivatedAbility.Cost.Target._InPlayCreatureBase(targetKey, filterFunc, hintFunc)
+
+    function result:_SetTarget(playerI, options, hint, targets)
+        local target = TargetCreature(playerI, options, hint)
+
+        targets[targetKey] = GetCreature(target)
     end
 
     return result
 end
 
 function CW.ActivatedAbility.Cost.Target.Building(targetKey, filterFunc, hintFunc)
-    local result = {}
+    local result = CW.ActivatedAbility.Cost.Target._InPlayCreatureBase(targetKey, filterFunc, hintFunc)
 
-    function result:CheckFunc()
-        return function (me, playerI, laneI)
-            return #CW.Targetable.ByBuilding(filterFunc(me, playerI, laneI), playerI, me.Original.IPID) > 0
-        end
-    end
-
-    function result:AddTargets(me, playerI, laneI, targets)
-        local options = CW.IPIDs(CW.Targetable.ByBuilding(filterFunc(me, playerI, laneI), playerI, me.Original.IPID))
-        local hint = hintFunc(me, playerI, laneI, targets)
+    function result:_SetTarget(playerI, options, hint, targets)
         local target = TargetBuilding(playerI, options, hint)
 
         targets[targetKey] = GetBuilding(target)
-    end
-
-    function result:CostFunc()
-        return function (me, playerI, laneI)
-            return true
-        end
     end
 
     return result
@@ -2273,6 +2345,28 @@ function CW.ActivatedAbility.Cost.Target.CardInDiscardPile(targetKey, filterFunc
     return result
 end
 
+function CW.ActivatedAbility.Cost.Target.Opponent(targetKey)
+    local result = {}
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    function result:AddTargets(me, playerI, laneI, targets)
+        targets[targetKey] = 1 - playerI
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    return result
+end
+
 CW.ActivatedAbility.Common = {}
 
 function CW.ActivatedAbility.Common.Floop(card, text, effect)
@@ -2347,6 +2441,19 @@ CW.Common = {}
 function CW.Common.YouControlABuildingInThisLane(playerI, laneI)
     local buildings = CW.BuildingFilter():ControlledBy(playerI):InLane(laneI):Do()
     return #buildings > 0
+end
+
+function CW.Common.RandomCardInDiscard(playerI, cards)
+    local indicies = {}
+    for _, pair in ipairs(cards) do
+        if pair.card.Original.OwnerI == playerI then
+            indicies[#indicies+1] = pair
+        end
+    end
+    if #indicies == 0 then
+        return nil
+    end
+    return CW.Random(indicies)
 end
 
 CW.Triggers = {}

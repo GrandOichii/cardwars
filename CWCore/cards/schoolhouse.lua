@@ -23,7 +23,7 @@ function _Create()
             local creature = filter(playerI, laneI)[1]
             local ipid = creature.Original.IPID
 
-            local abilities = Common.FloopAbilitiesOfCreaturesInDiscard(playerI)
+            local abilities = CW.FloopAbilitiesOfCreaturesInDiscard(playerI)
             local a = nil
             if #abilities > 0 then
                 local idx = Random(1, #abilities + 1)

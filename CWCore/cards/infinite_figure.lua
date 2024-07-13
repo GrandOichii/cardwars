@@ -14,7 +14,7 @@ function _Create()
                 #CW.Targetable.ByCreature(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.IPID), playerI, me.Original.IPID) > 0
         end,
         costF = function (me, playerI, laneI)
-            Common.ChooseAndDiscardCard(me.Original.ControllerI)
+            CW.Discard.ACard(me.Original.ControllerI)
             return true
         end,
         effectF = function (me, playerI, laneI)

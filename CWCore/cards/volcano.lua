@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Spell()
 
-    Common.AddRestriction(result,
+    CW.AddRestriction(result,
         function (id, playerI)
             return nil, #CW.Targetable.BySpell(Common.AllPlayers.Buildings(), playerI, id) > 0
         end

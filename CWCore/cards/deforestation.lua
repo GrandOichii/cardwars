@@ -4,7 +4,7 @@ function _Create()
     local result = CardWars:Spell()
 
     -- Additional Cost: Floop a Creature you control.
-    Common.AddRestriction(result,
+    CW.AddRestriction(result,
         function (id, playerI)
             return nil, #Common.ReadiedCreatures(playerI) > 0
         end

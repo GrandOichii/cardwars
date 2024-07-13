@@ -3,15 +3,22 @@
 function _Create()
     local result = CardWars:Spell()
 
-    result.EffectP:AddLayer(
-        function (id, playerI)
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'opponentIdx',
+                target = CW.Spell.Target.Opponent()
+            }
+        },
+        function (id, playerI, targets)
             -- Target opponent discards a card from his hand for every 5 cards in your discard pile.
-            local opponent = Common.TargetOpponent(playerI)
-            local count = GetPlayer(playerI).DiscardPile.Count
+            local idx = targets.opponentIdx
+            local count = GetPlayer(idx).DiscardPile.Count
             if count == 0 then
                 return
             end
-            Common.DiscardNCards(opponent, math.floor(count / 5))
+            CW.Discard.NCards(idx, math.floor(count / 5))
         end
     )
 

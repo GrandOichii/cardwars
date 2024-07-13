@@ -14,7 +14,7 @@ function _Create()
                 #CW.Targetable.ByHero(Common.AllPlayers.Creatures(), playerI) > 0
         end,
         costF = function (playerI)
-            Common.ChooseAndDiscardCard(playerI)
+            CW.Discard.ACard(playerI)
             return true
         end,
         effectF = function (playerI)

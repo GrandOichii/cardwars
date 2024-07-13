@@ -11,7 +11,7 @@ function _Create()
             if GetHandCount(target) > 0 then
                 local accept = YesNo(target, 'Discard a card? (2 Damage to each of your Creatures otherwise)')
                 if accept then
-                    Common.ChooseAndDiscardCard(target)
+                    CW.Discard.ACard(target)
                     return
                 end
             end

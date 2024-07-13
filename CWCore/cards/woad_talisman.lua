@@ -6,7 +6,10 @@ function _Create()
     CW.SpellTargetCreature(
         result,
         function (id, playerI)
-            return CW.CreatureFilter():ControlledBy(playerI):LandscapeType(CardWars.Landscapes.BluePlains):Do()
+            return CW.CreatureFilter()
+                :ControlledBy(playerI)
+                :LandscapeType(CardWars.Landscapes.BluePlains)
+                :Do()
         end,
         'Choose a Blue Plains Creature to buff',
         function (id, playerI, target)

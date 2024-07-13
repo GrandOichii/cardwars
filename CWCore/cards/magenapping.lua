@@ -4,7 +4,7 @@
 function _Create()
     local result = CardWars:Spell()
 
-    Common.AddRestriction(result,
+    CW.AddRestriction(result,
         function (id, playerI)
             return nil,
                 #Common.Creatures(playerI) <= 1 and

@@ -4,19 +4,29 @@ function _Create()
     local result = CardWars:Spell()
 
     -- Play only if you control a Useless Swamp Creature.
-    Common.AddRestriction(result,
+    CW.AddRestriction(result,
         function (id, playerI)
-            return nil, #Common.CreaturesTyped(playerI, CardWars.Landscapes.UselessSwamp) > 0
+            return nil, #CW.CreatureFilter()
+                :ControlledBy(playerI)
+                :LandscapeType(CardWars.Landscapes.UselessSwamp)
+                :Do() > 0
         end
     )
 
-    result.EffectP:AddLayer(
-        function (id, playerI)
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'opponentIdx',
+                target = CW.Spell.Target.Opponent()
+            }
+        },
+        function (id, playerI, targets)
             -- Target opponent discards a card from his hand.
 
-            local opponent = Common.TargetOpponent(playerI)
-            Common.ChooseAndDiscardCard(opponent)
+            CW.Discard.ACard(targets.opponentIdx)
         end
+
     )
 
     return result

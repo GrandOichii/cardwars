@@ -11,7 +11,7 @@ function _Create()
         end)
     end
 
-    Common.AddRestriction(result,
+    CW.AddRestriction(result,
         function (id, playerI)
             return nil, #CW.Targetable.BySpell(filter(playerI), playerI, id) > 0
         end

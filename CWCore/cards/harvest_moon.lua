@@ -10,7 +10,7 @@ function _Create()
         end)
     end
     
-    Common.AddRestriction(result,
+    CW.AddRestriction(result,
     function (id, playerI)
         return nil,
         #choices(playerI) > 0 and

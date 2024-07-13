@@ -10,7 +10,7 @@ function _Create()
             UpdateState()
 
             -- * hand count still be 0 if no cards in deck!
-            Common.ChooseAndDiscardCard(playerI)
+            CW.Discard.ACard(playerI)
         end
     )
 

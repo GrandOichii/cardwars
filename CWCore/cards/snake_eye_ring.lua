@@ -6,15 +6,16 @@ function _Create()
     -- Return a random Useless Swamp Creature from your discard pile to your hand.
     result.EffectP:AddLayer(
         function (id, playerI)
-            local idx = Common.RandomCardInDiscard(playerI, function (card)
-                return
-                    card.Original.Template.Type == 'Creature' and
-                    card.Original.Template.Landscape == CardWars.Landscapes.UselessSwamp
-            end)
-            if idx == nil then
+            local cards = CW.CardsInDiscardPileFilter()
+                :Creatures()
+                :OfPlayer(playerI)
+                :OfLandscapeType(CardWars.Landscapes.UselessSwamp)
+                :Do()
+            local pair = CW.Common.RandomCardInDiscard(playerI, cards)
+            if pair == nil then
                 return
             end
-            ReturnToHandFromDiscard(playerI, idx)
+            ReturnToHandFromDiscard(playerI, pair.idx)
         end
     )
 
