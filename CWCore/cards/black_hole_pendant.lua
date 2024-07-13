@@ -3,22 +3,28 @@
 function _Create()
     local result = CardWars:Spell()
 
-    CW.AddRestriction(result,
-        function (id, playerI)
-            return nil, #CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
-        end
-    )
-
-    result.EffectP:AddLayer(
-        function (id, playerI)
-            -- Target Creature has +X ATK this turn, where X is the number of different Landscape types your opponent controls.
-            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id))
-            local target = TargetCreature(playerI, ipids, 'Choose a creature to buff')
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'creature',
+                target = CW.Spell.Target.Creature(
+                    function (id, playerI)
+                        return CW.CreatureFilter()
+                            :Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a creature to buff'
+                    end
+                )
+            },
+        },
+        function (id, playerI, targets)
             -- TODO not clear - at the time of playing or dynamic
             local amount = #GetUniqueLandscapeNames(1 - playerI)
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local c = GetCreatureOrDefault(target)
+                    local c = GetCreatureOrDefault(targets.creature.Original.IPID)
                     if c == nil then
                         return
                     end

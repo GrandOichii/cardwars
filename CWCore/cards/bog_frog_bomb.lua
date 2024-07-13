@@ -9,7 +9,7 @@ function _Create()
         if not wasReady then
             return
         end
-        local creatures = Common.OpposingCreatures(playerI)
+        local creatures = CW.CreatureFilter():OpposingTo(playerI):Do()
         for _, creature in ipairs(creatures) do
             CW.Damage.ToCreatureByCreatureAbility(ipid, playerI, creature.Original.IPID, 2)
         end

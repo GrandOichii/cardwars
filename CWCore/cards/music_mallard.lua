@@ -3,7 +3,8 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.Floop(result,
+    CW.ActivatedAbility.Common.Floop(
+        result,
         'FLOOP >>> Draw a card. If Music Mallard has 5 or more Damage on it, draw an additional card.',
         function (me, playerI, laneI)
             Draw(playerI, 1)

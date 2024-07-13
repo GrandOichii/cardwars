@@ -16,7 +16,10 @@ function _Create()
             return true
         end,
         effectF = function (me, controllerI, laneI, args)
-            local creatures = Common.CreaturesInLane(controllerI, laneI)
+            local creatures = CW.CreatureFilter()
+                :ControlledBy(controllerI)
+                :InLane(laneI)
+                :Do()
             if #creatures == 1 then
                 local creature = creatures[1]
                 local amount = 1

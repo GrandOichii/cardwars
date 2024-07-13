@@ -13,12 +13,13 @@ function _Create()
         CW.Mod.Cost(me, -math.floor(amount / 5))
     end)
 
-    Common.ActivatedAbilities.Floop(result,
+    CW.ActivatedAbility.Common.Floop(
+        result,
         'FLOOP >>> Gain 1 Action.',
         function (me, playerI, laneI)
             AddActionPoints(playerI, 1)
         end
     )
-    
+
     return result
 end

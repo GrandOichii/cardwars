@@ -2,30 +2,42 @@
 
 function _Create()
     local result = CardWars:Spell()
-    
-    CW.AddRestriction(result,
-    function (id, playerI)
-        return nil, #CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
-    end
-)
 
-    result.EffectP:AddLayer(
-        function (id, playerI)
-            -- Remove from game a card in any player's discard pile. Heal X Damage from target Creature, where X is the cost of the card removed this way.
+    -- Remove from game a card in any player's discard pile. Heal X Damage from target Creature, where X is the cost of the card removed this way.
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'card',
+                target = CW.Spell.Target.CardInDiscardPile(
+                    function (id, playerI)
+                        return CW.CardsInDiscardPileFilter()
+                            :Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a card to remove from game'
+                    end
+                )
+            },
+            {
+                key = 'creature',
+                target = CW.Spell.Target.Creature(
+                    function (id, playerI)
+                        return CW.CreatureFilter()
+                            :Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a creature to heal'
+                    end
+                )
+            },
+        },
+        function (id, playerI, targets)
+            local inDiscard = targets.card
+            local card = STATE.Players[inDiscard.playerI].DiscardPile[inDiscard.idx]
 
-            local choices = Common.DiscardPileCardIndicies(playerI, function (_) return true end)
-            local opponentChoices = Common.DiscardPileCardIndicies(1 - playerI, function (_) return true end)
-            if (#choices + #opponentChoices) == 0 then
-                return
-            end
-            local choice = ChooseCardInDiscard(playerI, choices, opponentChoices, 'Choose a card to remove from the game')
-            local card = STATE.Players[choice[0]].DiscardPile[choice[1]]
-
-            RemoveFromDiscard(choice[0], choice[1])
-
-            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id))
-            local target = TargetCreature(playerI, ipids, 'Choose a creature to heal')
-            HealDamage(target, card:RealCost())
+            RemoveFromDiscard(inDiscard.playerI, inDiscard.idx)
+            HealDamage(targets.creature.Original.IPID, card:RealCost())
         end
     )
 

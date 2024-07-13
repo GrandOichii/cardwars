@@ -6,7 +6,7 @@ function _Create()
     -- When another Creature enters play under your control, Sand Eyebat gains 1 DEF.
     CW.Triggers.OnAnotherCreatureEnterPlayUnderYourControl(result,
         function (me, controllerI, laneI, args)
-            Common.GainDefense(me, 1)
+            CW.GainDefense(me, 1)
         end
     )
 

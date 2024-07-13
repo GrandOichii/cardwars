@@ -3,28 +3,24 @@
 function _Create()
     local result = CardWars:Spell()
 
-    local filter = function (playerI)
-        return CW.FilterCreatures(function (creature)
-            return
-            creature.Original.ControllerI == playerI and
-            creature.Original.Damage >= 5
-        end)
-    end
-
-    CW.AddRestriction(result,
-        function (id, playerI)
-            return nil, #CW.Targetable.BySpell(filter(playerI), playerI, id) > 0
-        end
-    )
-
-    result.EffectP:AddLayer(
-        function (id, playerI)
-            -- Heal exactly 5 Damage from target Creature you control (no more and no less).
-
-            local ipids = CW.IPIDs(CW.Targetable.BySpell(filter(playerI), playerI, id))
-            local target = TargetCreature(playerI, ipids, 'Choose a Creature to heal 5 damage from')
-
-            HealDamage(target, 5)
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'creature',
+                target = CW.Spell.Target.Creature(
+                    function (id, playerI)
+                        return CW.CreatureFilter():ControlledBy(playerI):DamageGt(4)
+                            :Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a creature to heal 5 Damage from'
+                    end
+                )
+            },
+        },
+        function (id, playerI, targets)
+            HealDamage(targets.creature.Original.IPID, 5)
         end
     )
 

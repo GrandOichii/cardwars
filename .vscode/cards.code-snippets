@@ -388,19 +388,6 @@
 			"end"
 		]
 	},
-	"floop": {
-		"scope": "lua",
-		"prefix": "floop",
-		"description": "add short floop ability",
-		"body": [
-			"Common.ActivatedAbilities.Floop(result,",
-			"\t'$1',",
-			"\tfunction (me, playerI, laneI)",
-			"\t\t$0",
-			"\tend",
-			")"
-		]
-	},
 	"attack_defense_mod": {
 		"scope": "lua",
 		"prefix": "modatkdef",

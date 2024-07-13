@@ -15,15 +15,18 @@ function _Create()
         effectF = function (me, controllerI, laneI, args)
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creatures = Common.CreaturesInLane(controllerI, laneI)
+                    local creatures = CW.CreatureFilter()
+                        :ControlledBy(controllerI)
+                        :InLane(laneI)
+                        :Do()
                     if #creatures == 0 then
                         return
                     end
-                    local creature = creatures[1]
-                    creature.Attack = creature.Attack + 1
+                    for _, creature in ipairs(creatures) do
+                        creature.Attack = creature.Attack + 1
+                    end
                 end
             end)
-            DealDamageToPlayer(args.Card.OwnerI, 1)
         end
     })
 

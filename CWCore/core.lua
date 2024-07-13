@@ -314,65 +314,11 @@ end
 
 Common = {}
 
-function Common.CreaturesNamed(playerI, name)
-    return CW.FilterCreatures( function (creature)
-        return
-            creature.Original.ControllerI == playerI and
-            creature.Original.Card.Template.Name == name
-    end)
-end
-
-function Common.BuildingsNamed(playerI, name)
-    return CW.FilterBuildings(function (building)
-        return
-            building.Original.ControllerI == playerI and
-            building.Original.Card.Template.Name == name
-    end)
-end
-
 function Common.CanFloop(card)
     if not GetConfig().CanFloopOnFirstTurn and STATE.TurnCount == 1 then
         return false
     end
     return card.Original:CanFloop()
-end
-
-function Common.GainDefense(creature, amount)
-    local def = 0
-    if amount > creature.Original.Damage then
-        def = amount - creature.Original.Damage
-        amount = creature.Original.Damage
-    end
-
-    HealDamage(creature.Original.IPID, amount)
-    creature.Original.Defense = creature.Original.Defense + def
-end
-
-function Common.AdjacentLandscapes(playerI, laneI)
-    local result = {}
-    local lanes = STATE.Players[playerI].Landscapes
-    if laneI - 1 >= 0 then
-        result[#result+1] = lanes[laneI - 1]
-    end
-    if laneI + 1 < lanes.Count then
-        result[#result+1] = lanes[laneI + 1]
-    end
-
-    return result
-end
-
-function Common.AdjacentLandscapesTyped(playerI, laneI, type)
-    local result = {}
-
-    local lanes = STATE.Players[playerI].Landscapes
-    if laneI - 1 >= 0 and lanes[laneI - 1]:Is(type) then
-        result[#result+1] = lanes[laneI - 1]
-    end
-    if laneI + 1 < lanes.Count and lanes[laneI + 1]:Is(type) then
-        result[#result+1] = lanes[laneI + 1]
-    end
-
-    return result
 end
 
 function Common.AdjacentCreatures(playerI, laneI)
@@ -422,15 +368,6 @@ end
 
 function Common.EmptyLandscapes(playerI)
     return Common.LandscapesWithoutCreatures(playerI)
-end
-
-function Common.LandscapesWithoutCreaturesTyped(playerI, lType)
-    return CW.FilterLandscapes(function (landscape)
-        return
-            landscape:Is(lType) and
-            landscape.Original.OwnerI == playerI and
-            landscape.Creature == nil
-    end)
 end
 
 function Common.InPlay(playerI)
@@ -484,14 +421,6 @@ function Common.ReadiedCreatures(playerI)
         return
             creature.Original.ControllerI == playerI and
             creature.Original:GetStatus() == 0
-    end)
-end
-
-function Common.FloopedCreatures(playerI)
-    return CW.FilterCreatures(function (creature)
-        return
-            creature.Original.ControllerI == playerI and
-            creature.Original:IsFlooped()
     end)
 end
 
@@ -613,47 +542,12 @@ function Common.AvailableToFlipDownLandscapes(landscapeOwnerI, byI)
     return result
 end
 
-function Common.AvailableToFlipDownLandscapesTyped(landscapeOwnerI, byI, type)
-    local landscapes = Common.AvailableToFlipDownLandscapes(landscapeOwnerI, byI)
-    local result = {}
-    for _, landscape in ipairs(landscapes) do
-        if landscape:Is(type) then
-            result[#result+1] = landscape
-        end
-    end
-    return result
-end
-
-function Common.CardsPlayedThisTurnTyped(playerI, landscape)
-    local player = STATE.Players[playerI].Original
-
-    local count = 0
-    for i = 1, player.CardsPlayedThisTurn.Count do
-        if player.CardsPlayedThisTurn[i - 1]:IsLandscape(landscape) then
-            count = count + 1
-        end
-    end
-    return count
-end
-
 function Common.SpellsPlayedThisTurnCount(playerI)
     local player = STATE.Players[playerI].Original
 
     local count = 0
     for i = 1, player.CardsPlayedThisTurn.Count do
         if player.CardsPlayedThisTurn[i - 1].Template.Type == 'Spell' then
-            count = count + 1
-        end
-    end
-    return count
-end
-
-function Common.CreaturesPlayedThisTurnCount(playerI)
-    local player = STATE.Players[playerI].Original
-
-    local count = 0
-    for i = 1, player.CardsPlayedThisTurn.Count do
-        if player.CardsPlayedThisTurn[i - 1].Template.Type == 'Creature' then
             count = count + 1
         end
     end
@@ -671,39 +565,6 @@ end
 
 function Common.OpponentIdxs(playerI)
     return {1 - playerI}
-end
-
-function Common.CreaturesThatChangedLanes(playerI)
-    return CW.FilterCreatures(function (creature)
-        return
-            creature.Original.ControllerI == playerI and
-            creature.Original.MovementCount > 0
-    end)
-end
-
-function Common.CreaturesWithNoDamage(playerI)
-    local landscapes = STATE.Players[playerI].Landscapes
-    local result = {}
-    for i = 1, landscapes.Count do
-        local landscape = landscapes[i - 1]
-        local creature = landscape.Creature
-        if creature ~= nil and creature.Original.Damage == 0 then
-            result[#result+1] = creature
-        end
-    end
-    return result
-end
-
-function Common.CreaturesWithBuildings(playerI)
-    local result = {}
-    local landscapes = Common.LandscapesWithBuildings(playerI)
-    for _, landscape in ipairs(landscapes) do
-        local creature = landscape.Creature
-        if creature ~= nil then
-            result[#result+1] = creature
-        end
-    end
-    return result
 end
 
 function Common.LandscapesInLaneTyped(type, laneI)
@@ -729,27 +590,6 @@ function Common.LandscapesInLane(laneI)
     return result
 end
 
-function Common.AvailableToFlipDownLandscapesInLaneTyped(playerI, type, laneI)
-    local tuple = Common.LandscapesInLaneTyped(type, laneI)
-
-    local result = {}
-    for i, lanes in ipairs(tuple) do
-        local t = {}
-        for _, landscape in ipairs(lanes) do
-            if Common.Flip.CanFlipDown(landscape, playerI) then
-                t[#t+1] = landscape
-            end
-        end
-        if playerI == 0 then
-            result[i] = t
-        else
-            result[3 - i] = t
-        end
-    end
-
-    return result
-end
-
 function Common.DiscardCardIdx(playerI, id)
     local discard = STATE.Players[playerI].DiscardPile
     for i = 0, discard.Count - 1 do
@@ -768,18 +608,6 @@ function Common.HandCardIdx(playerI, id)
         end
     end
     return nil
-end
-
-function Common.DiscardNCards(playerI, amount)
-    -- TODO could be better
-    for i = 1, amount do
-        CW.Discard.ACard(playerI)
-        UpdateState()
-    end
-end
-
-function Common.ControlBuildingInLane(playerI, laneI)
-    return STATE.Players[playerI].Landscapes[laneI].Buildings.Count > 0
 end
 
 function Common.TargetOpponent(playerI)
@@ -825,12 +653,6 @@ function Common.DiscardPileCardIndicies(playerI, predicate)
     return result
 end
 
-function Common.CreatureCardsIndiciesInDiscard(playerI)
-    return Common.DiscardPileCardIndicies(playerI, function (card)
-        return card.Original.Template.Type == 'Creature'
-    end)
-end
-
 function Common.RandomCardInDiscard(playerI, predicate)
     local choices = Common.DiscardPileCardIndicies(playerI, predicate)
     if #choices == 0 then
@@ -859,17 +681,6 @@ function Common.BuildingsInLane(playerI, laneI)
         result[#result+1] = lane.Buildings[i]
     end
     return result
-end
-
-function Common.OpposingCreaturesInLane(playerI, laneI)
-    local result = {}
-    local player = STATE.Players[1 - playerI]
-    local lane = player.Landscapes[laneI]
-    if lane.Creature ~= nil then
-        result[#result+1] = lane.Creature
-    end
-    return result
-
 end
 
 function Common.UntilFightPhase(playerI, modF)
@@ -903,12 +714,6 @@ function Common.SearchDeckFor(playerI, predicate)
         end
     end
     error('Error in SearchDeckFor: tried to find card '..cardName..' in deck of player ['..playerI..'], but failed')
-end
-
-function Common.FrozenLandscapes(playerI)
-    return CW.FilterLandscapes(function (landscape)
-        return landscape:IsFrozen() and landscape.Original.OwnerI == playerI
-    end)
 end
 
 function Common.SplitLandscapesByOwner(landscapes)
@@ -952,14 +757,6 @@ function Common.AllPlayers.LandscapesWithoutCreatures()
     end)
 end
 
-function Common.AllPlayers.CreaturesTyped(landscape)
-    return CW.FilterCreatures(function (creature)
-        return
-            creature:IsType(landscape)
-    end)
-
-end
-
 function Common.AllPlayers.CreaturesInLane(laneI)
     return Common.AllPlayers.CreaturesInLaneExcept(laneI, '__empty_id__')
 end
@@ -976,21 +773,6 @@ function Common.AllPlayers.CreaturesInLaneExcept(laneI, ipid)
             if cipid ~= ipid then
                 result[#result+1] = lane.Creature
             end
-        end
-    end
-
-    return result
-end
-
-function Common.AllPlayers.BuildingsInLane(laneI)
-    local result = {}
-    local players = GetPlayers()
-
-    for i = 1, 2 do
-        local player = players[i]
-        local lane = player.Landscapes[laneI]
-        for bi = 0, lane.Buildings.Count - 1 do
-            result[#result+1] = lane.Buildings[bi]
         end
     end
 
@@ -1328,6 +1110,102 @@ function CW.CardsPlayedThisTurnFilter(by)
     return result
 end
 
+function CW.FilterCardsInHand(of, filter)
+    local hand = STATE.Players[of].Hand
+    local result = {}
+
+    for i = 0, hand.Count - 1 do
+        local card = hand[i]
+        if filter == nil or filter(card) then
+            result[i] = card
+        end
+    end
+
+    return result
+end
+
+function CW.CardsInHandFilter(of)
+    local result = {}
+
+    result.filters = {}
+
+
+    function result:Do()
+        local filter = function (card)
+            for _, f in ipairs(self.filters) do
+                if not f(card) then
+                    return false
+                end
+            end
+            return true
+        end
+        return CW.FilterCardsInHand(of, filter)
+    end
+
+    function result:CostGt(cost)
+        result.filters[#result.filters+1] = function (card)
+            return card:RealCost() > cost
+        end
+        return self
+    end
+
+    function result:CostGte(cost)
+        result.filters[#result.filters+1] = function (card)
+            return card:RealCost() >= cost
+        end
+        return self
+    end
+
+    function result:CostEq(cost)
+        result.filters[#result.filters+1] = function (card)
+            return card:RealCost() == cost
+        end
+        return self
+    end
+
+    return result
+end
+
+function CW.FilterPlayers(filter)
+    local result = {}
+
+    for i = 0, STATE.Players.Length - 1 do
+        local player = STATE.Players[i]
+        if filter == nil or filter(player) then
+            result[#result+1] = player
+        end
+    end
+
+    return result
+end
+
+function CW.PlayerFilter()
+    local result = {}
+
+    result.filters = {}
+
+    function result:Do()
+        local filter = function (player)
+            for _, f in ipairs(self.filters) do
+                if not f(player) then
+                    return false
+                end
+            end
+            return true
+        end
+        return CW.FilterPlayers(filter)
+    end
+
+    function result:OpponentsOf(pidx)
+        result.filters[#result.filters+1] = function (player)
+            return player.Original.Idx == 1 - pidx
+        end
+        return self
+    end
+
+    return result
+end
+
 function CW.CreatureFilter()
     local result = {}
 
@@ -1386,7 +1264,14 @@ function CW.CreatureFilter()
         end
         return self
     end
-    
+
+    function result:DamageGt(damage)
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original.Damage > damage
+        end
+        return self
+    end
+
     function result:LandscapeType(landscape)
         result.filters[#result.filters+1] = function (creature)
             return creature:IsType(landscape)
@@ -1781,6 +1666,17 @@ function CW.AddRestriction(card, restriction)
     card.CanPlayP:AddLayer(restriction)
 end
 
+function CW.GainDefense(creature, amount)
+    local def = 0
+    if amount > creature.Original.Damage then
+        def = amount - creature.Original.Damage
+        amount = creature.Original.Damage
+    end
+
+    HealDamage(creature.Original.IPID, amount)
+    creature.Original.Defense = creature.Original.Defense + def
+end
+
 CW.Freeze = {}
 
 function CW.Freeze.Landscape(playerI, laneI)
@@ -1807,6 +1703,10 @@ function CW.Target.Landscape(options, byPlayerI, hint)
     end
     local choice = ChooseLandscape(byPlayerI, l1, l2, hint)
     return STATE.Players[choice[0]].Landscapes[choice[1]]
+end
+
+function CW.Target.Opponent(playerI)
+    return 1 - playerI
 end
 
 CW.Creature = {}
@@ -1913,8 +1813,8 @@ function CW.Discard.ACard(playerI, hint)
     end
 
     local ids = {}
-    for i = 1, cards.Count do
-        ids[#ids+1] = i - 1
+    for i = 0, cards.Count - 1 do
+        ids[#ids+1] = i
     end
 
     local result = ChooseCardInHand(playerI, ids, hint)
@@ -2061,6 +1961,24 @@ function CW.Spell.Target.Landscape(targetFunc, hintFunc)
         local hint = hintFunc(id, playerI, targets)
         local target = CW.Target.Landscape(options, playerI, hint)
         return target
+    end
+
+    return result
+end
+
+function CW.Spell.Target.CardInDiscardPile(targetFunc, hintFunc)
+    local result = {}
+
+    function result:GetOptions(id, playerI)
+        return targetFunc(id, playerI)
+    end
+
+    function result:Do(id, playerI, targets)
+        local options = self:GetOptions(id, playerI)
+        local hint = hintFunc(id, playerI, targets)
+        local choice = CW.Choose.CardInDiscardPile(playerI, options, hint)
+
+        return choice
     end
 
     return result

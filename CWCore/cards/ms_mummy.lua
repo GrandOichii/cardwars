@@ -32,7 +32,7 @@ function _Create()
             local target = TargetCreature(controllerI, creatures, 'Choose a creature to add 1 DEF to')
             local creature = GetCreature(target)
 
-            Common.GainDefense(creature, 1)
+            CW.GainDefense(creature, 1)
         end
     })
 
