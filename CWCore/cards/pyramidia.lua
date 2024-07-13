@@ -3,10 +3,15 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    Common.ActivatedAbilities.Floop(result,
+    -- TODO? is this an intervening if
+    CW.ActivatedAbility.Common.Floop(
+        result,
         'FLOOP >>> If you control a Creature in this Lane, gain 1 Action. Use it only to play a Creature into this Lane.',
         function (me, playerI, laneI)
-            local existing = Common.CreaturesInLane(playerI, laneI)
+            local existing = CW.CreatureFilter()
+                :InLane(laneI)
+                :ControlledBy(playerI)
+                :Do()
             if #existing == 0 then
                 return
             end

@@ -3,23 +3,33 @@
 function _Create()
     local result = CardWars:Spell()
 
-    CW.AddRestriction(result,
-        function (id, playerI)
-            return nil, #CW.Targetable.BySpell(Common.AllPlayers.Buildings(), playerI, id) > 0
-        end
-    )
-
-    result.EffectP:AddLayer(
-        function (id, playerI)
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'building',
+                target = CW.Spell.Target.Building(
+                    function (id, playerI)
+                        return CW.BuildingFilter():Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a creature Building to destroy'
+                    end
+                )
+            }
+        },
+        function (id, playerI, targets)
             -- Destroy target Building. You may deal 3 Damage to a Creature in that Lane. Flip your Landscape in that Lane face down.
-            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.Buildings(), playerI, id))
-            local target = TargetBuilding(playerI, ipids, 'Choose a creature to destroy')
-            local building = GetBuilding(target)
+            local building = targets.building
+            local bipid = building.Original.IPID
             local laneI = building.LaneI
 
-            DestroyBuilding(target)
+            DestroyBuilding(bipid)
             UpdateState()
-            local creatureIPIDs = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.CreaturesInLane(laneI), playerI, id))
+
+            local f = CW.CreatureFilter()
+                :InLane(laneI)
+            local creatureIPIDs = CW.IPIDs(CW.Targetable.BySpell(f:Do(), playerI, id))
             if #creatureIPIDs > 0 then
                 local creature = TargetCreature(playerI, creatureIPIDs, '')
                 local c = GetCreature(creature)
@@ -29,7 +39,7 @@ function _Create()
                 end
             end
 
-            TurnLandscapeFaceDown(playerI, laneI)
+            CW.Landscape.FlipDown(playerI, laneI)
         end
     )
 

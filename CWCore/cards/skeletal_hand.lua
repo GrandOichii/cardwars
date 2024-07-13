@@ -3,9 +3,14 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.Floop(result,
+    CW.ActivatedAbility.Add(
+        result,
         'FLOOP >>> Discard the top 3 cards of your deck. For each Spell discarded this way, target player discards a card.',
-        function (me, playerI, laneI)
+        CW.ActivatedAbility.Cost.And(
+            CW.ActivatedAbility.Cost.Floop(),
+            CW.ActivatedAbility.Cost.Target.Player('playerIdx')
+        ),
+        function (me, playerI, laneI, targets)
             local milled = Mill(playerI, 3)
             UpdateState()
 
@@ -20,8 +25,7 @@ function _Create()
                 return
             end
 
-            local target = TargetPlayer(playerI, {0, 1}, 'Choose a player who will discard '..amount..' cards from hand')
-            Common.DiscardNCards(target, amount)
+            CW.Discard.NCards(targets.playerIdx, amount)
         end
     )
 

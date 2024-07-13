@@ -3,25 +3,41 @@
 function _Create()
     local result = CardWars:Spell()
 
-    CW.AddRestriction(result,
-        function (id, playerI)
-            return nil,
-                #CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id) > 0 and
-                #Common.LandscapesWithoutCreaturesTyped(playerI, CardWars.Landscapes.BluePlains) > 0
-        end
-    )
 
-    result.EffectP:AddLayer(
-        function (id, playerI)
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'creature',
+                target = CW.Spell.Target.Creature(
+                    function (id, playerI)
+                        return CW.CreatureFilter():ControlledBy(playerI):Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a creature to move'
+                    end
+                )
+            },
+            {
+                key = 'landscape',
+                target = CW.Spell.Target.Landscape(
+                    function (id, playerI)
+                        return CW.LandscapeFilter()
+                            :ControlledBy(playerI)
+                            :Empty()
+                            :OfLandscapeType(CardWars.Landscapes.BluePlains)
+                            :Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose an empty Blue Plains Landscape to move '..targets.creature.Original.Card.Template.Name..' to'
+                    end
+                )
+            }
+        },
+        function (id, playerI, targets)
             -- Move target Creature you control to an empty Blue Plains Landscape you control, and then draw a card.
-            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id))
-            local target = TargetCreature(playerI, ipids, 'Choose a creature to move')
 
-            local empty = CW.Lanes(Common.LandscapesWithoutCreaturesTyped(playerI, CardWars.Landscapes.BluePlains))
-            local lane = ChooseLane(playerI, empty, 'Choose an empty Lane to move to')
-
-            MoveCreature(target, lane)
-
+            MoveCreature(targets.creature.Original.IPID, targets.landscape.Original.Idx)
             Draw(playerI, 1)
         end
     )

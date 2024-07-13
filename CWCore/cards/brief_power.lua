@@ -3,25 +3,23 @@
 function _Create()
     local result = CardWars:Spell()
 
-    CW.AddRestriction(result,
+    CW.SpellTargetCreature(
+        result,
         function (id, playerI)
-            return nil, #CW.Targetable.BySpell(Common.CreaturesTyped(playerI, CardWars.Landscapes.UselessSwamp), playerI, id) > 0
-        end
-    )
-
-    result.EffectP:AddLayer(
-        function (id, playerI)
-            -- Target Useless Swamp Creature you control has +2 ATK this turn.
-            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.CreaturesTyped(playerI, CardWars.Landscapes.UselessSwamp), playerI, id))
-
-            local target = TargetCreature(playerI, ipids, 'Choose a creature to buff')
+            return CW.CreatureFilter()
+                :ControlledBy(playerI)
+                :LandscapeType(CardWars.Landscapes.UselessSwamp)
+                :Do()
+        end,
+        'Choose a Useless Swamp Creature to buff',
+        function (id, playerI, target)
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local c = GetCreatureOrDefault(target)
-                    if c == nil then
+                    local creature = GetCreatureOrDefault(target.Original.IPID)
+                    if creature == nil then
                         return
                     end
-                    c.Attack = c.Attack + 2
+                    creature.Attack = creature.Attack + 2
                 end
             end)
         end

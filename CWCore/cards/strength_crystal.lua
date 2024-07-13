@@ -3,14 +3,25 @@
 function _Create()
     local result = CardWars:Spell()
 
-    result.EffectP:AddLayer(
-        function (id, playerI)
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'playerIdx',
+                target = CW.Spell.Target.Player(
+                    function (id, playerI, targets)
+                        return 'Choose a player who will draw 5 cards'
+                    end
+                )
+            }
+        },
+        function (id, playerI, targets)
             -- Target player draws five cards.
 
-            local target = TargetPlayer(playerI, {0, 1}, 'Choose a player who will draw 5 cards')
-            Draw(target, 5)
+            Draw(targets.playerIdx, 5)
         end
     )
+
 
     return result
 end

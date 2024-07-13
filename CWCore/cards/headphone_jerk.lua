@@ -9,7 +9,12 @@ function _Create()
         if not replaced then
             return
         end
-        local options = CW.IPIDs(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.IPID))
+        local options = CW.IPIDs(
+            CW.CreatureFilter()
+                :InLane(laneI)
+                :Except(me.Original.IPID)
+                :Do()
+        )
         if #options == 0 then
             return
         end

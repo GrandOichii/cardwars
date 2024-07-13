@@ -44,7 +44,6 @@ function _Create()
                 end
             end)
         end
-
     )
 
     return result

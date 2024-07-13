@@ -10,20 +10,23 @@ function _Create()
             return
         end
 
-        local choices = Common.DiscardPileCardIndicies(playerI, function (card) return true end)
+        local choices = CW.CardsInDiscardPileFilter()
+            :OfPlayer(playerI)
+            :Do()
+
+        local choice = CW.Choose.CardInDiscardPile(playerI, choices, 'Choose a card in your discard pile to place on top of your deck.')
+        if choice == nil then
+            return
+        end
 
         if #choices == 0 then
             return
         end
 
-        local choice = ChooseCardInDiscard(playerI, choices, {}, 'Choose a card to place on top of your deck')
-        local pI = choice[0]
-        if pI ~= playerI then
-            -- * shouldn't ever happen
-            error('tried to pick card in opponent\'s discard (Grape Djini)')
-            return
-        end
-        local idx = choice[1]
+        local pI = choice.playerI
+        assert(pI == playerI, 'tried to pick card in opponent\'s discard (Grape Djini)')
+
+        local idx = choice.idx
 
         local card = STATE.Players[playerI].DiscardPile[idx]
         local accept = YesNo(playerI, 'Place '..card.Original.Template.Name..' on top of your deck?')

@@ -1,4 +1,21 @@
 {
+	"activated-ability-discard-cards": {
+		"scope": "lua",
+		"prefix": "aa-discard",
+		"description": "activated ability with card discarding as cost",
+		"body": [
+			"CW.ActivatedAbility.Common.DiscardCards(",
+			"\tresult,",
+			"\t'$1',",
+			"\t${2:1},",
+			"\tfunction (me, playerI, laneI)",
+			"\t\t$0",
+			"\tend,",
+			"\t${3:nil},",
+			"\t${4:-1}",
+			")"
+		]
+	},
 	"creature": {
 		"scope": "lua",
 		"prefix": "creature",

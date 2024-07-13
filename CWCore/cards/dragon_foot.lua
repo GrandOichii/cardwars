@@ -2,10 +2,11 @@
 
 function _Create()
     local result = CardWars:Creature()
-
-    Common.ActivatedAbilities.DiscardCard(result,
+    
+    CW.ActivatedAbility.Common.DiscardCards(
+        result,
         'Discard a card >>> Dragon Foot has +1 ATK this turn. (Use up to five times during each of your turns.)',
-
+        1,
         function (me, playerI, laneI)
             local ipid = me.Original.IPID
             UntilEndOfTurn(function (layer)
@@ -17,7 +18,9 @@ function _Create()
                     creature.Attack = creature.Attack + 1
                 end
             end)
-        end, 5
+        end,
+        nil,
+        5
     )
 
     return result

@@ -11,7 +11,7 @@ function _Create()
             DestroyCreature(me.Original.IPID)
             return
         end
-        Common.DiscardNCards(controllerI, 2)
+        CW.Discard.NCards(controllerI, 2)
     end)
 
     return result

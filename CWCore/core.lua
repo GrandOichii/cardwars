@@ -1950,7 +1950,7 @@ end
 
 CW.Spell.Target = {}
 
-function CW.Spell.Target.Creature(targetFunc, hintFunc)
+function CW.Spell.Target._InPlayBase(targetFunc, hintFunc)
     local result = {}
 
     function result:GetOptions(id, playerI)
@@ -1960,8 +1960,29 @@ function CW.Spell.Target.Creature(targetFunc, hintFunc)
     function result:Do(id, playerI, targets)
         local options = CW.IPIDs(self:GetOptions(id, playerI))
         local hint = hintFunc(id, playerI, targets)
+        return self:_GetTarget(playerI, options, hint)
+    end
+
+    return result
+end
+
+function CW.Spell.Target.Creature(targetFunc, hintFunc)
+    local result = CW.Spell.Target._InPlayBase(targetFunc, hintFunc)
+
+    function result:_GetTarget(playerI, options, hint)
         local target = TargetCreature(playerI, options, hint)
         return GetCreature(target)
+    end
+
+    return result
+end
+
+function CW.Spell.Target.Building(targetFunc, hintFunc)
+    local result = CW.Spell.Target._InPlayBase(targetFunc, hintFunc)
+
+    function result:_GetTarget(playerI, options, hint)
+        local target = TargetBuilding(playerI, options, hint)
+        return GetBuilding(target)
     end
 
     return result
@@ -1992,6 +2013,39 @@ function CW.Spell.Target.Lane(targetFunc, hintFunc)
         local options = CW.Lanes(self:GetOptions(id, playerI))
         local hint = hintFunc(id, playerI, targets)
         local target = ChooseLane(playerI, options, hint)
+        return target
+    end
+
+    return result
+end
+
+function CW.Spell.Target.Player(hintFunc)
+    local result = {}
+
+    function result:GetOptions(id, playerI)
+        return {0, 1}
+    end
+
+    function result:Do(id, playerI, targets)
+        local hint = hintFunc(id, playerI, targets)
+        local target = TargetPlayer(playerI, self:GetOptions(id, playerI), hint)
+        return target
+    end
+
+    return result
+end
+
+function CW.Spell.Target.Landscape(targetFunc, hintFunc)
+    local result = {}
+
+    function result:GetOptions(id, playerI)
+        return targetFunc(id, playerI)
+    end
+
+    function result:Do(id, playerI, targets)
+        local options = self:GetOptions(id, playerI)
+        local hint = hintFunc(id, playerI, targets)
+        local target = CW.Target.Landscape(options, playerI, hint)
         return target
     end
 
@@ -2332,6 +2386,33 @@ function CW.ActivatedAbility.Cost.Target.Lane(targetKey, filterFunc, hintFunc)
     return result
 end
 
+function CW.ActivatedAbility.Cost.Target.Player(targetKey, hintFunc)
+    local result = {}
+    hintFunc = hintFunc or function (me, playerI, laneI, targets)
+        return 'Choose a player'
+    end
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    function result:AddTargets(me, playerI, laneI, targets)
+        local hint = hintFunc(me, playerI, laneI, targets)
+        local target = TargetPlayer(playerI, {0, 1}, hint)
+        targets[targetKey] = target
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    return result
+end
+
 function CW.ActivatedAbility.Cost.Target.CardInDiscardPile(targetKey, filterFunc, hintFunc)
     local result = {}
 
@@ -2390,12 +2471,23 @@ function CW.ActivatedAbility.Common.Floop(card, text, effect)
     )
 end
 
-function CW.ActivatedAbility.Common.PayActionPoints(card, text, amount, effect)
+function CW.ActivatedAbility.Common.DiscardCards(card, text, amount, effect, discardHintFunc, maxActivationsPerTurn)
+    CW.ActivatedAbility.Add(
+        card,
+        text,
+        CW.ActivatedAbility.Cost.DiscardFromHand(amount, discardHintFunc),
+        effect,
+        maxActivationsPerTurn
+    )
+end
+
+function CW.ActivatedAbility.Common.PayActionPoints(card, text, amount, effect, maxActivationsPerTurn)
     CW.ActivatedAbility.Add(
         card,
         text,
         CW.ActivatedAbility.Cost.PayActionPoints(amount),
-        effect
+        effect,
+        maxActivationsPerTurn
     )
 end
 

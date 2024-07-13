@@ -3,14 +3,20 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.DiscardCard(result,
+    CW.ActivatedAbility.Common.DiscardCards(
+        result,
         'Discard a card >>> Deal 1 Damage to each opposing Creature. (Use only once during each of your turns.)',
+        1,
         function (me, playerI, laneI)
-            local creatures = GetCreatures(1 - playerI)
+            local creatures = CW.CreatureFilter()
+                :OpposingTo(playerI)
+                :Do()
             for _, creature in ipairs(creatures) do
                 CW.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, creature.Original.IPID, 1)
             end
-        end, 1
+        end,
+        nil,
+        1
     )
 
     return result

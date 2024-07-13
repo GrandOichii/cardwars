@@ -3,26 +3,28 @@
 function _Create()
     local result = CardWars:Creature()
 
-    -- TODO? doesn't specify that it TARGETS
-    result:AddActivatedAbility({
-        text = 'Discard a card >>> Deal 1 Damage to another Creature in this Lane. (Use any number of times during each of your turns.)',
-
-        maxActivationsPerTurn = -1,
-        checkF = function (me, playerI, laneI)
-            return
-                STATE.Players[me.Original.ControllerI].Hand.Count > 0 and
-                #CW.Targetable.ByCreature(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.IPID), playerI, me.Original.IPID) > 0
-        end,
-        costF = function (me, playerI, laneI)
-            CW.Discard.ACard(me.Original.ControllerI)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
-            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.CreaturesInLaneExcept(laneI, me.Original.IPID), playerI, me.Original.IPID))
-            local target = TargetCreature(playerI, ipids, 'Choose a creature to deal damage to')
-            CW.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, target, 1)
+    CW.ActivatedAbility.Add(
+        result,
+        'Discard a card >>> Deal 1 Damage to another Creature in this Lane. (Use any number of times during each of your turns.)',
+        CW.ActivatedAbility.Cost.And(
+            CW.ActivatedAbility.Cost.DiscardFromHand(1),
+            CW.ActivatedAbility.Cost.Target.Creature(
+                'creature',
+                function (me, playerI, laneI)
+                    return CW.CreatureFilter()
+                        :InLane(laneI)
+                        :Except(me.Original.IPID)
+                        :Do()
+                end,
+                function (me, playerI, laneI, targets)
+                    return 'Choose a Creature to deal 1 Damage to'
+                end
+            )
+        ),
+        function (me, playerI, laneI, targets)
+            CW.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, targets.creature.Original.IPID, 1)
         end
-    })
+    )
 
     return result
 end
