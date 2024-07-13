@@ -9,7 +9,10 @@ function _Create()
 
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creatures = Common.CreaturesWithNoDamage(playerI)
+                    local creatures = CW.CreatureFilter()
+                        :ControlledBy(playerI)
+                        :DamageEq(0)
+                        :Do()
                     for _, creature in ipairs(creatures) do
                         creature.Attack = creature.Attack + 2
                     end

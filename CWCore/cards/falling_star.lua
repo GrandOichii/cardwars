@@ -9,7 +9,10 @@ function _Create()
 
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.DAMAGE_MODIFICATION then
-                    local creatures = Common.Creatures(playerI)
+                    local creatures = CW.CreatureFilter()
+                        :ControlledBy(playerI)
+                        :Do()
+
                     for _, creature in ipairs(creatures) do
                         CW.Damage.PreventCreatureDamage(creature)
                     end

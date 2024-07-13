@@ -3,22 +3,28 @@
 function _Create()
     local result = CardWars:Spell()
 
-    CW.AddRestriction(result,
-        function (id, playerI)
-            return nil, #CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id) > 0
-        end
-    )
-
-    result.EffectP:AddLayer(
-        function (id, playerI)
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'creature',
+                target = CW.Spell.Target.Creature(
+                    function (id, playerI)
+                        return CW.CreatureFilter():ControlledBy(playerI):Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a creature to buff'
+                    end
+                )
+            }
+        },
+        function (id, playerI, targets)
             -- Target Creature you control has +X ATK this turn, where X is the amount of Damage on it.
 
-            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.Creatures(playerI), playerI, id))
-            local target = TargetCreature(playerI, ipids, 'Choose a creature to buff')
-
+            local ipid = targets.creature.Original.IPIDs
             UntilEndOfTurn(function ( layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creature = GetCreatureOrDefault(target)
+                    local creature = GetCreatureOrDefault(ipid)
                     if creature == nil then
                         return
                     end

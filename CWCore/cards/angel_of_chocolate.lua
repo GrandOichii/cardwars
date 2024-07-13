@@ -3,8 +3,10 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.PayActionPoints(result, 1,
+    CW.ActivatedAbility.Common.PayActionPoints(
+        result,
         'Pay 1 Action >>> Heal all Damage from Angel of Chocolate.',
+        1,
         function (me, playerI, laneI)
             HealDamage(me.Original.IPID, me.Original.Damage)
         end

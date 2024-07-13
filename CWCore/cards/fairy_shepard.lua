@@ -7,7 +7,11 @@ function _Create()
     CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
 
-        local adjacent = Common.AdjacentCreaturesTyped(controllerI, me.LaneI, CardWars.Landscapes.NiceLands)
+        local adjacent = CW.CreatureFilter()
+            :ControlledBy(controllerI)
+            :AdjacentToLane(me.LaneI)
+            :LandscapeType(CardWars.Landscapes.NiceLands)
+            :Do()
         for _, creature in ipairs(adjacent) do
             creature.Defense = creature.Defense + 2
         end

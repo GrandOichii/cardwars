@@ -4,6 +4,7 @@ function _Create()
     local result = CardWars:Creature()
 
     local calcDamage = function ()
+        -- TODO move to common
         local damage = 0
         for i = 0, 1 do
             local p = STATE.Players[i]
@@ -31,7 +32,6 @@ function _Create()
             )
         ),
         function (me, playerI, laneI, targets)
-            -- TODO move to common
             local amount = calcDamage()
             CW.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, targets.creature.Original.IPID, amount)
         end

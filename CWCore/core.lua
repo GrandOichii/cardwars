@@ -1384,6 +1384,13 @@ function CW.CreatureFilter()
         return self
     end
     
+    function result:DamageEq(damage)
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original.Damage == damage
+        end
+        return self
+    end
+    
     function result:LandscapeType(landscape)
         result.filters[#result.filters+1] = function (creature)
             return creature:IsType(landscape)
@@ -2190,9 +2197,7 @@ function CW.ActivatedAbility.Cost.Check(checkF)
     return result
 end
 
-function CW.ActivatedAbility.Cost.DiscardFromHand(amount, hintFunc, maxActivationsPerTurn)
-    maxActivationsPerTurn = maxActivationsPerTurn or -1
-
+function CW.ActivatedAbility.Cost.DiscardFromHand(amount, hintFunc)
     local result = {}
 
     function result:CheckFunc()
@@ -2381,6 +2386,15 @@ function CW.ActivatedAbility.Common.Floop(card, text, effect)
         card,
         text,
         CW.ActivatedAbility.Cost.Floop(),
+        effect
+    )
+end
+
+function CW.ActivatedAbility.Common.PayActionPoints(card, text, amount, effect)
+    CW.ActivatedAbility.Add(
+        card,
+        text,
+        CW.ActivatedAbility.Cost.PayActionPoints(amount),
         effect
     )
 end

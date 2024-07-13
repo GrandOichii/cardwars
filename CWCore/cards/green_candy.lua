@@ -3,26 +3,32 @@
 function _Create()
     local result = CardWars:Spell()
 
-    CW.AddRestriction(result,
-        function (id, playerI)
-            return nil, #CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
-        end
-    )
-
-    result.EffectP:AddLayer(
-        function (id, playerI)
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'creature',
+                target = CW.Spell.Target.Creature(
+                    function (id, playerI)
+                        return CW.CreatureFilter():Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a creature to heal/deal 1 Damage to'
+                    end
+                )
+            }
+        },
+        function (id, playerI, targets)
             -- Heal or deal 1 Damage to target Creature.
-            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id))
-
-            local target = TargetCreature(playerI, ipids, 'Choose a creature')
-            local creature = GetCreature(target)
+            local creature = targets.creature
+            local ipid = creature.Original.IPID
             local accept = YesNo(playerI, 'Heal '..creature.Original.Card.Template.Name..'?')
             if not accept then
-                CW.Damage.ToCreatureBySpell(id, playerI, target, 1)
+                CW.Damage.ToCreatureBySpell(id, playerI, ipid, 1)
                 return
             end
 
-            HealDamage(target, 1)
+            HealDamage(ipid, 1)
         end
     )
 

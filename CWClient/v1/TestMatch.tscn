@@ -23,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_sfwn3")
-decks = Array[Resource("res://v1/Deck/Deck.gd")]([ExtResource("2_yphpd"), ExtResource("2_y7n1o"), ExtResource("4_fr6nk"), ExtResource("5_10p2p"), ExtResource("6_lpw1n"), ExtResource("7_dc2p8"), ExtResource("2_ibkj7"), ExtResource("9_wtd6b"), ExtResource("2_yphpd")])
+decks = Array[Resource("res://v1/Deck/Deck.gd")]([ExtResource("5_10p2p"), ExtResource("2_y7n1o"), ExtResource("4_fr6nk"), ExtResource("5_10p2p"), ExtResource("6_lpw1n"), ExtResource("7_dc2p8"), ExtResource("2_ibkj7"), ExtResource("9_wtd6b"), ExtResource("2_yphpd")])
 HandCardPS = ExtResource("2_u44bo")
 
 [node name="Connection" parent="." instance=ExtResource("2_fgw36")]
