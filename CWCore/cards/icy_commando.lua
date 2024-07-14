@@ -5,7 +5,7 @@ function _Create()
     
     -- Icy Commando has +1 ATK for each Landscape with a Frozen token on it.
     CW.State.ModATKDEF(result, function (me)
-        local landscapes = Common.AllPlayers.FrozenLandscapes()
+        local landscapes = CW.LandscapeFilter():IsFrozen():Do()
         local amount = #landscapes
         me.Attack = me.Attack + amount
     end)

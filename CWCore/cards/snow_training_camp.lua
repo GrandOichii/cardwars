@@ -2,24 +2,25 @@
 
 function _Create()
     local result = CardWars:InPlay()
-    
-    result:AddActivatedAbility({
-        text = 'FLOOP >>> Freeze both Landscapes in this Lane. Use only if no Frozen tokens are in play.',
-        tags = {'floop'},
-        checkF = function (me, playerI, laneI)
-            return
-                Common.CanFloop(me) and
-                #Common.AllPlayers.FrozenLandscapes() == 0
+
+    CW.ActivatedAbility.Add(
+        result,
+        'FLOOP >>> Freeze both Landscapes in this Lane. Use only if no Frozen tokens are in play.',
+        CW.ActivatedAbility.Cost.And(
+            CW.ActivatedAbility.Cost.Check(function (me, playerI, laneI)
+                return #CW.LandscapeFilter():IsFrozen():Do() == 0
+            end),
+            CW.ActivatedAbility.Cost.Floop()
+        ),
+        function (me, playerI, laneI, targets)
+            local landscapes = CW.LandscapeFilter():OnLane(laneI):Do()
+
+            for _, landscape in ipairs(landscapes) do
+                CW.Freeze.Landscape(landscape.Original.OwnerI, landscape.Original.Idx)
+            end
         end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.IPID)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
-            CW.Freeze.Landscape(playerI, laneI)
-            CW.Freeze.Landscape(1 - playerI, laneI)
-        end
-    })
+        -1
+    )
 
     return result
 end

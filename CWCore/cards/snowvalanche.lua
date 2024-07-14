@@ -7,12 +7,13 @@ function _Create()
         function (id, playerI)
             -- Deal 2 Damage to each opposing Creature on a Landscape with a Frozen token on it.
 
-            -- TODO could be better
-            local creatures = Common.AllPlayers.CreaturesWithFrozenTokens()
+            local creatures = CW.CreatureFilter()
+                :OpposingTo(playerI)
+                :OnFrozenLandscapes()
+                :Do()
+
             for _, creature in ipairs(creatures) do
-                if creature.Original.ControllerI ~= playerI then
-                    CW.Damage.ToCreatureBySpell(id, playerI, creature.Original.IPID, 2)
-                end
+                CW.Damage.ToCreatureBySpell(id, playerI, creature.Original.IPID, 2)
             end
         end
     )

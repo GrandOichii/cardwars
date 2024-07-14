@@ -1286,6 +1286,7 @@ function CW.CreatureFilter()
         return self
     end
 
+    -- TODO add playerI
     function result:AdjacentToLane(laneI)
         result.filters[#result.filters+1] = function (creature)
             return creature.LaneI == laneI - 1 or creature.LaneI == laneI + 1
@@ -1421,6 +1422,7 @@ function CW.BuildingFilter()
         return self
     end
 
+    -- TODO add playerI
     function result:AdjacentToLane(laneI)
         result.filters[#result.filters+1] = function (building)
             return building.LaneI == laneI - 1 or building.LaneI == laneI + 1
@@ -1603,6 +1605,7 @@ function CW.LandscapeFilter()
         return self
     end
 
+    -- TODO add playerI
     function result:AdjacentTo(laneI)
         result.filters[#result.filters+1] = function (landscape)
             return landscape.Original.Idx == laneI - 1 or landscape.Original.Idx == laneI + 1
@@ -1682,6 +1685,15 @@ function CW.GainDefense(creature, amount)
 
     HealDamage(creature.Original.IPID, amount)
     creature.Original.Defense = creature.Original.Defense + def
+end
+
+function CW.LandscapeOf(inplay)
+    local landscapes = CW.LandscapeFilter()
+        :ControlledBy(inplay.Original.ControllerI)
+        :OnLane(inplay.LaneI)
+        :Do()
+    assert(#landscapes > 0, 'failed to find landscapes of in-play card '..inplay.Original.Card.LogFriendlyName)
+    return landscapes[1]
 end
 
 CW.Freeze = {}
