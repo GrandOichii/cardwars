@@ -3,42 +3,32 @@
 function _Create()
     local result = CardWars:Spell()
 
-    -- TODO add creature restriction - can't cast if cant replace any creatures
-    local choices = function (playerI)
-        return Common.DiscardPileCardIndicies(playerI, function (card)
-            return
-                card.Original.Template.Type == 'Creature' and
-                card.Cost <= 2
-        end)
-    end
-
-    
-    CW.AddRestriction(result,
-        function (id, playerI)
-            return nil, #choices(playerI) > 0
-        end
-    )
-
-    result.EffectP:AddLayer(
-    function (id, playerI)
-            -- Put a Creature with cost 2 or less from your discard pile into play.
-
-            local indicies = choices(playerI)
-            local choice = ChooseCardInDiscard(playerI, indicies, {}, 'Choose a Creature with cost 2 or less to reanimate')
-            local pI = choice[0]
-            if pI ~= playerI then
-                -- * shouldn't ever happen
-                error('tried to pick card in opponent\'s discard (Raise the Dead)')
-                return
-            end
-            local discardI = choice[1]
-            local card = STATE.Players[playerI].DiscardPile[discardI]
-
-            -- TODO? does nothing if can't place creature anywhere, fix?
-            if #LandscapesAvailableForCreature(playerI, card) == 0 then
-                return
-            end
-            RemoveFromDiscard(playerI, discardI)
+    -- Put a Creature with cost 2 or less from your discard pile into play.
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'card',
+                target = CW.Spell.Target.CardInDiscardPile(
+                    function (id, playerI)
+                        return CW.CardsInDiscardPileFilter()
+                            :Creatures()
+                            :CostLte(2)
+                            :Custom(function (card)
+                                return #LandscapesAvailableForCreature(playerI, card) > 0
+                            end)
+                            :Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a Creature card to resurrect'
+                    end
+                )
+            },
+        },
+        function (id, playerI, targets)
+            local inDiscard = targets.card
+            local card = STATE.Players[inDiscard.playerI].DiscardPile[inDiscard.idx]
+            RemoveFromDiscard(playerI, inDiscard.idx)
 
             PlaceCreature(playerI, card, true)
         end

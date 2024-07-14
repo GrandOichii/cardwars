@@ -1,9 +1,0 @@
-{
-    "Name": "Tiny Elephant",
-    "Landscape": "Blue Plains",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "While in play, Tiny Elephant is also a Rainbow Creature (in addition to Blue Plains).",
-    "Attack": 2,
-    "Defense": 6
-}

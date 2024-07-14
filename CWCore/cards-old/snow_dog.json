@@ -1,9 +1,0 @@
-{
-    "Name": "Snow Dog",
-    "Landscape": "IcyLands",
-    "Type": "Creature",
-    "Cost": 2,
-    "Text": "FLOOP >>> Each adjacent Creature has +2 ATK this turn.",
-    "Attack": 2,
-    "Defense": 7
-}

@@ -26,31 +26,33 @@ function _Create()
 
     end)
 
-    -- FLOOP >>> Move a Creature you control to this Landscape.
-    result:AddActivatedAbility({
-        text = 'FLOOP >>> Move a Creature you control to this Landscape.',
-        tags = {'floop'},
-        checkF = function (me, playerI, laneI)
-            return
-                Common.CanFloop(me) and
-                STATE.Players[playerI].Landscapes[laneI].Creature == nil and
-                -- TODO? targetable
-                #Common.Creatures(playerI) > 0
-        end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.IPID)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
-            local ipids = CW.IPIDs(Common.Creatures(playerI))
-            local ipid = ChooseCreature(playerI, ipids, 'Choose a creature to move')
-            local creature = GetCreature(ipid)
-            if creature.LaneI == laneI then
+    CW.ActivatedAbility.Add(
+        result,
+        'FLOOP >>> Move a Creature you control to this Landscape.',
+        CW.ActivatedAbility.Cost.And(
+            CW.ActivatedAbility.Cost.Floop(),
+            CW.ActivatedAbility.Cost.Check(function (me, playerI, laneI)
+                return CW.Landscape.IsEmpty(playerI, laneI)
+            end),
+            CW.ActivatedAbility.Cost.Target.Creature(
+                'creature',
+                function (me, playerI, laneI)
+                    return CW.CreatureFilter():ControlledBy(playerI)
+                        :Do()
+                end,
+                function (me, playerI, laneI, targets)
+                    return 'Choose a Creature to move'
+                end
+            )
+        ),
+        function (me, playerI, laneI, targets)
+            if targets.creature.LaneI == laneI then
                 return
             end
-            MoveCreature(ipid, laneI)
-        end
-    })
+            MoveCreature(targets.creature.Original.ipid, laneI)
+        end,
+        -1
+    )
 
     return result
 end

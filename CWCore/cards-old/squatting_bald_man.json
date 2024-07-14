@@ -1,9 +1,0 @@
-{
-    "Name": "Squatting Bald Man",
-    "Landscape": "Useless Swamp",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "Discard a card >>> Heal 1 Damage from Squatting Bald Man. (Use any number of times during each of your turns.)",
-    "Attack": 2,
-    "Defense": 7
-}

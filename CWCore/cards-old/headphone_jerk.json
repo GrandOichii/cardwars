@@ -1,9 +1,0 @@
-{
-    "Name": "Headphone Jerk",
-    "Landscape": "Blue Plains",
-    "Type": "Creature",
-    "Cost": 2,
-    "Text": "When Headphone Jerk enters play, if it replaced a Creature, deal 3 Damage to another Creature in this Lane.",
-    "Attack": 2,
-    "Defense": 7
-}

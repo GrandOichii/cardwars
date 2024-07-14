@@ -90,7 +90,8 @@ public class PlayerState : IStateModifier {
                 if (!existing.CanBeReplaced) continue;
             }
 
-            if (!CanPayFor(creature, i)) continue;
+            // ! why is this here?
+            // if (!CanPayFor(creature, i)) continue;
 
             result.Add(i);
         }

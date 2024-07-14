@@ -1,9 +1,0 @@
-{
-    "Name": "Big Foot",
-    "Landscape": "Rainbow",
-    "Type": "Creature",
-    "Cost": 0,
-    "Attack": 1,
-    "Defense": 4,
-    "Text": "FLOOP >>> Flip target face-down Landscape you control face up. "
-}

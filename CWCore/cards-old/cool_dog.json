@@ -1,9 +1,0 @@
-{
-    "Name": "Cool Dog",
-    "Landscape": "Blue Plains",
-    "Type": "Creature",
-    "Cost": 2,
-    "Attack": 2,
-    "Defense": 7,
-    "Text": "Your Creatures on adjacent Lanes may not be Attacked."
-}

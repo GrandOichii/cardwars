@@ -1,9 +1,0 @@
-{
-    "Name": "Apple Pieclops",
-    "Landscape": "NiceLands",
-    "Type": "Creature",
-    "Cost": 2,
-    "Text": "At the start of your turn, you may heal or deal 1 Damage to each Creature you control. (Choose for each Creature.)",
-    "Attack": 1,
-    "Defense": 7
-}

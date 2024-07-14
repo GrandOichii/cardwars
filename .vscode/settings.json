@@ -74,7 +74,8 @@
         "SoftUpdateState",
         "RemoveFromDeck",
         "CreateState",
-        "GetHitPoints"
+        "GetHitPoints",
+        "LandscapesAvailableForBuilding"
     ],
     "dotnet.defaultSolution": "CWCore/CWCore.sln"
 }

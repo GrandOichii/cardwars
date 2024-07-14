@@ -1,9 +1,0 @@
-{
-    "Name": "Chest Burster",
-    "Landscape": "Useless Swamp",
-    "Type": "Creature",
-    "Cost": 1,
-    "Attack": 1,
-    "Defense": 10,
-    "Text": "At the start of your turn, deal 3 Damage to each opponent who was no cards in hand."
-}

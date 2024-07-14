@@ -1,9 +1,0 @@
-{
-    "Name": "Goat",
-    "Landscape": "Rainbow",
-    "Type": "Creature",
-    "Cost": 0,
-    "Text": "When Goat enters play, if it replaced a Creature, draw a card.",
-    "Attack": 1,
-    "Defense": 4
-}

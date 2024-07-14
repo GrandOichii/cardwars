@@ -223,29 +223,6 @@
 			"end",
 		]
 	},
-	"floopfull": {
-		"scope": "lua",
-		"prefix": "floopfull",
-		"description": "add floop ability",
-		"body": [
-			"result:AddActivatedAbility({",
-			"\ttext = '$1',",
-			"\ttags = {'floop'},",
-			"\tcheckF = function (me, playerI, laneI)",
-			"\t\treturn",
-			"\t\t\tCommon.CanFloop(me) and",
-			"\t\t\t${2}",
-			"\tend,",
-			"\tcostF = function (me, playerI, laneI)",
-			"\t\tFloopCard(me.Original.Card.ID)",
-			"\t\treturn true",
-			"\tend,",
-			"\teffectF = function (me, playerI, laneI)",
-			"\t\t$0",
-			"\tend",
-			"})",
-		]
-	},
 	"state_modifier": {
 		"scope": "lua",
 		"prefix": "statemod",
@@ -317,16 +294,6 @@
 			"",
 			"\t$0",
 			"end)",
-		]
-	},
-	"target_creature": {
-		"scope": "lua",
-		"prefix": "targetcreature",
-		"description": "target creature",
-		"body": [
-			"local ids = CW.IPIDs(CW.Targetable.Base${1:BySpell}(${2:Common.AllPlayers.Creatures()}, $3))",
-            "local target = ${4:TargetCreature}(playerI, ids, '$5')",
-			"$0"
 		]
 	},
 	"building": {

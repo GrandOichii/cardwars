@@ -1,9 +1,0 @@
-{
-    "Name": "Lumbercaddy",
-    "Landscape": "Cornfield",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "FLOOP >>> Move target Building you control to any Landscape without one.",
-    "Attack": 2,
-    "Defense": 6
-}

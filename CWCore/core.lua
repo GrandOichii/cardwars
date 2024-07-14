@@ -310,212 +310,14 @@ function CardWars:Creature()
     return result
 end
 
--- Common
+CW = {}
 
-Common = {}
-
-function Common.CanFloop(card)
+function CW.CanFloop(card)
     if not GetConfig().CanFloopOnFirstTurn and STATE.TurnCount == 1 then
         return false
     end
     return card.Original:CanFloop()
 end
-
-function Common.AdjacentCreatures(playerI, laneI)
-    local result = {}
-    local adjacent = Common.AdjacentLandscapes(playerI, laneI)
-    for _, landscape in ipairs(adjacent) do
-        if landscape.Creature ~= nil then
-            result[#result+1] = landscape.Creature
-        end
-    end
-    return result
-end
-
-function Common.AdjacentBuildings(playerI, laneI)
-    local result = {}
-    local adjacent = Common.AdjacentLandscapes(playerI, laneI)
-    for _, landscape in ipairs(adjacent) do
-        for i = 0, landscape.Buildings.Count - 1 do
-            result[#result+1] = landscape.Buildings[i]
-        end
-    end
-    return result
-end
-
-function Common.AdjacentCreaturesTyped(playerI, laneI, type)
-    local result = {}
-    local adjacent = Common.AdjacentLandscapes(playerI, laneI)
-    for _, landscape in ipairs(adjacent) do
-        if landscape.Creature ~= nil and landscape.Creature:IsType(type) then
-            result[#result+1] = landscape.Creature
-        end
-    end
-    return result
-end
-
-function Common.LandscapesWithoutBuildings(playerI)
-    return CW.FilterLandscapes(function (landscape)
-        return landscape.Original.OwnerI == playerI and landscape.Buildings.Count == 0
-    end)
-end
-
-function Common.LandscapesWithoutCreatures(playerI)
-    return CW.FilterLandscapes(function (landscape)
-        return landscape.Original.OwnerI == playerI and landscape.Creature == nil
-    end)
-end
-
-function Common.InPlay(playerI)
-    local result = Common.Creatures(playerI)
-    local buildings = Common.Buildings(playerI)
-
-    for _, building in ipairs(buildings) do
-        result[#result+1] = building
-    end
-
-    return result
-end
-
-function Common.Creatures(playerI)
-    return CW.FilterCreatures(function (creature)
-        return creature.Original.ControllerI == playerI
-    end)
-end
-
-function Common.FriendlyCreatures(playerI)
-    -- TODO? change if multiplayer will ever be implemented
-    return Common.Creatures(playerI)
-end
-
-function Common.OpposingCreatures(playerI)
-    return Common.Creatures(1 - playerI)
-end
-
-function Common.CreaturesExcept(playerI, ipid)
-    return CW.FilterCreatures(function (creature)
-        return
-            creature.Original.ControllerI == playerI and
-            creature.Original.IPID ~= ipid
-    end)
-end
-
-function Common.Buildings(playerI)
-    return CW.FilterBuildings(function (building)
-        return building.Original.ControllerI == playerI
-    end)
-end
-
-function Common.ReadiedCreatures(playerI)
-    return CW.FilterCreatures(function (creature)
-        return
-            creature.Original.ControllerI == playerI and
-            creature.Original:GetStatus() == 0
-    end)
-end
-
-function Common.ExhaustedCreatures(playerI)
-    return CW.FilterCreatures(function (creature)
-        return
-            creature.Original.ControllerI == playerI and
-            creature.Original:IsExhausted()
-    end)
-end
-
-function Common.SpellsPlayedThisTurnCount(playerI)
-    local player = STATE.Players[playerI].Original
-
-    local count = 0
-    for i = 1, player.CardsPlayedThisTurn.Count do
-        if player.CardsPlayedThisTurn[i - 1].Template.Type == 'Spell' then
-            count = count + 1
-        end
-    end
-    return count
-end
-
-function Common.FilterCardsInHandIndicies(playerI, predicate)
-    local result = {}
-
-    -- TODO move to filter function
-    local cards = STATE.Players[playerI].Hand
-    for i = 1, cards.Count do
-        local card = cards[i - 1]
-        if predicate(card) then
-            result[#result+1] = i - 1
-        end
-    end
-
-    return result
-end
-
-function Common.BuildingsInHand(playerI)
-    return Common.FilterCardsInHandIndicies(playerI, function (card)
-        return card.Original.Template.Type == 'Building'
-    end)
-end
-
-function Common.DiscardPileCardIndicies(playerI, predicate)
-    local discard = STATE.Players[playerI].DiscardPile
-    local result = {}
-    for i = 1, discard.Count do
-        if predicate(discard[i - 1]) then
-            result[#result+1] = i - 1
-        end
-    end
-    return result
-end
-
-function Common.BuildingsInLane(playerI, laneI)
-    local result = {}
-    local player = STATE.Players[playerI]
-    local lane = player.Landscapes[laneI]
-    for i = 0, lane.Buildings.Count - 1 do
-        result[#result+1] = lane.Buildings[i]
-    end
-    return result
-end
-
-function Common.UntilFightPhase(playerI, modF)
-    -- TODO is this bad?
-    UntilEndOfTurn(function (layer)
-        if GetPhase() == CardWars.Phases.FIGHT then
-            return
-        end
-        modF(layer)
-    end)
-end
-
-function Common.SearchDeckFor(playerI, predicate)
-    local deck = STATE.Players[playerI].Original:DeckAsList()
-    local options = {}
-    for i = 0, deck.Count - 1 do
-        local card = deck[i]
-        if predicate(card) then
-            options[#options+1] = card.Template.Name
-        end
-    end
-    if #options == 0 then
-        return -1
-    end
-    local choice = ChooseCard(playerI, options, 'Choose a Building to put in play')
-    local cardName = options[choice + 1]
-    for i = 0, deck.Count - 1 do
-        local card = deck[i]
-        if card.Template.Name == cardName then
-            return i
-        end
-    end
-    error('Error in SearchDeckFor: tried to find card '..cardName..' in deck of player ['..playerI..'], but failed')
-end
-
-Common.AllPlayers = {}
-
-function Common.AllPlayers.Creatures()
-    return CW.FilterCreatures(function (_) return true end)
-end
-
-CW = {}
 
 function CW.Keys(table)
     local result = {}
@@ -733,6 +535,17 @@ function CW.CardsInHandFilter(of)
         return self
     end
 
+    function result:OfType(type)
+        result.filters[#result.filters+1] = function (card)
+            return card.Template.Type == type
+        end
+        return self
+    end
+
+    function result:Buildings()
+        return self:OfType('Building')
+    end
+
     return result
 end
 
@@ -800,9 +613,23 @@ function CW.CreatureFilter()
         return self
     end
 
+    function result:Friendly(playerI)
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original.ControllerI == playerI
+        end
+        return self
+    end
+
+    function result:Ready()
+        result.filters[#result.filters+1] = function (creature)
+            return creature.Original:GetStatus() == 0
+        end
+        return self
+    end
+
     function result:CountAsLandscape(landscape)
         result.filters[#result.filters+1] = function (creature)
-            return creature.Original.CountsAsLandscapes:Contains(landscape)
+            return creature.CountsAsLandscapes:Contains(landscape)
         end
         return self
     end
@@ -973,7 +800,7 @@ function CW.BuildingFilter()
 
     function result:CountAsLandscape(landscape)
         result.filters[#result.filters+1] = function (creature)
-            return creature.Original.CountsAsLandscapes:Contains(landscape)
+            return creature.CountsAsLandscapes:Contains(landscape)
         end
         return self
     end
@@ -995,6 +822,13 @@ function CW.BuildingFilter()
     function result:ControlledBy(playerI)
         result.filters[#result.filters+1] = function (building)
             return building.Original.Card.OwnerI == playerI
+        end
+        return self
+    end
+
+    function result:Named(name)
+        result.filters[#result.filters+1] = function (building)
+            return building.Original.Card.Template.Name == name
         end
         return self
     end
@@ -1077,6 +911,11 @@ function CW.CardsInDiscardPileFilter()
         return CW.FilterCardsInDiscard(filter)
     end
 
+    function result:Custom(filter)
+        result.filters[#result.filters+1] = filter
+        return self
+    end
+
     function result:OfLandscapeType(landscapeType)
         result.filters[#result.filters+1] = function (card)
             return card.Original.Template.Landscape == landscapeType
@@ -1113,6 +952,17 @@ function CW.CardsInDiscardPileFilter()
         return self:OfType('Creature')
     end
 
+    function result:Buildings()
+        return self:OfType('Building')
+    end
+
+    function result:CostLte(cost)
+        result.filters[#result.filters+1] = function (card)
+            return card.Original.Cost <= cost
+        end
+        return self
+    end
+
     return result
 end
 
@@ -1136,6 +986,13 @@ function CW.LandscapeFilter()
     function result:ControlledBy(playerI)
         result.filters[#result.filters+1] = function (landscape)
             return playerI == nil or landscape.Original.OwnerI == playerI
+        end
+        return self
+    end
+
+    function result:NoBuildings(playerI)
+        result.filters[#result.filters+1] = function (landscape)
+            return landscape.Buildings.Count == 0
         end
         return self
     end
@@ -1295,6 +1152,39 @@ function CW.DiscardCardIdx(playerI, id)
         end
     end
     return nil
+end
+
+function CW.SearchDeckFor(playerI, predicate)
+    local deck = STATE.Players[playerI].Original:DeckAsList()
+    local options = {}
+    for i = 0, deck.Count - 1 do
+        local card = deck[i]
+        if predicate(card) then
+            options[#options+1] = card.Template.Name
+        end
+    end
+    if #options == 0 then
+        return -1
+    end
+    local choice = ChooseCard(playerI, options, 'Choose a Building to put in play')
+    local cardName = options[choice + 1]
+    for i = 0, deck.Count - 1 do
+        local card = deck[i]
+        if card.Template.Name == cardName then
+            return i
+        end
+    end
+    error('Error in SearchDeckFor: tried to find card '..cardName..' in deck of player ['..playerI..'], but failed')
+end
+
+function CW.UntilFightPhase(playerI, modF)
+    -- TODO is this bad?
+    UntilEndOfTurn(function (layer)
+        if GetPhase() == CardWars.Phases.FIGHT then
+            return
+        end
+        modF(layer)
+    end)
 end
 
 
@@ -1703,7 +1593,7 @@ function CW.ActivatedAbility.Cost.Floop()
 
     function result:CheckFunc()
         return function (me, playerI, laneI)
-            return Common.CanFloop(me)
+            return CW.CanFloop(me)
         end
     end
 
@@ -2025,6 +1915,34 @@ function CW.ActivatedAbility.Cost.Target.Opponent(targetKey)
     return result
 end
 
+CW.ActivatedAbility.Cost.Choose = {}
+
+
+function CW.ActivatedAbility.Cost.Choose.CardInHand(targetKey, filterFunc, hintFunc)
+    local result = {}
+
+    function result:CheckFunc()
+        return function (me, playerI, laneI)
+            return #filterFunc(me, playerI, laneI) > 0
+        end
+    end
+
+    function result:AddTargets(me, playerI, laneI, targets)
+        local hint = hintFunc(me, playerI, laneI, targets)
+        local choice = CW.Choose.CardInHand(playerI, filterFunc(me, playerI, laneI), hint)
+
+        targets[targetKey] = choice
+    end
+
+    function result:CostFunc()
+        return function (me, playerI, laneI)
+            return true
+        end
+    end
+
+    return result
+end
+
 CW.ActivatedAbility.Common = {}
 
 function CW.ActivatedAbility.Common.Floop(card, text, effect)
@@ -2065,6 +1983,15 @@ function CW.ActivatedAbility.Common.WhileFlooped(card, text, stateModEffect)
         end
     )
 
+    card:AddStateModifier(function (me, layer, zone)
+        if zone ~= CardWars.Zones.IN_PLAY then
+           return
+        end
+        if not me.Original:IsFlooped() then
+            return
+        end
+        stateModEffect(me, layer, zone)
+    end)
     card:AddStateModifier(stateModEffect)
 end
 
@@ -2090,6 +2017,15 @@ function CW.Choose.Creature(playerI, creatures, hint)
     local choice = ChooseCreature(playerI, options, hint)
     local result = GetCreature(choice)
     return result
+end
+
+function CW.Choose.CardInHand(playerI, cards, hint)
+    local indicies = CW.Keys(cards)
+    local idx = ChooseCardInHand(playerI, indicies, hint)
+    return {
+        idx = idx,
+        card = STATE.Players[playerI].Original.Hand[idx]
+    }
 end
 
 function CW.Choose.CardInDiscardPile(playerI, cards, hint)

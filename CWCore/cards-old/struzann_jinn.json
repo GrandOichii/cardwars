@@ -1,9 +1,0 @@
-{
-    "Name": "Struzann Jinn",
-    "Landscape": "Blue Plains",
-    "Type": "Creature",
-    "Cost": 2,
-    "Attack": 1,
-    "Defense": 11,
-    "Text": "+2 ATK for each Flooped Creature you control."
-}

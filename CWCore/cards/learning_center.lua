@@ -8,7 +8,11 @@ function _Create()
         -- TODO does this include landscape types?
 
         if layer == CardWars.ModificationLayers.ABILITY_GRANTING_REMOVAL and zone == CardWars.Zones.IN_PLAY then
-            local buildings = Common.AdjacentBuildings(me.Original.ControllerI, me.LaneI)
+            local buildings = CW.BuildingFilter()
+                :AdjacentToLane(me.LaneI)
+                :ControlledBy(me.Original.ControllerI)
+                :Do()
+
             for _, building in ipairs(buildings) do
                 CW.AbilityGrantingRemoval.CopyFromBuilding(me, building)
             end

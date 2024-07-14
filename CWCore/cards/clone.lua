@@ -9,13 +9,9 @@ function _Create()
 
             CW.Mod.ModNextCostFunc(playerI,
                 function (card)
-                    local cards = Common.InPlay(playerI)
-                    for _, c in ipairs(cards) do
-                        if c.Original.Card.Template.Name == card.Original.Template.Name then
-                            return true
-                        end
-                    end
-                    return false
+                    return
+                        #CW.CreatureFilter():ControlledBy(playerI):Named(card.Original.Template.Name) > 0 or
+                        #CW.BuildingFilter():ControlledBy(playerI):Named(card.Original.Template.Name) > 0
                 end,
                 function (card)
                     CW.Mod.Cost(card, -card.Cost)

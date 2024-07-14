@@ -1,9 +1,0 @@
-{
-    "Name": "Tree of Undeath",
-    "Landscape": "Useless Swamp",
-    "Type": "Creature",
-    "Cost": 2,
-    "Text": "FLOOP >>> Return a random Creature from your discard pile to your hand.",
-    "Attack": 2,
-    "Defense": 6
-}

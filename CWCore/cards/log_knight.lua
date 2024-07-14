@@ -3,30 +3,36 @@
 function _Create()
     local result = CardWars:Creature()
 
-    result:AddActivatedAbility({
-        text = 'FLOOP >>> Put a Building from your hand below this Lane. (If it doesn\'t already have one.)',
-        tags = {'floop'},
-        checkF = function (me, playerI, laneI)
-            return
-                Common.CanFloop(me) and
-                #Common.BuildingsInLane(playerI, laneI) == 0 and
-                #Common.BuildingsInHand(playerI) > 0
+    CW.ActivatedAbility.Add(
+        result,
+        'FLOOP >>> Put a Building from your hand below this Lane. (If it doesn\'t already have one.)',
+        CW.ActivatedAbility.Cost.And(
+            CW.ActivatedAbility.Cost.Floop(),
+            CW.ActivatedAbility.Cost.Check(function (me, playerI, laneI)
+                return #CW.BuildingFilter()
+                    :ControlledBy(playerI)
+                    :InLane(laneI)
+                    :Do() == 0
+            end),
+            CW.ActivatedAbility.Cost.Choose.CardInHand(
+                'card',
+                function (me, playerI, laneI)
+                    return CW.CardsInHandFilter(playerI)
+                        :Buildings()
+                        :Do()
+                end,
+                function (me, playerI, laneI)
+                    return 'Choose a Building to place for free'
+                end
+            )
+        ),
+        function (me, playerI, laneI, targets)
+            RemoveCardFromHand(playerI, targets.card.idx)
+
+            PlaceBuildingInLane(playerI, laneI, targets.card.card)
         end,
-        costF = function (me, playerI, laneI)
-            FloopCard(me.Original.IPID)
-            return true
-        end,
-        effectF = function (me, playerI, laneI)
-            local ids = Common.BuildingsInHand(playerI)
-
-            local choice = ChooseCardInHand(playerI, ids, 'Choose a building to put in play')
-            local card = STATE.Players[playerI].Hand[choice].Original
-
-            RemoveCardFromHand(playerI, choice)
-
-            PlaceBuildingInLane(playerI, laneI, card)
-        end
-    })
+        -1
+    )
 
     return result
 end

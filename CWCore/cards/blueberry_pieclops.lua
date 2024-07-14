@@ -5,7 +5,10 @@ function _Create()
 
     -- Blueberry Pieclops costs 1 less to play for each Spell you have played this turn.
     CW.State.ModCostInHand(result, function (me)
-        CW.Mod.Cost(me, -Common.SpellsPlayedThisTurnCount(me.Original.OwnerI))
+        local count = #CW.CardsPlayedThisTurnFilter(me.Original.OwnerI)
+            :Spells()
+            :Do()
+        CW.Mod.Cost(me, -count)
     end)
 
     return result

@@ -615,6 +615,13 @@ public class ScriptMaster {
     }
 
     [LuaCommand]
+    public LuaTable LandscapesAvailableForBuilding(int playerI, CardState card) {
+        var player = _match.GetPlayerState(playerI);
+        var result = player.LandscapesAvailableForBuilding(card);
+        return LuaUtility.CreateTable(_match.LState, result);
+    }
+
+    [LuaCommand]
     public bool DiscardFromPlay(string cardIPID) {
         var building = _match.GetInPlayBuilding(cardIPID);
         var player = _match.GetPlayerState(building.Original.Card.OwnerI);

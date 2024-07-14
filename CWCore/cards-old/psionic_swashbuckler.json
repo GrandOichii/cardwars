@@ -1,9 +1,0 @@
-{
-    "Name": "Psionic Swashbuckler",
-    "Landscape": "Blue Plains",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "When Psionic Swashbuckler enters play, you may deal 3 Damage to target Flooped Creature",
-    "Attack": 2,
-    "Defense": 6
-}

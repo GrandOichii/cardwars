@@ -1,9 +1,0 @@
-{
-    "Name": "SandWitch",
-    "Landscape": "SandyLands",
-    "Type": "Creature",
-    "Cost": 1,
-    "Text": "When SandWitch or another Creature enters play under your control, deal 1 Damage to your opponent.",
-    "Attack": 0,
-    "Defense": 12
-}
