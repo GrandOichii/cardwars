@@ -2,6 +2,6 @@
     "Name": "Sand Sphinx",
     "Landscape": "SandyLands",
     "Type": "Building",
-    "Cost": 1,
+    "Cost": 2,
     "Text": "FLOOP >>> Return a Creature you control in this Lane to its owner's hand."
 }

@@ -109,6 +109,8 @@ impossible possum - When this card is placed into your discard pile from anywher
     2 ways of doing this:
         1. add a "zone" field to all triggers, which will be checked - complicated and will require deck iteration for every signal emitted
         2. add a simple "OnGoesToDiscard" function list to MatchCard - easy to implement
+knit kitty - lmao
+musical chair
 
 10th anniversary cards
 
