@@ -37,6 +37,12 @@ public class CreatureState : InPlayCardState {
         OnDefeatedEffects = new(creature.OnDefeatedEffects);
     }
 
+    public void ExhaustToAttack() {
+        var original = GetOriginal();
+        original.Status = InPlayCardStatus.ATTACKING;
+        original.Attacking = true;
+    }
+
     public bool ShouldDie() => Defense <= GetDamage();
 
     public int GetDamage() => GetOriginal().Damage;

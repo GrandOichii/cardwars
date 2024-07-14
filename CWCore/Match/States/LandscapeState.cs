@@ -21,8 +21,6 @@ public class LandscapeState : IStateModifier {
 
         Buildings = landscape.Buildings.Select(b => new InPlayCardState(b, laneI)).ToList();
 
-        // TODO seems like a bad way to manage special abilities of tokens
-        
         CanFlipDown = new() {
             0, 1
         };

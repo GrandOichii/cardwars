@@ -1,5 +1,4 @@
 -- Status: not tested
--- TODO add support for "cannot be flipped"
 
 function _Create()
     local result = CardWars:Spell()

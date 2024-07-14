@@ -20,7 +20,6 @@ function _Create()
             )
         ),
         function (me, playerI, laneI, targets)
-            -- TODO? change to TargetLandscape
             CW.Freeze.Landscape(targets.landscape.Original.OwnerI, targets.landscape.Original.Idx)
         end,
         -1

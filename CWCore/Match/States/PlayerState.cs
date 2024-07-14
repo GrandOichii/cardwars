@@ -162,6 +162,16 @@ public class PlayerState : IStateModifier {
 
     }
 
+    public async Task PlaySpell(CardState card, bool forFree) {
+        if (!forFree && !card.PayCosts(this)) {
+            throw new GameMatchException($"Player {Original.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
+        }
+
+        await Original.ExecuteSpellEffect(card.Original);
+
+        Original.Match.GetPlayer(card.Original.OwnerI).AddToDiscard(card.Original);
+    }
+
     public async Task PlayCard(CardState card, bool forFree) {
         var player = Original;
         var match = player.Match;
@@ -179,16 +189,7 @@ public class PlayerState : IStateModifier {
         match.CardsPlayed.Add($"({player.Idx}) {card.Original.LogFriendlyName}");
 
         if (card.Original.IsSpell) {
-            // TODO move to a separate method
-            
-            if (!forFree && !card.PayCosts(this)) {
-                throw new GameMatchException($"Player {player.LogFriendlyName} tried to play card {card.Original.LogFriendlyName}, but didn't pay it's costs");
-            }
-
-            await player.ExecuteSpellEffect(card.Original);
-
-            match.GetPlayer(card.Original.OwnerI).AddToDiscard(card.Original);
-
+            await PlaySpell(card, forFree);
             return;
         }
 
@@ -256,10 +257,9 @@ public class PlayerState : IStateModifier {
 
     public void PayActionPoints(int amount) {
         Original.ActionPoints -= amount;
-        // TODO add back
-        // if (ActionPoints < 0) {
-        //     Match.LogError($"Player payed {amount} ap, which resulted in their ap being equal to {ActionPoints}");
-        // }
+        if (Original.ActionPoints < 0) {
+            Original.Match.LogError($"Player payed {amount} ap, which resulted in their ap being equal to {Original.ActionPoints}");
+        }
         // TODO? add update
     }
 

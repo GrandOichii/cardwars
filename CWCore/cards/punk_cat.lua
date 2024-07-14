@@ -1,5 +1,5 @@
 -- Status: implemented
--- TODO? does this effect the opponents creatures?
+-- ? does this effect the opponents creatures?
 
 function _Create()
     local result = CardWars:Creature()
@@ -8,7 +8,6 @@ function _Create()
     CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
         local creatures = CW.CreatureFilter()
-            :ControlledBy(controllerI)
             :MovedThisTurn()
             :Do()
         for _, creature in ipairs(creatures) do

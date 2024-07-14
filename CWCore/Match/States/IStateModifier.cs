@@ -1,7 +1,5 @@
 namespace CWCore.Match.States;
 
-// TODO implement layering
-
 public enum ModificationLayer {
     ATK_AND_DEF = 1,
     IN_PLAY_CARD_TYPE,

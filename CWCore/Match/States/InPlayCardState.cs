@@ -58,7 +58,6 @@ public class InPlayCardState : IStateModifier {
     }
 
     public bool IsType(string type) {
-        // TODO some cards effect this
         foreach (var t in LandscapeTypes)
             if (t == type)
                 return true;

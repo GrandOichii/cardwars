@@ -205,10 +205,7 @@ public class GameMatch {
     }
 
     public async Task ExhaustToAttack(CreatureState card) {
-        // TODO should be done in card
-        var c = card.GetOriginal();
-        c.Status = InPlayCardStatus.ATTACKING;
-        c.Attacking = true;
+        card.ExhaustToAttack();
         // TODO? add to update
     }
 

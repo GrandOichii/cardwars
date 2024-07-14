@@ -624,7 +624,6 @@ public class Program {
         await match.AddPlayer("RandomPlayer", deck, controller);
     }
 
-    // TODO change return type
     public static async Task AddTCPPlayer(TcpListener listener, GameMatch match) {
         System.Console.WriteLine("Waiting for connection...");
         var client = new TcpIOHandler(listener.AcceptTcpClient());

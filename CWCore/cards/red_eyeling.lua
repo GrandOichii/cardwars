@@ -3,7 +3,6 @@
 function _Create()
     local result = CardWars:Creature()
 
-    -- !FIXME
     CW.ActivatedAbility.Add(
         result,
         'FLOOP >>> Return a card with cost 0 from your discard pile to your hand.',
