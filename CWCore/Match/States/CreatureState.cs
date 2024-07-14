@@ -4,10 +4,6 @@ using NLua;
 namespace CWCore.Match.States;
 
 public class CreatureState : InPlayCardState {
-    private readonly static string ON_ATTACK_FNAME = "OnAttack";
-    private readonly static string ON_DAMAGED_FNAME = "OnDamaged";
-    private readonly static string ON_DEFEATED_FNAME = "OnDefeated";
-    
     public int Attack { get; set; }
     public int Defense { get; set; }
     public bool CanAttack { get; set; }

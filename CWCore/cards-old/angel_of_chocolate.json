@@ -1,0 +1,9 @@
+{
+    "Name": "Angel of Chocolate",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Pay 1 Action >>> Heal all Damage from Angel of Chocolate.",
+    "Attack": 3,
+    "Defense": 7
+}

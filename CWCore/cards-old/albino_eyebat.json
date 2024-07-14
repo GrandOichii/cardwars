@@ -1,0 +1,9 @@
+{
+    "Name": "Albino Eyebat",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "While Albino Eyebat has exactly 2 Damage on it, it has +2 ATK.",
+    "Attack": 2,
+    "Defense": 7
+}

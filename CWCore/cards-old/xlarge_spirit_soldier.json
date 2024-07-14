@@ -1,0 +1,9 @@
+{
+    "Name": "X-Large Spirit Soldier",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Attack": 1,
+    "Defense": 9,
+    "Text": "Each adjacent Creature has +1 ATK. "
+}

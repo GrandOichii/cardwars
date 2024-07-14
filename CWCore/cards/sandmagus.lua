@@ -2,7 +2,7 @@
 
 function _Create()
     local result = CardWars:Creature()
-    
+
     result:AddTrigger({
         -- At the start of your turn, you may return Sandmagus to its owner's hand. If you do, each other Creature you control has +1 ATK this turn.
 
@@ -21,7 +21,7 @@ function _Create()
         effectF = function (me, controllerI, laneI)
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
-                    local creatures = Common.Creatures(controllerI)
+                    local creatures = CW.CreatureFilter():ControlledBy(controllerI):Do()
                     for _, creature in ipairs(creatures) do
                         creature.Attack = creature.Attack + 1
                     end

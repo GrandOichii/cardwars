@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.Floop(result,
+    CW.ActivatedAbility.Common.Floop(result,
         'FLOOP >>> Draw a card, then discard a card.',
         function (me, playerI, laneI)
             Draw(playerI, 1)

@@ -1,0 +1,9 @@
+{
+    "Name": "Cutie",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> You heal 1 Hit Point. (Can't go over 25.)",
+    "Attack": 0,
+    "Defense": 6
+}

@@ -1,0 +1,7 @@
+{
+    "Name": "Tome of Ankhs",
+    "Landscape": "SandyLands",
+    "Type": "Spell",
+    "Cost": 1,
+    "Text": "Draw a card for each of your empty Lanes."
+}

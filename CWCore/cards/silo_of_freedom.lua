@@ -3,9 +3,10 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    Common.ActivatedAbilities.DiscardCard(
+    CW.ActivatedAbility.Common.DiscardCards(
         result,
         'Discard a card >>> Your Landscape in this Lane loses its type and becomes the type of your choice (except face down) until the start of your next turn.',
+        1,
         function (me, playerI, laneI)
             local landscape = STATE.Players[playerI].Landscapes[laneI]
             if landscape.Original.FaceDown then

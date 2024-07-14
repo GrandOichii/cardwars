@@ -2,22 +2,27 @@
 
 function _Create()
     local result = CardWars:Spell()
-    
-    CW.AddRestriction(result,
-    function (id, playerI)
-        return nil, #Common.OwnedCreatures(playerI) > 0
-    end
-)
 
-    result.EffectP:AddLayer(
-        function (id, playerI)
-            -- Put target Creature you own into your hand, and then play it for free.
-            local ipids = CW.IPIDs(CW.Targetable.BySpell(Common.OwnedCreatures(playerI), playerI, id))
-            local target = TargetCreature(playerI, ipids, 'Choose a creature you own to return to your hand and them play for free')
-
-            Common.Bounce.ReturnToHandAndPlayForFree(playerI, target)
+    CW.Spell.AddEffect(
+        result,
+        {
+            {
+                key = 'creature',
+                target = CW.Spell.Target.Creature(
+                    function (id, playerI)
+                        return CW.CreatureFilter():OwnedBy(playerI)
+                            :Do()
+                    end,
+                    function (id, playerI, targets)
+                        return 'Choose a creature to return to hand and play against'
+                    end
+                )
+            },
+        },
+        function (id, playerI, targets)
+            CW.Bounce.ReturnToHandAndPlayForFree(playerI, targets.creature.Original.IPID)
         end
     )
-
+    
     return result
 end

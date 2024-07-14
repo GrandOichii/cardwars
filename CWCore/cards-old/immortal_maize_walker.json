@@ -1,0 +1,9 @@
+{
+    "Name": "Immortal Maize Walker",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "While Immortal Maize Walker is on a Cornfield Landscape, it deals triple Damage.",
+    "Attack": 2,
+    "Defense": 8
+}

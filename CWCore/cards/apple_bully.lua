@@ -6,8 +6,12 @@ function _Create()
         -- Apple Bully's Landscape cannot be flipped down by effects opponents control.
 
         if layer == CardWars.ModificationLayers.LANDSCAPE_FLIP_DOWN_AVAILABILITY and zone == CardWars.Zones.IN_PLAY then
-            local landscape = STATE.Players[me.Original.ControllerI].Landscapes[me.LaneI]
-            Common.Flip.DisallowFlipDownFor(landscape, 1 - me.Original.ControllerI)
+            local landscape = CW.LandscapeOf(me)
+            local controllerI = me.Original.ControllerI
+            local idxs = CW.PlayerFilter():OpponentsOf(controllerI):Do()
+            for _, idx in ipairs(idxs) do
+                CW.Flip.DisallowFlipDownFor(landscape.Original.OwnerI, landscape.Original.Idx, idx)
+            end
         end
     end)
 

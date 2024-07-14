@@ -1,0 +1,7 @@
+{
+    "Name": "Void Thimble",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 0,
+    "Text": "Lose 2 Hit Points, gain 1 Action."
+}

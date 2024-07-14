@@ -9,10 +9,7 @@ function _Create()
         CW.ActivatedAbility.Cost.Floop(),
         function (me, playerI, laneI)
 
-            local count = #CW.LandscapeFilter()
-                :ControlledBy(playerI)
-                :OfLandscapeType(CardWars.Landscapes.Cornfield)
-                :Do()
+            local count = CW.Count.LandscapesOfType(CardWars.Landscapes.Cornfield, playerI)
 
             local myIPID = me.Original.IPID
 

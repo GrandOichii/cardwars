@@ -11,10 +11,8 @@ function _Create()
         end,
         'Choose a creature to deal damage to',
         function (id, playerI, target)
-            local amount = #CW.LandscapeFilter()
-                :ControlledBy(playerI)
-                :OfLandscapeType(CardWars.Landscapes.Cornfield)
-                :Do()
+            local amount = CW.Count.LandscapesOfType(CardWars.Landscapes.Cornfield, playerI)
+
             CW.Damage.ToCreatureBySpell(id, playerI, target.Original.IPID, amount)
         end
     )

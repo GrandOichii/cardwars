@@ -7,7 +7,7 @@ function _Create()
         -- While there is no opposing Creature in this Lane, Mint Chocouflage can't be damaged by your opponent's Spells or Creature abilities.
 
         if layer == CardWars.ModificationLayers.DAMAGE_MODIFICATION and zone == CardWars.Zones.IN_PLAY then
-            local opposing = Common.CreaturesInLane(1 - me.Original.ControllerI, me.LaneI)
+            local opposing = CW.CreatureFilter():InLane(me.LaneI):OpposingTo(me.Original.ControllerI):Do()
             if #opposing > 0 then
                 return
             end

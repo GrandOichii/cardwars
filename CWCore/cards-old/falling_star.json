@@ -1,0 +1,7 @@
+{
+    "Name": "Falling Star",
+    "Landscape": "NiceLands",
+    "Type": "Spell",
+    "Cost": 2,
+    "Text": "Creatures you control take no Damage from opposing Creatures this turn."
+}

@@ -6,10 +6,7 @@ function _Create()
     -- Husker Knight has +1 ATK and +2 DEF for each Cornfield Landscape you control. 
     CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
-        local count = #CW.LandscapeFilter()
-            :ControlledBy(controllerI)
-            :OfLandscapeType(CardWars.Landscapes.Cornfield)
-            :Do()
+        local count = CW.Count.LandscapesOfType(CardWars.Landscapes.Cornfield, controllerI)
 
         me.Attack = me.Attack + count
         me.Defense = me.Defense + count * 2

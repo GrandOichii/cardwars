@@ -6,10 +6,8 @@ function _Create()
     -- Corn Dog has +1 DEF for each Cornfield Landscape you control. If you control 3 or fewer Cornfield Landscapes, Corn Dog has +1 ATK.
     CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
-        local count = #CW.LandscapeFilter()
-            :ControlledBy(controllerI)
-            :OfLandscapeType(CardWars.Landscapes.Cornfield)
-            :Do()
+
+        local count = CW.Count.LandscapesOfType(CardWars.Landscapes.Cornfield, controllerI)
 
         me.Defense = me.Defense + count
         if count <= 3 then

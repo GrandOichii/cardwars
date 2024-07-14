@@ -1,0 +1,9 @@
+{
+    "Name": "Uni-Knight",
+    "Landscape": "Blue Plains",
+    "Type": "Creature",
+    "Cost": 1,
+    "Attack": 3,
+    "Defense": 4,
+    "Text": "Pay 1 Action >>> Target Creature in this Lane has -10 ATK this turn."
+}

@@ -5,7 +5,7 @@ function _Create()
 
     -- +2 ATK for each face-down Landscape in play.
     CW.State.ModATKDEF(result, function (me)
-        me.Attack = me.Attack + #Common.FaceDownLandscapes(me.Original.ControllerI)
+        me.Attack = me.Attack + #CW.LandscapeFilter():FaceDown():Do() * 2
     end)
 
     return result

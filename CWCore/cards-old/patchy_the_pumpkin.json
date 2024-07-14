@@ -1,0 +1,9 @@
+{
+    "Name": "Patchy the Pumpkin",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Deal 1 Damage to target Creature. Do this once for each Cornfield Landscape you control. (May only target each Creature once.)",
+    "Attack": 0,
+    "Defense": 5
+}

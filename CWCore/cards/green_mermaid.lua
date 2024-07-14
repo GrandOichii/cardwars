@@ -3,15 +3,17 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.DestroyMe(
+    CW.ActivatedAbility.Add(
         result,
         'Destroy Green Mermaid >>> Deal 1 Damage to each opposing Creature.',
-        function (me, playerI, laneI)
-            local creatures = Common.OpposingCreatures(playerI)
+        CW.ActivatedAbility.Cost.DestroySelf(),
+        function (me, playerI, laneI, targets)
+            local creatures = CW.CreatureFilter():OpposingTo(playerI):Do()
             for _, creature in ipairs(creatures) do
                 CW.Damage.ToCreatureByCreatureAbility(me.Original.IPID, playerI, creature.Original.IPID, 1)
             end
-        end
+        end,
+        -1
     )
 
     return result

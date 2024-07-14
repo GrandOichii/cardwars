@@ -2,10 +2,10 @@
 
 function _Create()
     local result = CardWars:Creature()
-    
+
     -- +2 ATK for each of your empty Lanes.
     CW.State.ModATKDEF(result, function (me)
-        me.Attack = me.Attack + #Common.EmptyLandscapes(me.Original.ControllerI) * 2
+        me.Attack = me.Attack + #CW.LandscapeFilter():ControlledBy(me.Original.ControllerI):Empty():Do() * 2
     end)
 
     return result

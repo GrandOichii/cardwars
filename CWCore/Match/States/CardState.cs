@@ -43,7 +43,7 @@ public class CardState {
     public bool CanPlay(PlayerState player, bool forFree = false) {
         if (PlayRestrictions.Count > 0) return false;
         // check if have sufficient landscapes
-        if (!forFree && Cost > 0 && !IsLandscape("Rainbow") && player.Original.Match.Config.CheckLandscapesForPlayingCards) {
+        if (!forFree && Cost > 0 && !IsLandscapeType("Rainbow") && player.Original.Match.Config.CheckLandscapesForPlayingCards) {
             var counts = player.GetLandscapeCounts();
             var landscape = Original.Template.Landscape;
 
@@ -73,7 +73,7 @@ public class CardState {
         return player.CanPayFor(this);
     }
 
-    public bool IsLandscape(string landscape) {
+    public bool IsLandscapeType(string landscape) {
         return LandscapeType == landscape;
     }
 

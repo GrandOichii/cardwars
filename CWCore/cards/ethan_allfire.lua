@@ -6,7 +6,7 @@ function _Create()
     result:OnLeave(function(ipid, id, playerI, laneI, wasReady)
         -- When Ethan Allfire leaves play, draw 1 card for each Cornfield Landscape you control.
 
-        local count = Common.CountLandscapesTyped(playerI, CardWars.Landscapes.Cornfield)
+        local count = CW.Count.LandscapesOfType(CardWars.Landscapes.Cornfield, playerI)
 
         Draw(playerI, count)
     end)

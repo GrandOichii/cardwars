@@ -1,0 +1,7 @@
+{
+    "Name": "Cross Pollination",
+    "Landscape": "Rainbow",
+    "Type": "Spell",
+    "Cost": 2,
+    "Text": "Each of your Cornfield Creatures has +1 ATK this turn for each different Landscape type you control."
+}

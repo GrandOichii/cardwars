@@ -1,0 +1,9 @@
+{
+    "Name": "Sharp Guy",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "FLOOP >>> Deal 2 Damage to target opposing Creature in this Lane.",
+    "Attack": 1,
+    "Defense": 5
+}

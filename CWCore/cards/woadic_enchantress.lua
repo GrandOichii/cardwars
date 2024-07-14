@@ -7,7 +7,7 @@ function _Create()
         -- Creatures in this Lane cannot use Floop abilities.
 
         if layer == CardWars.ModificationLayers.ABILITY_GRANTING_REMOVAL and zone == CardWars.Zones.IN_PLAY then
-            local creatures = Common.AllPlayers.CreaturesInLane(me.LaneI)
+            local creatures = CW.CreatureFilter():InLane(me.LaneI):Do()
             for _, creature in ipairs(creatures) do
                 local abilities = creature.ActivatedAbilities
                 for i = 0, abilities.Count - 1 do

@@ -1,0 +1,9 @@
+{
+    "Name": "Fairy Shepard",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "Each Adjacent NiceLands Creature has +2 DEF.",
+    "Attack": 2,
+    "Defense": 9
+}

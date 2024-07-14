@@ -1,0 +1,9 @@
+{
+    "Name": "Hot Eyebat",
+    "Landscape": "Useless Swamp",
+    "Type": "Creature",
+    "Cost": 1,
+    "Text": "Play Hot Eyebat only if you have 10 or more cards in your discard pile.",
+    "Attack": 4,
+    "Defense": 4
+}

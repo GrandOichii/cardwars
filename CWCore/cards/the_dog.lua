@@ -3,7 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    Common.ActivatedAbilities.WhileFlooped(
+    CW.ActivatedAbility.Common.WhileFlooped(
         result,
         'FLOOP >>> Opposing Buildings in this Lane are blank while The Dog is Flooped',
         function (me, layer, zone)

@@ -1,0 +1,9 @@
+{
+    "Name": "Corn Lord",
+    "Landscape": "Cornfield",
+    "Type": "Creature",
+    "Cost": 1,
+    "Attack": 0,
+    "Defense": 7,
+    "Text": "Corn Lord has +1 ATK for each other Cornfield Creature you control."
+}

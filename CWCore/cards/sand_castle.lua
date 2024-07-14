@@ -3,11 +3,15 @@
 function _Create()
     local result = CardWars:InPlay()
 
-    Common.ActivatedAbilities.DiscardFromPlay(
+    CW.ActivatedAbility.Add(
         result,
         'Discard Sand Castle from play >>> Put your Creature on this Landscape into your hand and then play it for free.',
-        function (me, playerI, laneI)
-            local creature = Common.CreaturesInLane(playerI, laneI)[1]
+        CW.ActivatedAbility.Cost.DiscardSelfFromPlay(),
+        function (me, playerI, laneI, targets)
+            local creature = CW.CreatureFilter()
+                :ControlledBy(playerI)
+                :InLane(laneI)
+                :Do()[1]
             if creature == nil then
                 return
             end
@@ -15,8 +19,9 @@ function _Create()
             if creature.Original.ControllerI ~= creature.Original.Card.OwnerI then
                 return
             end
-            Common.Bounce.ReturnToHandAndPlayForFree(playerI, creature.Original.IPID)
-        end
+            CW.Bounce.ReturnToHandAndPlayForFree(playerI, creature.Original.IPID)
+        end,
+        -1
     )
 
     return result

@@ -15,7 +15,7 @@ function _Create()
                     CW.CardsInHandFilter(idx):CostEq(0):Do()
                 )
                 if #indicies == 0 then
-                    Common.Reveal.Hand(idx)
+                    CW.Reveal.Hand(idx)
                 else
                     local chosen = ChooseCardInHand(idx, indicies, 'Choose a card with cost 0 to discard')
                     DiscardFromHand(idx, chosen)

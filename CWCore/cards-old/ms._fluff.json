@@ -1,0 +1,9 @@
+{
+    "Name": "Ms. Fluff",
+    "Landscape": "NiceLands",
+    "Type": "Creature",
+    "Cost": 2,
+    "Text": "While Ms. Fluff has exactly 7 Damage on it, it has +7 ATK.",
+    "Attack": 2,
+    "Defense": 10
+}

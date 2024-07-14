@@ -5,9 +5,7 @@ function _Create()
 
     -- +1 DEF for each Cornfield Landscape in play (counting all players).
     CW.State.ModATKDEF(result, function (me)
-        local count = #CW.LandscapeFilter()
-            :OfLandscapeType(CardWars.Landscapes.Cornfield)
-            :Do()
+        local count = CW.Count.LandscapesOfType(CardWars.Landscapes.Cornfield)
 
         me.Defense = me.Defense + count
     end)

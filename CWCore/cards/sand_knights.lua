@@ -7,10 +7,8 @@ function _Create()
     CW.State.ModATKDEF(result, function (me)
         local controllerI = me.Original.ControllerI
 
-        local count = #CW.LandscapeFilter()
-            :ControlledBy(controllerI)
-            :OfLandscapeType(CardWars.Landscapes.BluePlains)
-            :Do()
+        local count = CW.Count.LandscapesOfType(CardWars.Landscapes.BluePlains, controllerI)
+
         if count > 0 then
             me.Attack = me.Attack + 2
         end

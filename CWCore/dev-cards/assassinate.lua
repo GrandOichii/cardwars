@@ -3,19 +3,14 @@
 function _Create()
     local result = CardWars:Spell()
 
-    CW.AddRestriction(result,
+    CW.SpellTargetCreature(
+        result,
         function (id, playerI)
-            return nil, #CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id) > 0
-        end
-    )
-
-    result.EffectP:AddLayer(
-        function (id, playerI)
-            -- Destroy target creature
-            
-            local ids = CW.IPIDs(CW.Targetable.BySpell(Common.AllPlayers.Creatures(), playerI, id))
-            local target = TargetCreature(playerI, ids, 'Choose a creature to destroy')
-            DestroyCreature(target)
+            return CW.CreatureFilter():Do()
+        end,
+        'Choose a Creature to Destroy',
+        function (id, playerI, target)
+            DestroyCreature(target.Original.IPID)
         end
     )
 
