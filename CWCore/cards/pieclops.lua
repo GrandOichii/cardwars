@@ -7,8 +7,7 @@ function _Create()
         -- When Pieclops enters play, heal 1 Damage from each adjacent Creature.
 
         local adjacent = CW.CreatureFilter()
-            :ControlledBy(playerI)
-            :AdjacentToLane(laneI)
+            :AdjacentToLane(playerI, laneI)
             :Do()
         for _, creature in ipairs(adjacent) do
             HealDamage(creature.Original.IPID, 1)

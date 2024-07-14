@@ -9,7 +9,7 @@ function _Create()
         function (me, playerI, laneI)
             local ipids = CW.IPIDs(CW.CreatureFilter():ControlledBy(playerI):Do())
             if me.Original.Damage > 5 then
-                local choices = CW.IPIDs(CW:CreatureFilter():ControlledBy(playerI):AdjacentToLane(laneI):Do())
+                local choices = CW.IPIDs(CW:CreatureFilter():AdjacentToLane(playerI, laneI):Do())
                 local target = ChooseCreature(playerI, choices, 'Choose creature to heal')
                 ipids = {target}
             end

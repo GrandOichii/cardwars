@@ -9,8 +9,7 @@ function _Create()
     -- Adjacent Creatures have - 1 ATK.
     CW.State.ModATKDEF(result, function (me)
         local creatures = CW.CreatureFilter()
-            :ControlledBy(me.Original.ControllerI)
-            :AdjacentToLane(me.LaneI)
+            :AdjacentToLane(me.Original.ControllerI, me.LaneI)
             :Do()
 
         for _, creature in ipairs(creatures) do

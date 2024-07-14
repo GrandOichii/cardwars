@@ -8,8 +8,7 @@ function _Create()
         local controllerI = me.Original.ControllerI
 
         local adjacent = CW.CreatureFilter()
-            :ControlledBy(controllerI)
-            :AdjacentToLane(me.LaneI)
+            :AdjacentToLane(controllerI, me.LaneI)
             :LandscapeType(CardWars.Landscapes.NiceLands)
             :Do()
         for _, creature in ipairs(adjacent) do

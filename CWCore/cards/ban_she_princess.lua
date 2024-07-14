@@ -6,7 +6,7 @@ function _Create()
     result:OnEnter(function(me, playerI, laneI, replaced)
         -- When Ban-She Queen enters play, you may remove a token from an adjacent Landscape.
 
-        local landscapes = CW.LandscapeFilter():AdjacentTo(laneI):ControlledBy(playerI):Do()
+        local landscapes = CW.LandscapeFilter():AdjacentTo(playerI, laneI):Do()
         local choices = {}
         for _, landscape in ipairs(landscapes) do
             if landscape.Original.Tokens.Count > 0 then

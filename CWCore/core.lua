@@ -690,10 +690,10 @@ function CW.CreatureFilter()
         return self
     end
 
-    -- TODO add playerI
-    function result:AdjacentToLane(laneI)
+    function result:AdjacentToLane(playerI, laneI)
         result.filters[#result.filters+1] = function (creature)
-            return creature.LaneI == laneI - 1 or creature.LaneI == laneI + 1
+            return (creature.LaneI == laneI - 1 or creature.LaneI == laneI + 1) and
+                creature.Original.ControllerI == laneI
         end
         return self
     end
@@ -840,10 +840,10 @@ function CW.BuildingFilter()
         return self
     end
 
-    -- TODO add playerI
-    function result:AdjacentToLane(laneI)
+    function result:AdjacentToLane(playerI, laneI)
         result.filters[#result.filters+1] = function (building)
-            return building.LaneI == laneI - 1 or building.LaneI == laneI + 1
+            return (building.LaneI == laneI - 1 or building.LaneI == laneI + 1) and
+                building.Original.ControllerI == playerI
         end
         return self
     end
@@ -1053,10 +1053,10 @@ function CW.LandscapeFilter()
         return self
     end
 
-    -- TODO add playerI
-    function result:AdjacentTo(laneI)
+    function result:AdjacentTo(playerI, laneI)
         result.filters[#result.filters+1] = function (landscape)
-            return landscape.Original.Idx == laneI - 1 or landscape.Original.Idx == laneI + 1
+            return (landscape.Original.Idx == laneI - 1 or landscape.Original.Idx == laneI + 1) and
+                landscape.Original.OwnerI == playerI
         end
         return self
     end
@@ -1975,7 +1975,6 @@ function CW.ActivatedAbility.Common.PayActionPoints(card, text, amount, effect, 
 end
 
 function CW.ActivatedAbility.Common.WhileFlooped(card, text, stateModEffect)
-    -- TODO? not enough
     CW.ActivatedAbility.Common.Floop(
         card,
         text,
@@ -2222,7 +2221,6 @@ function CW.State.CantBeAttacked(creature)
     if c == nil then
         return
     end
-    -- TODO? split CanAttack and CanBeAttacked in CreatureState?
     CW.State.CantAttack(creature)
 end
 

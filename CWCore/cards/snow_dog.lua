@@ -15,8 +15,7 @@ function _Create()
                         return
                     end
                     local adjacent = CW.CreatureFilter()
-                        :ControlledBy(playerI)
-                        :AdjacentToLane(c.LaneI)
+                        :AdjacentToLane(playerI, c.LaneI)
                         :Do()
                     for _, creature in ipairs(adjacent) do
                         creature.Attack = creature.Attack + 2

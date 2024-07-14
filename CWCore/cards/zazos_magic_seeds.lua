@@ -32,8 +32,7 @@ function _Create()
                         return
                     end
                     local adjacent = CW.LandscapeFilter()
-                        :ControlledBy(playerI)
-                        :AdjacentTo(c.LaneI)
+                        :AdjacentTo(playerI, c.LaneI)
                         :Do()
                     local amount = 0
                     for _, landscape in ipairs(adjacent) do

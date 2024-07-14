@@ -14,7 +14,7 @@ function _Create()
             CW.ActivatedAbility.Cost.Target.Creature(
                 'creature',
                 function (me, playerI, laneI)
-                    return CW.CreatureFilter():AdjacentToLane(laneI):ControlledBy(playerI):Do()
+                    return CW.CreatureFilter():AdjacentToLane(playerI, laneI):Do()
                 end,
                 function (me, playerI, laneI, targets)
                     return 'Choose a Creature to move'

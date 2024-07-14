@@ -9,8 +9,7 @@ function _Create()
 
         if layer == CardWars.ModificationLayers.ABILITY_GRANTING_REMOVAL and zone == CardWars.Zones.IN_PLAY then
             local buildings = CW.BuildingFilter()
-                :AdjacentToLane(me.LaneI)
-                :ControlledBy(me.Original.ControllerI)
+                :AdjacentToLane(me.Original.ControllerI, me.LaneI)
                 :Do()
 
             for _, building in ipairs(buildings) do
