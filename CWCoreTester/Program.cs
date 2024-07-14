@@ -573,11 +573,7 @@ public class Program {
         System.Console.WriteLine($"Success: {end - start - failed}/{end - start}");
     }
 
-    public static async Task TcpMatch(int seed) {
-        var address = IPAddress.Any;
-        int port = 9090;
-        var endpoint = new IPEndPoint(address, port);
-        TcpListener listener = new(endpoint);
+    public static async Task TcpMatch(TcpListener listener, int seed) {
         try {
             listener.Start();
         } catch {
@@ -647,6 +643,11 @@ public class Program {
 
     public static async Task TcpLoop(int seed) {
         var rnd = new Random();
+        var address = IPAddress.Any;
+        int port = 9090;
+        var endpoint = new IPEndPoint(address, port);
+        TcpListener listener = new(endpoint);
+
         while (true) {
             try {
                 var s = seed;
@@ -654,7 +655,7 @@ public class Program {
                     s = rnd.Next();
                 }
                 System.Console.WriteLine("SEED: " + s);
-                await TcpMatch(s);
+                await TcpMatch(listener, s);
                 // return;
             } catch (Exception e) {
                 PrintException(e);
@@ -728,9 +729,6 @@ public class Program {
         // return;
 
         await TcpLoop(seed);
-        return;
-
-        await TcpMatch(seed);
         return;
 
         var view = new CursesView();

@@ -2,10 +2,7 @@ extends Node
 class_name ControllerScene
 
 # TODO
-# PickBuilding
 # PickCard
-# PickCardInDiscard
-# PickCardInHand
 # PickPlayer
 # * PromptAction - activated abilities, remove frozen tokens
 # PromptLandscapePlacement
@@ -20,6 +17,9 @@ func _input(e):
 	if e.is_action_pressed('fight'):
 		# TODO add checks
 		send('f')
+	if e.is_action_pressed('draw'):
+		# TODO add checks
+		send('d')
 
 func set_last_update(update: Variant):
 	last_update = update
@@ -76,6 +76,7 @@ func can_pick_lane(player_idx: int, lane_idx: int) -> bool:
 func pick_lane(lane_idx: int):
 	send(str(lane_idx))
 
+# !FIXME doesn't work
 func can_pick_landscape(player_idx: int, lane_idx) -> bool:
 	if last_update.Request != 'PickLandscape':
 		return false

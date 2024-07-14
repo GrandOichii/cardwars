@@ -932,7 +932,7 @@ function CW.CardsInDiscardPileFilter()
 
     function result:OfCost(cost)
         result.filters[#result.filters+1] = function (card)
-            return card.Original.Cost == cost
+            return card:RealCost() == cost
         end
         return self
     end

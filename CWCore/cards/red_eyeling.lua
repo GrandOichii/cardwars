@@ -3,6 +3,7 @@
 function _Create()
     local result = CardWars:Creature()
 
+    -- !FIXME
     CW.ActivatedAbility.Add(
         result,
         'FLOOP >>> Return a card with cost 0 from your discard pile to your hand.',
@@ -11,6 +12,7 @@ function _Create()
             CW.ActivatedAbility.Cost.Target.CardInDiscardPile(
                 'discarded',
                 function (me, playerI, laneI)
+                    
                     return CW.CardsInDiscardPileFilter()
                         :OfPlayer(playerI)
                         :OfCost(0)

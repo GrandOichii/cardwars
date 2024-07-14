@@ -5,11 +5,17 @@ function _Create()
 
     -- At the start of your turn, move Tired Wombat to an empty Landscape you control. If you cannot, move it to an empty Landscape your opponent controls.
     CW.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI, args)
-        local empty = CW.LandscapeFilter():ControlledBy(controllerI):Empty():Do()
+        local empty = CW.LandscapeFilter()
+            :ControlledBy(controllerI)
+            :Empty()
+            :Do()
         local choice = CW.Target.Landscape(empty, controllerI, 'Choose a landscape to move '..me.Original.Card.LogFriendlyName..' to')
 
         if choice == nil then
-            local oempty = CW.LandscapeFilter():ControlledBy(1 - controllerI):Empty():Do()
+            local oempty = CW.LandscapeFilter()
+                :ControlledBy(1 - controllerI)
+                :Empty()
+                :Do()
             local ochoice = CW.Target.Landscape(oempty, controllerI, 'Choose a landscape to move '..me.Original.Card.LogFriendlyName..' to')
             if ochoice == nil then
                 return

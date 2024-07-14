@@ -11,7 +11,8 @@ function _Create()
                 function (me, playerI, laneI)
                     return CW.CreatureFilter()
                 end
-            )
+            ),
+            CW.ActivatedAbility.Cost.Floop()
         ),
         function (me, playerI, laneI, targets)
             Draw(playerI, 1)

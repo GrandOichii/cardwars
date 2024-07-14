@@ -4,7 +4,7 @@
 function _Create()
     local result = CardWars:Creature()
 
-    -- TODO
+    -- TODO tile?
 
     return result
 end

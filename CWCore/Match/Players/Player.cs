@@ -78,7 +78,7 @@ public class Player {
 
             var card = Deck.Last!.Value;
             Deck.RemoveLast();
-            Hand.Add(card);
+            await AddToHand(card);
             // TODO? add to update
 
             drawn++;
@@ -104,7 +104,7 @@ public class Player {
 
             var card = Deck.First!.Value;
             Deck.RemoveFirst();
-            Hand.Add(card);
+            await AddToHand(card);
             // TODO? add to update
 
             drawn++;
@@ -357,6 +357,10 @@ public class Player {
         });    
     }
 
+    private async Task AddToHand(MatchCard card) {
+        Hand.Insert(0, card);
+    }
+
     public async Task ReturnCreatureToHand(int laneI) {
         var lane = Landscapes[laneI];
         var creature = lane.Creature 
@@ -364,8 +368,8 @@ public class Player {
         ;
 
         lane.Creature = null;
-        Hand.Add(creature.Card);
         
+        await AddToHand(creature.Card);
         // TODO add triggers
     }
 
