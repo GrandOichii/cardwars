@@ -21,7 +21,9 @@ function _Create()
         },
         function (id, playerI, targets)
             -- TODO not clear - at the time of playing or dynamic
+
             local amount = #GetUniqueLandscapeNames(1 - playerI)
+
             UntilEndOfTurn(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     local c = GetCreatureOrDefault(targets.creature.Original.IPID)

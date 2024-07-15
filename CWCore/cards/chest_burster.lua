@@ -5,12 +5,12 @@ function _Create()
 
     -- At the start of your turn, deal 3 Damage to each opponent who was no cards in hand.
     CW.Triggers.AtTheStartOfYourTurn(result, function (me, controllerI, laneI)
-        -- TODO change to GetOpponents(playerI) and iterate
+        local opponents = CW.PlayerFilter():OpponentsOf(controllerI):Do()
 
-        local opponentI = 1 - controllerI
-        local opponent = GetPlayer(controllerI)
-        if opponent.Hand.Count == 0 then
-            DealDamageToPlayer(opponentI, 3)
+        for _, opponent in ipairs(opponents) do
+            if opponent.Hand.Count == 0 then
+                DealDamageToPlayer(opponent.Original.Idx, 3)
+            end
         end
     end)
 

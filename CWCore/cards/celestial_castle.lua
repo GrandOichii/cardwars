@@ -1,4 +1,4 @@
--- Status: implemented
+   -- Status: implemented
 
 function _Create()
     local result = CardWars:InPlay()

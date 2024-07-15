@@ -102,15 +102,14 @@ haybarn - Pay 1 Action, FLOOP >>> If this Landscape is empty, play a \\\"Feedman
 bale out - When target Creature attacks this turn, if it would leave play during the Fight Phase, remove all Damage from it instead.
     requires some "leave play replacement" effect, but the "When ... attacks this turn" really throws me off
 carmel camel - When a Creature you own leaves play, you may put it underneath this card instead. + 1 ATK and + 1 DEF for each card under this. When this card leaves play, discard all cards under it.
-    requires a list of cards to be associated with the in-play card
+    requires a list of cards to be associated with the in-play card + leave play replacement effect
 pied piper - When Pied Piper attacks an opposing Creature, you may have a Flooped Creature you control attack it instead.
     attack replacement effect
 impossible possum - When this card is placed into your discard pile from anywhere, you may discard a card from your hand to return Impossible Possum to your hand.
     2 ways of doing this:
         1. add a "zone" field to all triggers, which will be checked - complicated and will require deck iteration for every signal emitted
-        2. add a simple "OnGoesToDiscard" function list to MatchCard - easy to implement
-knit kitty - lmao
-musical chair
+        2. add a simple "OnGoesToDiscard" function list to MatchCard - easy to implement, wiil only be usefull for this creature
+knit kitty - too ambiguous, probably won't ever implement
 
 10th anniversary cards
 

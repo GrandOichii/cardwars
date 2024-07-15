@@ -1,5 +1,3 @@
--- TODO fix inconsistent casing - make all lua related stuff lowerCamelCase, all C# stuff already is CamelCase
-
 STATE = {}
 
 -- Core
@@ -1177,7 +1175,7 @@ function CW.SearchDeckFor(playerI, predicate)
     error('Error in SearchDeckFor: tried to find card '..cardName..' in deck of player ['..playerI..'], but failed')
 end
 
-function CW.UntilFightPhase(playerI, modF)
+function CW.UntilFightPhase(modF)
     -- TODO is this bad?
     UntilEndOfTurn(function (layer)
         if GetPhase() == CardWars.Phases.FIGHT then
@@ -1802,7 +1800,7 @@ function CW.ActivatedAbility.Cost.Target.Landscape(targetKey, filterFunc, hintFu
             playerI,
             hint
         )
-        assert(landscape ~= nil, 'TODO write error text')
+        assert(landscape ~= nil, 'tried to target landscape in activated ability of card '..me.Original.Card.Template.Name..', but no available targets were found')
 
         targets[targetKey] = landscape
     end

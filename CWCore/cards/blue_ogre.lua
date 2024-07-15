@@ -24,6 +24,7 @@ function _Create()
                         return
                     end
                     c.Attack = c.Attack + amount
+                    -- c.Attack = c.Attack + 1
                 end
             end)
         end

@@ -7,7 +7,7 @@ function _Create()
         function (id, playerI)
             -- Friendly Creatures have +1 ATK until the start of the Fight Phase. Then each Creature deals Damage equal to its ATK to the opposing Creature in its Lane.
 
-            CW.UntilFightPhase(playerI, function (layer)
+            CW.UntilFightPhase(function (layer)
                 if layer == CardWars.ModificationLayers.ATK_AND_DEF then
                     local creatures = CW.CreatureFilter()
                         :Friendly(playerI)
